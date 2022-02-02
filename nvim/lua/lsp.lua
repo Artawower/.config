@@ -16,7 +16,7 @@ local on_attach = function(client, bufnr)
     -- Mappings.
     local opts = {noremap = true, silent = true}
 
-    -- buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -36,7 +36,7 @@ local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protoco
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {"angularls", "tsserver", "stylelint_lsp", "cssls", "pyright", "vuels", "gopls", "yamlls"}
+local servers = {"tsserver", "stylelint_lsp", "cssls", "pyright", "vuels", "gopls"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         capabilities = capabilities,
@@ -87,23 +87,30 @@ require "lspconfig".stylelint_lsp.setup {
 require("lspconfig").yamlls.setup {
     settings = {
         yaml = {
-            schemas = {
-                ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-                ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-            }
+          trace = { server = "verbose" },
+          schemas = {
+            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+            ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+            kubernetes = "/*.yaml",
+          },
+          schemaDownloads = { enable = true },
+          validate = true,
         }
     }
 }
 
-local project_library_path = "/usr/local/lib/node_modules"
-local cmd = {
-    "ngserver",
-    "--stdio",
-    "--tsProbeLocations",
-    project_library_path,
-    "--ngProbeLocations",
-    project_library_path
-}
+-- local project_library_path = "/usr/local/lib/node_modules"
+local project_library_path = "/opt/homebrew/lib/node_modules/"
+local cmd = {"/opt/homebrew/lib/node_modules/@angular/language-server/bin/ngserver", "--stdio", "--tsProbeLocations", project_library_path , "--ngProbeLocations", project_library_path}
+
+-- local cmd = {
+--     "ngserver",
+--     "--stdio",
+--     "--tsProbeLocations",
+--     project_library_path,
+--     "--ngProbeLocations",
+--     project_library_path
+-- }
 
 require "lspconfig".angularls.setup {
     cmd = cmd,
@@ -111,6 +118,7 @@ require "lspconfig".angularls.setup {
         new_config.cmd = cmd
     end
 }
+
 
 -- ui
 local saga = require "lspsaga"

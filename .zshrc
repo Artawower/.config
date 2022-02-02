@@ -94,11 +94,14 @@ plugins=(
 	macos
 	zsh-vi-mode
 	web-search
+  zsh-kubectl-prompt
 	# history-substring-search
 	#   zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
+
+RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 
 # Autosuggestions
 # ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -142,12 +145,19 @@ alias pip="pip3"
 alias wakatime-cli="/opt/homebrew/bin/wakatime"
 alias nv="~/.config/nv.sh"
 alias ssh="kitty +kitten ssh"
-alias ls="exa"
+alias ls="exa --icons"
 alias syncwp="unison -ui text /Volumes/DARK\ SIDE/wallpappers/ ~/Pictures/wallpappers"
+alias m="minikube"
+alias md="m dashboard"
+alias n="nvim"
+alias kg="kubectl get"
+alias c="clear"
 # Easy connections
 alias sk8s="ssh darkawower@116.203.183.233"
 alias ssn="ssh darkawower@94.130.231.115"
-alias pi="ssh pi@192.168.1.162"
+alias pi="ssh pi@raspberrypi"
+# alias drone="ssh ubuntu@129.151.217.221"
+alias drone="ssh darkawower@89.223.71.16"
 
 # Most popular DIR navigation
 alias ui="cd ~/projects/ui/"
@@ -201,3 +211,4 @@ zvm_after_init_commands+=(my_init)
 
 
 alias luamake=/Users/darkawower/tmp/lua-language-server/3rd/luamake/luamake
+

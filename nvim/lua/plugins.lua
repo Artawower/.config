@@ -66,6 +66,7 @@ return require("packer").startup(
         use "windwp/nvim-autopairs"
         -- Completion
         use "hrsh7th/cmp-nvim-lsp"
+        use "L3MON4D3/LuaSnip"
         use "hrsh7th/cmp-buffer"
         use "hrsh7th/cmp-path"
         use "hrsh7th/cmp-cmdline"
