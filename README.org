@@ -1,0 +1,14 @@
+* Init
+#+BEGIN_SRC bash
+git clone git@github.com:Artawower/.config.git
+cp -rf ~/.config ~/.config_backup
+cp -rf .config/* ~/.config
+#+END_SRC
+
+
+* Oh My ZSH
+#+BEGIN_SRC bash
+ln -s ~/.config/oh-my-zsh-custom ~/.oh-my-zsh/custom
+ln -s ~/.config/.p10k.zsh ~/.p10k.zsh
+ln -s ~/.config/.zshrc .zshrc
+#+END_SRC
