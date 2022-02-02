@@ -1,15 +1,17 @@
 local g = vim.g
+-- vim.cmd [[colorscheme onedark]]
 -- require('onedark').setup()
--- vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight]]
+-- vim.cmd [[colorscheme ayu-dark]]
 -- vim.cmd [[colorscheme catppuccin]]
 -- vim.cmd [[colorscheme gruvbox-flat]]
 -- vim.cmd [[colorscheme palenightfall]]
 -- vim.cmd [[colorscheme onedark]]
-vim.g.material_style = "palenight"
-vim.cmd [[colorscheme material]]
+-- vim.g.material_style = "palenight"
+-- vim.cmd [[colorscheme material]]
 -- vim.cmd [[colorscheme wal]]
 -- require("github-theme").setup()
--- g.onedark_style = "deep"
+-- g.onedark_style = "cool"
 
 require("neoscroll").setup()
 
@@ -64,9 +66,13 @@ end
 
 require("lualine").setup {
     options = {
-        theme = bubbles_theme,
-        component_separators = "|",
-        section_separators = {left = "", right = ""}
+--        theme = "nightfly"
+        -- component_separators = "|",
+        -- section_separators = {left = "", right = ""}
+        -- component_separators = { left = '', right = ''},
+        -- section_separators = { left = '', right = '' }
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' }
     },
     sections = {
         lualine_a = {
@@ -92,7 +98,7 @@ require("lualine").setup {
     extensions = {}
 }
 
-vim.opt.list = true
+vim.opt.list = true;
 -- vim.opt.listchars:append("eol:↴")
 
 require("indent_blankline").setup {

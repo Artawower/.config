@@ -32,6 +32,7 @@ cmd "hi cursorlinenr guibg=NONE guifg=#abb2bf"
 
 cmd "set nobackup"
 cmd "set nowritebackup"
+cmd "set backupdir=~/tmp/backups"
 cmd "set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 cmd "hi LineNr guifg=#42464e guibg=NONE"
 cmd "hi Comment guifg=#42464e"
@@ -50,6 +51,11 @@ vim.api.nvim_exec(
   set smartindent
   ]], false)
 
+vim.api.nvim_exec([[
+  autocmd Filetype yaml setlocal ts=2 sw=2 expandtab"
+  autocmd Filetype yml setlocal ts=2 sw=2 expandtab"
+]], false)
+
 vim.api.nvim_exec(
 [[
   set undodir=~/.vim/undodir
@@ -61,6 +67,7 @@ vim.api.nvim_exec(
 ]], false)
 
 vim.api.nvim_exec([[
+  hi Normal guibg=NONE ctermbg=NONE
   set foldmethod=indent
   set foldnestmax=10
   set nofoldenable
@@ -100,7 +107,7 @@ wk.register(
                 }
             }
         },
-        s = {":SearchBoxIncSearch<CR>", "Search"}
+        -- s = {":SearchBoxIncSearch<CR>", "Search"}
     },
     { prefix = "<space>" }
 )

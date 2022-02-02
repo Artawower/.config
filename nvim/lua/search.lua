@@ -58,6 +58,9 @@ wk.register(
             name = "Files",
             r = {":Telescope oldfiles<CR>", "Open old files"}
         },
+        s = {
+          ":Telescope current_buffer_fuzzy_find<CR>", "Search current buffer",
+        },
         p = {
             ":lua require'telescope'.extensions.project.project{}<CR>",
             "Open project manager",
