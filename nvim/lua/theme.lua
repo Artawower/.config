@@ -1,7 +1,7 @@
 local g = vim.g
--- vim.cmd [[colorscheme onedark]]
--- require('onedark').setup()
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme onedark]]
+require('onedark').setup()
+-- vim.cmd [[colorscheme tokyonight]]
 -- vim.cmd [[colorscheme ayu-dark]]
 -- vim.cmd [[colorscheme catppuccin]]
 -- vim.cmd [[colorscheme gruvbox-flat]]
