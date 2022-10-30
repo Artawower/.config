@@ -157,6 +157,10 @@ alias kg="kubectl get"
 alias c="clear"
 alias dublog="ssh darkawower@217.25.89.126"
 alias farm="ssh -i ~/.ssh/farm artur@chiafarm.hopto.org -p 2222"
+alias b="cd ~/projects/pet/second-brain"
+alias bc="cd ~/projects/pet/second-brain/second-brain-client"
+alias bp="cd ~/projects/pet/second-brain/second-brain-publisher"
+alias br="cd ~/projects/pet/second-brain/second-brain-parser"
 
 function searchBitwarden () {
   bw list items --search "$1" | jq '.[] | "[" + .name + "]: " + .login.username + " - " + .login.password + "    (" + .id + ")"'
@@ -176,6 +180,7 @@ alias bwc="createBitwardenLogin"
 alias sk8s="ssh darkawower@116.203.183.233"
 alias ssn="ssh darkawower@94.130.231.115"
 alias pi="ssh pi@raspberrypi"
+alias sb="ssh darkawower@65.108.90.95"
 alias pir="ssh -D 600 pi@socializer.hopto.org"
 alias sspice="ssh -i /Users/darkawower/.ssh/spice root@195.201.131.141"
 # alias drone="ssh ubuntu@129.151.217.221"
@@ -183,6 +188,7 @@ alias drone="ssh darkawower@89.223.71.16"
 
 # Most popular DIR navigation
 alias ui="cd ~/projects/ui/"
+alias mr="cd ~/projects/miron/"
 alias pet="cd ~/projects/pet/"
 
 
@@ -194,6 +200,7 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 export PATH="$PATH:"/usr/local/opt/bin/
 export PATH="$PATH:"/usr/local/bin/
 export PATH="$PATH:"/usr/bin/
+export PATH="$PATH:"/Users/darkawower/dev/flutter/bin
 export PATH="$PATH:${HOME}/tmp/lua-language-server/bin"
 
 # Golang
@@ -249,9 +256,13 @@ fi
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/Users/darkawower/.pyenv/shims/python
 # export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
-export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+# export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
 # export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
 export PATH="/opt/homebrew/lib/node_modules/typescript/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
 export PATH=~/.npm-global/bin:$PATH
-export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+# export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+# Max files for emacs bootload 
+# sudo launchctl limit maxfiles 65536 200000
+# export LSP_USE_PLISTS=true
+
