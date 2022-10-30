@@ -72,7 +72,7 @@ return require("packer").startup(
         use "hrsh7th/cmp-cmdline"
         -- use "hrsh7th/nvim-cmp"
         use {"Iron-E/nvim-cmp", branch = "feat/completion-menu-borders"}
-        use {"tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp"}
+        -- use {"tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp"}
         -- Tools
         -- use "utahta/trans.nvim" -- translate
         use "voldikss/vim-translator"
@@ -165,6 +165,7 @@ return require("packer").startup(
         -- SpellCheck
         use 'kamykn/popup-menu.nvim'
         use 'kamykn/spelunker.vim'
+        use 'github/copilot.vim'
         -- use {
         --     "lewis6991/spellsitter.nvim",
         --     config = function()

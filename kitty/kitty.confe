@@ -73,4 +73,4 @@ map ctrl+super+s enabled_layouts stack
 # include ~/.cache/wal/colors-kitty.conf
 include /Users/darkawower/.config/kitty/colors.conf
 
-background_image dots.png
+#background_image

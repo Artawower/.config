@@ -90,11 +90,12 @@ plugins=(
 	sudo
 	kubectl
 	# zsh-autocomplete
-	wakatime
+	zsh-wakatime
 	macos
 	zsh-vi-mode
 	web-search
   zsh-kubectl-prompt
+  helm
 	# history-substring-search
 	#   zsh-completions
 )
@@ -142,20 +143,41 @@ export VISUAL='nvim'
 # Aliases
 alias doom="~/.emacs.d/bin/doom"
 alias pip="pip3"
+alias python="python3"
 alias wakatime-cli="/opt/homebrew/bin/wakatime"
 alias nv="~/.config/nv.sh"
 alias ssh="kitty +kitten ssh"
 alias ls="exa --icons"
 alias syncwp="unison -ui text /Volumes/DARK\ SIDE/wallpappers/ ~/Pictures/wallpappers"
 alias m="minikube"
+alias ms="minikube start --driver=docker --alsologtostderr"
 alias md="m dashboard"
 alias n="nvim"
 alias kg="kubectl get"
 alias c="clear"
+alias dublog="ssh darkawower@217.25.89.126"
+alias farm="ssh -i ~/.ssh/farm artur@chiafarm.hopto.org -p 2222"
+
+function searchBitwarden () {
+  bw list items --search "$1" | jq '.[] | "[" + .name + "]: " + .login.username + " - " + .login.password + "    (" + .id + ")"'
+}
+
+alias bws="searchBitwarden"
+
+function createBitwardenLogin () {
+  local password=$3
+  echo $password
+  bw get template item | jq ".name=\"$1\" | .login=$(bw get template item.login | jq ".username=\"$2\" | .password=\"$password\"")" | bw encode | bw create item | jq -C
+  # bw get template item | jq --arg USERNAME "$2" --arg PASSWORD "$password" ".name=\"$1\" | .login=$(bw get template item.login | jq '.username="$USERNAME" | .password="$PASSWORD"')" | bw encode | bw create item
+}
+
+alias bwc="createBitwardenLogin"
 # Easy connections
 alias sk8s="ssh darkawower@116.203.183.233"
 alias ssn="ssh darkawower@94.130.231.115"
 alias pi="ssh pi@raspberrypi"
+alias pir="ssh -D 600 pi@socializer.hopto.org"
+alias sspice="ssh -i /Users/darkawower/.ssh/spice root@195.201.131.141"
 # alias drone="ssh ubuntu@129.151.217.221"
 alias drone="ssh darkawower@89.223.71.16"
 
@@ -209,6 +231,27 @@ function my_init() {
 zvm_after_init_commands+=(my_init)
 
 
-
+eval "$(bw completion --shell zsh); compdef _bw bw;"
 alias luamake=/Users/darkawower/tmp/lua-language-server/3rd/luamake/luamake
 
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/darkawower/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+#
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/Users/darkawower/.pyenv/shims/python
+# export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+# export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+export PATH="/opt/homebrew/lib/node_modules/typescript/bin:$PATH"
+export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+export PATH=~/.npm-global/bin:$PATH
+export PATH="/opt/homebrew/opt/node@14/bin:$PATH"

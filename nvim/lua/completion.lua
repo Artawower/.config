@@ -1,15 +1,15 @@
-local tabnine = require("cmp_tabnine.config")
+-- local tabnine = require("cmp_tabnine.config")
 local cmd = vim.cmd
-tabnine:setup(
-    {
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-        run_on_every_keystroke = true,
-        snippet_placeholder = "..",
-        ignored_file_types = {}
-    }
-)
+-- tabnine:setup(
+--     {
+--         max_lines = 1000,
+--         max_num_results = 20,
+--         sort = true,
+--         run_on_every_keystroke = true,
+--         snippet_placeholder = "..",
+--         ignored_file_types = {}
+--     }
+-- )
 
 
 require("luasnip.loaders.from_vscode").load()
@@ -66,7 +66,7 @@ cmp.setup(
         },
         sources = cmp.config.sources(
             {
-                {name = "cmp_tabnine"},
+                -- {name = "cmp_tabnine"},
                 {name = "nvim_lsp"},
                 {name = "orgmode"}
                 -- { name = 'vsnip' }, -- For vsnip users.
