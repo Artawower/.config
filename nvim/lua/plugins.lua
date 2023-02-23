@@ -1,180 +1,217 @@
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
-
-return require("packer").startup(
-    function()
-        -- Packer can manage itself
-        use "wbthomason/packer.nvim"
-
-        -- Keybindings
-        use {
-            "folke/which-key.nvim",
-            config = function()
-                require("which-key").setup {}
-            end
-        }
-        -- File manager
-        use {
-            "kyazdani42/nvim-tree.lua",
-            requires = {
-                "kyazdani42/nvim-web-devicons" -- optional, for file icon
-            },
-            config = function()
-                require "nvim-tree".setup {}
-            end
-        }
-        use "francoiscabrol/ranger.vim"
-        use "kevinhwang91/rnvimr"
-        use "rbgrouleff/bclose.vim"
-        -- Editing
-        -- use "wellle/context.vim"
-        -- use 'tpope/vim-surround'
-        use {
-            "blackCauldron7/surround.nvim",
-            config = function()
-                require "surround".setup {mappings_style = "surround"}
-            end
-        }
-        -- navigation
-        use {
-            "phaazon/hop.nvim",
-            branch = "v1", -- optional but strongly recommended
-            config = function()
-                -- you can configure Hop the way you like here; see :h hop-config
-                require "hop".setup {keys = "etovxqpdygfblzhckisuran"}
-            end
-        }
-        -- use "lyokha/vim-xkbswitch"
-        -- Editing
-        use "terrortylor/nvim-comment"
-        
-        use "neovim/nvim-lspconfig"
-
-        use "williamboman/nvim-lsp-installer"
-        use "romgrk/nvim-treesitter-context"
-        use {"gaelph/logsitter.nvim", requires = {"nvim-treesitter/nvim-treesitter"}}
-        use "nvim-treesitter/playground"
-        use {
-            "nvim-telescope/telescope.nvim",
-            requires = {{"nvim-lua/plenary.nvim"}}
-        }
-        use "sbdchd/neoformat"
-        use {
-            "nvim-treesitter/nvim-treesitter",
-            run = ":TSUpdate"
-        }
-        use "windwp/nvim-autopairs"
-        -- Completion
-        use "hrsh7th/cmp-nvim-lsp"
-        use "L3MON4D3/LuaSnip"
-        use "hrsh7th/cmp-buffer"
-        use "hrsh7th/cmp-path"
-        use "hrsh7th/cmp-cmdline"
-        -- use "hrsh7th/nvim-cmp"
-        use {"Iron-E/nvim-cmp", branch = "feat/completion-menu-borders"}
-        -- use {"tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp"}
-        -- Tools
-        -- use "utahta/trans.nvim" -- translate
-        use "voldikss/vim-translator"
-        use "windwp/nvim-ts-autotag"
-        use "wakatime/vim-wakatime"
-        use "mfussenegger/nvim-dap"
-        use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
-        -- use "gelguy/wilder.nvim"
-        -- use "voldikss/vim-floaterm"
-        use {"akinsho/toggleterm.nvim"}
-        use "TimUntersberger/neogit"
-        use {
-            "lewis6991/gitsigns.nvim",
-            requires = {
-                "nvim-lua/plenary.nvim"
-            }
-        }
-        use {
-            "dunstontc/projectile.nvim",
-            requires = {"Shougo/denite.nvim"}
-        }
-        use "mhinz/vim-startify"
-        -- use 'glepnir/dashboard-nvim'
-        use {
-            "nvim-orgmode/orgmode",
-            ft = {"org"},
-            config = function()
-                require("orgmode").setup {
-                    org_agenda_files = {"~/Yandex.Disk.localized/Dropbox/org/**/*"},
-                    org_default_notes_file = "~/Yandex.Disk.localized/Dropbox/org/notes.org"
+return {
+    -- Whick key
+    {"folke/which-key.nvim", lazy = true},
+    -- File managers
+    {
+        "francoiscabrol/ranger.vim",
+        config = function()
+            require("ranger_config")
+        end
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        config = function()
+            require("nvimtree_config")
+        end
+    },
+    -- Development
+    "folke/neodev.nvim",
+    -- UI
+    -- Theme
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        config = function()
+            require("catppuccin").setup(
+                {
+                    flavour = "frappe", -- latte, frappe, macchiato, mocha
+                    transparent_background = true,
+                    background = {
+                        -- :h background
+                        light = "latte",
+                        dark = "mocha"
+                    },
+                    integrations = {
+                        cmp = true,
+                        gitsigns = true,
+                        nvimtree = true,
+                        telescope = true,
+                        notify = false,
+                        mini = false
+                        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+                    }
                 }
-            end
-        }
-        use "airblade/vim-rooter"
-        use "MattesGroeger/vim-bookmarks"
-        use "nvim-telescope/telescope-project.nvim"
-        use "tom-anders/telescope-vim-bookmarks.nvim"
-        use "pechorin/any-jump.vim" -- Jump syntax tree by regexps
-        -- Visual
-        use "navarasu/onedark.nvim" -- theme
-        use "dylanaraps/wal.vim"
-        use(
-            {
-                "catppuccin/nvim",
-                as = "catppuccin"
+            )
+        end
+    },
+    "folke/tokyonight.nvim",
+    {
+        "f-person/auto-dark-mode.nvim",
+        config = function()
+          local auto_dark_mode = require('auto-dark-mode')
+          auto_dark_mode.setup(
+                {
+                    update_interval = 1000,
+                    set_dark_mode = function()
+                        vim.api.nvim_set_option("background", "dark")
+                        vim.cmd("colorscheme catppuccin")
+                    end,
+                    set_light_mode = function()
+                        vim.api.nvim_set_option("background", "light")
+                        vim.cmd("colorscheme tokyonight-day")
+                    end
+                }
+            )
+            auto_dark_mode.init()
+        end
+    },
+    {
+        "karb94/neoscroll.nvim",
+        config = function()
+            require("neoscroll").setup()
+        end
+    },
+    {
+        "nvim-lualine/lualine.nvim",
+        config = function()
+            require("lualine_config")
+        end
+    },
+    "p00f/nvim-ts-rainbow",
+    "norcalli/nvim-colorizer.lua",
+    "sakshamgupta05/vim-todo-highlight",
+    "VonHeikemen/searchbox.nvim",
+    -- Navigation
+    {
+        "phaazon/hop.nvim",
+        branch = "v2", -- optional but strongly recommended
+        keys = {
+            {"f", ":HopChar1<CR>", desc = "Jump to char", mode = "n"}
+        },
+        config = function()
+            -- you can configure Hop the way you like here; see :h hop-config
+            require "hop".setup {keys = "etovxqpdygfblzhckisuran"}
+        end
+    },
+    {
+        "MattesGroeger/vim-bookmarks",
+        config = function()
+            require("bookmarks_config")
+        end
+    },
+    -- Editing
+    {
+        "terrortylor/nvim-comment",
+        config = function()
+            require("nvim_comment").setup()
+        end
+    },
+    "sbdchd/neoformat",
+    {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup(
+                {
+                    disable_filetype = {"TelescopePrompt", "vim"}
+                }
+            )
+        end
+    },
+    "windwp/nvim-ts-autotag",
+    -- LSP
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            require("lsp")
+        end
+    },
+    "tami5/lspsaga.nvim",
+    "williamboman/nvim-lsp-installer",
+    -- Completion
+    "github/copilot.vim",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    {
+        "hrsh7th/nvim-cmp"
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        config = function()
+            require("telescope_config")
+        end,
+        dependencies = {{"nvim-lua/plenary.nvim"}}
+    },
+    "onsails/lspkind-nvim",
+    -- Debug
+    "mfussenegger/nvim-dap",
+    "rcarriga/nvim-dap-ui",
+    -- Tools
+    -- Translate!
+    "voldikss/vim-translator",
+    -- Wakatime. Time management
+    "wakatime/vim-wakatime",
+    -- Detect root
+    "airblade/vim-rooter",
+    -- Terminal
+    {
+        "akinsho/toggleterm.nvim",
+        config = function()
+            require("toggleterm_config")
+        end
+    },
+    -- Git
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("gitsigns_config")
+        end
+    },
+    {
+        "APZelos/blamer.nvim",
+        init = function()
+            vim.g.blamer_enabled = 1
+        end
+    },
+    {
+        "TimUntersberger/neogit",
+        config = function()
+            require("neogit-config")
+        end
+    },
+    -- Project management
+    "dunstontc/projectile.nvim",
+    "nvim-telescope/telescope-project.nvim",
+    -- Bookmarks
+    "tom-anders/telescope-vim-bookmarks.nvim",
+    -- Treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        config = function()
+            require("treesitter_config")
+        end
+    },
+    {
+        "romgrk/nvim-treesitter-context",
+        config = function()
+            require "treesitter-context".setup {
+                enable = true,
+                throttle = true,
+                max_lines = 0,
+                patterns = {
+                    default = {
+                        "class",
+                        "function",
+                        "method"
+                    }
+                }
             }
-        )
-        use "eddyekofo94/gruvbox-flat.nvim"
-        use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
-        -- use "morhetz/gruvbox"
-        use "folke/tokyonight.nvim"
-        use "Shatur/neovim-ayu"
-        use "marko-cerovac/material.nvim"
-        -- use "kyazdani42/nvim-palenight.lua"
-        -- Themes end here
+        end
+    },
+    "nvim-treesitter/playground",
+    -- Spellchecker
 
-        use "APZelos/blamer.nvim"
-        use "karb94/neoscroll.nvim"
-        use "onsails/lspkind-nvim"
-        use {
-            "nvim-lualine/lualine.nvim",
-            requires = {"kyazdani42/nvim-web-devicons", opt = true}
-        }
-        use "p00f/nvim-ts-rainbow"
-        use "lukas-reineke/indent-blankline.nvim"
-        use "norcalli/nvim-colorizer.lua"
-        use "sakshamgupta05/vim-todo-highlight"
-        use {
-            "VonHeikemen/searchbox.nvim",
-            requires = {
-                {"MunifTanjim/nui.nvim"}
-            }
-        }
-        use "chrisbra/Colorizer"
-        use "projekt0n/github-nvim-theme"
-        use {"tami5/lspsaga.nvim"} -- ui for lsp
-        use "Pocco81/TrueZen.nvim"
-        -- Languages
-        -- use {
-        --     "cuducos/yaml.nvim",
-        --     ft = {"yaml"}, -- optional
-        --     requires = {
-        --         "nvim-treesitter/nvim-treesitter",
-        --         "nvim-telescope/telescope.nvim" -- optional
-        --     },
-        --     config = function()
-        --         require("yaml_nvim").init()
-        --     end
-        -- }
-        -- SpellCheck
-        use 'kamykn/popup-menu.nvim'
-        use 'kamykn/spelunker.vim'
-        use 'github/copilot.vim'
-        -- use {
-        --     "lewis6991/spellsitter.nvim",
-        --     config = function()
-        --         require("spellsitter").setup(
-        --             {
-        --                 enable = true
-        --             }
-        --         )
-        --     end
-        -- }
-    end
-)
+    "kamykn/popup-menu.nvim",
+    "kamykn/spelunker.vim"
+}
