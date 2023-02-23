@@ -1,19 +1,7 @@
-require "plugins"
-require "theme"
-require "filemanager"
-require "navigation"
-require "editing"
-require "completion"
-require "search"
-require "lsp"
-require "git"
-require "autoformat"
-require "bookmarks"
-require "tools"
-require "spellcheck"
-
 local g = vim.g
 local cmd = vim.cmd
+
+cmd.colorscheme "catppuccin"
 
 g.rooter_patterns = {
     "lua",
@@ -174,3 +162,24 @@ cmd 'noremap <Leader>p "+p'
 --   xnoremap <expr> p 'pgv"'.v:register.'y`>'
 --   xnoremap <expr> P 'Pgv"'.v:register.'y`>'
 -- ]], false) -- multiple past without buffer trash
+
+
+vim.api.nvim_exec(
+    [[
+let g:XkbSwitchIMappings = ['ru']
+let g:XkbSwitchEnabled = 1
+
+let g:XkbSwitchIMappingsTr = {
+	\ 'ru':
+	\ {'<': 'qwertyuiop[]asdfghjkl;''zxcvbnm,.`/'.
+	\       'QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?~@#$^&|',
+	\  '>': 'йцукенгшщзхъфывапролджэячсмитьбюё.'.
+	\       'ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,Ё"№;:?/'},
+	\ 'de':
+	\ {'<': 'yz-[];''/YZ{}:"<>?~@#^&*_\',
+	\  '>': 'zyßü+öä-ZYÜ*ÖÄ;:_°"§&/(?#'},
+	\ }
+	]],
+    false
+)
+
