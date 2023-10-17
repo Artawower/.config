@@ -90,7 +90,7 @@ wk.register(
             r = {
                 name = "Reload",
                 e = {
-                    ":source ~/.config/nvim/lua/plugins.lua<CR>:source $MYVIMRC<CR>:PackerSync<CR>:echo 'Reloaded!'<CR>",
+                    ":source ~/.config/nvim/lua/plugins.lua<CR>:source $MYVIMRC<CR>:Lazy sync<CR>:echo 'Reloaded!'<CR>",
                     "Reload neovim"
                 }
             }

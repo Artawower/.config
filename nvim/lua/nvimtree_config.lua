@@ -1,11 +1,8 @@
-local tree_cb = require "nvim-tree.config".nvim_tree_callback
 local g = vim.g
 
 require "nvim-tree".setup {
     disable_netrw = true,
     hijack_netrw = true,
-    open_on_setup = false,
-    ignore_ft_on_setup = {},
     -- auto_close = false,
     open_on_tab = true,
     hijack_cursor = false,
@@ -30,7 +27,8 @@ require "nvim-tree".setup {
         }
     },
     update_focused_file = {
-        enable = false,
+        enable = true,
+        update_cwd = true,
         update_cwd = false,
         ignore_list = {}
     },
@@ -50,7 +48,10 @@ require "nvim-tree".setup {
     trash = {
         cmd = "trash",
         require_confirm = true
-    }
+    },
+
+    sync_root_with_cwd = true,
+    respect_buf_cwd = true
 }
 
 g.nvim_tree_icons = {
