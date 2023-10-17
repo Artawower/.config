@@ -63,8 +63,9 @@ sketchybar --default "${defaults[@]}"
 
 # Left
 source "$ITEM_DIR/apple.sh"
+# source "$ITEM_DIR/yabai_helper.sh"
 source "$ITEM_DIR/spaces.sh"
-source "$ITEM_DIR/front_app.sh"
+# source "$ITEM_DIR/front_app.sh"
 
 # Center
 
@@ -76,6 +77,8 @@ source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/spotify.sh"
+source "$ITEM_DIR/mic_status.sh"
+# source "$ITEM_DIR/btc.sh"
 
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update

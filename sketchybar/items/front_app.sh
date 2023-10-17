@@ -6,7 +6,7 @@ yabai=(
   script="$PLUGIN_DIR/yabai.sh"
   updates=on
   drawing=off
-  icon.font="$FONT:Bold:12.0"
+  icon.font="$FONT:Bold:10.0"
   label.drawing=off
   icon.width=30
   icon=$YABAI_GRID
@@ -18,7 +18,7 @@ front_app=(
   script="$FRONT_APP_SCRIPT"
   icon.drawing=off
   label.color=$WHITE
-  label.font="$FONT:Black:12.0"
+  label.font="$FONT:Black:10.0"
   associated_display=active
 )
 
