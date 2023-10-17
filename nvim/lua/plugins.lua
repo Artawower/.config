@@ -219,5 +219,7 @@ return {
     -- Spellchecker
 
     "kamykn/popup-menu.nvim",
-    "kamykn/spelunker.vim"
+    "kamykn/spelunker.vim",
+    -- Markup
+    "mattn/emmet-vim"
 }

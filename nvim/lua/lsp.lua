@@ -123,6 +123,10 @@ require "lspconfig".angularls.setup {
     end
 }
 
+require'lspconfig'.volar.setup{
+  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+}
+
 
 -- ui
 local saga = require "lspsaga"
