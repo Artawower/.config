@@ -95,6 +95,11 @@ wk.register(
                 }
             }
         },
+        w = {
+          name = "Split",
+          v = {":vsplit<CR>", "Vertical split"},
+          s = {":split<CR>", "Horizontal split"}
+        }
         -- s = {":SearchBoxIncSearch<CR>", "Search"}
     },
     { prefix = "<space>" }
