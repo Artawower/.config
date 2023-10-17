@@ -83,6 +83,12 @@ return {
     "VonHeikemen/searchbox.nvim",
     -- Navigation
     {
+      "t9md/vim-choosewin",
+      config = function()
+         require("choosewin_config")
+      end
+    },
+    {
         "phaazon/hop.nvim",
         branch = "v2", -- optional but strongly recommended
         keys = {
@@ -100,6 +106,9 @@ return {
         end
     },
     -- Editing
+    {
+      "L3MON4D3/LuaSnip",
+    },
     {
         "terrortylor/nvim-comment",
         config = function()
@@ -134,7 +143,10 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     {
-        "hrsh7th/nvim-cmp"
+        "hrsh7th/nvim-cmp",
+        config = function()
+          require('cmp_config')
+        end
     },
     {
         "nvim-telescope/telescope.nvim",
