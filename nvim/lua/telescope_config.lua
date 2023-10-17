@@ -62,12 +62,13 @@ wk.register(
           ":Telescope current_buffer_fuzzy_find<CR>", "Search current buffer",
         },
         p = {
-            ":lua require'telescope'.extensions.project.project{}<CR>",
+            ":lua require'telescope'.extensions.projects.projects{}<CR>",
             "Open project manager",
             noremap = true
         },
-        ["*"] = {
-            ":Telescope grep_string()<CR>"
+        ['*'] = {
+            ":Telescope grep_string<CR>",
+            "Search word under cursor",
         }
     },
     {prefix = "<space>"}

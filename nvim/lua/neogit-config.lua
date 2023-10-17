@@ -49,10 +49,12 @@ neogit.setup {
             folded = true
         },
         unpulled = {
-            folded = true
+            folded = true,
+            hidden = false
         },
         unmerged = {
-            folded = false
+            folded = false,
+            hidden = false
         },
         recent = {
             folded = true
@@ -64,8 +66,6 @@ neogit.setup {
         status = {
             -- Adds a mapping with "B" as key that does the "BranchPopup" command
             ["B"] = "BranchPopup",
-            -- Removes the default mapping of "s"
-            ["s"] = ""
         }
     }
 }

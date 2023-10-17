@@ -183,6 +183,12 @@ return {
     -- Project management
     "dunstontc/projectile.nvim",
     "nvim-telescope/telescope-project.nvim",
+    {
+      "ahmedkhalf/project.nvim",
+      config = function()
+        require("project_nvim").setup(require('project_config'))
+      end
+    },
     -- Bookmarks
     "tom-anders/telescope-vim-bookmarks.nvim",
     -- Treesitter
