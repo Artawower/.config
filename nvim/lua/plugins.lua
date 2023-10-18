@@ -161,7 +161,12 @@ return {
     "rcarriga/nvim-dap-ui",
     -- Tools
     -- Translate!
-    "voldikss/vim-translator",
+    {
+      "voldikss/vim-translator",
+      config = function ()
+        require('translate_config')
+      end
+    },
     -- Wakatime. Time management
     "wakatime/vim-wakatime",
     -- Detect root
