@@ -100,11 +100,20 @@ return {
     "VonHeikemen/searchbox.nvim",
     -- Navigation
     {
-        "t9md/vim-choosewin",
+        "s1n7ax/nvim-window-picker",
+        name = "window-picker",
+        event = "VeryLazy",
+        version = "2.*",
         config = function()
             require("choosewin_config")
         end
     },
+    -- {
+    --     "t9md/vim-choosewin",
+    --     config = function()
+    --         require("choosewin_config")
+    --     end
+    -- },
     {
         "phaazon/hop.nvim",
         branch = "v2", -- optional but strongly recommended
@@ -133,9 +142,7 @@ return {
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
         event = "VeryLazy",
         config = function()
-            require("nvim-surround").setup({
-
-            })
+            require("nvim-surround").setup({})
         end
     },
     -- Turbo log!
