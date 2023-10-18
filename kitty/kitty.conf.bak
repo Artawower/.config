@@ -16,7 +16,7 @@ disable_ligatures       never
 # font_features           FiraCode-Retina +zero
 
 hide_window_decorations yes
-window_padding_width    8
+window_padding_width    16
 background_opacity      0.90
 
 
@@ -42,7 +42,7 @@ confirm_os_window_close 1
 # Maps
 map cmd+f launch --type=overlay --stdin-source=@screen_scrollback /usr/local/bin/fzf --no-sort --no-mouse --exact -i
 
-map cmd+s send_text all :execute ":w!<CR>"\r
+map cmd+s send_text all :execute ":w!"\r
 map cmd+. send_text all :execute ":ChooseWin"\r
 
 
