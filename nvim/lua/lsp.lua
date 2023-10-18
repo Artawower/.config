@@ -180,9 +180,9 @@ wk.register(
             s = {":lua require('lspsaga.signaturehelp').signature_help()<CR>", "Show signature of method"},
             h = {":lua require'lspsaga.provider'.lsp_finder()<CR>", "Lsp saga events"}
         },
-        r = {
-            name = "Lsp rename",
-            n = {":lua require('lspsaga.codeaction').range_code_action()<CR>", "Code actions"}
+        c = {
+            name = "Lsp code action",
+            r = {":Lspsaga rename<CR>", "Lsp rename"}
         },
         f = {
             name = "Flycheck error",
