@@ -34,7 +34,7 @@ end
 -- Setup lspconfig.
 -- local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {"tsserver", "stylelint_lsp", "cssls", "pyright", "vuels", "gopls"}
@@ -52,35 +52,40 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require'lspconfig'.lua_ls.setup {
-  on_init = function(client)
-    local path = client.workspace_folders[1].name
-    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
-      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT'
-          },
-          -- Make the server aware of Neovim runtime files
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME
-              -- "${3rd}/luv/library"
-              -- "${3rd}/busted/library",
-            }
-            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-            -- library = vim.api.nvim_get_runtime_file("", true)
-          }
-        }
-      })
+require "lspconfig".lua_ls.setup {
+    on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+            client.config.settings =
+                vim.tbl_deep_extend(
+                "force",
+                client.config.settings,
+                {
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = "LuaJIT"
+                        },
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME
+                                -- "${3rd}/luv/library"
+                                -- "${3rd}/busted/library",
+                            }
+                            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                            -- library = vim.api.nvim_get_runtime_file("", true)
+                        }
+                    }
+                }
+            )
 
-      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+            client.notify("workspace/didChangeConfiguration", {settings = client.config.settings})
+        end
+        return true
     end
-    return true
-  end
 }
 
 require "lspconfig".stylelint_lsp.setup {
@@ -92,21 +97,28 @@ require "lspconfig".stylelint_lsp.setup {
 require("lspconfig").yamlls.setup {
     settings = {
         yaml = {
-          trace = { server = "verbose" },
-          schemas = {
-            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-            ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-            kubernetes = "/*.yaml",
-          },
-          schemaDownloads = { enable = true },
-          validate = true,
+            trace = {server = "verbose"},
+            schemas = {
+                ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+                ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+                kubernetes = "/*.yaml"
+            },
+            schemaDownloads = {enable = true},
+            validate = true
         }
     }
 }
 
 -- local project_library_path = "/usr/local/lib/node_modules"
 local project_library_path = "/opt/homebrew/lib/node_modules/"
-local cmd = {"/opt/homebrew/lib/node_modules/@angular/language-server/bin/ngserver", "--stdio", "--tsProbeLocations", project_library_path , "--ngProbeLocations", project_library_path}
+local cmd = {
+    "/opt/homebrew/lib/node_modules/@angular/language-server/bin/ngserver",
+    "--stdio",
+    "--tsProbeLocations",
+    project_library_path,
+    "--ngProbeLocations",
+    project_library_path
+}
 
 -- local cmd = {
 --     "ngserver",
@@ -124,10 +136,9 @@ require "lspconfig".angularls.setup {
     end
 }
 
-require'lspconfig'.volar.setup{
-  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+require "lspconfig".volar.setup {
+    filetypes = {"typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json"}
 }
-
 
 -- ui
 local saga = require "lspsaga"
@@ -188,13 +199,14 @@ wk.register(
         f = {
             name = "Flycheck error",
             p = {"<cmd>lua vim.diagnostic.goto_prev()<CR>", "Prev error"},
-            n = {"<cmd>lua vim.diagnostic.goto_next()<CR>", "Next error"}
+            n = {"<cmd>lua vim.diagnostic.goto_next()<CR>", "Next error"},
+            ["["] = {"<cmd>lua vim.diagnostic.goto_prev()<CR>", "Prev error"},
+            ["]"] = {"<cmd>lua vim.diagnostic.goto_next()<CR>", "Next error"}
         },
         l = {
-          name = "Lsp list",
-          r = { ":Lspsaga lsp_finder<CR>", "Find references" }
+            name = "Lsp list",
+            r = {":Lspsaga lsp_finder<CR>", "Find references"}
         }
-
     },
     {prefix = "<space>"}
 )
