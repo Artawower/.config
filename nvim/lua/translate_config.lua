@@ -10,3 +10,5 @@ g.translator_source_lang = 'en'
 wk.register({
   t = { ':Translate ', 'Translate' }
 }, { prefix = '<leader>' })
+
+

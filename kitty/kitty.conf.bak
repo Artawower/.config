@@ -42,7 +42,8 @@ confirm_os_window_close 1
 # Maps
 map cmd+f launch --type=overlay --stdin-source=@screen_scrollback /usr/local/bin/fzf --no-sort --no-mouse --exact -i
 
-map cmd+s send_text all :execute ":w<CR>"\r
+map cmd+s send_text all :execute ":w!<CR>"\r
+map cmd+. send_text all :execute ":ChooseWin"\r
 
 
 # tilling
@@ -80,6 +81,6 @@ background_image dots.png
 
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Storm
+# 1984 Light
 include current-theme.conf
 # END_KITTY_THEME

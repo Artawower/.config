@@ -150,10 +150,11 @@ saga.init_lsp_saga(
         finder_reference_icon = "  ",
         max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
         finder_action_keys = {
-            open = "o",
+            toggle_or_open = "o",
             vsplit = "s",
             split = "i",
             quit = "q",
+            tabe = "t",
             scroll_down = "<C-f>",
             scroll_up = "<C-b>" -- quit can be a table
         },
@@ -188,7 +189,12 @@ wk.register(
             name = "Flycheck error",
             p = {"<cmd>lua vim.diagnostic.goto_prev()<CR>", "Prev error"},
             n = {"<cmd>lua vim.diagnostic.goto_next()<CR>", "Next error"}
+        },
+        l = {
+          name = "Lsp list",
+          r = { ":Lspsaga lsp_finder<CR>", "Find references" }
         }
+
     },
     {prefix = "<space>"}
 )
