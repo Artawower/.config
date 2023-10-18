@@ -36,9 +36,9 @@ return {
                         gitsigns = true,
                         nvimtree = true,
                         telescope = {
-                          enabled = false,
-                          theme = "dropdown",
-                          style = "nvchad"
+                            enabled = false,
+                            theme = "dropdown",
+                            style = "nvchad"
                         },
                         notify = false,
                         mini = false
@@ -110,7 +110,7 @@ return {
         branch = "v2", -- optional but strongly recommended
         keys = {
             {"f", ":HopChar1<CR>", desc = "Jump to char", mode = "n"},
-            {"<leader>j", ":HopChar1<CR>", desc = "Jump to char", mode = "n"},
+            {"<leader>j", ":HopChar1<CR>", desc = "Jump to char", mode = "n"}
         },
         config = function()
             -- you can configure Hop the way you like here; see :h hop-config
@@ -127,14 +127,25 @@ return {
     {
         "L3MON4D3/LuaSnip"
     },
+    -- Vim surround
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+
+            })
+        end
+    },
     -- Turbo log!
     {
         "gaelph/logsitter.nvim",
         dependencies = {
-          "nvim-treesitter/nvim-treesitter"
+            "nvim-treesitter/nvim-treesitter"
         },
         config = function()
-          require('logsitter_config')
+            require("logsitter_config")
         end
     },
     {
@@ -143,7 +154,12 @@ return {
             require("nvim_comment").setup()
         end
     },
-    "sbdchd/neoformat",
+    {
+        "sbdchd/neoformat",
+        config = function()
+            require("neoformat_config")
+        end
+    },
     {
         "windwp/nvim-autopairs",
         config = function()
@@ -165,7 +181,12 @@ return {
     "tami5/lspsaga.nvim",
     "williamboman/nvim-lsp-installer",
     -- Completion
-    "github/copilot.vim",
+    {
+        "zbirenbaum/copilot.lua",
+        config = function()
+            require("copilot_config")
+        end
+    },
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
