@@ -14,6 +14,7 @@ return {
             require("nvimtree_config")
         end
     },
+    -- Better menu
     -- Development
     "folke/neodev.nvim",
     -- UI
@@ -184,6 +185,23 @@ return {
         config = function()
             require("lsp")
         end
+    },
+    {
+        "luckasRanarison/clear-action.nvim",
+        opts = {}
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {},
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify"
+        }
     },
     "tami5/lspsaga.nvim",
     "williamboman/nvim-lsp-installer",
