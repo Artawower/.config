@@ -35,7 +35,11 @@ return {
                         cmp = true,
                         gitsigns = true,
                         nvimtree = true,
-                        telescope = true,
+                        telescope = {
+                          enabled = true,
+                          theme = "dropdown",
+                          style = "nvchad"
+                        },
                         notify = false,
                         mini = false
                         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
@@ -48,8 +52,8 @@ return {
     {
         "f-person/auto-dark-mode.nvim",
         config = function()
-          local auto_dark_mode = require('auto-dark-mode')
-          auto_dark_mode.setup(
+            local auto_dark_mode = require("auto-dark-mode")
+            auto_dark_mode.setup(
                 {
                     update_interval = 1000,
                     set_dark_mode = function()
@@ -58,7 +62,7 @@ return {
                     end,
                     set_light_mode = function()
                         vim.api.nvim_set_option("background", "light")
-                        vim.cmd("colorscheme tokyonight-day")
+                        vim.cmd("colorscheme catppuccin_latte")
                     end
                 }
             )
@@ -77,22 +81,36 @@ return {
             require("lualine_config")
         end
     },
+    {
+        "romgrk/barbar.nvim",
+        dependencies = {
+            "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+            "nvim-tree/nvim-web-devicons" -- OPTIONAL: for file icons
+        },
+        init = function()
+            vim.g.barbar_auto_setup = false
+            require("tabbar_config")
+        end,
+        opts = {},
+        version = "^1.0.0" -- optional: only update when a new 1.x version is released
+    },
     "p00f/nvim-ts-rainbow",
     "norcalli/nvim-colorizer.lua",
     "sakshamgupta05/vim-todo-highlight",
     "VonHeikemen/searchbox.nvim",
     -- Navigation
     {
-      "t9md/vim-choosewin",
-      config = function()
-         require("choosewin_config")
-      end
+        "t9md/vim-choosewin",
+        config = function()
+            require("choosewin_config")
+        end
     },
     {
         "phaazon/hop.nvim",
         branch = "v2", -- optional but strongly recommended
         keys = {
-            {"f", ":HopChar1<CR>", desc = "Jump to char", mode = "n"}
+            {"f", ":HopChar1<CR>", desc = "Jump to char", mode = "n"},
+            {"<leader>j", ":HopChar1<CR>", desc = "Jump to char", mode = "n"},
         },
         config = function()
             -- you can configure Hop the way you like here; see :h hop-config
@@ -107,7 +125,17 @@ return {
     },
     -- Editing
     {
-      "L3MON4D3/LuaSnip",
+        "L3MON4D3/LuaSnip"
+    },
+    -- Turbo log!
+    {
+        "gaelph/logsitter.nvim",
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter"
+        },
+        config = function()
+          require('logsitter_config')
+        end
     },
     {
         "terrortylor/nvim-comment",
@@ -145,7 +173,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         config = function()
-          require('cmp_config')
+            require("cmp_config")
         end
     },
     {
@@ -162,10 +190,10 @@ return {
     -- Tools
     -- Translate!
     {
-      "voldikss/vim-translator",
-      config = function ()
-        require('translate_config')
-      end
+        "voldikss/vim-translator",
+        config = function()
+            require("translate_config")
+        end
     },
     -- Wakatime. Time management
     "wakatime/vim-wakatime",
@@ -201,10 +229,10 @@ return {
     "dunstontc/projectile.nvim",
     "nvim-telescope/telescope-project.nvim",
     {
-      "ahmedkhalf/project.nvim",
-      config = function()
-        require("project_nvim").setup(require('project_config'))
-      end
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup(require("project_config"))
+        end
     },
     -- Bookmarks
     "tom-anders/telescope-vim-bookmarks.nvim",
