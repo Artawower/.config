@@ -75,6 +75,14 @@ wk.register(
                 ":Gitsigns prev_hunk<CR>",
                 "Prev"
             },
+            r = {
+                ":Gitsigns reset_hunk<CR>",
+                "Reset"
+            },
+            p = {
+                ":Gitsigns preview_hunk<CR>",
+                "Preview"
+            },
         },
         -- s = {":SearchBoxIncSearch<CR>", "Search"}
     },

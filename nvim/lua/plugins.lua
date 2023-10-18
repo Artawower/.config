@@ -36,7 +36,7 @@ return {
                         gitsigns = true,
                         nvimtree = true,
                         telescope = {
-                          enabled = true,
+                          enabled = false,
                           theme = "dropdown",
                           style = "nvchad"
                         },

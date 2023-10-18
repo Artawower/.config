@@ -55,7 +55,8 @@ require("lualine").setup {
         -- component_separators = { left = '', right = ''},
         -- section_separators = { left = '', right = '' }
         section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' }
+        component_separators = { left = '', right = '' },
+        disabled_filetypes = { 'packer', 'NvimTree' }
     },
     sections = {
         lualine_a = {
@@ -78,7 +79,7 @@ require("lualine").setup {
         lualine_z = {"location"}
     },
     tabline = {},
-    extensions = {}
-}
+    extensions = { }
+  }
 
 vim.opt.list = true;
