@@ -6,19 +6,21 @@ require("telescope").setup {
         initial_mode = "insert",
         selection_strategy = "reset",
         sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
+        layout_strategy = "vertical",
         layout_config = {
-            horizontal = {
-                prompt_position = "top",
-                preview_width = 0.45,
-                results_width = 0.8
-            },
+            -- horizontal = {
+            --     prompt_position = "top",
+            --     preview_width = 0.45,
+            --     preview_height = 0.35,
+            --     results_width = 0.8
+            -- },
             vertical = {
-                mirror = false
+                -- mirror = false
+                width = 0.9
             },
-            width = 0.87,
-            height = 0.80,
-            preview_cutoff = 120
+            -- width = 0.87,
+            height = 0.85,
+            preview_cutoff = 20
         },
         file_sorter = require("telescope.sorters").get_fuzzy_file,
         file_ignore_patterns = {"node_modules"},

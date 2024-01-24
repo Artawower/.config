@@ -21,6 +21,7 @@
 !.p10k.zsh
 !oh-my-zsh-custom
 !sketchybar
+!.wezterm.lua
 
 
 .DS_Store

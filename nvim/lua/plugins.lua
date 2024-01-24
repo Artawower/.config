@@ -3,7 +3,7 @@ return {
     {"folke/which-key.nvim", lazy = true},
     -- File managers
     {
-        "francoiscabrol/ranger.vim",
+        "francoiscabrol/range.vim",
         config = function()
             require("ranger_config")
         end
@@ -14,7 +14,6 @@ return {
             require("nvimtree_config")
         end
     },
-    -- Better menu
     -- Development
     "folke/neodev.nvim",
     -- UI
@@ -186,23 +185,6 @@ return {
             require("lsp")
         end
     },
-    {
-        "luckasRanarison/clear-action.nvim",
-        opts = {}
-    },
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {},
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify"
-        }
-    },
     "tami5/lspsaga.nvim",
     "williamboman/nvim-lsp-installer",
     -- Completion
@@ -259,6 +241,14 @@ return {
             require("gitsigns_config")
         end
     },
+    -- Timemachine
+    -- {
+    --   'fredeeb/tardis.nvim',
+    --   dependencies = { 'nvim-lua/plenary.nvim' },
+    --   config = function()
+    --     require('tardis_config').setup()
+    --   end
+    -- },
     {
         "APZelos/blamer.nvim",
         init = function()
@@ -312,5 +302,18 @@ return {
     "kamykn/popup-menu.nvim",
     "kamykn/spelunker.vim",
     -- Markup
-    "mattn/emmet-vim"
+    "mattn/emmet-vim",
+    -- Kitty integration
+    {
+        "mikesmithgh/kitty-scrollback.nvim",
+        enabled = true,
+        lazy = true,
+        cmd = {"KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth"},
+        event = {"User KittyScrollbackLaunch"},
+        -- version = '*', -- latest stable version, may have breaking changes if major version changed
+        -- version = '^2.0.0', -- pin major version, include fixes and features that do not have breaking changes
+        config = function()
+            require("kitty-scrollback").setup()
+        end
+    }
 }
