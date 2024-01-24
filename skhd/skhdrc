@@ -22,14 +22,15 @@ shift + alt - 5 : yabai -m window --space 5 && yabai -m space --focus 5
 shift + alt - 6 : yabai -m window --space 6 && yabai -m space --focus 6
 shift + alt - 7 : yabai -m window --space 7 && yabai -m space --focus 7
 shift + alt - 8 : yabai -m window --space 8 && yabai -m space --focus 8
+shift + alt - 9 : yabai -m window --space 9 && yabai -m space --focus 9
 
 shift + alt - d : yabai -m window --space dev && yabai -m space --focus dev
 shift + alt - w : yabai -m window --space www && yabai -m space --focus www
 shift + alt - s : yabai -m window --space social && yabai -m space --focus msgs
-shift + alt - i : yabai -m window --space debug && yabai -m space --focus debug
+shift + alt - i : yabai -m window --space term && yabai -m space --focus term
 shift + alt - t : yabai -m window --space thrash && yabai -m space --focus thrash
-# shift + alt - c : yabai -m window --space debug && yabai -m space --focus debug
-shift + alt - t : yabai -m window --space debug && yabai -m space --focus other
+# shift + alt - c : yabai -m window --space term && yabai -m space --focus term
+shift + alt - t : yabai -m window --space term && yabai -m space --focus other
 shift + alt - e : yabai -m window --space entertiment && yabai -m space --focus entertiment
 shift + alt - o : yabai -m window --space other && yabai -m space --focus other
 
@@ -129,14 +130,16 @@ alt - 5 : yabai -m space --focus 5
 alt - 6 : yabai -m space --focus 6
 alt - 7 : yabai -m space --focus 7
 alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
 
 # alt - m : yabai -m space --focus social
 alt - s : yabai -m space --focus social
 alt - w : yabai -m space --focus www
-alt - d : yabai -m space --focus dev
-alt - i : yabai -m space --focus debug
+# alt - d : yabai -m space --focus dev
+alt - d : yabai -m space --focus 5
+alt - i : yabai -m space --focus term
 alt - t : yabai -m space --focus thrash
-# alt - c : yabai -m space --focus debug
+# alt - c : yabai -m space --focus term
 alt - e : yabai -m space --focus entertiment
 alt - o : yabai -m space --focus other
 
@@ -197,8 +200,8 @@ cmd + ctrl - down  : yabai -m window south --stack $(yabai -m query --windows --
 cmd + ctrl - up    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + ctrl - right : yabai -m window east --stack $(yabai -m query --windows --window | jq -r '.id')
 
-cmd + ctrl + alt - s: brew services stop yabai
-cmd + ctrl + alt - r: brew services start yabai
+cmd + ctrl + alt - s: yabai --stop-service
+cmd + ctrl + alt - r: yabai --start-service
 
 # cmd + ctrl + i: emacsclient --eval "(emacs-everywhere)"
 

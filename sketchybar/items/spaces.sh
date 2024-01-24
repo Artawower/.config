@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # SPACE_ICONS=("social" "debug" "entertiment" "dev" "browser" "other" "trash" "8" "9" "10" "11" "12" "13" "14" "15")
-SPACE_ICONS=("soc" "dev" "ent" "dev" "www" "oth" "th" "8" "9" "10" "11" "12" "13" "14" "15")
+SPACE_ICONS=("soc" "term" "www" "oth" "dev" "ent" "th" "8" "9" "10" "11" "12" "13" "14" "15")
 
 # Destroy space on right click, focus space on left click.
 # New space by left clicking separator (>)

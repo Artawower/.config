@@ -230,3 +230,5 @@ wk.register(
         }
     }
 )
+
+require'lspconfig'.vuels.setup{}
