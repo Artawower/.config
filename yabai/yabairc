@@ -97,7 +97,7 @@ yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 yabai -m config mouse_drop_action            swap
 # yabai -m config window_border                off
-yabai -m config window_border                on
+# yabai -m config window_border                on
 # general space settings
 yabai -m config layout                       bsp
 yabai -m config top_padding                  48
@@ -147,6 +147,7 @@ yabai -m space 7 --label thrash
 # Refresh process widget when current window title changes
 # yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
 
+yabai -m config window_border                on
 yabai -m config active_window_border_color   0xff4faaea
 yabai -m config normal_window_border_color   0xff0e4b77
 yabai -m config insert_feedback_color        0xffd75f5f
@@ -184,7 +185,7 @@ echo "yabai configuration loaded.."
 
 
 # WAL
-source ~/.cache/wal/colors.sh # pywal scheme - update if needed
+# source ~/.cache/wal/colors.sh # pywal scheme - update if needed
 
 # yabai template colours
 CBACK=$(echo $background | sed 's/#//')
@@ -197,13 +198,12 @@ yabai -m config status_bar                   on
 # yabai -m config status_bar_background_color  0xff$CBACK
 # yabai -m config status_bar_foreground_color  0xff$CFORE
 
-# yabai -m config window_border                on
 # yabai -m config window_border_width          4
 # yabai -m config active_window_border_color   0xff$CACTV
 # yabai -m config active_window_border_color   0xff4faaea
 # yabai -m config normal_window_border_color   0xff0e4b77
 # yabai -m config insert_feedback_color        0xffd75f5f
-yabai -m config window_border_blur on
+# yabai -m config window_border_blur on
 
 # Events for sketchybar
 # yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"

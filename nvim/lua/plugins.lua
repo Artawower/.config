@@ -3,7 +3,7 @@ return {
     {"folke/which-key.nvim", lazy = true},
     -- File managers
     {
-        "francoiscabrol/range.vim",
+        "francoiscabrol/ranger.vim",
         config = function()
             require("ranger_config")
         end
@@ -185,6 +185,8 @@ return {
             require("lsp")
         end
     },
+    -- Angular lsp
+    "joeveiga/ng.nvim",
     "tami5/lspsaga.nvim",
     "williamboman/nvim-lsp-installer",
     -- Completion
@@ -242,13 +244,13 @@ return {
         end
     },
     -- Timemachine
-    -- {
-    --   'fredeeb/tardis.nvim',
-    --   dependencies = { 'nvim-lua/plenary.nvim' },
-    --   config = function()
-    --     require('tardis_config').setup()
-    --   end
-    -- },
+    {
+        "fredeeb/tardis.nvim",
+        dependencies = {"nvim-lua/plenary.nvim"},
+        config = function()
+            require("tardis_config").setup()
+        end
+    },
     {
         "APZelos/blamer.nvim",
         init = function()
