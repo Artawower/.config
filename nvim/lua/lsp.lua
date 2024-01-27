@@ -109,32 +109,24 @@ require("lspconfig").yamlls.setup {
     }
 }
 
--- local project_library_path = "/usr/local/lib/node_modules"
-local project_library_path = "/opt/homebrew/lib/node_modules/"
-local cmd = {
-    "/opt/homebrew/lib/node_modules/@angular/language-server/bin/ngserver",
-    "--stdio",
-    "--tsProbeLocations",
-    project_library_path,
-    "--ngProbeLocations",
-    project_library_path
-}
-
--- local cmd = {
---     "ngserver",
---     "--stdio",
---     "--tsProbeLocations",
---     project_library_path,
---     "--ngProbeLocations",
---     project_library_path
--- }
+local languageServerPath = "/Users/darkawower/.npm-global/lib/node_modules"
+-- local languageServerPath = vim.fn.stdpath("config").."/lua/languageserver"
+local cmd = {"ngserver", "--stdio", "--tsProbeLocations", languageServerPath, "--ngProbeLocations", languageServerPath}
 
 require "lspconfig".angularls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
     cmd = cmd,
     on_new_config = function(new_config, new_root_dir)
         new_config.cmd = cmd
     end
 }
+
+local opts = {noremap = true, silent = true}
+local ng = require("ng")
+vim.keymap.set("n", "<leader>at", ng.goto_template_for_component, opts)
+vim.keymap.set("n", "<leader>ac", ng.goto_component_with_template_file, opts)
+vim.keymap.set("n", "<leader>aT", ng.get_template_tcb, opts)
 
 require "lspconfig".volar.setup {
     filetypes = {"typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json"}
@@ -231,4 +223,4 @@ wk.register(
     }
 )
 
-require'lspconfig'.vuels.setup{}
+require "lspconfig".vuels.setup {}
