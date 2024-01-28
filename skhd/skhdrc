@@ -150,7 +150,8 @@ alt - o : yabai -m space --focus other
 # 
 # alt - return : open -na kitty.app
 
-alt - return : kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
+# alt - return : kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
+alt - return : wezterm
 
 cmd + alt - return : open -a kitty.app
 

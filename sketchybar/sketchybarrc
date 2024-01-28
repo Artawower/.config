@@ -27,11 +27,16 @@ bar=(
   sticky=on
   padding_right=10
   padding_left=10
-  corner_radius=18
+  corner_radius=10
   y_offset=4
   margin=10
   blur_radius=20
   notch_width=0
+  # border_color=0xffe78284
+  border_color=$BAR_BORDER_COLOR
+  # border_color=0xfff2d5cf
+  border_width=3
+  color=$BACKGROUND_1
 )
 
 sketchybar --bar "${bar[@]}"
@@ -57,6 +62,7 @@ defaults=(
   popup.background.color=$POPUP_BACKGROUND_COLOR
   popup.blur_radius=20
   popup.background.shadow.drawing=on
+
 )
 
 sketchybar --default "${defaults[@]}"
