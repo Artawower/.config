@@ -89,7 +89,6 @@ yabai -m config window_opacity               off
 # yabai -m config window_opacity_duration      0.0
 yabai -m config active_window_opacity        0.9
 yabai -m config normal_window_opacity       0.80
-yabai -m config window_border_width          2
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
 yabai -m config mouse_modifier               fn
@@ -147,10 +146,12 @@ yabai -m space 7 --label thrash
 # Refresh process widget when current window title changes
 # yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
 
-yabai -m config window_border                on
-yabai -m config active_window_border_color   0xff4faaea
-yabai -m config normal_window_border_color   0xff0e4b77
-yabai -m config insert_feedback_color        0xffd75f5f
+# Replaced by borders
+# yabai -m config window_border                on
+# yabai -m config window_border_width          4
+# yabai -m config active_window_border_color   0xff4faaea
+# yabai -m config normal_window_border_color   0xff0e4b77
+# yabai -m config insert_feedback_color        0xffd75f5f
 
 # Stackline
 # STACKLINE_EVENTS="\
@@ -210,6 +211,11 @@ yabai -m config status_bar                   on
 # yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 # yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 # borders active_color=0xff4faaea inactive_color=0xff0e4b77 width=5.0 2>/dev/null 1>&2 &
+
+$HOME/apps/JankyBorders/bin/borders \
+  "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
+  "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffc6d0f5)" \
+  width=4
 
 
 
