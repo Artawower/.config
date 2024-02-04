@@ -35,7 +35,7 @@ bar=(
   # border_color=0xffe78284
   border_color=$BAR_BORDER_COLOR
   # border_color=0xfff2d5cf
-  border_width=3
+  border_width=2
   color=$BACKGROUND_1
 )
 

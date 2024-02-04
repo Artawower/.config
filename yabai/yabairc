@@ -47,7 +47,7 @@ yabai -m rule --add app="^zoom.us$" manage=off
 yabai -m rule --add app="^Android Emulator.*" manage=off
 yabai -m rule --add app="^qemu-system-aarch64" manage=off
 yabai -m rule --add app="^OpenVPN Connect$" manage=off
-yabai -m rule --add app="^Loom$" manage=off
+yabai -m rule --add app="^Loom" manage=off
 yabai -m rule --add app="^Loom Recorder Settings$" manage=off
 yabai -m rule --add app="^Loom Control Menu$" manage=off
 
@@ -99,16 +99,16 @@ yabai -m config mouse_drop_action            swap
 # yabai -m config window_border                on
 # general space settings
 yabai -m config layout                       bsp
-yabai -m config top_padding                  48
-yabai -m config bottom_padding               10
-yabai -m config left_padding                 10
-yabai -m config right_padding                10
-yabai -m config window_gap                   10
+yabai -m config top_padding                  68
+yabai -m config bottom_padding               20
+yabai -m config left_padding                 20
+yabai -m config right_padding                20
+yabai -m config window_gap                   20
 
 # Space names
 yabai -m space 1 --label social
-yabai -m space 2 --label term
-yabai -m space 3 --label www 
+yabai -m space 2 --label www 
+yabai -m space 3 --label term
 yabai -m space 4 --label other
 
 yabai -m space 5 --label dev
@@ -210,12 +210,12 @@ yabai -m config status_bar                   on
 # yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 # yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 # yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
-# borders active_color=0xff4faaea inactive_color=0xff0e4b77 width=5.0 2>/dev/null 1>&2 &
+borders blacklist="Loom" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
 
-$HOME/apps/JankyBorders/bin/borders \
-  "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
-  "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffc6d0f5)" \
-  width=4
+# $HOME/apps/JankyBorders/bin/borders \
+#   "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
+#   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffc6d0f5)" \
+#   width=2
 
 
 
