@@ -64,16 +64,16 @@ yabai -m rule --add app=Firefox manage=on space=3
 # yabai -m rule --add app="Brave Browser" manage=on space=3
 # yabai -m rule --add app="^Google Chrome$" manage=on space=4
 yabai -m rule --add app="^kitty$" manage=on space=2
-yabai -m rule --add app="WezTerm" manage=on space=2
+yabai -m rule --add app="WezTerm" manage=on space=term
 # yabai -m rule --add app="^Telegram$" manage=on space=1
 yabai -m rule --add app=Ferdi manage=on space=1
-yabai -m rule --add app=kitty manage=on space=4
 yabai -m rule --add app=Skype manage=on space=1
 yabai -m rule --add app=Slack manage=on space=1
+yabai -m rule --add app=Mattermost manage=on space=1
 yabai -m rule --add app="^Whalebird$" manage=on space=7
-yabai -m rule --add app="^Discord$" manage=on space=7
-yabai -m rule --add app="^Spark$" manage=on space=8
-yabai -m rule --add app="^MongoDB Compass" manage=on space=8
+yabai -m rule --add app="^Discord$" manage=on space=tharsh
+yabai -m rule --add app="^Spark$" manage=on space=thrash
+yabai -m rule --add app="^MongoDB Compass" manage=on space=other
 
 # yabai -m rule --add app="^Doom Emacs$" manage=off
 # yabai -m rule --add app="^Emacs$" manage=off
@@ -99,20 +99,20 @@ yabai -m config mouse_drop_action            swap
 # yabai -m config window_border                on
 # general space settings
 yabai -m config layout                       bsp
-yabai -m config top_padding                  68
-yabai -m config bottom_padding               20
-yabai -m config left_padding                 20
-yabai -m config right_padding                20
-yabai -m config window_gap                   20
+yabai -m config top_padding                  32
+yabai -m config bottom_padding               16
+yabai -m config left_padding                 16
+yabai -m config right_padding                16
+yabai -m config window_gap                   16
 
 # Space names
 yabai -m space 1 --label social
-yabai -m space 2 --label www 
-yabai -m space 3 --label term
+yabai -m space 2 --label term
+yabai -m space 3 --label www
 yabai -m space 4 --label other
 
 yabai -m space 5 --label dev
-yabai -m space 6 --label entertiment
+yabai -m space 6 --label entertainment
 yabai -m space 7 --label thrash
 
 
@@ -210,7 +210,7 @@ yabai -m config status_bar                   on
 # yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 # yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 # yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
-borders blacklist="Loom" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
+borders blacklist="Loom,qemu-system-aarch64" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
 
 # $HOME/apps/JankyBorders/bin/borders \
 #   "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
