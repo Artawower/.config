@@ -35,6 +35,7 @@ shift + alt - 6 : yabai -m window --space 6 && yabai -m space --focus 6
 shift + alt - 7 : yabai -m window --space 7 && yabai -m space --focus 7
 shift + alt - 8 : yabai -m window --space 8 && yabai -m space --focus 8
 shift + alt - 9 : yabai -m window --space 9 && yabai -m space --focus 9
+shift + alt - 0 : yabai -m window --space 10 && yabai -m space --focus 10
 
 shift + alt - d : yabai -m window --space dev && yabai -m space --focus dev
 shift + alt - w : yabai -m window --space www && yabai -m space --focus www
@@ -101,7 +102,8 @@ shift + alt - space : yabai -m window --toggle float
 shift + lctrl + alt - r : 
     /usr/bin/env osascript <<< \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
-    yabai --restart-service
+    yabai --stop-service; \
+    yabai --start-service
 
 # launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # restart sketchybar
@@ -143,6 +145,7 @@ alt - 6 : yabai -m space --focus 6
 alt - 7 : yabai -m space --focus 7
 alt - 8 : yabai -m space --focus 8
 alt - 9 : yabai -m space --focus 9
+alt - 0 : yabai -m space --focus 10
 
 # alt - m : yabai -m space --focus 1
 alt - s : yabai -m space --focus social
@@ -189,7 +192,7 @@ cmd + shift + alt - s : yabai -m space --focus 1;\
 cmd + alt - e : yabai -m space --focus dev; \
                export $(dbus-launch) && emacs
 
-cmd + alt - r : open -na kitty --args "ranger"
+cmd + alt + shift - r : open -na kitty --args "ranger"
 
 cmd + alt - v : open -na kitty --args "nvim"
 
@@ -199,8 +202,8 @@ cmd + alt - m : open -na kitty --args "spt"
 cmd + alt - x : yabai -m window --close
 
 # Focus window up/down in stack
-ctrl - n : yabai -m window --focus stack.next
-ctrl - p : yabai -m window --focus stack.prev
+# ctrl - n : yabai -m window --focus stack.next
+# ctrl - p : yabai -m window --focus stack.prev
 
 # Add the active window  to the window or stack to the {direction}
 # Note that this only works when the active window does *not* already belong to a stack
@@ -225,3 +228,7 @@ alt - b: $HOME/.config/yabai/toggle-bar.sh
 
 # Magic :)
 alt + ctrl + shift - m: python3 $HOME/.config/yabai/order-windows.py
+
+cmd + shift - w: open -a Marta;
+                 # yabai -m window --toggle float;\
+                 # yabai -m window --grid 4:4:1:1:2:2
