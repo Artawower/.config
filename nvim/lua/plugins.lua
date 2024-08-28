@@ -247,9 +247,9 @@ return {
     {
         "fredeeb/tardis.nvim",
         dependencies = {"nvim-lua/plenary.nvim"},
-        config = function()
-            require("tardis_config").setup()
-        end
+        -- config = function()
+        --     require("tardis_config").setup()
+        -- end
     },
     {
         "APZelos/blamer.nvim",
