@@ -30,14 +30,16 @@ yabai -m signal --add event=display_changed action="echo \"query\" | nc -U /tmp/
 yabai -m signal --add event=mission_control_enter action="echo \"mission_control_enter\" | nc -U /tmp/yb_$USER.socket"
 yabai -m signal --add event=mission_control_exit action="echo \"mission_control_exit\" | nc -U /tmp/yb_$USER.socket"
 
-
 # Rules
 yabai -m rule --add app="^System Preferences$" manage=off space=9
+# yabai -m rule --add app="^NeoHtop$" manage=on layer=above
+yabai -m rule --add app="^NeoHtop$" manage=off grid=100:100:0:0:100:100
+yabai -m rule --add app="^Bitwarden$" manage=off sticky=on
+yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add app="^Simulator$" manage=off
 yabai -m rule --add app="^Pika$" manage=off
 yabai -m rule --add app="^Pika$" manage=off
 yabai -m rule --add app="^Grammarly Desktop$" manage=off
-yabai -m rule --add app="^Session" manage=off
 yabai -m rule --add app="^Системные настройки$" manage=off
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Authy Desktop$" manage=off
@@ -57,10 +59,19 @@ yabai -m rule --add app="^Loom Recorder Settings$" manage=off
 yabai -m rule --add app="^Loom Control Menu$" manage=off
 yabai -m rule --add title="^Discord Updater$" manage=off
 yabai -m rule --add title="^Pearcleaner$" manage=off sticky=on
+yabai -m rule --add app="^Arc$" manage=off
+yabai -m rule --add app="^$" manage=off
+yabai -m signal --add event=window_created app="^Arc$" action="~/.scripts/yabai_apply_arc_rules.sh"
+# yabai -m rule --add app="^Arc$" title="^$" mouse_follows_focus=off manage=off
+# yabai -m rule --add app="^Arc$" title="" manage=off
+# yabai -m rule --add app="^Arc$" title="^$" manage=off
+# yabai -m rule --add app="^Arc$" subrole='AXSystemDialog' manage=off mouse_follows_focus=off
+# yabai -m rule --add app='^Arc$' title='^Space.*$' manage=off
 
 # yabai -m rule --add app="^World of Warcraft$" manage=off
 # yabai -m rule --add app="^World*" manage=off
-# yabai -m rule --add app=Emacs manage=on space=5
+yabai -m rule --add app=Emacs manage=on space=5
+yabai -m rule --add label=emacs app=Emacs manage=on space=5
 # yabai -m rule --add app="^Emacs$" title="^.*$" manage=on space=4
 # yabai -m rule --add app="Emacs" title="^$" manage=off
 # yabai -m rule --add app="Emacs" title="" manage=off label="email popup"
@@ -71,60 +82,64 @@ yabai -m rule --add app=Firefox manage=on space=3
 # yabai -m rule --add app=Marta manage=on space=8
 yabai -m rule --add app="Brave Browser" manage=on space=3
 yabai -m rule --add app="^Marta$" manage=off grid=4:4:2:0:2:4
-yabai -m rule --add app="^spotube$" manage=off grid=100:100:4:4:45:80 space=6
-yabai -m rule --add app="^Session$" manage=off grid=100:100:68:28:15:60 space=6
+yabai -m rule --add app="^spotube$" manage=off grid=100:100:5:7:84:84 space=6
+yabai -m rule --add app="^iPhone Mirroring$" manage=off grid=100:100:72:20:10:10 space=7
+yabai -m rule --add app="^Session$" manage=off grid=100:100:66:28:30:40 space=7
+yabai -m rule --add app="^TickTick$" manage=off grid=100:100:4:4:45:80 space=7
 yabai -m rule --add app="^App Store$" manage=off sticky=on
+yabai -m rule --add app=Firefox manage=on space=3
 
 yabai -m rule --add app="^Google Chrome$" manage=on space=4
 yabai -m rule --add app="^kitty$" manage=on space=2
 yabai -m rule --add app="WezTerm" manage=on space=term
-# yabai -m rule --add app="^Telegram$" manage=on space=1
+yabai -m rule --add app="^Telegram$" manage=on space=1
 yabai -m rule --add app=Ferdi manage=on space=1
 yabai -m rule --add app=Skype manage=on space=1
 yabai -m rule --add app=Slack manage=on space=1
 yabai -m rule --add app=Mattermost manage=on space=1
 yabai -m rule --add app="^Whalebird$" manage=on space=7
-yabai -m rule --add app="^Discord$" manage=on space=8
-yabai -m rule --add app="^Spark$" manage=off space=8 sticky=on
+yabai -m rule --add app="^Discord$" manage=on space=1
+yabai -m rule --add app="^Spark$" manage=off space=8 sticky=off
 yabai -m rule --add app="^MongoDB Compass" manage=on space=9
 yabai -m rule --add app="^WebTorrent" manage=on space=10
+yabai -m rule --add app="^ChatGPT$" manage=on space=9
+yabai -m rule --add app="^Books$" manage=on space=7
+yabai -m rule --add app="^Obsidian$" manage=on space=8
 
 # yabai -m rule --add app="^Doom Emacs$" manage=off
 # yabai -m rule --add app="^Emacs$" manage=off
 
-
 # global settings
-yabai -m config mouse_follows_focus          off
-yabai -m config focus_follows_mouse          off
-yabai -m config window_placement             second_child
-yabai -m config window_topmost               off
-yabai -m config window_shadow                off
-yabai -m config window_opacity               off
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse off
+yabai -m config window_placement second_child
+yabai -m config window_topmost off
+yabai -m config window_shadow off
+yabai -m config window_opacity off
 # yabai -m config window_opacity_duration      0.0
-yabai -m config active_window_opacity        0.9
-yabai -m config normal_window_opacity       0.80
-yabai -m config split_ratio                  0.50
-yabai -m config auto_balance                 off
-yabai -m config mouse_modifier               fn
-yabai -m config mouse_action1                move
-yabai -m config mouse_action2                resize
-yabai -m config mouse_drop_action            swap
+yabai -m config active_window_opacity 0.9
+yabai -m config normal_window_opacity 0.80
+yabai -m config split_ratio 0.50
+yabai -m config auto_balance off
+yabai -m config mouse_modifier fn
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
+yabai -m config mouse_drop_action swap
 # yabai -m config window_border                off
 # yabai -m config window_border                on
 # general space settings
-yabai -m config layout                       bsp
+yabai -m config layout bsp
 # yabai -m config top_padding                  32
 # yabai -m config bottom_padding               16
 # yabai -m config left_padding                 16
 # yabai -m config right_padding                16
 # yabai -m config window_gap                   16
 
-yabai -m config top_padding                  36
-yabai -m config bottom_padding               20
-yabai -m config left_padding                 20
-yabai -m config right_padding                20
-yabai -m config window_gap                   20
-
+yabai -m config top_padding 36
+yabai -m config bottom_padding 20
+yabai -m config left_padding 20
+yabai -m config right_padding 20
+yabai -m config window_gap 20
 
 # Space names
 yabai -m space 1 --label social
@@ -135,12 +150,9 @@ yabai -m space 4 --label other
 yabai -m space 5 --label dev
 yabai -m space 6 --label entertainment
 yabai -m space 7 --label thrash
-yabai -m space 8 --label t2
+yabai -m space 8 --label study
 yabai -m space 9 --label t3
 yabai -m space 10 --label load
-
-
-
 
 # Spacebar
 # # Refresh spaces widget on space change
@@ -205,9 +217,6 @@ yabai -m space 10 --label load
 #         action="echo ':$event' | /usr/local/bin/hs -m stackline-events"
 # done
 
-
-
-
 # WAL
 # source ~/.cache/wal/colors.sh # pywal scheme - update if needed
 
@@ -218,7 +227,7 @@ CACTV=$(echo $color3 | sed 's/#//')
 CNORM=$(echo $color1 | sed 's/#//')
 CINSE=$(echo $foreground | sed 's/#//')
 
-yabai -m config status_bar                   on
+yabai -m config status_bar on
 # yabai -m config status_bar_background_color  0xff$CBACK
 # yabai -m config status_bar_foreground_color  0xff$CFORE
 
@@ -233,14 +242,14 @@ yabai -m config status_bar                   on
 # yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 # yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 # yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
-borders blacklist="Loom,qemu-system-aarch64,Simulator" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
+# borders blacklist="Loom,qemu-system-aarch64,Simulator,iPhone Mirroring" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
+# borders whitelist="Marta,Spotify,Emacs,session,TickTick,Mattermost,Telegram,spotube,wezterm-gui,Obsidian,Discord,Arc,Google Chrome" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
+# borders whitelist="Marta,Spotify,Emacs,session,TickTick,Mattermost,Telegram,spotube,wezterm-gui,Obsidian,Discord,Arc,Google Chrome" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
 
 # $HOME/apps/JankyBorders/bin/borders \
 #   "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
 #   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffc6d0f5)" \
 #   width=2
-
-
 
 # Float windows bug
 # yabai -m signal --add event=window_created action='
@@ -251,7 +260,8 @@ borders blacklist="Loom,qemu-system-aarch64,Simulator" active_color=0xffe78284 i
 # '
 
 python3 $HOME/.config/yabai/order-windows.py
-$HOME/.config/yabai/visit-all-windows.sh 
+$HOME/.config/yabai/visit-all-windows.sh
+$HOME/.config/yabai/stack-windows.sh
 
 echo "yabai configuration loaded.."
 
@@ -266,7 +276,6 @@ yabai -m signal --add event=window_resized action='echo "refresh windows" | nc -
 yabai -m signal --add event=window_minimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=window_deminimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 
-
 # Window specifinc configs
 
 yabai -m space 6 --gap rel:32
@@ -274,3 +283,10 @@ yabai -m space 6 --padding abs:64:64:64:64
 
 yabai -m space 2 --gap rel:32
 yabai -m space 2 --padding abs:64:64:64:64
+
+# focus window after active space changes
+# yabai -m signal --add event=space_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
+yabai -m signal --add event=space_changed action='yabai -m window --focus $(yabai -m query --windows --space | jq -r '\''[.[]|select(."is-visible" and !."is-sticky" and .app != "Wispr Flow")][0].id'\'')'
+
+# # focus window after active display changes
+# yabai -m signal --add event=display_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
