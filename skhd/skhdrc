@@ -36,6 +36,9 @@ shift + alt - 7 : yabai -m window --space 7 && yabai -m space --focus 7
 shift + alt - 8 : yabai -m window --space 8 && yabai -m space --focus 8
 shift + alt - 9 : yabai -m window --space 9 && yabai -m space --focus 9
 shift + alt - 0 : yabai -m window --space 10 && yabai -m space --focus 10
+shift + alt - 0x1B : yabai -m window --space 11 && yabai -m space --focus 11
+shift + alt - 0x18 : yabai -m window --space 12 && yabai -m space --focus 12
+
 
 shift + alt - d : yabai -m window --space dev && yabai -m space --focus dev
 shift + alt - w : yabai -m window --space www && yabai -m space --focus www
@@ -146,6 +149,8 @@ alt - 7 : yabai -m space --focus 7
 alt - 8 : yabai -m space --focus 8
 alt - 9 : yabai -m space --focus 9
 alt - 0 : yabai -m space --focus 10
+alt - 0x1B : yabai -m space --focus 11
+alt - 0x18 : yabai -m space --focus 12
 
 # alt - m : yabai -m space --focus 1
 alt - s : yabai -m space --focus social
@@ -186,8 +191,8 @@ cmd + alt - w : yabai -m space --focus 3;\
 cmd + alt - t : yabai -m space --focus 1;\
                 open -a telegram.app
 
-cmd + shift + alt - s : yabai -m space --focus 1;\
-                open -a skype.app
+# cmd + shift + alt - s : yabai -m space --focus 1;\
+#                 open -a skype.app
 
 cmd + alt - e : yabai -m space --focus dev; \
                export $(dbus-launch) && emacs
@@ -202,8 +207,8 @@ cmd + alt - m : open -na kitty --args "spt"
 cmd + alt - x : yabai -m window --close
 
 # Focus window up/down in stack
-# ctrl - n : yabai -m window --focus stack.next
-# ctrl - p : yabai -m window --focus stack.prev
+cmd + ctrl - n : yabai -m window --focus stack.next
+cmd + ctrl - p : yabai -m window --focus stack.prev
 
 # Add the active window  to the window or stack to the {direction}
 # Note that this only works when the active window does *not* already belong to a stack
@@ -215,6 +220,8 @@ cmd + alt - x : yabai -m window --close
 cmd + ctrl - left  : yabai -m window west --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + ctrl - down  : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + ctrl - up    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
+cmd + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
+cmd + ctrl - j  : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + ctrl - right : yabai -m window east --stack $(yabai -m query --windows --window | jq -r '.id')
 
 cmd + ctrl + alt - s: yabai --stop-service
