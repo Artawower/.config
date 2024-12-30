@@ -37,7 +37,7 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {"tsserver", "stylelint_lsp", "cssls", "pyright", "vuels", "gopls"}
+local servers = {"ts-ls", "stylelint_lsp", "cssls", "pyright", "vuels", "gopls"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         capabilities = capabilities,
@@ -176,51 +176,32 @@ saga.init_lsp_saga(
 )
 
 local wk = require("which-key")
-wk.register(
-    {
-        name = "Lsp prompts",
-        h = {
-            d = {":lua require('lspsaga.hover').render_hover_doc()<CR>", "Show nice docs"},
-            s = {":lua require('lspsaga.signaturehelp').signature_help()<CR>", "Show signature of method"},
-            h = {":lua require'lspsaga.provider'.lsp_finder()<CR>", "Lsp saga events"}
-        },
-        c = {
-            name = "Lsp code action",
-            r = {":Lspsaga rename<CR>", "Lsp rename"}
-        },
-        f = {
-            name = "Flycheck error",
-            p = {"<cmd>lua vim.diagnostic.goto_prev()<CR>", "Prev error"},
-            n = {"<cmd>lua vim.diagnostic.goto_next()<CR>", "Next error"},
-            ["["] = {"<cmd>lua vim.diagnostic.goto_prev()<CR>", "Prev error"},
-            ["]"] = {"<cmd>lua vim.diagnostic.goto_next()<CR>", "Next error"}
-        },
-        l = {
-            name = "Lsp list",
-            r = {":Lspsaga lsp_finder<CR>", "Find references"}
-        }
-    },
-    {prefix = "<space>"}
-)
+wk.add({
+    { "<space>", group = "Lsp prompts" },
+    { "<space>h", group = "Lsp prompts - Hover and Signature" },
+    { "<space>hd", ":lua require('lspsaga.hover').render_hover_doc()<CR>", desc = "Show nice docs" },
+    { "<space>hs", ":lua require('lspsaga.signaturehelp').signature_help()<CR>", desc = "Show signature of method" },
+    { "<space>hh", ":lua require'lspsaga.provider'.lsp_finder()<CR>", desc = "Lsp saga events" },
 
-wk.register(
-    {
-        l = {":lua require('lspsaga.codeaction').range_code_action()<CR>", "Code actions"},
-        d = {":lua require('lspsaga.provider').preview_definition()<CR>", "Show definition"},
-        i = {":lua require('lspsaga.hover').render_hover_doc()<CR>", "Show docs"}
-    },
-    {prefix = "<leader>"}
-)
+    { "<space>c", group = "Lsp code action" },
+    { "<space>cr", ":Lspsaga rename<CR>", desc = "Lsp rename" },
 
-wk.register(
-    {
-        g = {
-            name = "Go",
-            d = {":lua vim.lsp.buf.definition()<CR>", "Go to definition"},
-            D = {":lua vim.lsp.buf.declaration()<CR>", "Go to declaration"},
-            i = {":lua vim.lsp.buf.implementation()<CR>", "Go to implementation"}
-        }
-    }
-)
+    { "<space>f", group = "Flycheck error" },
+    { "<space>fp", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Prev error" },
+    { "<space>fn", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next error" },
+    { "<space>f[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Prev error" },
+    { "<space>f]", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next error" },
+
+    { "<space>l", group = "Lsp list" },
+    { "<space>lr", ":Lspsaga lsp_finder<CR>", desc = "Find references" },
+    { "<leader>l", ":lua require('lspsaga.codeaction').range_code_action()<CR>", desc = "Code actions" },
+    { "<leader>d", ":lua require('lspsaga.provider').preview_definition()<CR>", desc = "Show definition" },
+    { "<leader>i", ":lua require('lspsaga.hover').render_hover_doc()<CR>", desc = "Show docs" },
+
+    { "g", group = "Go" },
+    { "gd", ":lua vim.lsp.buf.definition()<CR>", desc = "Go to definition" },
+    { "gD", ":lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration" },
+    { "gi", ":lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation" },
+})
 
 require "lspconfig".vuels.setup {}

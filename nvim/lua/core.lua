@@ -72,38 +72,24 @@ vim.api.nvim_exec([[
 -- Common keybindings
 local wk = require("which-key")
 
-wk.register(
-    {
-        m = {
-            name = "Compile",
-            e = {
-                b = {':luafile %<CR>:echo "Compiled!"<CR>', "Compile current lua file"}
-            }
-        },
-        b = {
-            name = "buffer",
-            ["]"] = {":bnext<CR>", "Switch next buffer"},
-            ["["] = {":bprevious<CR>", "Switch previous buffer"}
-        },
-        h = {
-            name = "Hot",
-            r = {
-                name = "Reload",
-                e = {
-                    ":source ~/.config/nvim/lua/plugins.lua<CR>:source $MYVIMRC<CR>:Lazy sync<CR>:echo 'Reloaded!'<CR>",
-                    "Reload neovim"
-                }
-            }
-        },
-        w = {
-          name = "Split",
-          v = {":vsplit<CR>", "Vertical split"},
-          s = {":split<CR>", "Horizontal split"}
-        }
-        -- s = {":SearchBoxIncSearch<CR>", "Search"}
-    },
-    { prefix = "<space>" }
-)
+wk.add({
+    { "<space>m", group = "Compile" },
+    { "<space>meb", ':luafile %<CR>:echo "Compiled!"<CR>', desc = "Compile current lua file" },
+
+    { "<space>b", group = "buffer" },
+    { "<space>b]", ":bnext<CR>", desc = "Switch next buffer" },
+    { "<space>b[", ":bprevious<CR>", desc = "Switch previous buffer" },
+
+    { "<space>h", group = "Hot" },
+    { "<space>hr", group = "Reload" },
+    { "<space>hre", ":source ~/.config/nvim/lua/plugins.lua<CR>:source $MYVIMRC<CR>:Lazy sync<CR>:echo 'Reloaded!'<CR>", desc = "Reload neovim" },
+
+    { "<space>w", group = "Split" },
+    { "<space>wv", ":vsplit<CR>", desc = "Vertical split" },
+    { "<space>ws", ":split<CR>", desc = "Horizontal split" },
+    -- Uncomment or modify the below line if needed
+    -- { "<space>s", ":SearchBoxIncSearch<CR>", desc = "Search" },
+})
 
 g.floaterm_keymap_new = "<F7>"
 g.floaterm_keymap_prev = "<F8>"

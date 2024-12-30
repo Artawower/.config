@@ -10,6 +10,8 @@ echo $is_hidden
 
 bash ~/.config/yabai/stack-windows.sh
 
+# Function for hide bar 
+
 if [ "$is_hidden" == "\"off\"" ]; then
     sketchybar --bar hidden=on
     yabai -m config top_padding 8

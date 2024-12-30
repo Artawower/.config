@@ -311,12 +311,9 @@ neogit.setup {
 }
 
 local wk = require("which-key")
-wk.register(
-    {
-        g = {
-            name = "Git",
-            g = {":Neogit<CR>", "Open git status"}
-        }
-    },
-    {prefix = "<space>"}
-)
+
+wk.add({
+    { "<space>g", group = "Git" },
+    { "<space>gg", ":Neogit<CR>", desc = "Open git status" },
+})
+
