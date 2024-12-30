@@ -9,20 +9,13 @@ require("telescope").load_extension("vim_bookmarks")
 
 local wk = require("which-key")
 
-wk.register(
-    {
-        name = "Bookmarks",
-        ["<enter>"] = {":BookmarkAnnotate<CR>", "Toggle bookmarks"},
-        b = {
-            n = {":BookmarkNext<CR>", "Next bookmarks"},
-            p = {":BookmarkPrev<CR>", "Prev bookmarks"},
-            t = {":BookmarkShowAll<CR>", "Toggle bookmark"},
-            l = {
-                ":lua require('telescope').extensions.vim_bookmarks.all({ only_annotated = true })<CR>",
-                "All bookmarks"
-            },
-            f = {":lua require('telescope').extensions.vim_bookmarks.current_file()<CR>", "Current file bookmarks"}
-        }
-    },
-    {prefix = "<space>"}
-)
+wk.add({
+    { "<space>", group = "Bookmarks" },
+    { "<space><enter>", ":BookmarkAnnotate<CR>", desc = "Toggle bookmarks" },
+    { "<space>bn", ":BookmarkNext<CR>", desc = "Next bookmarks" },
+    { "<space>bp", ":BookmarkPrev<CR>", desc = "Prev bookmarks" },
+    { "<space>bt", ":BookmarkShowAll<CR>", desc = "Toggle bookmark" },
+    { "<space>bl", ":lua require('telescope').extensions.vim_bookmarks.all({ only_annotated = true })<CR>", desc = "All bookmarks" },
+    { "<space>bf", ":lua require('telescope').extensions.vim_bookmarks.current_file()<CR>", desc = "Current file bookmarks" },
+})
+

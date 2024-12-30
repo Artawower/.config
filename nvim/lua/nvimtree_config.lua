@@ -80,21 +80,17 @@ g.nvim_tree_icons = {
 
 local wk = require("which-key")
 
-wk.register(
-    {
-        o = {
-            name = "file tree",
-            p = {":NvimTreeToggle<CR>", "Toggle file tree"},
-            P = {":NvimTreeFindFile<CR>", "Focus current file", noremap = true}
-        },
-        ["."] = {
-            ":RangerCurrentDirectory<CR>",
-            "Open current directory"
-        },
-        [","] = {
-            ":RangerWorkingDirectory<CR>",
-            "Open working directory"
-        }
-    },
-    {prefix = "<space>"}
-)
+wk.add({
+    { "<space>", group = "completion" },
+    { "<space>'", ":Telescope resume<CR>", desc = "Resume last session" },
+    { "<space>*", ":Telescope grep_string<CR>", desc = "Search word under cursor" },
+    { "<space>/", ":Telescope live_grep<CR>", desc = "Search project" },
+    { "<space><space>", ":Telescope find_files<CR>", desc = "Find Files" },
+    { "<space>bb", ":Telescope buffers<CR>", desc = "Open buffer" },
+    { "<space>f", group = "Files" },
+    { "<space>fr", ":Telescope oldfiles<CR>", desc = "Open old files" },
+    { "<space>p", ":lua require'telescope'.extensions.projects.projects{}<CR>", desc = "Open project manager", remap = false },
+    { "<space>s", ":Telescope current_buffer_fuzzy_find<CR>", desc = "Search current buffer" },
+    { "<space>x", ":Telescope commands<CR>", desc = "Execute commands" },
+})
+

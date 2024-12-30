@@ -22,6 +22,7 @@
 !oh-my-zsh-custom
 !sketchybar
 !.wezterm.lua
+!.raycast
 
 
 .DS_Store

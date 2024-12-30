@@ -52,33 +52,13 @@ vim.cmd("autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()")
 
 local wk = require("which-key")
 
-wk.register(
-    {
-        o = {
-            name = "Terminal",
-            t = {
-                ":ToggleTerm size=20 direction=horizontal<CR>",
-                "open horizontal terminal",
-                noremap = true
-            },
-            T = {":ToggleTerm size=20 direction=float<CR>", "float terminal", noremap = true}
-        }
-    },
-    {prefix = "<space>"}
-)
+wk.add({
+    { "<space>o", group = "Terminal" },
+    { "<space>ot", ":ToggleTerm size=20 direction=horizontal<CR>", desc = "Open horizontal terminal", remap = false },
+    { "<space>oT", ":ToggleTerm size=20 direction=float<CR>", desc = "Float terminal", remap = false },
 
-wk.register(
-    {
-        name = "Translate",
-        t = {
-            ":TranslateW --target_lang=ru --source_lang=auto<CR>",
-            "Translate line",
-            mode = "v"
-        },
-        r = {
-            ":TranslateW --target_lang=en --source_lang=ru<CR>",
-            "Translate ru"
-        }
-    },
-    {prefix = "<leader>"}
-)
+    { "<leader>", group = "Translate" },
+    { "<leader>t", ":TranslateW --target_lang=ru --source_lang=auto<CR>", desc = "Translate line", mode = "v" },
+    { "<leader>r", ":TranslateW --target_lang=en --source_lang=ru<CR>", desc = "Translate ru" },
+})
+

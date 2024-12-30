@@ -51,28 +51,12 @@ require('gitsigns').setup {
 
 local wk = require("which-key")
 
-wk.register(
-    {
-        g = {
-            name = "Gitsigns",
-            ["]"] = {
-                ":Gitsigns next_hunk<CR>",
-                "Next"
-            },
-            ["["] = {
-                ":Gitsigns prev_hunk<CR>",
-                "Prev"
-            },
-            r = {
-                ":Gitsigns reset_hunk<CR>",
-                "Reset"
-            },
-            p = {
-                ":Gitsigns preview_hunk<CR>",
-                "Preview"
-            }
-        }
-        -- s = {":SearchBoxIncSearch<CR>", "Search"}
-    },
-    {prefix = "<space>"}
-)
+wk.add({
+    { "<space>g", group = "Gitsigns" },
+    { "<space>g]", ":Gitsigns next_hunk<CR>", desc = "Next" },
+    { "<space>g[", ":Gitsigns prev_hunk<CR>", desc = "Prev" },
+    { "<space>gr", ":Gitsigns reset_hunk<CR>", desc = "Reset" },
+    { "<space>gp", ":Gitsigns preview_hunk<CR>", desc = "Preview" },
+    -- Uncomment or modify the below line if needed
+    -- { "<space>gs", ":SearchBoxIncSearch<CR>", desc = "Search" },
+})

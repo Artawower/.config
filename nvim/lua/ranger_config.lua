@@ -1,14 +1,7 @@
 local wk = require("which-key")
-wk.register(
-    {
-        ["."] = {
-            ":RangerCurrentDirectory<CR>",
-            "Open current directory"
-        },
-        [","] = {
-            ":RangerWorkingDirectory<CR>",
-            "Open working directory"
-        }
-    },
-    {prefix = "<space>"}
-)
+
+wk.add({
+    { "<space>.", ":RangerCurrentDirectory<CR>", desc = "Open current directory" },
+    { "<space>,", ":RangerWorkingDirectory<CR>", desc = "Open working directory" },
+})
+
