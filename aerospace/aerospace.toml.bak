@@ -9,11 +9,7 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = [
-    # JankyBorders has a built-in detection of already running process,
-    # so it won't be run twice on AeroSpace restart
-    # 'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
-]
+after-startup-command = []
 
 # Start AeroSpace at login
 start-at-login = false
@@ -25,7 +21,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 32
+accordion-padding = 30
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -128,13 +124,11 @@ alt-7 = 'workspace THR'
 alt-8 = 'workspace STU'
 alt-9 = 'workspace AI'
 alt-0 = 'workspace PRD'
-alt-minus = 'workspace 11'
-alt-equal = 'workspace 12'
 
 alt-s = 'workspace SOC'
 alt-t = 'workspace TRM'
 alt-w = 'workspace WEB'
-alt-o = 'workspace DEB'
+alt-p = 'workspace DEB'
 alt-d = 'workspace DEV'
 alt-e = 'workspace ENT'
 alt-i = 'workspace THR'
@@ -157,7 +151,7 @@ alt-shift-0 = ['move-node-to-workspace PRD', 'workspace PRD']
 alt-shift-s = ['move-node-to-workspace SOC', 'workspace SOC']
 alt-shift-t = ['move-node-to-workspace TRM', 'workspace TRM']
 alt-shift-w = ['move-node-to-workspace WEB', 'workspace WEB']
-alt-shift-o = ['move-node-to-workspace DEB', 'workspace DEB']
+alt-shift-p = ['move-node-to-workspace DEB', 'workspace DEB']
 alt-shift-d = ['move-node-to-workspace DEV', 'workspace DEV']
 alt-shift-e = ['move-node-to-workspace ENT', 'workspace ENT']
 alt-shift-i = ['move-node-to-workspace THR', 'workspace THR']
@@ -166,181 +160,30 @@ alt-shift-a = ['move-node-to-workspace AI', 'workspace AI']
 alt-shift-r = ['move-node-to-workspace PRD', 'workspace PRD']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-# alt-tab = 'workspace-back-and-forth'
+alt-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-# alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-
-alt-shift-c = ['layout floating tiling']
-# alt-f = 'layout tiles accordion'
-alt-f = 'layout tiling v_accordion'
-alt-shift-f = 'macos-native-fullscreen'
-alt-cmd-r = 'reload-config'
-
-
-alt-enter = '''exec-and-forget osascript -e '
-tell application "WezTerm"
-    activate
-end tell'
-  '''
-
-alt-cmd-l = 'resize width -40'
-alt-cmd-h = 'resize width +40'
-alt-cmd-j = 'resize height +40'
-alt-cmd-k = 'resize height -40'
-
-cmd-ctrl-left = 'join-with left'
-cmd-ctrl-down = 'join-with down'
-cmd-ctrl-up = 'join-with up'
-cmd-ctrl-right = 'join-with right'
-cmd-ctrl-k = 'join-with up'
-cmd-ctrl-j = 'join-with down'
-
-
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
-d = ['flatten-workspace-tree', 'mode main'] # reset layout
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-r = ['reload-config', 'mode main'] # reload config
 backspace = ['close-all-windows-but-current', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
 
-h = ['join-with left', 'mode main']
-j = ['join-with down', 'mode main']
-k = ['join-with up', 'mode main']
-l = ['join-with right', 'mode main']
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
 
 down = 'volume down'
 up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
-
-[[on-window-detected]]
-if.app-id = 'com.apple.systempreferences'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.bitwarden'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.raycast.macos'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.iphonesimulator'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.pika'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.grammarly.desktop'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.authy.desktop'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.kap'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.xnip'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.blizzard.hearthstone'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'org.flameshot'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'us.zoom.xos'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.qemu.system.aarch64'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.loom.desktop'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.mozilla.firefox'
-run = 'move-node-to-workspace WEB'
-
-[[on-window-detected]]
-if.app-id = 'com.brave.browser'
-run = 'move-node-to-workspace WEB'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace DEB'
-
-[[on-window-detected]]
-if.app-id = 'io.emacs'
-run = 'move-node-to-workspace DEV'
-
-[[on-window-detected]]
-if.app-id = 'com.kitty'
-run = 'move-node-to-workspace TRM'
-
-[[on-window-detected]]
-if.app-id = 'com.wez.wezterm'
-run = 'move-node-to-workspace TRM'
-
-[[on-window-detected]]
-if.app-id = 'com.tdesktop.Telegram'
-run = 'move-node-to-workspace SOC'
-
-[[on-window-detected]]
-if.app-id = 'org.mozilla.com.zen.browser'
-run = ['layout floating', 'move-node-to-workspace WEB']
-
-
-[[on-window-detected]]
-if.app-id = 'oss.krtirtho.spotube'
-run = ['layout floating', 'move-node-to-workspace ENT']
-  
-  
-[[on-window-detected]]
-if.app-id = 'com.slack'
-run = 'move-node-to-workspace SOC'
-
-[[on-window-detected]]
-if.app-id = 'com.discord'
-run = 'move-node-to-workspace SOC'
-
-[[on-window-detected]]
-if.app-id = 'org.gnu.Emacs'
-run = 'move-node-to-workspace DEV'
-  
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-  run = 'move-node-to-workspace STU'
-
-
-[[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = ['layout floating']
 

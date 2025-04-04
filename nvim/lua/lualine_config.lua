@@ -49,26 +49,26 @@ end
 
 require("lualine").setup {
     options = {
---        theme = "nightfly"
+        --        theme = "nightfly"
         -- component_separators = "|",
         -- section_separators = {left = "", right = ""}
         -- component_separators = { left = '', right = ''},
         -- section_separators = { left = '', right = '' }
-        section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' },
-        disabled_filetypes = { 'packer', 'NvimTree' }
+        -- section_separators = { left = '', right = '' },
+        -- component_separators = { left = '', right = '' },
+        disabled_filetypes = {"packer", "NvimTree"}
     },
     sections = {
-        lualine_a = {
-            {"mode", separator = {left = ""}, right_padding = 2}
-        },
+        -- lualine_a = {
+        --     {"mode", separator = {left = ""}, right_padding = 2}
+        -- },
         lualine_b = {"filename", "branch"},
         lualine_c = {"fileformat"},
         lualine_x = {},
-        lualine_y = {"filetype", "progress", get_wakatime},
-        lualine_z = {
-            {"location", separator = {right = ""}, left_padding = 2}
-        }
+        lualine_y = {"filetype", "progress", get_wakatime}
+        -- lualine_z = {
+        --     {"location", separator = {right = ""}, left_padding = 2}
+        -- }
     },
     inactive_sections = {
         lualine_a = {"filename"},
@@ -79,7 +79,7 @@ require("lualine").setup {
         lualine_z = {"location"}
     },
     tabline = {},
-    extensions = { }
-  }
+    extensions = {}
+}
 
-vim.opt.list = true;
+vim.opt.list = true
