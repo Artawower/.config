@@ -1,0 +1,15 @@
+yabai -m window 298 --display 1 --space 2 --move abs:64.0000:102.0000 --resize abs:1384.0000:816.0000
+yabai -m window 36858 --display 1 --space 10 --move abs:1184.0000:38.0000 --resize abs:61.0000:515.0000
+yabai -m window 36857 --display 1 --space 10 --move abs:738.0000:38.0000 --resize abs:442.0000:935.0000
+yabai -m window 32684 --display 1 --space 1 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 35727 --display 1 --space 9 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 8358 --display 1 --space 8 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 18604 --display 1 --space 7 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 31803 --display 1 --space 5 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 34502 --display 1 --space 3 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 14109 --display 1 --space 4 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 922 --display 1 --space 1 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
+yabai -m window 15771 --display 1 --space 6 --move abs:64.0000:102.0000 --resize abs:1384.0000:816.0000
+yabai -m window 16843 --display 1 --space 10 --move abs:20.0000:74.0000 --resize abs:1001.0000:888.0000
+yabai -m window 27179 --display 1 --space 1 --move abs:559.0000:783.0000 --resize abs:900.0000:638.0000
+yabai -m window 35659 --display 1 --space 1 --move abs:20.0000:74.0000 --resize abs:1472.0000:888.0000
