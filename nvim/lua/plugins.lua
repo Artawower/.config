@@ -1,4 +1,8 @@
 return {
+    -- Dependencies
+    {
+        "MunifTanjim/nui.nvim"
+    },
     -- Whick key
     {"folke/which-key.nvim", lazy = true},
     -- File managers
@@ -8,7 +12,6 @@ return {
             require("ranger_config")
         end
     },
-    ---@type LazySpec
     {
         "mikavilpas/yazi.nvim",
         event = "VeryLazy",
@@ -351,5 +354,115 @@ return {
         config = function()
             require("kitty-scrollback").setup()
         end
+    },
+    -- AI
+    -- {
+    --     "GeorgesAlkhouri/nvim-aider",
+    --     cmd = "Aider",
+    --     -- Example key mappings for common actions:
+    --     keys = {
+    --         {"<leader>a/", "<cmd>Aider toggle<cr>", desc = "Toggle Aider"},
+    --         {"<leader>as", "<cmd>Aider send<cr>", desc = "Send to Aider", mode = {"n", "v"}},
+    --         {"<leader>ac", "<cmd>Aider command<cr>", desc = "Aider Commands"},
+    --         {"<leader>ab", "<cmd>Aider buffer<cr>", desc = "Send Buffer"},
+    --         {"<leader>a+", "<cmd>Aider add<cr>", desc = "Add File"},
+    --         {"<leader>a-", "<cmd>Aider drop<cr>", desc = "Drop File"},
+    --         {"<leader>ar", "<cmd>Aider add readonly<cr>", desc = "Add Read-Only"},
+    --         {"<leader>aR", "<cmd>Aider reset<cr>", desc = "Reset Session"},
+    --         -- Example nvim-tree.lua integration if needed
+    --         {"<leader>a+", "<cmd>AiderTreeAddFile<cr>", desc = "Add File from Tree to Aider", ft = "NvimTree"},
+    --         {"<leader>a-", "<cmd>AiderTreeDropFile<cr>", desc = "Drop File from Tree from Aider", ft = "NvimTree"}
+    --     },
+    --     dependencies = {
+    --         "folke/snacks.nvim",
+    --         --- The below dependencies are optional
+    --         "catppuccin/nvim",
+    --         "nvim-tree/nvim-tree.lua",
+    --         --- Neo-tree integration
+    --         {
+    --             "nvim-neo-tree/neo-tree.nvim",
+    --             opts = function(_, opts)
+    --                 -- Example mapping configuration (already set by default)
+    --                 -- opts.window = {
+    --                 --   mappings = {
+    --                 --     ["+"] = { "nvim_aider_add", desc = "add to aider" },
+    --                 --     ["-"] = { "nvim_aider_drop", desc = "drop from aider" }
+    --                 --     ["="] = { "nvim_aider_add_read_only", desc = "add read-only to aider" }
+    --                 --   }
+    --                 -- }
+    --                 require("nvim_aider.neo_tree").setup(opts)
+    --             end
+    --         }
+    --     },
+    --     config = true
+    -- }
+    {
+        "yetone/avante.nvim",
+        -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+        build = "make", -- ⚠️ must add this line! ! !
+        -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+        event = "VeryLazy",
+        version = false, -- Never set this value to "*"! Never!
+        ---@module 'avante'
+        ---@type avante.Config
+        opts = {
+            -- add any opts here
+            -- for example
+            provider = "copilot",
+            auto_suggestions_provider = nil,
+            providers = {
+                copilot = {
+                    model = "claude-sonnet-4"
+                },
+                claude = {
+                    endpoint = "https://api.anthropic.com",
+                    model = "claude-sonnet-4-20250514",
+                    timeout = 30000, -- Timeout in milliseconds
+                    extra_request_body = {
+                        temperature = 0.75,
+                        max_tokens = 20480
+                    }
+                }
+            }
+        },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            --- The below dependencies are optional,
+            "echasnovski/mini.pick", -- for file_selector provider mini.pick
+            "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+            "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+            "ibhagwan/fzf-lua", -- for file_selector provider fzf
+            "stevearc/dressing.nvim", -- for input provider dressing
+            "folke/snacks.nvim", -- for input provider snacks
+            "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+            "zbirenbaum/copilot.lua", -- for providers='copilot'
+            {
+                -- support for image pasting
+                "HakonHarnes/img-clip.nvim",
+                event = "VeryLazy",
+                opts = {
+                    -- recommended settings
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true
+                        },
+                        -- required for Windows users
+                        use_absolute_path = true
+                    }
+                }
+            },
+            {
+                -- Make sure to set this up properly if you have lazy=true
+                "MeanderingProgrammer/render-markdown.nvim",
+                opts = {
+                    file_types = {"markdown", "Avante"}
+                },
+                ft = {"markdown", "Avante"}
+            }
+        }
     }
 }

@@ -17,8 +17,8 @@
 # grid optioins
 # <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
 
-pkill -x yb
-yb &
+pkill -x yabai
+yabai &
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
@@ -247,9 +247,13 @@ yabai -m config status_bar on
 # borders whitelist="Marta,Spotify,Emacs,session,TickTick,Mattermost,Telegram,spotube,wezterm-gui,Obsidian,Discord,Arc,Google Chrome" active_color=0xffe78284 inactive_color=0xfff2d5cf width=5.0 2>/dev/null 1>&2 &
 
 # $HOME/apps/JankyBorders/bin/borders \
+    # yabai -m query --windows | jq '.[] | {id: .id, app: .app, title: .title, floating: ."is-floating", space: .id, sticky: ".is-sticky"}'
+# borders \
 #   "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
 #   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffc6d0f5)" \
-#   width=2
+#   'blacklist="Emacs"' \
+#   width=6.0 \
+#   hidpi=on \
 
 # Float windows bug
 # yabai -m signal --add event=window_created action='
@@ -295,7 +299,7 @@ yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m sp
 yabai -m signal --add app='^Finder$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
 yabai -m signal --add app='^Finder$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
 
-sketchybar --bar hidden=on
+# sketchybar --bar hidden=on
 
 # # focus window after active display changes
 # yabai -m signal --add event=display_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
