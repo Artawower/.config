@@ -12,14 +12,47 @@ config.font_size = 15.0
 config.use_fancy_tab_bar = false
 local act = wezterm.action
 
-local function scheme_for_appearance(appearance)
-    if appearance:find "Dark" then
-        -- return "Dark Violet (base16)"
-        -- return "Laser"
-        -- return "Catppuccin Frappe"
-        return "Catppuccin Macchiato"
+local dark_themes = {
+    -- "Catppuccin Macchiato",
+    "Catppuccin Frappe", 
+    -- "Catppuccin Mocha",
+    "Tokyo Night",
+    "Dracula",
+    "OneDark",
+    "Rebecca (base16)"
+}
+
+local light_themes = {
+    "Catppuccin Latte",
+    "rose-pine-dawn",
+    -- "aikofog (terminal.sexy)"
+}
+
+wezterm.on('window-config-reloaded', function(window, pane)
+    local appearance = wezterm.gui.get_appearance()
+    local window_id = window:window_id()
+    local theme_index
+    
+    if appearance:find("Dark") then
+        theme_index = (window_id % #dark_themes) + 1
+        window:set_config_overrides({
+            color_scheme = dark_themes[theme_index]
+        })
+        wezterm.log_info("Dark mode detected, using theme: " .. dark_themes[theme_index])
     else
-        return "Catppuccin Latte"
+        theme_index = (window_id % #light_themes) + 1
+        window:set_config_overrides({
+            color_scheme = light_themes[theme_index]
+        })
+        wezterm.log_info("Light mode detected, using theme: " .. light_themes[theme_index])
+    end
+end)
+
+local function scheme_for_appearance(appearance)
+    if appearance:find("Dark") then
+        return dark_themes[1]
+    else
+        return light_themes[1]
     end
 end
 
@@ -30,6 +63,10 @@ config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 -- config.color_scheme = "Dark Violet (base16)"
 
 local wez_theme = wezterm.color.get_builtin_schemes()[config.color_scheme]
+if not wez_theme then
+    config.color_scheme = "Catppuccin Macchiato"
+    wez_theme = wezterm.color.get_builtin_schemes()[config.color_scheme]
+end
 
 config.colors = {
     tab_bar = {
