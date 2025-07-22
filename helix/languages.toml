@@ -1,0 +1,210 @@
+# Programming languages configuration for Helix
+# Adapted from user's NeoVim LSP settings
+
+# TypeScript/JavaScript with GitHub Copilot integration
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server", "copilot"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server", "copilot"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "jsx"
+language-servers = ["typescript-language-server", "copilot"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "tsx"
+language-servers = ["typescript-language-server", "copilot"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Python with GitHub Copilot integration
+[[language]]
+name = "python"
+language-servers = ["pyright", "ruff-lsp", "copilot"]
+auto-format = true
+formatter = { command = "black", args = ["--quiet", "-"] }
+indent = { tab-width = 4, unit = "    " }
+
+# Go with GitHub Copilot integration
+[[language]]
+name = "go"
+language-servers = ["gopls", "copilot"]
+auto-format = true
+formatter = { command = "gofmt" }
+indent = { tab-width = 4, unit = "\t" }
+
+# Lua with GitHub Copilot integration (для скриптинга, как в NeoVim)
+[[language]]
+name = "lua"
+language-servers = ["lua-language-server", "copilot"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# CSS/SCSS
+[[language]]
+name = "css"
+language-servers = ["vscode-css-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "scss"
+language-servers = ["vscode-css-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# HTML
+[[language]]
+name = "html"
+language-servers = ["vscode-html-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Vue.js
+[[language]]
+name = "vue"
+language-servers = ["volar"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# YAML (для Kubernetes, GitHub Actions)
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# JSON
+[[language]]
+name = "json"
+language-servers = ["vscode-json-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Markdown
+[[language]]
+name = "markdown"
+language-servers = ["marksman"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# TOML (для конфигов)
+[[language]]
+name = "toml"
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Конфигурация Language Servers
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+config.preferences.includeCompletionsForModuleExports = true
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+config.python.analysis.autoSearchPaths = true
+config.python.analysis.typeCheckingMode = "basic"
+
+[language-server.ruff-lsp]
+command = "ruff-lsp"
+
+[language-server.gopls]
+command = "gopls"
+config.ui.completion.usePlaceholders = true
+
+[language-server.lua-language-server]
+command = "lua-language-server"
+config.Lua.runtime.version = "LuaJIT"
+config.Lua.diagnostics.globals = ["vim"]
+config.Lua.workspace.library = [
+    "$VIMRUNTIME/lua",
+    "$VIMRUNTIME/lua/vim/lsp",
+    "${3rd}/luv/library"
+]
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.volar]
+command = "vue-language-server"
+args = ["--stdio"]
+
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow" = ".github/workflows/*"
+"https://json.schemastore.org/kustomization" = "kustomization.{yml,yaml}"
+"https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json" = "*.k8s.{yml,yaml}"
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
+[language-server.marksman]
+command = "marksman"
+args = ["server"]
+
+# GitHub Copilot Language Server configuration
+[language-server.copilot]
+command = "node"
+args = ["/usr/local/lib/node_modules/@github/copilot-language-server/dist/language-server.js", "--stdio"]
+
+# Alternative: lsp-ai configuration for AI-powered code assistance (if you want to keep both)
+[language-server.lsp-ai]
+command = "lsp-ai"
+
+# Ollama configuration (local model, no API key needed)
+[language-server.lsp-ai.config.models.ollama]
+type = "ollama"
+chat_endpoint = "http://localhost:11434/v1/chat/completions"
+model = "codellama:7b"
+
+# Code completion configuration
+[language-server.lsp-ai.config.completion]
+model = "ollama"
+
+[language-server.lsp-ai.config.completion.parameters]
+max_tokens = 64
+max_context = 2048
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "system"
+content = """You are an AI programming assistant integrated with Helix editor.
+- Given code with cursor position marked by "<CURSOR>", replace it with appropriate code or comments
+- Focus on contextually relevant completions
+- Keep completions concise and syntactically correct
+- Maintain consistency with existing code style"""
+
+# In-editor chat configuration
+[language-server.lsp-ai.config.chat]
+trigger = "!ai"
+model = "ollama"
+
+[language-server.lsp-ai.config.chat.parameters]
+max_tokens = 512
+max_context = 4096
+
+[[language-server.lsp-ai.config.chat.parameters.messages]]
+role = "system"
+content = """You are an AI coding assistant in Helix editor.
+- Help with code explanations, debugging, refactoring, and improvements
+- Provide concise, actionable responses
+- Consider the current file context and programming language
+- Format code examples with proper syntax highlighting"""
