@@ -78,7 +78,7 @@ yabai -m rule --add label=emacs app=Emacs manage=on space=5
 # yabai -m rule --add app="Emacs" title="^\$" manage=off label="emacs popup 2"
 # yabai -m rule --add app="Emacs" title="^$" manage=off label="emacs popup 2"
 # yabai -m rule --add app="Emacs" title=".+" manage=on space=5 label="emacs main"
-yabai -m rule --add app=Firefox manage=on space=3
+yabai -m rule --add app=Firefox manage=on space=4
 # yabai -m rule --add app=Marta manage=on space=8
 yabai -m rule --add app="Brave Browser" manage=on space=3
 yabai -m rule --add app="^Marta$" manage=off grid=4:4:2:0:2:4
@@ -248,12 +248,12 @@ yabai -m config status_bar on
 
 # $HOME/apps/JankyBorders/bin/borders \
     # yabai -m query --windows | jq '.[] | {id: .id, app: .app, title: .title, floating: ."is-floating", space: .id, sticky: ".is-sticky"}'
-# borders \
-#   "active_color=gradient(top_left=0xffe78284,bottom_right=0xff85c1dc)" \
-#   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffc6d0f5)" \
-#   'blacklist="Emacs"' \
-#   width=6.0 \
-#   hidpi=on \
+borders \
+"active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
+  "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
+  blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \
+  width=4.0 \
+  hidpi=on \
 
 # Float windows bug
 # yabai -m signal --add event=window_created action='
@@ -290,7 +290,7 @@ yabai -m space 2 --padding abs:64:64:64:64
 
 # focus window after active space changes
 # yabai -m signal --add event=space_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
-yabai -m signal --add event=space_changed action='yabai -m window --focus $(yabai -m query --windows --space | jq -r '\''[.[]|select(."is-visible" and !."is-sticky" and .app != "Wispr Flow")][0].id'\'')'
+yabai -m signal --add event=space_changed action='yabai -m window --focus $(yabai -m query --windows --space | jq -r ".[0].id")'
 
 
 # Ghostty

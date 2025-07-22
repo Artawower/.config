@@ -215,17 +215,17 @@ return {
         end
     },
     "windwp/nvim-ts-autotag",
-    -- LSP
+    -- LSP (configured in lsp.lua)
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
     {
         "neovim/nvim-lspconfig",
         config = function()
             require("lsp")
         end
     },
-    -- Angular lsp
     "joeveiga/ng.nvim",
-    "tami5/lspsaga.nvim",
-    "williamboman/nvim-lsp-installer",
+    "nvimdev/lspsaga.nvim",
     -- Completion
     {
         "zbirenbaum/copilot.lua",
@@ -464,6 +464,18 @@ return {
             {"<leader>dbr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Database Buffer"},
             {"<leader>dbl", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info"}
         }
+    },
+    -- System UX
+    {
+        "alex-popov-tech/store.nvim",
+        dependencies = {
+            "OXY2DEV/markview.nvim" -- optional, for pretty readme preview / help window
+        },
+        cmd = "Store",
+        keys = {
+            {"<leader>s", "<cmd>Store<cr>", desc = "Open Plugin Store"}
+        },
+        opts = {}
     }
     -- AI
     -- {

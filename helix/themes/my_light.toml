@@ -1,0 +1,49 @@
+# Кастомная светлая тема для Helix
+# Основана на Catppuccin Latte с прозрачным фоном
+inherits = "catppuccin_latte"
+
+# Прозрачный фон
+"ui.background" = {}
+"ui.background.separator" = "overlay0"
+
+# Статусная строка (адаптирована для светлой темы)
+"ui.statusline" = { fg = "subtext1", bg = "mantle" }
+"ui.statusline.inactive" = { fg = "surface2", bg = "mantle" }
+"ui.statusline.normal" = { fg = "crust", bg = "lavender" }
+"ui.statusline.insert" = { fg = "crust", bg = "peach" }
+"ui.statusline.select" = { fg = "crust", bg = "flamingo" }
+
+# Курсор и выделение
+"ui.cursor" = { fg = "crust", bg = "rosewater" }
+"ui.cursor.insert" = { fg = "crust", bg = "flamingo" }
+"ui.cursor.select" = { fg = "crust", bg = "rosewater" }
+"ui.cursor.match" = { fg = "lavender", bg = "surface1" }
+"ui.selection" = { bg = "surface1" }
+
+# Номера строк
+"ui.linenr" = "surface1"
+"ui.linenr.selected" = "lavender"
+
+# Комментарии
+"comment" = "overlay1"
+
+# Диагностика
+"diagnostic.hint" = { fg = "teal", modifiers = ["underlined"] }
+"diagnostic.info" = { fg = "sky", modifiers = ["underlined"] }
+"diagnostic.warning" = { fg = "yellow", modifiers = ["underlined"] }
+"diagnostic.error" = { fg = "red", modifiers = ["underlined"] }
+
+# Git diff
+"diff.plus" = "green"
+"diff.delta" = "yellow"
+"diff.minus" = "red"
+
+# Всплывающие окна (полупрозрачные)
+"ui.menu" = { fg = "overlay2", bg = "surface0" }
+"ui.menu.selected" = { fg = "text", bg = "surface1", modifiers = ["bold"] }
+"ui.popup" = { bg = "surface0" }
+"ui.popup.info" = { bg = "surface0" }
+
+# Направляющие отступов
+"ui.virtual.indent-guide" = "surface0"
+"ui.virtual.whitespace" = "overlay1"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.helix.theme.switcher</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/darkawower/.config/helix/theme_switcher.sh</string>
+    </array>
+    
+    <key>WatchPaths</key>
+    <array>
+        <string>/Users/darkawower/Library/Preferences/.GlobalPreferences.plist</string>
+    </array>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <false/>
+</dict>
+</plist>

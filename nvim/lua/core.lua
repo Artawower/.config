@@ -174,3 +174,46 @@ let g:XkbSwitchIMappingsTr = {
     false
 )
 
+-- Claude Code window navigation
+vim.api.nvim_set_keymap(
+    "n",
+    "<C-.>",
+    ":wincmd w<CR>",
+    {
+        noremap = true,
+        silent = true,
+        desc = "Switch to next window"
+    }
+)
+vim.api.nvim_set_keymap(
+    "t",
+    "<C-.>",
+    "<C-\\><C-n>:wincmd w<CR>",
+    {
+        noremap = true,
+        silent = true,
+        desc = "Switch to next window from terminal"
+    }
+)
+vim.api.nvim_set_keymap(
+    "n",
+    "<Leader>Q",
+    ":qa<CR>",
+    {
+        noremap = true,
+        silent = true,
+        desc = "Quit all buffers"
+    }
+)
+-- Alternative escape for terminal mode (especially Claude Code)
+vim.api.nvim_set_keymap(
+    "t",
+    "<C-o>",
+    "<C-\\><C-n>",
+    {
+        noremap = true,
+        silent = true,
+        desc = "Exit terminal insert mode"
+    }
+)
+
