@@ -91,7 +91,7 @@ yabai -m rule --add app=Firefox manage=on space=3
 
 yabai -m rule --add app="^Google Chrome$" manage=on space=4
 yabai -m rule --add app="^kitty$" manage=on space=2
-yabai -m rule --add app="WezTerm" manage=on space=term
+yabai -m rule --add app="WezTerm" manage=on space=2
 yabai -m rule --add app="^Telegram$" manage=on space=1
 yabai -m rule --add app=Ferdi manage=on space=1
 yabai -m rule --add app=Skype manage=on space=1
@@ -113,7 +113,7 @@ yabai -m rule --add app="^Obsidian$" manage=on space=8
 yabai -m config mouse_follows_focus off
 yabai -m config focus_follows_mouse off
 yabai -m config window_placement second_child
-yabai -m config window_topmost off
+# yabai -m config window_topmost off
 yabai -m config window_shadow off
 yabai -m config window_opacity off
 # yabai -m config window_opacity_duration      0.0
@@ -227,7 +227,7 @@ CACTV=$(echo $color3 | sed 's/#//')
 CNORM=$(echo $color1 | sed 's/#//')
 CINSE=$(echo $foreground | sed 's/#//')
 
-yabai -m config status_bar on
+# yabai -m config status_bar on
 # yabai -m config status_bar_background_color  0xff$CBACK
 # yabai -m config status_bar_foreground_color  0xff$CFORE
 
