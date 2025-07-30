@@ -42,7 +42,7 @@ shift + alt - 0x1B : /opt/homebrew/bin/yabai -m window --space 11 && /opt/homebr
 shift + alt - 0x18 : /opt/homebrew/bin/yabai -m window --space 12 && /opt/homebrew/bin/yabai -m space --focus 12
 
 
-shift + alt - d : /opt/homebrew/bin/yabai -m window --space dev && /opt/homebrew/bin/yabai -m space --focus dev
+shift + alt - d : /opt/homebrew/bin/yabai -m window --space 5 && /opt/homebrew/bin/yabai -m space --focus 5 #dev
 shift + alt - w : /opt/homebrew/bin/yabai -m window --space www && /opt/homebrew/bin/yabai -m space --focus www
 shift + alt - s : /opt/homebrew/bin/yabai -m window --space social && /opt/homebrew/bin/yabai -m space --focus social
 shift + alt - i : /opt/homebrew/bin/yabai -m window --space thrash && /opt/homebrew/bin/yabai -m space --focus thrash
@@ -158,7 +158,8 @@ alt - 0x18 : /opt/homebrew/bin/yabai -m space --focus 12
 alt - s : /opt/homebrew/bin/yabai -m space --focus social
 alt - w : /opt/homebrew/bin/yabai -m space --focus www
 # alt - d : /opt/homebrew/bin/yabai -m space --focus dev
-alt - d : /opt/homebrew/bin/yabai -m space --focus dev
+# alt - d : /opt/homebrew/bin/yabai -m space --focus dev
+alt - d : /opt/homebrew/bin/yabai -m space --focus 5
 alt - i : /opt/homebrew/bin/yabai -m space --focus thrash
 alt - t : /opt/homebrew/bin/yabai -m space --focus term
 # alt - c : /opt/homebrew/bin/yabai -m space --focus term

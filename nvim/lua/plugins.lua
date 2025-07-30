@@ -476,6 +476,12 @@ return {
             {"<leader>s", "<cmd>Store<cr>", desc = "Open Plugin Store"}
         },
         opts = {}
+    },
+    {
+        "nvzone/typr",
+        dependencies = "nvzone/volt",
+        opts = {},
+        cmd = {"Typr", "TyprStats"}
     }
     -- AI
     -- {

@@ -1,7 +1,7 @@
 # Helix Configuration
 # Adapted from user's NeoVim configuration
 # Using transparent background theme
-theme = "my"
+theme = "my_light"
 
 [editor]
 # Main editor settings
@@ -168,10 +168,14 @@ C-a = [":sh unibear add_file %{buffer_name}"]
     ":redraw",
     ":reload-all"
 ]
-"g" = [
-    ":write-all",
-    ":insert-output gitu >/dev/tty",
-    ":redraw",
+"u" = [
+    ":write-all", 
+    ":new", 
+    ":insert-output gitui >/dev/tty", 
+    ":set mouse false", 
+    ":set mouse true",
+    ":buffer-close!", 
+    ":redraw", 
     ":reload-all"
 ]
 "s" = [":new", ":insert-output git status", ":buffer-close!", ":redraw"]
@@ -190,6 +194,17 @@ C-a = [":sh unibear add_file %{buffer_name}"]
 
 # Window navigation from insert mode
 "C-." = ["normal_mode", "rotate_view"]
+
+"C-g" = [
+    ":write-all", 
+    ":new", 
+    ":insert-output gitui >/dev/tty", 
+    ":set mouse false", 
+    ":set mouse true",
+    ":buffer-close!", 
+    ":redraw", 
+    ":reload-all"
+]
 
 [keys.select]
 # Commenting in selection mode
