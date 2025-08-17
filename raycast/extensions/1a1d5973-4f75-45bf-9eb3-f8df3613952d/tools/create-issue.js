@@ -3,8 +3,8 @@
 
 youtrack-client/dist/index.mjs:
   (*!
-   * youtrack-client v0.5.2
+   * youtrack-client v0.5.3
    * Copyright (C) 2012-2025 undefined
-   * Date: Mon, 23 Jun 2025 12:35:41 GMT
+   * Date: Thu, 03 Jul 2025 22:10:17 GMT
    *)
 */
