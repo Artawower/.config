@@ -49,7 +49,7 @@ keybinds clear-defaults=true {
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         bind "Ctrl t" { SwitchToMode "normal"; }
-        bind "Ctrl w" { SwitchToMode "normal"; }
+        bind "Ctrl f" { SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
     }
@@ -180,7 +180,7 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" "tab" {
         bind "Ctrl t" { SwitchToMode "tab"; }
-        bind "Ctrl w" { SwitchToMode "tab"; }
+        bind "Ctrl f" { SwitchToMode "tab"; }
     }
     shared_except "locked" "pane" {
         bind "Ctrl p" { SwitchToMode "pane"; }

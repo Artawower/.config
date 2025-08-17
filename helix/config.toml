@@ -3,6 +3,7 @@
 # Using transparent background theme
 theme = "my"
 
+
 [editor]
 # Main editor settings
 line-number = "relative"
@@ -20,6 +21,7 @@ auto-format = true
 auto-save = false
 idle-timeout = 400
 completion-timeout = 250
+clipboard-provider = "pasteboard"
 
 # Indentation settings (adapted from NeoVim: tabstop=2, shiftwidth=2, expandtab)
 [editor.indent-guides]
@@ -106,6 +108,8 @@ C-a = [":sh unibear add_file %{buffer_name}"]
 # Terminal (from toggleterm)
 "F12" = [":new", ":insert-output $SHELL", ":buffer-close!", ":redraw"]
 
+y = "yank_to_clipboard"
+Y = "yank"  
 # LSP navigation
 [keys.normal.g]
 "d" = "goto_definition"
