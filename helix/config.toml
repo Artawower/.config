@@ -1,7 +1,7 @@
 # Helix Configuration
 # Adapted from user's NeoVim configuration
 # Using transparent background theme
-theme = "my_light"
+theme = "my"
 
 [editor]
 # Main editor settings

@@ -2,7 +2,10 @@
 # It is possible to override settings with an equivalent file at:
 # `~/.config/gitu/config.toml`
 
+[core]
+editor = "hx"
 [general]
+editor = "hx"
 always_show_help.enabled = false
 confirm_quit.enabled = false
 # Sets initially collapsed sections in the editor. e.g.:
