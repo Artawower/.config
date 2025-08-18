@@ -18,6 +18,16 @@ keybinds clear-defaults=true {
         bind "j" { GoToNextTab; }
         bind "k" { GoToPreviousTab; }
         bind "l" { GoToNextTab; }
+        // Direct tab focus by number from normal mode
+        bind "1" { GoToTab 1; }
+        bind "2" { GoToTab 2; }
+        bind "3" { GoToTab 3; }
+        bind "4" { GoToTab 4; }
+        bind "5" { GoToTab 5; }
+        bind "6" { GoToTab 6; }
+        bind "7" { GoToTab 7; }
+        bind "8" { GoToTab 8; }
+        bind "9" { GoToTab 9; }
         // Finish (back to locked)
         bind "enter" { SwitchToMode "locked"; }
         bind "esc" { SwitchToMode "locked"; }
@@ -72,6 +82,9 @@ keybinds clear-defaults=true {
         // removed Ctrl-prefixed exits; use Esc to leave mode
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
+        // Move tab position left/right
+        bind "<" { MoveTab "left"; }
+        bind ">" { MoveTab "right"; }
     }
     resize {
         bind "left" { Resize "Increase left"; }
