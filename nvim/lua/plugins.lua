@@ -482,6 +482,32 @@ return {
         dependencies = "nvzone/volt",
         opts = {},
         cmd = {"Typr", "TyprStats"}
+    },
+    {
+        "nvzone/volt",
+        lazy = true
+    },
+    {
+        "nvzone/menu",
+        lazy = true,
+        config = function()
+            require("menu_config").setup()
+        end
+    },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        config = function()
+            require("snacks_config").setup()
+        end
+    },
+    {
+        "nvzone/floaterm",
+        dependencies = "nvzone/volt",
+        config = function()
+            require("floaterm_config").setup()
+        end
     }
     -- AI
     -- {
