@@ -134,21 +134,22 @@ config.keys = {
     mods = "CMD",
     action = wezterm.action.SendString(":SwitchWindow\n")
   },
-  {
-    key = 'H',
-    mods = 'SHIFT|CTRL',
-    action = act.Search { Regex = '[a-f0-9]{6,}' },
-  },
-  {
-    key = 'H',
-    mods = 'SHIFT|CTRL',
-    action = act.Search { CaseSensitiveString = 'hash' },
-  },
-  {
-    key = 'H',
-    mods = 'SHIFT|CTRL',
-    action = act.Search { CaseInSensitiveString = 'hash' },
-  },
+  -- Removed conflicting Ctrl+Shift+H bindings for floaterm integration
+  -- {
+  --   key = 'H',
+  --   mods = 'SHIFT|CTRL',
+  --   action = act.Search { Regex = '[a-f0-9]{6,}' },
+  -- },
+  -- {
+  --   key = 'H',
+  --   mods = 'SHIFT|CTRL',
+  --   action = act.Search { CaseSensitiveString = 'hash' },
+  -- },
+  -- {
+  --   key = 'H',
+  --   mods = 'SHIFT|CTRL',
+  --   action = act.Search { CaseInSensitiveString = 'hash' },
+  -- },
   {
     key = "RightArrow",
     mods = "CTRL|SHIFT",

@@ -110,6 +110,7 @@ C-a = [":sh unibear add_file %{buffer_name}"]
 
 y = "yank_to_clipboard"
 Y = "yank"  
+
 # LSP navigation
 [keys.normal.g]
 "d" = "goto_definition"
