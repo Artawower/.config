@@ -1,6 +1,7 @@
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl x" { SwitchToMode "normal"; }
+        bind "Ctrl ч" { SwitchToMode "normal"; }
         // Allow pane focus navigation while locked via Alt+Arrows
         bind "Alt left" { MoveFocus "left"; }
         bind "Alt down" { MoveFocus "down"; }
@@ -15,9 +16,13 @@ keybinds clear-defaults=true {
         bind "right" { MoveFocus "right"; }
         // Tab navigation with hjkl
         bind "h" { GoToPreviousTab; }
+        bind "р" { GoToPreviousTab; }
         bind "j" { GoToNextTab; }
+        bind "о" { GoToNextTab; }
         bind "k" { GoToPreviousTab; }
+        bind "л" { GoToPreviousTab; }
         bind "l" { GoToNextTab; }
+        bind "д" { GoToNextTab; }
         // Direct tab focus by number from normal mode
         bind "1" { GoToTab 1; }
         bind "2" { GoToTab 2; }
@@ -40,20 +45,27 @@ keybinds clear-defaults=true {
         bind "right" { MoveFocus "right"; }
         bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
         bind "d" { NewPane "down"; SwitchToMode "normal"; }
+        bind "в" { NewPane "down"; SwitchToMode "normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
+        bind "у" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
         bind "f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "а" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "h" { MoveFocus "left"; }
         bind "i" { TogglePanePinned; SwitchToMode "normal"; }
+        bind "ш" { TogglePanePinned; SwitchToMode "normal"; }
         bind "j" { MoveFocus "down"; }
         bind "k" { MoveFocus "up"; }
         bind "l" { MoveFocus "right"; }
         bind "n" { NewPane; SwitchToMode "normal"; }
+        bind "т" { NewPane; SwitchToMode "normal"; }
         bind "p" { SwitchFocus; }
         // removed Ctrl-prefixed exit; use Esc to leave mode
         bind "r" { NewPane "right"; SwitchToMode "normal"; }
+        bind "к" { NewPane "right"; SwitchToMode "normal"; }
         bind "s" { NewPane "stacked"; SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
         bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
+        bind "я" { TogglePaneFrames; SwitchToMode "normal"; }
     }
     tab {
         bind "left" { GoToPreviousTab; }
@@ -72,6 +84,7 @@ keybinds clear-defaults=true {
         bind "[" { BreakPaneLeft; SwitchToMode "normal"; }
         bind "]" { BreakPaneRight; SwitchToMode "normal"; }
         bind "b" { BreakPane; SwitchToMode "normal"; }
+        bind "и" { BreakPane; SwitchToMode "normal"; }
         bind "h" { GoToPreviousTab; }
         bind "j" { GoToNextTab; }
         bind "k" { GoToPreviousTab; }
@@ -81,6 +94,7 @@ keybinds clear-defaults=true {
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         // removed Ctrl-prefixed exits; use Esc to leave mode
         bind "x" { CloseTab; SwitchToMode "normal"; }
+        bind "ч" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
         // Move tab position left/right
         bind "<" { MoveTab "left"; }
@@ -95,9 +109,13 @@ keybinds clear-defaults=true {
         bind "-" { Resize "Decrease"; }
         bind "=" { Resize "Increase"; }
         bind "H" { Resize "Decrease left"; }
+        bind "Р" { Resize "Decrease left"; }
         bind "J" { Resize "Decrease down"; }
+        bind "О" { Resize "Decrease down"; }
         bind "K" { Resize "Decrease up"; }
+        bind "Л" { Resize "Decrease up"; }
         bind "L" { Resize "Decrease right"; }
+        bind "Д" { Resize "Decrease right"; }
         bind "h" { Resize "Increase left"; }
         bind "j" { Resize "Increase down"; }
         bind "k" { Resize "Increase up"; }
@@ -126,6 +144,7 @@ keybinds clear-defaults=true {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
         bind "n" { Search "down"; }
         bind "o" { SearchToggleOption "WholeWord"; }
+        bind "щ" { SearchToggleOption "WholeWord"; }
         bind "p" { Search "up"; }
         bind "w" { SearchToggleOption "Wrap"; }
     }
@@ -137,7 +156,21 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "locked"
         }
+        bind "ф" {
+            LaunchOrFocusPlugin "zellij:about" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "locked"
+        }
         bind "c" {
+            LaunchOrFocusPlugin "configuration" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "locked"
+        }
+        bind "с" {
             LaunchOrFocusPlugin "configuration" {
                 floating true
                 move_to_focused_tab true
@@ -152,6 +185,13 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "locked"
         }
+        bind "з" {
+            LaunchOrFocusPlugin "plugin-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "locked"
+        }
         bind "s" {
             LaunchOrFocusPlugin "zellij:share" {
                 floating true
@@ -159,7 +199,21 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "locked"
         }
+        bind "ы" {
+            LaunchOrFocusPlugin "zellij:share" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "locked"
+        }
         bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "locked"
+        }
+        bind "ц" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
                 move_to_focused_tab true
@@ -187,17 +241,28 @@ keybinds clear-defaults=true {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Ctrl Alt f" { ToggleFloatingPanes; }
+        bind "Ctrl Alt а" { ToggleFloatingPanes; }
         bind "Ctrl x" { SwitchToMode "locked"; }
         bind "Alt h" { MoveFocusOrTab "left"; }
+        bind "Alt р" { MoveFocusOrTab "left"; }
         bind "Alt i" { MoveTab "left"; }
+        bind "Alt ш" { MoveTab "left"; }
         bind "Alt j" { MoveFocus "down"; }
+        bind "Alt о" { MoveFocus "down"; }
         bind "Alt k" { MoveFocus "up"; }
+        bind "Alt л" { MoveFocus "up"; }
         bind "Alt l" { MoveFocusOrTab "right"; }
+        bind "Alt д" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
+        bind "Alt т" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
+        bind "Alt щ" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
+        bind "Alt з" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
+        bind "Alt Shift з" { ToggleGroupMarking; }
         bind "Ctrl q" { Quit; }
+        bind "Ctrl й" { Quit; }
     }
     shared_except "locked" "move" "renametab" "renamepane" {
         bind "h" { SwitchToMode "move"; }
@@ -213,6 +278,7 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" "tab" "renametab" "renamepane" {
         bind "t" { SwitchToMode "tab"; }
+        bind "е" { SwitchToMode "tab"; }
         bind "f" { SwitchToMode "tab"; }
     }
     shared_except "locked" "pane" "renametab" "renamepane" {
@@ -238,15 +304,20 @@ keybinds clear-defaults=true {
         bind "up" { ScrollUp; }
         bind "right" { PageScrollDown; }
         bind "Ctrl b" { PageScrollUp; }
+        bind "Ctrl и" { PageScrollUp; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "normal"; }
+        bind "Ctrl с" { ScrollToBottom; SwitchToMode "normal"; }
         bind "d" { HalfPageScrollDown; }
         bind "Ctrl f" { PageScrollDown; }
+        bind "Ctrl а" { PageScrollDown; }
         bind "h" { PageScrollUp; }
         bind "j" { ScrollDown; }
         bind "k" { ScrollUp; }
         bind "l" { PageScrollDown; }
         bind "Ctrl s" { SwitchToMode "normal"; }
+        bind "Ctrl ы" { SwitchToMode "normal"; }
         bind "u" { HalfPageScrollUp; }
+        bind "г" { HalfPageScrollUp; }
     }
     entersearch {
         bind "Ctrl c" { SwitchToMode "scroll"; }
