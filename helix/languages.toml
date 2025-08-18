@@ -1,54 +1,47 @@
-# Programming languages configuration for Helix
-# Adapted from user's NeoVim LSP settings
-
 [[language]]
 name = "typescript"
-language-servers = ["volar", "copilot"]
+language-servers = ["typescript-language-server", "eslint"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "javascript"
-language-servers = ["volar", "copilot"]
+language-servers = ["typescript-language-server", "eslint"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "jsx"
-language-servers = ["volar", "copilot"]
+language-servers = ["typescript-language-server", "eslint"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "tsx"
-language-servers = ["volar", "copilot"]
+language-servers = ["typescript-language-server", "eslint"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# Python with GitHub Copilot integration
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff-lsp", "copilot"]
+language-servers = ["pyright", "ruff-lsp"]
 auto-format = true
 formatter = { command = "black", args = ["--quiet", "-"] }
 indent = { tab-width = 4, unit = "    " }
 
-# Go with GitHub Copilot integration
 [[language]]
 name = "go"
-language-servers = ["gopls", "copilot"]
+language-servers = ["gopls"]
 auto-format = true
 formatter = { command = "gofmt" }
 indent = { tab-width = 4, unit = "\t" }
 
-# Lua with GitHub Copilot integration (для скриптинга, как в NeoVim)
 [[language]]
 name = "lua"
-language-servers = ["lua-language-server", "copilot"]
+language-servers = ["lua-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# CSS/SCSS
 [[language]]
 name = "css"
 language-servers = ["vscode-css-language-server"]
@@ -61,54 +54,64 @@ language-servers = ["vscode-css-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# HTML
 [[language]]
 name = "html"
-language-servers = ["vscode-html-language-server"]
+language-servers = ["angularls", "vscode-html-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# Vue.js (Volar v3)
+[language-server.typescript-language-server.config]
+hostInfo = "helix"
+plugins = [ { name = "@vue/typescript-plugin", location = "/Users/darkawower/.volta/tools/shared/@vue/language-server", languages = ["vue"] } ]
+tsserver = { path = "/Users/darkawower/.volta/tools/shared/typescript/lib" }
+
 [[language]]
 name = "vue"
-auto-format = false
+auto-format = true
+language-servers = ["typescript-language-server"]
 formatter = { command = "prettier", args = ["--parser", "vue"] }
-# Use Volar; add ESLint if desired. Remove undefined servers (emmet-lsp, scls) and legacy vuels.
-language-servers = ["volar", "eslint", "copilot"]
 
-# YAML (для Kubernetes, GitHub Actions)
 [[language]]
 name = "yaml"
 language-servers = ["yaml-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# JSON
 [[language]]
 name = "json"
 language-servers = ["vscode-json-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# Markdown
 [[language]]
 name = "markdown"
 language-servers = ["marksman"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# TOML (для конфигов)
 [[language]]
 name = "toml"
-language-servers = ["copilot"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# Конфигурация Language Servers
 [language-server.typescript-language-server]
 command = "typescript-language-server"
 args = ["--stdio"]
-config.preferences.includeCompletionsForModuleExports = true
+
+[language-server.typescript-language-server.config.typescript]
+updateImportsOnFileMove.enabled = "always"
+suggest.completeFunctionCalls = true
+inlayHints.parameterNames.enabled = "all"
+inlayHints.parameterTypes.enabled = true
+inlayHints.variableTypes.enabled = true
+inlayHints.propertyDeclarationTypes.enabled = true
+inlayHints.functionLikeReturnTypes = true
+inlayHints.enumMemberValues.enabled = true
+format.enable = false
+format.semicolons = "remove"
+preferences.importModuleSpecifier = "non-relative"
+preferences.importModuleSpecifierEnding = "auto"
+tsserver.pluginPaths = ["./node_modules"]
 
 [language-server.pyright]
 command = "pyright-langserver"
@@ -141,14 +144,11 @@ args = ["--stdio"]
 command = "vscode-html-language-server"
 args = ["--stdio"]
 
-[language-server.volar]
-# Prefer the global binary; keep config minimal to avoid init errors.
-command = "vue-language-server"
-args = ["--stdio"]
-# If your project has local TypeScript, Volar will detect it automatically.
-# To force a TS SDK path, uncomment the block below and point to the package root:
-# [language-server.volar.config.typescript]
-# tsdk = "./node_modules/typescript/lib"
+[language-server.angularls]
+command = "ngserver"
+args = ["--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."]
+
+
 
 [language-server.yaml-language-server]
 command = "yaml-language-server"
@@ -167,7 +167,6 @@ args = ["--stdio"]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
 [language-server.eslint.config]
-# Basic ESLint settings; tweak per project if needed
 "eslint.format" = true
 "eslint.nodePath" = ""
 "eslint.workingDirectories" = [ { "mode" = "auto" } ]
@@ -183,22 +182,13 @@ args = ["--stdio"]
 command = "marksman"
 args = ["server"]
 
-# GitHub Copilot Language Server configuration
-[language-server.copilot]
-command = "copilot-language-server"
-args = ["--stdio"]
 
-# Alternative: lsp-ai configuration for AI-powered code assistance (if you want to keep both)
 [language-server.lsp-ai]
 command = "lsp-ai"
-
-# Ollama configuration (local model, no API key needed)
 [language-server.lsp-ai.config.models.ollama]
 type = "ollama"
 chat_endpoint = "http://localhost:11434/v1/chat/completions"
 model = "codellama:7b"
-
-# Code completion configuration
 [language-server.lsp-ai.config.completion]
 model = "ollama"
 
@@ -213,8 +203,6 @@ content = """You are an AI programming assistant integrated with Helix editor.
 - Focus on contextually relevant completions
 - Keep completions concise and syntactically correct
 - Maintain consistency with existing code style"""
-
-# In-editor chat configuration
 [language-server.lsp-ai.config.chat]
 trigger = "!ai"
 model = "ollama"
