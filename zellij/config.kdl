@@ -1,6 +1,11 @@
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl x" { SwitchToMode "normal"; }
+        // Allow pane focus navigation while locked via Alt+Arrows
+        bind "Alt left" { MoveFocus "left"; }
+        bind "Alt down" { MoveFocus "down"; }
+        bind "Alt up" { MoveFocus "up"; }
+        bind "Alt right" { MoveFocus "right"; }
     }
     normal {
         // Pane focus with arrows

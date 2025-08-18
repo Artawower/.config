@@ -1,28 +1,27 @@
 # Programming languages configuration for Helix
 # Adapted from user's NeoVim LSP settings
 
-# TypeScript/JavaScript with GitHub Copilot integration
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "copilot"]
+language-servers = ["volar", "copilot"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "copilot"]
+language-servers = ["volar", "copilot"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "copilot"]
+language-servers = ["volar", "copilot"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "tsx"
-language-servers = ["typescript-language-server", "copilot"]
+language-servers = ["volar", "copilot"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
@@ -69,12 +68,13 @@ language-servers = ["vscode-html-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
-# Vue.js
+# Vue.js (Volar v3)
 [[language]]
 name = "vue"
-language-servers = ["volar"]
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
+auto-format = false
+formatter = { command = "prettier", args = ["--parser", "vue"] }
+# Use Volar; add ESLint if desired. Remove undefined servers (emmet-lsp, scls) and legacy vuels.
+language-servers = ["volar", "eslint", "copilot"]
 
 # YAML (для Kubernetes, GitHub Actions)
 [[language]]
@@ -100,6 +100,7 @@ indent = { tab-width = 2, unit = "  " }
 # TOML (для конфигов)
 [[language]]
 name = "toml"
+language-servers = ["copilot"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
@@ -141,8 +142,13 @@ command = "vscode-html-language-server"
 args = ["--stdio"]
 
 [language-server.volar]
+# Prefer the global binary; keep config minimal to avoid init errors.
 command = "vue-language-server"
 args = ["--stdio"]
+# If your project has local TypeScript, Volar will detect it automatically.
+# To force a TS SDK path, uncomment the block below and point to the package root:
+# [language-server.volar.config.typescript]
+# tsdk = "./node_modules/typescript/lib"
 
 [language-server.yaml-language-server]
 command = "yaml-language-server"
@@ -157,14 +163,30 @@ args = ["--stdio"]
 command = "vscode-json-language-server"
 args = ["--stdio"]
 
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+[language-server.eslint.config]
+# Basic ESLint settings; tweak per project if needed
+"eslint.format" = true
+"eslint.nodePath" = ""
+"eslint.workingDirectories" = [ { "mode" = "auto" } ]
+"eslint.validate" = [
+  "javascript",
+  "javascriptreact",
+  "typescript",
+  "typescriptreact",
+  "vue"
+]
+
 [language-server.marksman]
 command = "marksman"
 args = ["server"]
 
 # GitHub Copilot Language Server configuration
 [language-server.copilot]
-command = "node"
-args = ["/usr/local/lib/node_modules/@github/copilot-language-server/dist/language-server.js", "--stdio"]
+command = "copilot-language-server"
+args = ["--stdio"]
 
 # Alternative: lsp-ai configuration for AI-powered code assistance (if you want to keep both)
 [language-server.lsp-ai]
