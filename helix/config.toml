@@ -88,7 +88,7 @@ enable = false
 "C-." = "rotate_view"
 
 # AI
-C-a = [":sh unibear add_file %{buffer_name}"]
+C-a = [":sh unibear add_file %%{buffer_name}"]
 
 # File saving (from NeoVim: <C-s>)
 "C-s" = ":write"
@@ -122,6 +122,15 @@ Y = "yank"
 
 [keys.normal.space]
 # System clipboard copy/paste (from NeoVim: <Leader>y, <Leader>p)
+"." = [
+  ':sh rm -f /tmp/yazi-path',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/yazi-path',
+  ":open %sh{cat /tmp/yazi-path}",
+  ":redraw",
+  ":reload-all",
+  ':set mouse false',
+  ':set mouse true'
+]
 "y" = "yank_to_clipboard"
 "p" = "paste_clipboard_after"
 
@@ -154,7 +163,7 @@ Y = "yank"
 
 # Compilation/execution (from NeoVim: <space>meb)
 [keys.normal.space.m.e]
-"b" = ":sh luafile %"
+"b" = ":sh luafile %%"
 
 # File manager and pickers (Telescope equivalent)
 [keys.normal.space.f]
@@ -163,7 +172,15 @@ Y = "yank"
 "b" = "buffer_picker"
 "s" = "workspace_symbol_picker"
 "e" = "file_explorer"
-"d" = ":sh yazi && printf '\\033c'"
+"d" = [
+  ':sh rm -f /tmp/yazi-path',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/yazi-path',
+  ":open %sh{cat /tmp/yazi-path}",
+  ":redraw",
+  ":reload-all",
+  ':set mouse false',
+  ':set mouse true'
+]
 
 # Git commands (NeoVim neogit/gitsigns equivalent)  
 [keys.normal.space.g]
@@ -214,5 +231,4 @@ Y = "yank"
 [keys.select]
 # Commenting in selection mode
 "/" = "toggle_comments"
-
 
