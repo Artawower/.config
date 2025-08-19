@@ -202,10 +202,13 @@ Y = "yank"
 "l" = [":new", ":insert-output git log --oneline -10", ":buffer-close!", ":redraw"]
 "d" = [":new", ":insert-output git diff", ":buffer-close!", ":redraw"]
 
+# Copy commands: n = copy filename, p = copy full path
 [keys.normal.space.c]
 "a" = "code_action"
 "r" = "rename_symbol"
 "f" = "format_selections"
+"n" = [":sh basename %{buffer_name} | tr -d '\\n' | pbcopy"]  # copy filename
+"p" = [":sh echo -n %{buffer_name} | pbcopy"]                # copy full path
 
 [keys.insert]
 "C-s" = ["normal_mode", ":write"]
