@@ -4,10 +4,11 @@ keybinds clear-defaults=true {
         bind "Ctrl ~" { SwitchToMode "normal"; }
         bind "Ctrl b" { SwitchToMode "normal"; }
         // Allow pane focus navigation while locked via Alt+Arrows
-        bind "Alt left" { MoveFocus "left"; }
+        // Use MoveFocusOrTab left/right to hop tabs at edges (default-like)
+        bind "Alt left" { MoveFocusOrTab "left"; }
         bind "Alt down" { MoveFocus "down"; }
         bind "Alt up" { MoveFocus "up"; }
-        bind "Alt right" { MoveFocus "right"; }
+        bind "Alt right" { MoveFocusOrTab "right"; }
     }
     normal {
         // Pane focus with arrows
@@ -416,8 +417,8 @@ web_client {
 // Default: default
 // 
 // theme "dracula"
-theme "catppuccin-frappe"
-// theme "catppuccin-latte"
+// theme "catppuccin-frappe"
+theme "catppuccin-latte"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -668,3 +669,11 @@ copy_command "pbcopy"                     // osx
 // Note: be sure to escape backslashes and similar characters properly
 // post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
 //
+
+theme "catppuccin-latte"
+
+theme "catppuccin-latte"
+
+theme "catppuccin-latte"
+
+theme "catppuccin-latte"
