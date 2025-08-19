@@ -43,9 +43,17 @@ set_helix_theme() {
         local new_theme="my_light"
     fi
     
-    # Update config.toml
+    # Update config.toml (BSD/GNU sed compatible)
     if [ -f "$config_file" ]; then
-        sed -i.backup "s/^theme = .*/theme = \"$new_theme\"/" "$config_file"
+        # Make a lightweight backup
+        cp "$config_file" "$config_file.bak" 2>/dev/null || true
+        if sed --version >/dev/null 2>&1; then
+            # GNU sed
+            sed -i -e "s/^theme = .*/theme = \"$new_theme\"/" "$config_file"
+        else
+            # BSD sed (macOS)
+            sed -i '' -e "s/^theme = .*/theme = \"$new_theme\"/" "$config_file"
+        fi
         echo "Switched Helix theme to: $new_theme (system: $system_theme)"
     else
         echo "Helix config file not found at: $config_file"

@@ -45,6 +45,7 @@ keybinds clear-defaults=true {
         bind "up" { MoveFocus "up"; }
         bind "right" { MoveFocus "right"; }
         bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
+        bind "с" { SwitchToMode "renamepane"; PaneNameInput 0; }
         bind "d" { NewPane "down"; SwitchToMode "normal"; }
         bind "в" { NewPane "down"; SwitchToMode "normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
@@ -92,6 +93,7 @@ keybinds clear-defaults=true {
         bind "l" { GoToNextTab; }
         bind "n" { NewTab; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "к" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         // removed Ctrl-prefixed exits; use Esc to leave mode
         bind "x" { CloseTab; SwitchToMode "normal"; }
@@ -100,6 +102,12 @@ keybinds clear-defaults=true {
         // Move tab position left/right
         bind "<" { MoveTab "left"; }
         bind ">" { MoveTab "right"; }
+        // Cyrillic layout equivalents (Shift on RU layout)
+        bind "Б" { MoveTab "left"; }
+        bind "Ю" { MoveTab "right"; }
+        // Keep lowercase/period fallbacks for terminals sending them
+        bind "б" { MoveTab "left"; }
+        bind "ю" { MoveTab "right"; }
     }
     resize {
         bind "left" { Resize "Increase left"; }
@@ -267,15 +275,19 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" "move" "renametab" "renamepane" {
         bind "h" { SwitchToMode "move"; }
+        bind "р" { SwitchToMode "move"; }
     }
     shared_except "locked" "session" "renametab" "renamepane" {
         bind "o" { SwitchToMode "session"; }
+        bind "щ" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" "search" "tmux" "renametab" "renamepane" {
         bind "b" { SwitchToMode "tmux"; }
+        bind "и" { SwitchToMode "tmux"; }
     }
     shared_except "locked" "scroll" "search" "renametab" "renamepane" {
         bind "s" { SwitchToMode "scroll"; }
+        bind "ы" { SwitchToMode "scroll"; }
     }
     shared_except "locked" "tab" "renametab" "renamepane" {
         bind "t" { SwitchToMode "tab"; }
@@ -284,9 +296,11 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" "pane" "renametab" "renamepane" {
         bind "p" { SwitchToMode "pane"; }
+        bind "з" { SwitchToMode "pane"; }
     }
     shared_except "locked" "resize" "renametab" "renamepane" {
         bind "n" { SwitchToMode "resize"; }
+        bind "т" { SwitchToMode "resize"; }
     }
     shared_except "normal" "locked" "entersearch" "renametab" "renamepane" {
         bind "enter" { SwitchToMode "normal"; }
@@ -296,6 +310,7 @@ keybinds clear-defaults=true {
     }
     shared_among "pane" "tmux" {
         bind "x" { CloseFocus; SwitchToMode "normal"; }
+        bind "ч" { CloseFocus; SwitchToMode "normal"; }
     }
     shared_among "scroll" "search" {
         bind "PageDown" { PageScrollDown; }

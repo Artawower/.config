@@ -32,3 +32,10 @@
 !zellij
 
 .DS_Store
+
+# Ignore backup files created by scripts/editors
+# Note: .gitignore doesn't support brace expansion like {number}?
+# These patterns cover .bak, .backup, and numbered variants (.bak1, .bak2, ...)
+**/*.bak
+**/*.backup
+**/*.bak[0-9]*
