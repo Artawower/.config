@@ -9,6 +9,10 @@ config.font_size = 15.0
 config.use_fancy_tab_bar = false
 local act = wezterm.action
 
+-- Enable richer key reporting so Ctrl+`/~ can be distinguished
+config.enable_kitty_keyboard = true
+config.enable_csi_u_key_encoding = true
+
 local dark_themes = {
   "Catppuccin Frappe",
   "Tokyo Night",
@@ -159,6 +163,17 @@ config.keys = {
     key = "LeftArrow",
     mods = "CTRL|SHIFT",
     action = wezterm.action.MoveTabRelative(-1),
+  },
+  -- Fallback: map Ctrl+` and Ctrl+~ to send Ctrl+b to apps
+  {
+    key = "`",
+    mods = "CTRL",
+    action = act.SendKey { key = "b", mods = "CTRL" },
+  },
+  {
+    key = "~",
+    mods = "CTRL|SHIFT",
+    action = act.SendKey { key = "b", mods = "CTRL" },
   },
 }
 
