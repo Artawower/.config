@@ -149,6 +149,7 @@ Y = "yank"
 [keys.normal.space.w]
 "v" = "vsplit"
 "s" = "hsplit"
+"l" = [":toggle-option soft-wrap.enable", ":redraw"]
 
 [keys.normal.space.m.e]
 "b" = ":sh luafile %%"
@@ -207,6 +208,7 @@ Y = "yank"
 "a" = "code_action"
 "r" = "rename_symbol"
 "f" = "format_selections"
+"e" = ":yank-diagnostic"
 "n" = [":sh basename %{buffer_name} | tr -d '\\n' | pbcopy"]  # copy filename
 "p" = [":sh echo -n %{buffer_name} | pbcopy"]                # copy full path
 
@@ -228,5 +230,3 @@ Y = "yank"
 
 [keys.select]
 "/" = "toggle_comments"
-
-
