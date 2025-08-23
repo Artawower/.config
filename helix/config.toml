@@ -1,4 +1,4 @@
-theme = "my_light"
+theme = "my"
 
 
 [editor]
@@ -230,3 +230,6 @@ Y = "yank"
 
 [keys.select]
 "/" = "toggle_comments"
+"y" = "yank_to_clipboard"
+"p" = "paste_clipboard_after"
+"P" = "paste_clipboard_before"
