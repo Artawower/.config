@@ -238,13 +238,19 @@ keybinds clear-defaults=true {
         // Transfer pane between left/right stacks without using printable chars
         bind "Alt Shift left" { MovePane "left"; }
         bind "Alt Shift right" { MovePane "right"; }
+        bind "Alt Shift up" { MovePane "up"; }
+        bind "Alt Shift down" { MovePane "down"; }
         // Alternative using brackets (requested): use Ctrl+Alt+[ and Ctrl+Alt+]
         // removed Ctrl+Alt+[ and ] group operations to avoid modal overlay
         // Alternative using Alt+Shift+H/L (and RU layout equivalents)
         bind "Alt Shift h" { MovePane "left"; }
         bind "Alt Shift l" { MovePane "right"; }
+        bind "Alt Shift k" { MovePane "up"; }
+        bind "Alt Shift j" { MovePane "down"; }
         bind "Alt Shift р" { MovePane "left"; }
         bind "Alt Shift д" { MovePane "right"; }
+        bind "Alt Shift л" { MovePane "up"; }
+        bind "Alt Shift о" { MovePane "down"; }
         bind "Ctrl q" { Quit; }
         bind "Ctrl x" { SwitchToMode "locked"; }
         bind "Ctrl Alt а" { ToggleFloatingPanes; }
