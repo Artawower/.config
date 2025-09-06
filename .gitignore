@@ -31,6 +31,8 @@
 !raycast
 !zellij
 !launchagents
+!opencode
+opencode/plugin
 
 .DS_Store
 

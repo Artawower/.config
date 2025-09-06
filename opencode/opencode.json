@@ -1,0 +1,54 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "code-reviewer": {
+      "description": "Reviews code for best practices and potential issues",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "prompt": "{file:./prompts/code-reviewer.txt}",
+      "tools": {
+        "write": false,
+        "edit": false
+      }
+    }
+  },
+  "mcp": {
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
+    },
+    "codex-cli": {
+      "type": "local",
+      "command": [
+        "mcp-codex-cli",
+        "--allow-npx"
+      ]
+    },
+    "gemini-cli": {
+      "type": "local",
+      "command": [
+        "mcp-gemini-cli"
+      ]
+    },
+    "qwen-cli": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@gy920/qwen-mcp-tool"
+      ]
+    }
+  }
+}
