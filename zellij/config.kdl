@@ -48,7 +48,9 @@ keybinds clear-defaults=true {
         bind "p" { SwitchFocus; }
         bind "r" { NewPane "right"; SwitchToMode "normal"; }
         bind "s" { NewPane "stacked"; SwitchToMode "normal"; }
+        bind "ы" { NewPane "stacked"; SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
+        bind "ц" { ToggleFloatingPanes; SwitchToMode "normal"; }
         bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
         bind "а" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "в" { NewPane "down"; SwitchToMode "normal"; }
@@ -81,6 +83,7 @@ keybinds clear-defaults=true {
         bind "n" { NewTab; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
+        bind "ы" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "Б" { MoveTab "left"; }
         bind "Ю" { MoveTab "right"; }
@@ -128,6 +131,7 @@ keybinds clear-defaults=true {
     scroll {
         bind "e" { EditScrollback; SwitchToMode "locked"; }
         bind "s" { SwitchToMode "entersearch"; SearchInput 0; }
+        bind "ы" { SwitchToMode "entersearch"; SearchInput 0; }
     }
     search {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
@@ -270,7 +274,8 @@ keybinds clear-defaults=true {
     shared_except "locked" "search" "renametab" "renamepane" "session" {
         bind "щ" { SwitchToMode "session"; }
     }
-    shared_except "locked" "scroll" "search" "renametab" "renamepane" "session" {
+    // limit ы→scroll to non-pane contexts to avoid conflicts with pane-mode stack
+    shared_among "normal" "resize" "entersearch" "move" "prompt" "tmux" {
         bind "ы" { SwitchToMode "scroll"; }
     }
     shared_except "locked" "tab" "renametab" "renamepane" {
@@ -530,7 +535,7 @@ copy_command "pbcopy"
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
-// scrollback_editor "/usr/bin/vim"
+scrollback_editor "/opt/homebrew/bin/hx"
  
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`

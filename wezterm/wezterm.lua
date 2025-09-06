@@ -177,9 +177,6 @@ config.keys = {
   },
 }
 
--- Prefer zellij; run via fish so Nix/Homebrew PATH is available. Fallback to fish login.
-config.default_prog = {
-  "/Users/darkawower/.nix-profile/bin/fish", "-lc",
-  "if command -q zellij; exec zellij attach -c main; else; exec /Users/darkawower/.nix-profile/bin/fish -l; end"
-}
+-- Start zellij directly with full path
+config.default_prog = { "/opt/homebrew/bin/zellij", "attach", "--create", "main" }
 return config
