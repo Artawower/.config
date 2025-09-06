@@ -87,7 +87,6 @@ yabai -m rule --add app="^iPhone Mirroring$" manage=off grid=100:100:72:20:10:10
 yabai -m rule --add app="^Session$" manage=off grid=100:100:66:28:30:40 space=7
 yabai -m rule --add app="^TickTick$" manage=off grid=100:100:4:4:45:80 space=7
 yabai -m rule --add app="^App Store$" manage=off sticky=on
-yabai -m rule --add app=Firefox manage=on space=3
 
 yabai -m rule --add app="^Google Chrome$" manage=on space=4
 yabai -m rule --add app="^kitty$" manage=on space=2
@@ -135,7 +134,7 @@ yabai -m config layout bsp
 # yabai -m config right_padding                16
 # yabai -m config window_gap                   16
 
-yabai -m config top_padding 36
+yabai -m config top_padding 20
 yabai -m config bottom_padding 20
 yabai -m config left_padding 20
 yabai -m config right_padding 20
@@ -248,12 +247,12 @@ CINSE=$(echo $foreground | sed 's/#//')
 
 # $HOME/apps/JankyBorders/bin/borders \
     # yabai -m query --windows | jq '.[] | {id: .id, app: .app, title: .title, floating: ."is-floating", space: .id, sticky: ".is-sticky"}'
-borders \
-"active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
-  "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
-  blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \
-  width=4.0 \
-  hidpi=on \
+# borders \
+# "active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
+#   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
+#   blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \
+#   width=4.0 \
+#   hidpi=on \
 
 # Float windows bug
 # yabai -m signal --add event=window_created action='
