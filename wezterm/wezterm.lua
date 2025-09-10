@@ -11,6 +11,8 @@ local act = wezterm.action
 
 -- Enable richer key reporting so Ctrl+`/~ can be distinguished
 config.enable_kitty_keyboard = true
+config.enable_kitty_graphics = true
+
 config.enable_csi_u_key_encoding = true
 
 local dark_themes = {
@@ -178,5 +180,5 @@ config.keys = {
 }
 
 -- Start zellij directly with full path
-config.default_prog = { "/opt/homebrew/bin/zellij", "attach", "--create", "main" }
+config.default_prog = { "/opt/homebrew/bin/zellij", "attach", "--create", "Config" }
 return config

@@ -33,6 +33,7 @@
 !launchagents
 !opencode
 opencode/plugin
+!home-manager
 
 .DS_Store
 
