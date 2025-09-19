@@ -436,7 +436,7 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-theme "catppuccin-frappe"
+theme "catppuccin-latte"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -535,7 +535,8 @@ copy_command "pbcopy"
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
-scrollback_editor "/opt/homebrew/bin/hx"
+// scrollback_editor "/opt/homebrew/bin/hx"
+scrollback_editor "/opt/homebrew/bin/emacsclient -ac"
  
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`
