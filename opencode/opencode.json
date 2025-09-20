@@ -1,16 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "agent": {
-    "code-reviewer": {
-      "description": "Reviews code for best practices and potential issues",
-      "mode": "subagent",
-      "model": "anthropic/claude-sonnet-4-20250514",
-      "prompt": "{file:./prompts/code-reviewer.txt}",
-      "tools": {
-        "write": false,
-        "edit": false
-      }
-    },
     "translator": {
       "description": "Manually edits i18n dictionary files. Always updates keys and values by hand according to provided i18n errors and user-specified words. Automatic generation is strictly forbidden, as is removing existing words. Must use jq utility for nested dictionaries.",
       "mode": "subagent",
@@ -45,10 +35,6 @@
     "qwen-cli": {
       "type": "local",
       "command": ["npx", "-y", "@gy920/qwen-mcp-tool"]
-    },
-    "youtrack": {
-      "type": "local",
-      "command": ["npx", "-y", "@habby/server-youtrack"]
     }
   }
 }
