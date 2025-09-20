@@ -34,6 +34,7 @@
 !opencode
 opencode/plugin
 !home-manager
+!fish
 
 .DS_Store
 
