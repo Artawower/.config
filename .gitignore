@@ -44,3 +44,7 @@ opencode/plugin
 **/*.bak
 **/*.backup
 **/*.bak[0-9]*
+
+# Raycast compiled extensions
+raycast/extensions/**/*.js
+raycast/extensions/**/*.js.map
