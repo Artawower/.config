@@ -4,6 +4,7 @@ SETUVAR --export EDITOR:emacsclient\x20\x2dac
 SETUVAR --export GEMINI_API_KEY:AIzaSyC9D878cSJ2J6OTtu7\x2dhH\x2djFH\x2dhvbnZE_Q
 SETUVAR --export --path PATH:/Users/darkawower/\x2elocal/share/uv/tools\x1e/opt/homebrew/opt/gnupg\x402\x2e2/bin\x1e/opt/homebrew/opt/autoconf\x402\x2e69/bin\x1e/Users/darkawower/\x2esdkman/candidates/java/current/bin\x1e/Users/darkawower/\x2esdkman/candidates/gradle/current/bin\x1e/opt/homebrew/opt/openjdk\x4011/bin\x1e/Users/darkawower/\x2ebun/bin\x1e/Users/darkawower/\x2enpm\x2dglobal/lib\x1e/Users/darkawower/\x2enpm\x2dglobal/bin\x1e/Users/darkawower/Library/Android/sdk/build\x2dtools/34\x2e0\x2e0\x1e/opt/homebrew/opt/node\x4022/bin\x1e/opt/homebrew/lib/node_modules/typescript/bin\x1e/Users/darkawower/Library/pnpm\x1e/opt/homebrew/opt/openssl\x401\x2e1/bin\x1e/Users/darkawower/node_modules/usr/local/opt/libpq/bin\x1e/Users/darkawower/\x2ecargo/bin\x1e/Users/darkawower/\x2enix\x2dprofile/bin\x1e/nix/var/nix/profiles/default/bin\x1e/usr/local/bin\x1e/usr/bin\x1e/usr/sbin\x1e/bin\x1e/sbin\x1e/Users/darkawower/\x2eorbstack/bin\x1e/opt/homebrew/bin\x1e/Users/darkawower/\x2elocal/bin/\x1e/usr/local/opt/bin/\x1e/usr/local/bin/\x1e/usr/bin/\x1e/Users/darkawower/dev/flutter/bin\x1e/Users/darkawower/tmp/lua\x2dlanguage\x2dserver/bin\x1e/Users/darkawower/\x2ego/bin\x1e/opt/homebrew/opt/go/libexec/bin\x1e/Users/darkawower/Library/Android/sdk/tools\x1e/Users/darkawower/Library/Android/sdk/platform\x2dtools\x1e/run/current\x2dsystem/sw/bin\x1e/Users/darkawower/\x2evolta/bin\x1e/Users/darkawower/go/bin
 SETUVAR --export VISUAL:hx
+SETUVAR --export WILDCARD_API_KEY:829e47e1bf0994105e735a1cfebd828348743fb3856705e5a294a0717b690751
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
 SETUVAR Z_DATA:/Users/darkawower/\x2elocal/share/z/data
@@ -103,6 +104,7 @@ SETUVAR pure_separate_prompt_on_error:false
 SETUVAR pure_shorten_prompt_current_directory_length:5
 SETUVAR pure_shorten_window_title_current_directory_length:0
 SETUVAR pure_show_jobs:false
+SETUVAR pure_show_numbered_git_indicator:false
 SETUVAR pure_show_prefix_root_prompt:false
 SETUVAR pure_show_subsecond_command_duration:false
 SETUVAR pure_show_system_time:false

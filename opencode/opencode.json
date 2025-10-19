@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": ["opencode-openai-codex-auth@1.0.2"],
   "agent": {
     "translator": {
       "description": "Manually edits i18n dictionary files. Always updates keys and values by hand according to provided i18n errors and user-specified words. Automatic generation is strictly forbidden, as is removing existing words. Must use jq utility for nested dictionaries.",
@@ -8,6 +9,13 @@
       "tools": {
         "write": true,
         "edit": true
+      }
+    }
+  },
+  "provider": {
+    "zai-coding-plan": {
+      "options": {
+        "timeout": 600000
       }
     }
   },
@@ -35,6 +43,10 @@
     "qwen-cli": {
       "type": "local",
       "command": ["npx", "-y", "@gy920/qwen-mcp-tool"]
+    },
+    "deepcontext": {
+      "type": "local",
+      "command": ["npx", "-y", "@wildcard-ai/deepcontext@latest"]
     }
   }
 }

@@ -12,6 +12,14 @@ local act = wezterm.action
 -- Enable richer key reporting so Ctrl+`/~ can be distinguished
 config.enable_kitty_keyboard = true
 config.enable_kitty_graphics = true
+config.window_padding = {
+  left = 32,
+  right = 32,
+  top = 32,
+  bottom = 32,
+}
+-- config.hide_tab_bar_if_only_one_tab = true
+config.enable_tab_bar = false
 
 config.enable_csi_u_key_encoding = true
 
@@ -112,6 +120,7 @@ local initial_overrides = get_theme_overrides(get_initial_theme_name())
 config.color_scheme = initial_overrides.color_scheme
 config.colors = initial_overrides.colors
 
+
 config.keys = {
   {
     key = "T",
@@ -130,11 +139,11 @@ config.keys = {
     mods = "CMD",
     action = wezterm.action.CloseCurrentPane { confirm = true }
   },
-  {
-    key = "s",
-    mods = "CMD",
-    action = wezterm.action.SendString(":w\n")
-  },
+  -- {
+  --   key = "s",
+  --   mods = "CMD",
+  --   action = wezterm.action.SendString(":w\n")
+  -- },
   {
     key = ".",
     mods = "CMD",
@@ -158,12 +167,12 @@ config.keys = {
   -- },
   {
     key = "RightArrow",
-    mods = "CTRL|SHIFT",
+    mods = "CMD|SHIFT",
     action = wezterm.action.MoveTabRelative(1),
   },
   {
     key = "LeftArrow",
-    mods = "CTRL|SHIFT",
+    mods = "CMD|SHIFT",
     action = wezterm.action.MoveTabRelative(-1),
   },
   -- Fallback: map Ctrl+` and Ctrl+~ to send Ctrl+b to apps
@@ -177,8 +186,26 @@ config.keys = {
     mods = "CTRL|SHIFT",
     action = act.SendKey { key = "b", mods = "CTRL" },
   },
+  {
+    key = "f",
+    mods = "CMD",
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+  {
+    key = 'r',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.ReloadConfiguration,
+  },
+  {
+    key = 'y',
+    mods = 'CMD|SHIFT',
+action = wezterm.action_callback(theme_switcher.theme_switcher)
+  }
 }
 
+
+
 -- Start zellij directly with full path
-config.default_prog = { "/opt/homebrew/bin/zellij", "attach", "--create", "Config" }
+-- config.default_prog = { "/opt/homebrew/bin/zellij", "attach", "--create", "Config" }
+config.default_prog = { "fish" }
 return config
