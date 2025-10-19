@@ -218,3 +218,9 @@ content = """You are an AI coding assistant in Helix editor.
 - Provide concise, actionable responses
 - Consider the current file context and programming language
 - Format code examples with proper syntax highlighting"""
+
+[language-server.harper-ls]
+args = ["--stdio"]
+command = "harper-ls"
+# notice the key:
+config = { harper-ls = { diagnosticSeverity = "error", linters = { long_sentences = false } } }

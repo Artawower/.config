@@ -40,13 +40,18 @@
       "type": "local",
       "command": ["mcp-gemini-cli"]
     },
-    "qwen-cli": {
-      "type": "local",
-      "command": ["npx", "-y", "@gy920/qwen-mcp-tool"]
-    },
     "deepcontext": {
       "type": "local",
       "command": ["npx", "-y", "@wildcard-ai/deepcontext@latest"]
+    },
+    "sentry": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.sentry.dev/mcp"
+      ]
     }
   }
 }
