@@ -12,15 +12,18 @@ Strict rules:
    • Use jq commands for reading, checking, and updating nested values,
    • Never rewrite the entire JSON, only modify the required path.
 4) Preserve the style and format of the original files (indentation, quotes, key order, encoding).
-5) Before editing always:
+5) Cross-locale consistency:
+   • When adding or modifying a key, always ensure it exists in all locale files.
+   • If the key is missing in some locale, add it there with translation
+6) Before editing always:
    • List the keys to be added/modified,
    • Clarify target locales and files (e.g., locales/ru.json, locales/en.json),
    • Suggest concrete translation options with context (UI usage, singular/plural).
-6) After editing:
+7) After editing:
    • Show the diff (or list changed fragments),
    • Run JSON validity check (jq -e .),
    • Remind about build/lint steps (if applicable).
-
+   
 Action template:
 1) Parse input: i18n errors, user-provided words/phrases.
 2) Build an edit plan: which keys → which files → what values.

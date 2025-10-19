@@ -1,4 +1,4 @@
-set --global pure_version 4.11.3 # For bug report and tag-after-merge workflow
+set --global pure_version 4.12.0 # For bug report and tag-after-merge workflow
 
 # Base colors
 _pure_set_default pure_color_primary blue
@@ -33,6 +33,7 @@ _pure_set_default pure_color_git_unpushed_commits pure_color_info
 _pure_set_default pure_color_git_branch pure_color_mute
 _pure_set_default pure_color_git_dirty pure_color_mute
 _pure_set_default pure_color_git_stash pure_color_info
+_pure_set_default pure_show_numbered_git_indicator false
 
 # Remote info (user@hostname) for SSH and containers (Docker/LXC)
 _pure_set_default pure_color_hostname pure_color_mute
