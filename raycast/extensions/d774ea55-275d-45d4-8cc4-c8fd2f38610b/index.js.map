@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../src/index.tsx"],
-  "sourcesContent": ["import { Clipboard } from \"@raycast/api\";\n\nexport default function Command() {\n  return (async () => {\n    const text = (await Clipboard.readText()) || \"\";\n    const languages = [\"Excerpt From\", \"\u6458\u5F55\u6765\u81EA\"];\n    const re = new RegExp(\"\u201C([\\\\s\\\\S]+)\u201D\\\\n\\\\n\" + `(${languages.join(\"|\")})`);\n    const groups = text.match(re);\n    if (groups) {\n      const content = groups[1];\n      Clipboard.paste(content);\n    } else {\n      Clipboard.paste(text);\n    }\n  })();\n}\n"],
-  "mappings": "yaAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,IAAA,eAAAC,EAAAH,GAAA,IAAAI,EAA0B,wBAEX,SAARF,GAA2B,CAChC,OAAQ,SAAY,CAClB,IAAMG,EAAQ,MAAM,YAAU,SAAS,GAAM,GACvCC,EAAY,CAAC,eAAgB,0BAAM,EACnCC,EAAK,IAAI,OAAO,iCAA4BD,EAAU,KAAK,GAAG,IAAI,EAClEE,EAASH,EAAK,MAAME,CAAE,EAC5B,GAAIC,EAAQ,CACV,IAAMC,EAAUD,EAAO,CAAC,EACxB,YAAU,MAAMC,CAAO,OAEvB,YAAU,MAAMJ,CAAI,CAExB,GAAG,CACL",
-  "names": ["src_exports", "__export", "Command", "__toCommonJS", "import_api", "text", "languages", "re", "groups", "content"]
-}
