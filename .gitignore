@@ -35,6 +35,7 @@
 opencode/plugin
 !home-manager
 !fish
+!eca
 
 .DS_Store
 

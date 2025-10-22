@@ -52,6 +52,16 @@
         "mcp-remote@latest",
         "https://mcp.sentry.dev/mcp"
       ]
+    },
+    "serena": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server"
+      ]
     }
   }
 }

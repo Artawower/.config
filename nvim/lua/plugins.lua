@@ -282,11 +282,9 @@ return {
     },
     -- Timemachine
     {
-        "fredeeb/tardis.nvim",
-        dependencies = {"nvim-lua/plenary.nvim"}
-        -- config = function()
-        --     require("tardis_config").setup()
-        -- end
+        "fredehoey/tardis.nvim",
+        dependencies = {"nvim-lua/plenary.nvim"},
+        config = true
     },
     {
         "APZelos/blamer.nvim",

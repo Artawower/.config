@@ -1,9 +1,11 @@
+
 local wezterm = require "wezterm"
 
 local M = {}
 
 M.dark_themes = {
   "Catppuccin Frappe",
+  "Laser",
   "Tokyo Night",
   "Dracula",
   "OneDark",
@@ -11,9 +13,10 @@ M.dark_themes = {
 }
 
 M.light_themes = {
-  "Ayu Light (Gogh)",
   "Catppuccin Latte",
-  "rose-pine-dawn"
+  "Ayu Light (Gogh)",
+  "Cupcake (base16)",
+  "rose-pine-dawn",
 }
 
 M.window_themes = {}
