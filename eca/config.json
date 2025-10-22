@@ -1,0 +1,81 @@
+{
+  "providers" : {
+    "z-ai" : {
+      "api" : "anthropic",
+      "url" : "https://api.z.ai/api/anthropic",
+      "models" : {
+        "GLM-4.6" : { }
+      },
+      "key" : "30781b3da8e6457e9006abd32b386b5e.BGq0klizgyLUoNuN"
+    }
+  },
+  "hooks" : {
+    "notify-me" : {
+      "type" : "postRequest",
+      "actions" : [ {
+        "type" : "shell",
+        "shell" : "terminal-notifier -title \"Eca\" -message \"Hey, prompt finished!\""
+      } ]
+    },
+    "notify-tool-approval" : {
+      "type" : "preToolCall",
+      "visible" : false,
+      "actions" : [ {
+        "type" : "shell",
+        "shell" : "terminal-notifier -title \"ECA Approval Required\" -message \"Tool approval requested: $(jq -r '.\"tool-name\" // \"Unknown tool\"' <<< \"$1\")\" || osascript -e 'display notification \"Tool approval requested: '$(jq -r '.\"tool-name\" // \"Unknown tool\"' <<< \"$1\")'\" with title \"ECA Approval Required\"'"
+      } ]
+    },
+    "notify-shell-commands" : {
+      "type" : "preToolCall",
+      "matcher" : "eca_shell_command",
+      "visible" : false,
+      "actions" : [ {
+        "type" : "shell",
+        "shell" : "terminal-notifier -title \"ECA Shell Command\" -message \"Shell command approval: $(jq -r '.args.command // \"Unknown command\"' <<< \"$1\")\" || osascript -e 'display notification \"Shell command approval: '$(jq -r '.args.command // \"Unknown command\"' <<< \"$1\")'\" with title \"ECA Shell Command\"'"
+      } ]
+    },
+    "notify-file-operations" : {
+      "type" : "preToolCall",
+      "matcher" : "eca_edit_file|eca_write_file|eca_move_file",
+      "visible" : false,
+      "actions" : [ {
+        "type" : "shell",
+        "shell" : "terminal-notifier -title \"ECA File Operation\" -message \"File operation approval: $(jq -r '.\"tool-name\" // \"Unknown operation\"' <<< \"$1\")\" || osascript -e 'display notification \"File operation approval: '$(jq -r '.\"tool-name\" // \"Unknown operation\"' <<< \"$1\")'\" with title \"ECA File Operation\"'"
+      } ]
+    }
+  },
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "codex-cli": {
+      "command": "mcp-codex-cli",
+      "args": ["--allow-npx"]
+    },
+    "gemini-cli": {
+      "command": "mcp-gemini-cli"
+    },
+    "deepcontext": {
+      "command": "npx",
+      "args": ["-y", "@wildcard-ai/deepcontext@latest"]
+    },
+    "sentry": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
+    },
+    "serena": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  },
+  "defaultModel" : "z-ai/GLM-4.6"
+}
