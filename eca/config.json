@@ -1,47 +1,79 @@
 {
-  "providers" : {
-    "z-ai" : {
-      "api" : "anthropic",
-      "url" : "https://api.z.ai/api/anthropic",
-      "models" : {
-        "GLM-4.6" : { }
+  "providers": {
+    "z-ai": {
+      "api": "anthropic",
+      "url": "https://api.z.ai/api/anthropic",
+      "models": {
+        "GLM-4.6": {}
       },
-      "key" : "30781b3da8e6457e9006abd32b386b5e.BGq0klizgyLUoNuN"
+      "key": "30781b3da8e6457e9006abd32b386b5e.BGq0klizgyLUoNuN"
     }
   },
-  "hooks" : {
-    "notify-me" : {
-      "type" : "postRequest",
-      "actions" : [ {
-        "type" : "shell",
-        "shell" : "terminal-notifier -title \"Eca\" -message \"Hey, prompt finished!\""
-      } ]
+  "completion": {
+    "model": "anthropic/claude-haiku-4-5-20251001",
+    "systemPromptFile": "/Users/darkawower/.config/eca/agents/completion.md"
+  },
+  "behavior": {
+    "code-reviewer": {
+      "systemPromptFile": "/Users/darkawower/.config/eca/agents/code-reviewer.md",
+      "toolCall": {
+        "byDefault": "ask",
+        "approval": {
+          "allow": {
+            "eca_shell_command": {
+              "argsMatchers": {
+                "command": [
+                  ".*find.*",
+                  ".*pwd.*",
+                  ".*ls.*",
+                  ".*cd.*",
+                  ".*cd.*",
+                  ".*gh.*",
+                  ".*cat.*",
+                  ".*grep.*",
+                  ".*git status.*",
+                  ".*git diff.*",
+                  ".*git log.*",
+                  ".*cat.*"
+                ]
+              }
+            },
+            "context7": {},
+            "sequential-thinking": {},
+            "issue_details": {},
+            "issue_comments": {},
+            "find": {},
+            "eca_directory_tree": {},
+            "eca_read_file": {},
+            "eca_grep": {},
+            "eca_editor_diagnostics": {},
+            "search_codebase": {}
+          }
+        }
+      }
+    }
+  },
+  "rules": [{ "path": "/Users/darkawower/.config/eca/rules/common-rules.md" }],
+  "hooks": {
+    "notify-me": {
+      "type": "postRequest",
+      "actions": [
+        {
+          "type": "shell",
+          "shell": "terminal-notifier -title \"Eca\" -message \"Hey, prompt finished!\""
+        }
+      ]
     },
-    "notify-tool-approval" : {
-      "type" : "preToolCall",
-      "visible" : false,
-      "actions" : [ {
-        "type" : "shell",
-        "shell" : "terminal-notifier -title \"ECA Approval Required\" -message \"Tool approval requested: $(jq -r '.\"tool-name\" // \"Unknown tool\"' <<< \"$1\")\" || osascript -e 'display notification \"Tool approval requested: '$(jq -r '.\"tool-name\" // \"Unknown tool\"' <<< \"$1\")'\" with title \"ECA Approval Required\"'"
-      } ]
-    },
-    "notify-shell-commands" : {
-      "type" : "preToolCall",
-      "matcher" : "eca_shell_command",
-      "visible" : false,
-      "actions" : [ {
-        "type" : "shell",
-        "shell" : "terminal-notifier -title \"ECA Shell Command\" -message \"Shell command approval: $(jq -r '.args.command // \"Unknown command\"' <<< \"$1\")\" || osascript -e 'display notification \"Shell command approval: '$(jq -r '.args.command // \"Unknown command\"' <<< \"$1\")'\" with title \"ECA Shell Command\"'"
-      } ]
-    },
-    "notify-file-operations" : {
-      "type" : "preToolCall",
-      "matcher" : "eca_edit_file|eca_write_file|eca_move_file",
-      "visible" : false,
-      "actions" : [ {
-        "type" : "shell",
-        "shell" : "terminal-notifier -title \"ECA File Operation\" -message \"File operation approval: $(jq -r '.\"tool-name\" // \"Unknown operation\"' <<< \"$1\")\" || osascript -e 'display notification \"File operation approval: '$(jq -r '.\"tool-name\" // \"Unknown operation\"' <<< \"$1\")'\" with title \"ECA File Operation\"'"
-      } ]
+    "notify-approval": {
+      "type": "preToolCall",
+      "matcher": ".*eca_edit_file",
+      "visible": false,
+      "actions": [
+        {
+          "type": "shell",
+          "shell": "terminal-notifier -title \"ECA Approval Required\" -message \"Tool approval requested: $(jq -r '.\"tool-name\" // \"Unknown tool\"' <<< \"$1\")\" || osascript -e 'display notification \"Tool approval requested: '$(jq -r '.\"tool-name\" // \"Unknown tool\"' <<< \"$1\")'\" with title \"ECA Approval Required\"'"
+        }
+      ]
     }
   },
   "mcpServers": {
@@ -53,10 +85,10 @@
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"]
     },
-    "codex-cli": {
-      "command": "mcp-codex-cli",
-      "args": ["--allow-npx"]
-    },
+    // "codex-cli": {
+    //   "command": "mcp-codex-cli",
+    //   "args": ["--allow-npx"]
+    // },
     "gemini-cli": {
       "command": "mcp-gemini-cli"
     },
@@ -65,17 +97,74 @@
       "args": ["-y", "@wildcard-ai/deepcontext@latest"]
     },
     "sentry": {
+      "disabled": true,
       "command": "npx",
       "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
     },
     "serena": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"]
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--enable-web-dashboard",
+        "False"
+      ]
     },
-    "memory": {
+    "playwright": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "args": ["@playwright/mcp@latest"]
+    },
+    "youtrackd": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "YOUTRACK_URL",
+        "-e",
+        "YOUTRACK_API_TOKEN",
+        "tonyzorin/youtrack-mcp:latest"
+      ]
     }
   },
-  "defaultModel" : "z-ai/GLM-4.6"
+  "toolCall": {
+    "approval": {
+      "allow": {
+        "eca_shell_command": {
+          "argsMatchers": {
+            "command": [
+              ".*find.*",
+              ".*pwd.*",
+              ".*ls.*",
+              ".*cd.*",
+              ".*cd.*",
+              ".*gh.*",
+              ".*cat.*",
+              ".*grep.*",
+              ".*git status.*",
+              ".*git diff.*",
+              ".*git log.*",
+              ".*cat.*"
+            ]
+          }
+        },
+        "context7": {},
+        "sequential-thinking": {},
+        "issue_details": {},
+        "issue_comments": {},
+        "find": {},
+        "serena": {},
+        "eca": {},
+        "eca_directory_tree": {},
+        "eca_read_file": {},
+        "eca_grep": {},
+        "eca_editor_diagnostics": {},
+        "search_codebase": {}
+      }
+    }
+  },
+  "defaultModel": "anthropic/claude-sonnet-4-5-20250929"
 }
