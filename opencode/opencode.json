@@ -62,6 +62,24 @@
         "serena",
         "start-mcp-server"
       ]
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"]
+    },
+    "youtrackd": {
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "YOUTRACK_URL",
+        "-e",
+        "YOUTRACK_API_TOKEN",
+        "tonyzorin/youtrack-mcp:latest"
+      ]
     }
   }
 }
