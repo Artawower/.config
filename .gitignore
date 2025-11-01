@@ -53,10 +53,12 @@ raycast/extensions/*/assets/*.png
 
 # Fish secrets and generated files
 fish/secrets.fish
+fish/conf.d/secrets.fish
 fish/fish_variables
 fish/conf.d/plugin-*.fish
 fish/functions/_pisces_*.fish
 fish/functions/_nvm_*.fish
+fish/functions/_pure_*.fish
 fish/functions/loadenv.fish
 
 # Temporary/state files
@@ -68,3 +70,6 @@ karabiner/automatic_backups/
 # Wezterm state
 wezterm/.last-appearance
 wezterm/.theme-idx
+
+# Emacs tree-sitter compiled binaries
+emacs-tree-sitter/**/*.dylib
