@@ -1,1 +1,0 @@
-/nix/store/7bignrrwc9i6rj6lb2f6w3fizcr294y3-home-manager-files/.config/fish/conf.d/plugin-grc.fish

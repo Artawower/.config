@@ -46,10 +46,8 @@ opencode/plugin
 **/*.backup
 **/*.bak[0-9]*
 
-# Raycast compiled extensions
-raycast/extensions/**/*.js
-raycast/extensions/**/*.js.map
-raycast/extensions/*/assets/*.png
+# Raycast - only keep .rayconfig, extensions auto-install from Store
+raycast/extensions/
 
 # Fish secrets and generated files
 fish/secrets.fish
@@ -60,6 +58,10 @@ fish/functions/_pisces_*.fish
 fish/functions/_nvm_*.fish
 fish/functions/_pure_*.fish
 fish/functions/loadenv.fish
+fish/functions/fish_greeting.fish
+fish/functions/fish_prompt.fish
+fish/functions/fish_mode_prompt.fish
+fish/functions/fish_title.fish
 
 # Temporary/state files
 **/.!*
@@ -71,5 +73,5 @@ karabiner/automatic_backups/
 wezterm/.last-appearance
 wezterm/.theme-idx
 
-# Emacs tree-sitter compiled binaries
-emacs-tree-sitter/**/*.dylib
+# Emacs tree-sitter - binaries can be regenerated
+emacs-tree-sitter/
