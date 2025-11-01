@@ -49,3 +49,22 @@ opencode/plugin
 # Raycast compiled extensions
 raycast/extensions/**/*.js
 raycast/extensions/**/*.js.map
+raycast/extensions/*/assets/*.png
+
+# Fish secrets and generated files
+fish/secrets.fish
+fish/fish_variables
+fish/conf.d/plugin-*.fish
+fish/functions/_pisces_*.fish
+fish/functions/_nvm_*.fish
+fish/functions/loadenv.fish
+
+# Temporary/state files
+**/.!*
+
+# Karabiner backups
+karabiner/automatic_backups/
+
+# Wezterm state
+wezterm/.last-appearance
+wezterm/.theme-idx

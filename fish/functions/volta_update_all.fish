@@ -1,1 +1,0 @@
-/nix/store/q6hmd2m913wkc180sl65g43c4b45f8cw-home-manager-files/.config/fish/functions/volta_update_all.fish
