@@ -75,3 +75,10 @@ wezterm/.theme-idx
 
 # Emacs tree-sitter - binaries can be regenerated
 emacs-tree-sitter/
+
+# Fonts - standard fonts installed via Homebrew/Nix (see fonts/README.md)
+fonts/JetBrainsMono*.ttf
+fonts/JetBrains*.ttf
+fonts/FiraCode*.ttf
+fonts/Cascadia*.ttf
+fonts/Monaspace*.ttf
