@@ -32,6 +32,7 @@ yabai -m signal --add event=mission_control_exit action="echo \"mission_control_
 
 # Rules
 yabai -m rule --add app="^System Preferences$" manage=off space=9
+yabai -m rule --add app="^Weather$" manage=off space=9
 # yabai -m rule --add app="^NeoHtop$" manage=on layer=above
 yabai -m rule --add app="^NeoHtop$" manage=off grid=100:100:0:0:100:100
 yabai -m rule --add app="^Bitwarden$" manage=off sticky=on
