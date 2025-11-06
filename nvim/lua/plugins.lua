@@ -506,8 +506,16 @@ return {
         config = function()
             require("floaterm_config").setup()
         end
-    }
+    },
     -- AI
+    {
+  "editor-code-assistant/eca-nvim",
+  dependencies = {
+    "MunifTanjim/nui.nvim",   -- Required: UI framework
+    "nvim-lua/plenary.nvim",  -- Optional: Enhanced async operations
+  },
+  opts = {}
+}
     -- {
     --     "GeorgesAlkhouri/nvim-aider",
     --     cmd = "Aider",
