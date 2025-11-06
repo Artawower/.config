@@ -175,7 +175,8 @@ alt - o : /opt/homebrew/bin/yabai -m space --focus other
 # alt - return : open -na kitty.app
 
 # alt - return : kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
-shift + alt - return : /opt/homebrew/bin/wezterm
+ctrl + alt - return : /opt/homebrew/bin/wezterm
+shift + alt - return : open -na Ghostty.app
 
 cmd + alt - return : open -a kitty.app
 

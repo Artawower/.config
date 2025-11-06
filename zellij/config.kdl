@@ -99,7 +99,7 @@ keybinds clear-defaults=true {
         bind "Ctrl з" {
             SwitchToMode "locked"
         }
-        bind "Ctrl p" {
+        bind "Ctrl '" {
             SwitchToMode "locked"
         }
         bind "esc" {
@@ -111,7 +111,7 @@ keybinds clear-defaults=true {
     }
     locked {
         // Keep locked as pass-through: only unlock keys here
-        bind "Ctrl p" {
+        bind "Ctrl '" {
             SwitchToMode "normal"
         }
     }
@@ -869,7 +869,7 @@ keybinds clear-defaults=true {
         bind "Ctrl з" {
             SwitchToMode "normal"
         }
-        bind "Ctrl p" {
+        bind "Ctrl '" {
             SwitchToMode "normal"
         }
         bind "Ctrl c" {

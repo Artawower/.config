@@ -90,7 +90,7 @@ yabai -m rule --add app="^Session$" manage=off grid=100:100:66:28:30:40 space=7
 yabai -m rule --add app="^TickTick$" manage=off grid=100:100:4:4:45:80 space=7
 yabai -m rule --add app="^App Store$" manage=off sticky=on
 
-yabai -m rule --add app="^Google Chrome$" manage=on space=4
+yabai -m rule --add app="^Google Chrome$" manage=on space=9
 yabai -m rule --add app="^kitty$" manage=on space=2
 yabai -m rule --add app="WezTerm" manage=on space=2
 yabai -m rule --add app="^Telegram$" manage=on space=1
@@ -103,6 +103,7 @@ yabai -m rule --add app="^Discord$" manage=on space=1
 yabai -m rule --add app="^Spark$" manage=off space=8 sticky=off
 yabai -m rule --add app="^MongoDB Compass" manage=on space=9
 yabai -m rule --add app="^WebTorrent" manage=on space=10
+yabai -m rule --add app="^Playwright Test" manage=on space=10
 yabai -m rule --add app="^ChatGPT$" manage=on space=9
 yabai -m rule --add app="^Books$" manage=on space=7
 yabai -m rule --add app="^Obsidian$" manage=on space=8

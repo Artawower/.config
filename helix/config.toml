@@ -34,11 +34,6 @@ render = true
 character = "╎"
 skip-levels = 1
 
-# [editor.statusline]
-# left = ["mode", "spinner", "file-name", "file-modification-indicator"]
-# center = []
-# right = ["diagnostics", "selections", "register", "position", "file-encoding"]
-
 [editor.statusline]
 left = [
   "mode",
@@ -220,6 +215,7 @@ esc = ["collapse_selection", "keep_primary_selection"]
     ":redraw",
     ":reload-all"
 ]
+
 "G" = [
     ":write-all",
     ":insert-output lazygit >/dev/tty",
