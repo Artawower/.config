@@ -102,6 +102,9 @@ keybinds clear-defaults=true {
         bind "Ctrl '" {
             SwitchToMode "locked"
         }
+        bind "Super p" {
+            SwitchToMode "locked"
+        }
         bind "esc" {
             SwitchToMode "locked"
         }
@@ -112,6 +115,9 @@ keybinds clear-defaults=true {
     locked {
         // Keep locked as pass-through: only unlock keys here
         bind "Ctrl '" {
+            SwitchToMode "normal"
+        }
+        bind "Super p" {
             SwitchToMode "normal"
         }
     }
@@ -871,6 +877,9 @@ keybinds clear-defaults=true {
         }
         bind "Ctrl '" {
             SwitchToMode "normal"
+        }
+        bind "Super p" {
+            SwitchToMode "locked"
         }
         bind "Ctrl c" {
             ScrollToBottom

@@ -116,19 +116,28 @@
       "command": "npx",
       "args": ["@playwright/mcp@latest"]
     },
-    "youtrackd": {
-      "command": "docker",
+    "youtrack": {
+      "command": "npx",
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "YOUTRACK_URL",
-        "-e",
-        "YOUTRACK_API_TOKEN",
-        "tonyzorin/youtrack-mcp:latest"
+        "mcp-remote",
+        "https://verifika.youtrack.cloud/mcp",
+        "--header",
+        "$YOUTRACK_AUTH_HEADER"
       ]
     }
+    // "youtrackd": {
+    //   "command": "docker",
+    //   "args": [
+    //     "run",
+    //     "-i",
+    //     "--rm",
+    //     "-e",
+    //     "YOUTRACK_URL",
+    //     "-e",
+    //     "YOUTRACK_API_TOKEN",
+    //     "tonyzorin/youtrack-mcp:latest"
+    //   ]
+    // }
   },
   "toolCall": {
     "approval": {
@@ -152,6 +161,7 @@
           }
         },
         "context7": {},
+        "youtrack__get_issue": {},
         "sequential-thinking": {},
         "issue_details": {},
         "issue_comments": {},
