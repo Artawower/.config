@@ -1,5 +1,6 @@
 from pathlib import Path
 from xonsh import color_tools
+import re
 
 def _e(args):
     ![emacsclient -ac @(args)]
@@ -74,6 +75,17 @@ def _ud(args):
 def print_colors():
     for name, (r, g, b) in color_tools.BASE_XONSH_COLORS.items():
         print(f"\033[48;2;{r};{g};{b}m  \033[0m {name:20} rgb({r},{g},{b})")
+
+def volta_update_all():
+    res = $(volta list --format plain).split('\n')
+    versioned_packages = [p.split()[1] for p in res if len(p) > 2]
+    packages_to_install = []
+    for p in versioned_packages:
+        matched = re.match(r"^(@?[^@]+)(?:@.*)?$", p)
+        if (matched):
+            packages_to_install.append(matched.group(1))
+
+    volta install @(packages_to_install)
 
 aliases['e'] = _e
 aliases['cl'] = _cl
