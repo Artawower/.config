@@ -5,6 +5,7 @@ config_dir = Path.home() / '.config/xonsh'
 
 source @(config_dir / 'env.xsh')
 source @(config_dir / 'paths.xsh')
+source @(config_dir / 'project-marker.xsh')
 source @(config_dir / 'prompt.xsh')
 source @(config_dir / 'keybindings.xsh')
 source @(config_dir / 'hooks.xsh')
