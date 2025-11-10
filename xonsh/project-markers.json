@@ -1,0 +1,22 @@
+{
+  "/Users/darkawower/projects/ui": {
+    "color": "magenta",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/orgnote-client": {
+    "color": "red",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet": {
+    "color": "yellow",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/emacs/blamer.el": {
+    "color": "blue",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/.config": {
+    "color": "purple",
+    "marker": "\u25a0"
+  }
+}
