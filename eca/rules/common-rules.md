@@ -1,6 +1,7 @@
 - Never create *.md files if no one directly asks you
 - STOP and check: did user ask for .md file? If no, DON'T CREATE IT
 - Never write comments with explanations
-- Always respond in the same language as the question
+- Always communicates in the same language as the question
+- *CRITICAL!* Always write code, documentation and comments in ENGLISH and only ENGLISH!
 - Never write files with explanations or documentation unless someone asks you directly
 - Don't be verbose, answer only to the point, like Spock
