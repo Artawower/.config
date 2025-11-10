@@ -1,6 +1,34 @@
 from pathlib import Path
 from xonsh import color_tools
 import re
+import subprocess
+
+def _hx(args):
+    """Helix with auto theme switching"""
+    # Get system theme on macOS
+    try:
+        result = subprocess.run(
+            ['osascript', '-e', 'tell application "System Events" to tell appearance preferences to get dark mode'],
+            capture_output=True,
+            text=True,
+            timeout=1
+        )
+        is_dark = result.stdout.strip() == 'true'
+    except:
+        is_dark = True
+    
+    # Set theme based on system appearance
+    theme = 'my' if is_dark else 'my_light'
+    config_file = Path.home() / '.config/helix/config.toml'
+    
+    if config_file.exists():
+        content = config_file.read_text()
+        new_content = re.sub(r'^theme = .*', f'theme = "{theme}"', content, flags=re.MULTILINE)
+        if new_content != content:
+            config_file.write_text(new_content)
+    
+    # Launch helix
+    ![hx @(args)]
 
 def _e(args):
     ![emacsclient -ac @(args)]
@@ -87,6 +115,7 @@ def volta_update_all():
 
     volta install @(packages_to_install)
 
+aliases['hx'] = _hx
 aliases['e'] = _e
 aliases['cl'] = _cl
 aliases['zi'] = _zi
