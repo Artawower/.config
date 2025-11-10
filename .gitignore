@@ -83,3 +83,6 @@ fonts/JetBrains*.ttf
 fonts/FiraCode*.ttf
 fonts/Cascadia*.ttf
 fonts/Monaspace*.ttf
+
+
+!xonsh

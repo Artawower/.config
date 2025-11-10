@@ -1091,7 +1091,8 @@ theme "catppuccin-frappe"
 //
 default_mode "locked"
 // Choose the path to the default shell that zellij will use for opening new panes
-default_shell "/Users/darkawower/.nix-profile/bin/fish"
+// default_shell "/Users/darkawower/.nix-profile/bin/fish"
+default_shell "/opt/homebrew/bin/xonsh"
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd "/tmp"
