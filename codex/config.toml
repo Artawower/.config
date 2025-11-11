@@ -265,18 +265,48 @@ mcp_oauth_credentials_store = "auto"
 # tool_timeout_sec = 60.0                      # optional
 # enabled_tools = ["list_issues"]             # optional allow-list
 
-[mcp_servers.github]
+[mcp_servers.sequential-thinking]
 command = "npx"
-args = ["-y", "@modelcontextprotocol/server-github"]
-env_vars = ["GITHUB_TOKEN"]
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+
+[mcp_servers.gemini-cli]
+command = "mcp-gemini-cli"
+
+[mcp_servers.deepcontext]
+command = "npx"
+args = ["-y", "@wildcard-ai/deepcontext@latest"]
 
 [mcp_servers.sentry]
 command = "npx"
 args = ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
 
-[mcp_servers.context7]
+[mcp_servers.serena]
+command = "uvx"
+args = [
+  "--from",
+  "git+https://github.com/oraios/serena",
+  "serena",
+  "start-mcp-server",
+  "--enable-web-dashboard",
+  "False"
+]
+
+[mcp_servers.playwright]
 command = "npx"
-args = ["-y", "@upstash/context7-mcp"]
+args = ["@playwright/mcp@latest"]
+
+[mcp_servers.youtrack]
+command = "npx"
+args = [
+  "mcp-remote",
+  "https://verifika.youtrack.cloud/mcp",
+  "--header",
+  "$YOUTRACK_AUTH_HEADER"
+]
 
 
 ################################################################################

@@ -9,6 +9,7 @@ parsed_json = json.loads(current_windows)
 app_to_window = {
     "^Docker": "thrash",
     "^wezterm": "term",
+    "^Ghostty": "term",
     "^WezTerm": "term",
     "^Spark": "thrash",
     "^Emacs": "dev",
@@ -25,6 +26,7 @@ app_to_window = {
     "^Android": "thrash",
     "^Discord": "entertainment",
     "^Lightroom": "entertainment",
+    "^Chromium": "10"
 }
 
 for window in parsed_json:
