@@ -3,6 +3,7 @@ aliases['..'] = 'cd ../'
 aliases['b'] = 'cd -'
 aliases['n'] = 'nvim'
 aliases['y'] = 'yazi'
+aliases['g'] = 'gitu'
 
 aliases['doom'] = '~/.emacs.d/bin/doom'
 aliases['emacs30'] = '/opt/homebrew/Cellar/emacs-plus@30/30.0.93/bin/emacs --init-dir ~/.emacs.d-30'
