@@ -4,6 +4,7 @@ aliases['b'] = 'cd -'
 aliases['n'] = 'nvim'
 aliases['y'] = 'yazi'
 aliases['g'] = 'gitu'
+aliases['п'] = 'gitu'
 
 aliases['doom'] = '~/.emacs.d/bin/doom'
 aliases['emacs30'] = '/opt/homebrew/Cellar/emacs-plus@30/30.0.93/bin/emacs --init-dir ~/.emacs.d-30'
@@ -26,6 +27,9 @@ aliases['m'] = 'minikube'
 aliases['ms'] = 'minikube start --driver=docker --alsologtostderr'
 aliases['md'] = 'minikube dashboard'
 aliases['kg'] = 'kubectl get'
+
+aliases['dublog'] = 'ssh darkawower@49.12.98.254'
+aliases['on'] = 'ssh -i ~/.ssh/orgnote darkawower@65.108.90.95'
 
 aliases['o'] = 'cd ~/projects/pet/orgnote'
 aliases['oc'] = 'cd ~/projects/pet/orgnote/orgnote-client'

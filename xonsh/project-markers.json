@@ -18,5 +18,17 @@
   "/Users/darkawower/.config": {
     "color": "purple",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/gear-picker": {
+    "color": "blue",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote": {
+    "color": "bright-magenta",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/nix": {
+    "color": "bright-yellow",
+    "marker": "\u25a0"
   }
 }

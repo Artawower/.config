@@ -3,20 +3,30 @@ import hashlib
 from pathlib import Path
 
 COLORS = ["blue", "cyan", "green", "purple", "yellow", "red", "bright-blue", "bright-cyan", "bright-green", "bright-magenta", "bright-yellow"]
-ANSI_COLORS = {
-    "blue": "\033[34m",
-    "cyan": "\033[36m",
-    "green": "\033[32m",
-    "purple": "\033[35m",
-    "yellow": "\033[33m",
-    "red": "\033[31m",
-    "bright-blue": "\033[94m",
-    "bright-cyan": "\033[96m",
-    "bright-green": "\033[92m",
-    "bright-magenta": "\033[95m",
-    "bright-yellow": "\033[93m",
-    "reset": "\033[0m"
+
+# True Color RGB codes (same colors everywhere)
+COLOR_HEX = {
+    "blue": "#5294e2",
+    "cyan": "#4dd0e1",
+    "green": "#81c784",
+    "purple": "#ba68c8",
+    "magenta": "#ba68c8",
+    "yellow": "#ffd54f",
+    "red": "#e57373",
+    "bright-blue": "#64b5f6",
+    "bright-cyan": "#4dd0e1",
+    "bright-green": "#aed581",
+    "bright-magenta": "#ce93d8",
+    "bright-yellow": "#fff176"
 }
+
+def _hex_to_rgb_escape(hex_color):
+    """Convert hex color to True Color escape sequence"""
+    hex_color = hex_color.lstrip('#')
+    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+    return f'\033[38;2;{r};{g};{b}m'
+
+RESET = '\033[0m'
 
 _markers_cache = None
 
@@ -82,9 +92,52 @@ def _update_project_marker():
         _save_markers(markers)
     
     config = markers[project_path]
-    color = ANSI_COLORS.get(config.get('color', 'blue'), '')
+    color_name = config.get('color', 'blue')
+    hex_color = COLOR_HEX.get(color_name, '#5294e2')
+    rgb_escape = _hex_to_rgb_escape(hex_color)
     marker = config.get('marker', '■')
-    $PROJECT_MARKER = f' {color}{marker}{ANSI_COLORS["reset"]} '
+    $PROJECT_MARKER = f' {rgb_escape}{marker}{RESET} '
+    
+    # Update zellij border color by changing theme in config
+    import os
+    import re
+    if 'ZELLIJ' in os.environ:
+        # Update theme file (green = active pane border color)
+        theme_file = Path.home() / '.config/zellij/themes/project-dynamic.kdl'
+        theme_content = f'''themes {{
+    project-dynamic {{
+        fg "#c6d0f5"
+        bg "#303446"
+        black "#51576d"
+        red "#e78284"
+        green "{hex_color}"
+        yellow "#e5c890"
+        blue "#8caaee"
+        magenta "#f4b8e4"
+        cyan "#81c8be"
+        white "#b5bfe2"
+        orange "#ef9f76"
+    }}
+}}'''
+        
+        try:
+            theme_file.write_text(theme_content)
+            
+            # Touch config.kdl to trigger zellij reload
+            import time
+            config_file = Path.home() / '.config/zellij/config.kdl'
+            if config_file.exists():
+                content = config_file.read_text()
+                # Add/update timestamp comment to trigger file change
+                import re
+                timestamp = str(int(time.time()))
+                if '// project-marker-ts:' in content:
+                    content = re.sub(r'// project-marker-ts:\d+', f'// project-marker-ts:{timestamp}', content)
+                else:
+                    content += f'\n// project-marker-ts:{timestamp}\n'
+                config_file.write_text(content)
+        except Exception as e:
+            pass
 
 @events.on_chdir
 def _on_chdir(olddir, newdir, **kw):

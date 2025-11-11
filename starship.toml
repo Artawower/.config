@@ -1,0 +1,42 @@
+format = """
+${env_var.PROJECT_MARKER}\
+$directory\
+$git_branch\
+$git_status\
+$character"""
+
+[env_var.PROJECT_MARKER]
+format = "$env_value"
+default = ""
+
+[character]
+success_symbol = "[❯](bold purple)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[N](bold yellow) [❯](bold purple)"
+
+[directory]
+truncation_length = 1
+truncate_to_repo = false
+repo_root_style = "bold cyan"
+format = "[$read_only]($read_only_style)[$path]($style) "
+style = "bold cyan"
+home_symbol = "~/"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "bright-black"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "bold black"
+conflicted = ""
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+up_to_date = "≡"
+untracked = ""
+stashed = ""
+modified = "*"
+staged = ""
+renamed = ""
+deleted = ""
