@@ -13,6 +13,7 @@ after-startup-command = [
     # JankyBorders has a built-in detection of already running process,
     # so it won't be run twice on AeroSpace restart
     # 'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+    # 'exec-and-forget borders active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff) inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb) blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \ width=4.0 \ hidpi=on'
 ]
 
 # Start AeroSpace at login
@@ -25,7 +26,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 32
+accordion-padding = 16
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -60,12 +61,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 32
-inner.vertical =   32
-outer.left =       32
-outer.bottom =     32
-outer.top =        32
-outer.right =      32
+inner.horizontal = 14
+inner.vertical =   14
+outer.left =       14
+outer.bottom =     14
+outer.top =        14
+outer.right =      14
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -114,8 +115,8 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
+ctrl-shift-minus = 'resize smart -50'
+ctrl-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-1 = 'workspace SOC'
@@ -153,6 +154,8 @@ alt-shift-7 = ['move-node-to-workspace THR', 'workspace THR']
 alt-shift-8 = ['move-node-to-workspace STU', 'workspace STU']
 alt-shift-9 = ['move-node-to-workspace AI', 'workspace AI']
 alt-shift-0 = ['move-node-to-workspace PRD', 'workspace PRD']
+alt-shift-minus = ['move-node-to-workspace 11', 'workspace 11']
+alt-shift-equal = ['move-node-to-workspace 12', 'workspace 12']
 
 alt-shift-s = ['move-node-to-workspace SOC', 'workspace SOC']
 alt-shift-t = ['move-node-to-workspace TRM', 'workspace TRM']
@@ -170,8 +173,17 @@ alt-shift-r = ['move-node-to-workspace PRD', 'workspace PRD']
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 # alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
+# Workspace navigation (prev/next)
+ctrl-alt-left = 'workspace --wrap-around prev'
+ctrl-alt-right = 'workspace --wrap-around next'
+
+# Move window to prev/next workspace
+shift-alt-p = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-around prev']
+shift-alt-n = ['move-node-to-workspace --wrap-around next', 'workspace --wrap-around next']
+shift-alt-m = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-around prev']
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-semicolon = 'mode service'
+alt-shift-quote = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -179,21 +191,48 @@ alt-shift-semicolon = 'mode service'
 alt-shift-c = ['layout floating tiling']
 # alt-f = 'layout tiles accordion'
 alt-f = 'layout tiling v_accordion'
+alt-n = 'layout tiling h_accordion'
 alt-shift-f = 'macos-native-fullscreen'
+alt-c = 'fullscreen'
 alt-cmd-r = 'reload-config'
 
 
-alt-enter = '''exec-and-forget osascript -e '
-tell application "WezTerm"
-    activate
-end tell'
-  '''
+# alt-enter = '''exec-and-forget osascript -e '
+# tell application "WezTerm"
+#     activate
+# end tell'
+#   '''
 
+# Additional terminal launchers
+ctrl-alt-enter = 'exec-and-forget /opt/homebrew/bin/wezterm'
+shift-alt-enter = 'exec-and-forget open -a wezterm.app'
+alt-enter = 'exec-and-forget open -na Ghostty.app'
+
+# Application launchers
+cmd-alt-f = 'exec-and-forget open -a Firefox.app'
+cmd-alt-w = 'exec-and-forget open -na Firefox.app'
+cmd-alt-t = 'exec-and-forget open -a Telegram.app'
+cmd-shift-w = 'exec-and-forget open -a Marta.app'
+
+# Open apps with specific commands
+cmd-alt-shift-r = 'exec-and-forget open -na kitty.app --args "ranger"'
+cmd-alt-v = 'exec-and-forget open -na kitty.app --args "nvim"'
+cmd-alt-m = 'exec-and-forget open -na kitty.app --args "spt"'
+
+# Window management
+alt-q = 'close'
+cmd-alt-x = 'close'
+
+# Balance windows
+ctrl-alt-0 = 'balance-sizes'
+
+# Resize bindings (alternative to alt-cmd)
 alt-cmd-l = 'resize width -40'
 alt-cmd-h = 'resize width +40'
 alt-cmd-j = 'resize height +40'
 alt-cmd-k = 'resize height -40'
 
+# Join with (already existed, kept for reference)
 cmd-ctrl-left = 'join-with left'
 cmd-ctrl-down = 'join-with down'
 cmd-ctrl-up = 'join-with up'
@@ -208,6 +247,7 @@ d = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 r = ['reload-config', 'mode main'] # reload config
 backspace = ['close-all-windows-but-current', 'mode main']
+b = ['balance-sizes', 'mode main'] # balance window sizes
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
@@ -221,12 +261,47 @@ down = 'volume down'
 up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
 
+# ============================================================================
+# AeroSpace Window Rules - Migrated from yabai
+# ============================================================================
+# Workspace mapping:
+# yabai space 1  = SOC (social)
+# yabai space 2  = TRM (term)
+# yabai space 3  = WEB (www)
+# yabai space 4  = DEB (other/debug)
+# yabai space 5  = DEV (dev)
+# yabai space 6  = ENT (entertainment)
+# yabai space 7  = THR (thrash)
+# yabai space 8  = STU (study)
+# yabai space 9  = AI  (t3)
+# yabai space 10 = PRD (load/production)
+
+# ============================================================================
+# System & Utility Apps - Floating
+# ============================================================================
+
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.bitwarden'
+if.app-id = 'com.apple.systemsettings'  # macOS 13+
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'system settings'  # Russian locale
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'системные настройки'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'weather'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -238,7 +313,11 @@ if.app-id = 'com.apple.iphonesimulator'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.pika'
+if.app-name-regex-substring = 'simulator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'pika'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -246,19 +325,27 @@ if.app-id = 'com.grammarly.desktop'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.authy.desktop'
+if.app-id = 'com.authy.authy-desktop'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.kap'
+if.app-name-regex-substring = 'dynamic wallpapper'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.xnip'
+if.app-id = 'com.kapeli.dash'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.blizzard.hearthstone'
+if.app-name-regex-substring = 'kap'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'xnip'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'hearthstone'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -270,7 +357,7 @@ if.app-id = 'com.spotify.client'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'org.flameshot'
+if.app-name-regex-substring = 'flameshot'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -278,7 +365,19 @@ if.app-id = 'us.zoom.xos'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.qemu.system.aarch64'
+if.app-name-regex-substring = 'zoom'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'android emulator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'qemu'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'openvpn'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -286,23 +385,63 @@ if.app-id = 'com.loom.desktop'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.mozilla.firefox'
-run = 'move-node-to-workspace WEB'
+if.window-title-regex-substring = 'loom recorder'
+run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.brave.browser'
-run = 'move-node-to-workspace WEB'
+if.window-title-regex-substring = 'loom control'
+run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace DEB'
+if.window-title-regex-substring = 'discord updater'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'pearcleaner'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'  # Arc
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'neohtop'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'layout floating'
+
+# ============================================================================
+# Development Tools → DEV workspace (space 5)
+# ============================================================================
+
+[[on-window-detected]]
+if.app-id = 'org.gnu.Emacs'
+run = 'move-node-to-workspace DEV'
 
 [[on-window-detected]]
 if.app-id = 'io.emacs'
 run = 'move-node-to-workspace DEV'
 
 [[on-window-detected]]
-if.app-id = 'com.kitty'
+if.app-name-regex-substring = 'emacs'
+run = 'move-node-to-workspace DEV'
+
+# ============================================================================
+# Terminals → TRM workspace (space 2)
+# ============================================================================
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = 'move-node-to-workspace TRM'
+
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace TRM'
 
 [[on-window-detected]]
@@ -310,37 +449,165 @@ if.app-id = 'com.wez.wezterm'
 run = 'move-node-to-workspace TRM'
 
 [[on-window-detected]]
-if.app-id = 'com.tdesktop.Telegram'
-run = 'move-node-to-workspace SOC'
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace TRM'
+
+# ============================================================================
+# Web Browsers → WEB workspace (space 3)
+# ============================================================================
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+run = 'move-node-to-workspace WEB'
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace WEB'
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
 run = ['layout floating', 'move-node-to-workspace WEB']
 
+# Arc → DEB workspace (space 4 / other)
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+check-further-callbacks = true
+run = 'move-node-to-workspace DEB'
+
+# ============================================================================
+# Debug/Testing → DEB workspace (space 4)
+# ============================================================================
+
+# Note: Chrome used for debugging in your config
+# (This rule will NOT float Chrome, just move to workspace)
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace DEB'
+
+# ============================================================================
+# Social/Communication → SOC workspace (space 1)
+# ============================================================================
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-id = 'com.tdesktop.Telegram'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'ferdi'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-id = 'com.skype.skype'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-id = 'com.mattermost.desktop'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-id = 'com.discord.discord'
+run = 'move-node-to-workspace SOC'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace SOC'
+
+# ============================================================================
+# Entertainment → ENT workspace (space 6)
+# ============================================================================
 
 [[on-window-detected]]
 if.app-id = 'oss.krtirtho.spotube'
 run = ['layout floating', 'move-node-to-workspace ENT']
-  
-  
-[[on-window-detected]]
-if.app-id = 'com.slack'
-run = 'move-node-to-workspace SOC'
+
+# ============================================================================
+# Trash/Temporary → THR workspace (space 7)
+# ============================================================================
 
 [[on-window-detected]]
-if.app-id = 'com.discord'
-run = 'move-node-to-workspace SOC'
+if.app-name-regex-substring = 'whalebird'
+run = 'move-node-to-workspace THR'
 
 [[on-window-detected]]
-if.app-id = 'org.gnu.Emacs'
-run = 'move-node-to-workspace DEV'
-  
+if.app-name-regex-substring = 'iphone mirroring'
+run = ['layout floating', 'move-node-to-workspace THR']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'session'
+run = ['layout floating', 'move-node-to-workspace THR']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'ticktick'
+run = ['layout floating', 'move-node-to-workspace THR']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iBooksX'
+run = 'move-node-to-workspace THR'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'books'
+run = 'move-node-to-workspace THR'
+
+# ============================================================================
+# Study/Notes → STU workspace (space 8)
+# ============================================================================
+
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
-  run = 'move-node-to-workspace STU'
-
+run = 'move-node-to-workspace STU'
 
 [[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = ['layout floating']
+if.app-id = 'com.readdle.smartemail-Mac'  # Spark
+run = ['layout floating', 'move-node-to-workspace STU']
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'marta'
+run = ['layout floating', 'move-node-to-workspace STU']
+
+# ============================================================================
+# AI/Tools → AI workspace (space 9 / t3)
+# ============================================================================
+
+[[on-window-detected]]
+if.app-id = 'com.openai.chat'
+run = 'move-node-to-workspace AI'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'chatgpt'
+run = 'move-node-to-workspace AI'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'mongodb compass'
+run = 'move-node-to-workspace AI'
+
+# ============================================================================
+# Production/Load → PRD workspace (space 10)
+# ============================================================================
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'webtorrent'
+run = 'move-node-to-workspace PRD'
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'playwright test'
+run = 'move-node-to-workspace 11'
+
+[[on-window-detected]]
+if.app-id = 'org.chromium.Chromium'
+run = 'move-node-to-workspace PRD'
+
+
+# ============================================================================
+#  Sapce 12 rule
+# ============================================================================
+[[on-window-detected]]
+if.app-id = 'com.yourcompany.AmneziaVPN'
+run = 'move-node-to-workspace 12'

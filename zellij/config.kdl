@@ -703,6 +703,45 @@ keybinds clear-defaults=true {
         bind "Alt Shift о" {
             MovePane "down"
         }
+        bind "Ctrl Shift h" {
+            MovePane "left"
+        }
+        bind "Ctrl Shift l" {
+            MovePane "right"
+        }
+        bind "Ctrl Shift k" {
+            MovePane "up"
+        }
+        bind "Ctrl Shift j" {
+            MovePane "down"
+        }
+        bind "Ctrl Shift р" {
+            MovePane "left"
+        }
+        bind "Ctrl Shift д" {
+            MovePane "right"
+        }
+        bind "Ctrl Shift л" {
+            MovePane "up"
+        }
+        bind "Ctrl Shift о" {
+            MovePane "down"
+        }
+        bind "Ctrl Shift /" {
+            NextSwapLayout
+        }
+        bind "Ctrl Shift ." {
+            NextSwapLayout
+        }
+        bind "Ctrl Shift ?" {
+            PreviousSwapLayout
+        }
+        bind "Ctrl Shift ю" {
+            NextSwapLayout
+        }
+        bind "Ctrl Shift ," {
+            PreviousSwapLayout
+        }
         bind "Ctrl q" {
             Quit
         }
@@ -1080,7 +1119,7 @@ web_client {
 //   - true
 //   - false (Default)
 //
-// simplified_ui true
+simplified_ui false
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
@@ -1092,14 +1131,15 @@ theme "catppuccin-frappe"
 default_mode "locked"
 // Choose the path to the default shell that zellij will use for opening new panes
 // default_shell "/Users/darkawower/.nix-profile/bin/fish"
-default_shell "/opt/homebrew/bin/xonsh"
+// default_shell "/opt/homebrew/bin/xonsh"
+default_shell "/Users/darkawower/.nix-profile/bin/xonsh"
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd "/tmp"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "compact"
+default_layout "compact"
 // The folder in which Zellij will look for layouts
 // (Requires restart)
 //

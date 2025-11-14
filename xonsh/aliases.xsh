@@ -1,4 +1,5 @@
 aliases['c'] = 'clear'
+aliases['с'] = 'clear'
 aliases['..'] = 'cd ../'
 aliases['b'] = 'cd -'
 aliases['n'] = 'nvim'

@@ -30,5 +30,21 @@
   "/Users/darkawower/nix": {
     "color": "bright-yellow",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/ui-main-dev": {
+    "color": "red",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/ui_alternative": {
+    "color": "purple",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/subscrumber-repo": {
+    "color": "purple",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/subscrumber-repo/client": {
+    "color": "blue",
+    "marker": "\u25a0"
   }
 }
