@@ -24,6 +24,7 @@ $PATH.insert(0, '/opt/homebrew/opt/gnupg@2.2/bin')
 $PATH.insert(0, '/opt/homebrew/opt/autoconf@2.69/bin')
 $PATH.insert(0, '/opt/homebrew/opt/openssl@1.1/bin')
 $PATH.insert(0, '/opt/homebrew/lib/node_modules/typescript/bin')
+$PATH.insert(0, str(Path.home() / '.nix-profile/bin'))
 $PATH.insert(0, '/nix/var/nix/profiles/default/bin')
 
 sdkman_base = Path.home() / '.sdkman/candidates'

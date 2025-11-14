@@ -1,1 +1,1 @@
-/nix/store/4krv7lxkq7xm2akcva6965a0gdcm13wp-home-manager-files/.config/fish/config.fish
+/nix/store/7c1g1y45jnkyzj30gb2i91np608bqhw5-home-manager-files/.config/fish/config.fish
