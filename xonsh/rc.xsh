@@ -14,4 +14,5 @@ source @(config_dir / 'aliases.xsh')
 source @(config_dir / 'completers.xsh')
 source @(config_dir / 'filters.xsh')
 source @(config_dir / 'prompt.xsh')
+source @(config_dir / 'zoxide.xsh')
 
