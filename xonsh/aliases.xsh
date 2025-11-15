@@ -52,3 +52,6 @@ aliases['watch-dark-mode'] = 'sh ~/.config/scripts/kitty-auto-theme-switcher.sh 
 aliases['displays'] = '/Users/darkawower/.config/yabai/layouts/Arturs-MacBook-Pro.local/desktop.sh'
 aliases['preserve-displays'] = '/Users/darkawower/.config/yabai/restore-script.sh'
 aliases['volar'] = '/Users/darkawower/.npm-global/bin/vue-language-server'
+aliases['dc'] = 'docker compose'
+aliases['dcu'] = 'docker compose up'
+aliases['d'] = 'docker'
