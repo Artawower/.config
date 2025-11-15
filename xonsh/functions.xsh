@@ -54,6 +54,10 @@ def _docker_clean(args):
     ![docker image prune -a]
     ![docker system prune -a --volumes]
 
+def _clean_space(args):
+    _docker_clean(args)
+    ![nix-collect-garbage]
+
 def _bu(args):
     ![brew update]
     ![brew outdated]
@@ -132,6 +136,8 @@ aliases['farmd'] = _farmd
 aliases['remote-vpn'] = _remote_vpn
 aliases['remote-amnezia'] = _remote_amnezia
 aliases['reload'] = _reload
+aliases['r'] = _reload
 aliases['u'] = _u
 aliases['uh'] = _uh
 aliases['ud'] = _ud
+aliases['clean-space'] = _clean_space
