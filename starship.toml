@@ -5,6 +5,8 @@ ${env_var.PROJECT_MARKER}\
 $directory\
 $git_branch\
 $git_status\
+$cmd_duration\
+$time\
 $character"""
 
 [env_var.PROJECT_MARKER]
@@ -42,3 +44,14 @@ modified = "*"
 staged = ""
 renamed = ""
 deleted = ""
+
+[time]
+disabled = false
+format = "[$time]($style) "
+style = "bright-black"
+time_format = "%H:%M"
+
+[cmd_duration]
+min_time = 500
+format = "[$duration]($style) "
+style = "yellow"
