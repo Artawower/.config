@@ -46,5 +46,9 @@
   "/Users/darkawower/projects/pet/subscrumber-repo/client": {
     "color": "blue",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/emacs/eca-emacs": {
+    "color": "cyan",
+    "marker": "\u25a0"
   }
 }
