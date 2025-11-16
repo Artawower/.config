@@ -55,3 +55,5 @@ aliases['volar'] = '/Users/darkawower/.npm-global/bin/vue-language-server'
 aliases['dc'] = 'docker compose'
 aliases['dcu'] = 'docker compose up'
 aliases['d'] = 'docker'
+
+aliases['ql'] = 'quasar clean'
