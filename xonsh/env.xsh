@@ -1,4 +1,5 @@
 $VI_MODE = True
+$AUTO_CD = True
 $EDITOR = 'emacsclient -ac'
 $VISUAL = 'emacsclient -ac'
 $LSP_USE_PLISTS = 'true'

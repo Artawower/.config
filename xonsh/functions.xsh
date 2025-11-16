@@ -2,6 +2,7 @@ from pathlib import Path
 from xonsh import color_tools
 import re
 import subprocess
+import os
 
 def _hx(args):
     """Helix with auto theme switching"""

@@ -50,5 +50,9 @@
   "/Users/darkawower/projects/pet/emacs/eca-emacs": {
     "color": "cyan",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/tmp/davia": {
+    "color": "bright-blue",
+    "marker": "\u25a0"
   }
 }
