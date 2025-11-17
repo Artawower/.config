@@ -54,5 +54,9 @@
   "/Users/darkawower/tmp/davia": {
     "color": "bright-blue",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/ui_master": {
+    "color": "yellow",
+    "marker": "\u25a0"
   }
 }

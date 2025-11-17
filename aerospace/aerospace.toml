@@ -191,7 +191,7 @@ alt-shift-quote = 'mode service'
 alt-shift-c = ['layout floating tiling']
 # alt-f = 'layout tiles accordion'
 alt-f = 'layout tiling v_accordion'
-alt-n = 'layout tiling h_accordion'
+alt-shift-v = 'layout tiling h_accordion'
 alt-shift-f = 'macos-native-fullscreen'
 alt-c = 'fullscreen'
 alt-cmd-r = 'reload-config'
@@ -204,9 +204,9 @@ alt-cmd-r = 'reload-config'
 #   '''
 
 # Additional terminal launchers
-ctrl-alt-enter = 'exec-and-forget /opt/homebrew/bin/wezterm'
+ctrl-alt-enter = 'exec-and-forget open -na Ghostty.app'
 shift-alt-enter = 'exec-and-forget open -a wezterm.app'
-alt-enter = 'exec-and-forget open -na Ghostty.app'
+alt-enter = 'exec-and-forget /opt/homebrew/bin/wezterm'
 
 # Application launchers
 cmd-alt-f = 'exec-and-forget open -a Firefox.app'
@@ -225,6 +225,12 @@ cmd-alt-x = 'close'
 
 # Balance windows
 ctrl-alt-0 = 'balance-sizes'
+
+# Clean all ghost windows https://github.com/nikitabobko/AeroSpace/issues/1615
+alt-cmd-shift-r = 'exec-and-forget sh -c "aerospace list-windows --all --json | jq -r \'.[] | select(.\"window-title\"==\"\") | .\"window-id\"\' | xargs -n1 aerospace close --window-id"' = 'aerospace list-windows --all --json \
+  | jq -r ".[] | select(.\"window-title\"==\"\") | .\"window-id\"" \
+  | xargs -n1 aerospace close --window-id'
+
 
 # Resize bindings (alternative to alt-cmd)
 alt-cmd-l = 'resize width -40'
@@ -450,7 +456,7 @@ run = 'move-node-to-workspace TRM'
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = 'move-node-to-workspace TRM'
+run = ['layout floating', 'move-node-to-workspace TRM']
 
 # ============================================================================
 # Web Browsers → WEB workspace (space 3)

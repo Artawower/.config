@@ -88,4 +88,5 @@ fonts/Monaspace*.ttf
 
 !xonsh
 !starship.toml
+!ghostty
 
