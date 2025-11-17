@@ -109,7 +109,7 @@ config.keys = {
   }
 }
 
-config.default_prog = { "/Users/darkawower/.nix-profile/bin/fish" }
+config.default_prog = { "/opt/homebrew/bin/zellij" }
 config.set_environment_variables = {
   PATH = "/Users/darkawower/.nix-profile/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 }

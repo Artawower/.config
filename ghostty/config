@@ -1,0 +1,33 @@
+# theme = dark:Catppuccin Frappe,light:Github Light Default
+# theme = dark:Laser,light:Seoulbones Dark
+theme = dark:Laser,light:Catppuccin Latte
+# theme = dark:Laser,light:Pro light
+window-decoration = false
+window-theme = ghostty
+macos-non-native-fullscreen = true
+
+# Disable native tabs to prevent AeroSpace bug
+keybind = cmd+t=unbind
+window-inherit-working-directory = false
+window-inherit-font-size = false
+
+shell-integration = fish
+background-opacity = 0.90
+background-blur-radius = 10
+# window-decoration = true
+# macos-titlebar-style = hidden
+window-padding-x = 16,16
+window-padding-y = 16,16
+
+font-family = "JetBrains Mono"
+font-size = 15
+
+keybind = alt+arrow_left=unbind
+keybind = alt+arrow_right=unbind
+macos-option-as-alt = true
+
+shell-integration = fish
+# command = /Users/darkawower/.nix-profile/bin/fish
+command = /opt/homebrew/bin/zellij
+
+term = xterm-256color

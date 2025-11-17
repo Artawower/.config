@@ -1,5 +1,4 @@
 from prompt_toolkit.keys import Keys
-from prompt_toolkit.filters import vi_insert_mode, vi_navigation_mode
 import re
 
 @events.on_ptk_create
@@ -17,7 +16,7 @@ def custom_keybindings(bindings, **kw):
         buffer = event.current_buffer
         buffer.cursor_position = buffer.document.find_previous_word_beginning() or 0
     
-    @bindings.add(Keys.Escape, Keys.Backspace)
+    @bindings.add(Keys.ControlW)
     def _(event):
         """Delete word back including separator (space, /, ., -, _, :, etc.)"""
         buffer = event.current_buffer
@@ -49,5 +48,28 @@ def custom_keybindings(bindings, **kw):
             # No separator found, delete entire text
             delete_count = len(text)
         
+        if delete_count > 0:
+            buffer.delete_before_cursor(count=delete_count)
+    
+    @bindings.add(Keys.Escape, Keys.Delete)
+    def _(event):
+        """Delete word back (standard Ctrl+W: delete to whitespace)"""
+        buffer = event.current_buffer
+        pos = buffer.cursor_position
+        text = buffer.text[:pos]
+        
+        if not text:
+            return
+        
+        # Skip trailing whitespace
+        i = len(text) - 1
+        while i >= 0 and text[i] in ' \t':
+            i -= 1
+        
+        # Delete word characters
+        while i >= 0 and text[i] not in ' \t':
+            i -= 1
+        
+        delete_count = len(text) - i - 1
         if delete_count > 0:
             buffer.delete_before_cursor(count=delete_count)
