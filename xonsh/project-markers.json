@@ -58,5 +58,13 @@
   "/Users/darkawower/projects/ui_master": {
     "color": "yellow",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/smells-code-analyzer": {
+    "color": "bright-yellow",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote-client": {
+    "color": "green",
+    "marker": "\u25a0"
   }
 }
