@@ -120,6 +120,12 @@ def volta_update_all():
 
     volta install @(packages_to_install)
 
+def aerospace_clear():
+    aerospace list-windows --all --json \
+    | jq -r '.[] | select(."window-title"=="") | ."window-id"' \
+    | xargs -n1 aerospace close --window-id
+    terminal-notifier "Aerospace Cleanup" -message "Closed empty windows"
+
 aliases['hx'] = _hx
 aliases['e'] = _e
 aliases['cl'] = _cl

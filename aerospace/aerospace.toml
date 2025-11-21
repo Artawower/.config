@@ -226,12 +226,6 @@ cmd-alt-x = 'close'
 # Balance windows
 ctrl-alt-0 = 'balance-sizes'
 
-# Clean all ghost windows https://github.com/nikitabobko/AeroSpace/issues/1615
-alt-cmd-shift-r = 'exec-and-forget sh -c "aerospace list-windows --all --json | jq -r \'.[] | select(.\"window-title\"==\"\") | .\"window-id\"\' | xargs -n1 aerospace close --window-id"' = 'aerospace list-windows --all --json \
-  | jq -r ".[] | select(.\"window-title\"==\"\") | .\"window-id\"" \
-  | xargs -n1 aerospace close --window-id'
-
-
 # Resize bindings (alternative to alt-cmd)
 alt-cmd-l = 'resize width -40'
 alt-cmd-h = 'resize width +40'
@@ -254,6 +248,10 @@ f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling
 r = ['reload-config', 'mode main'] # reload config
 backspace = ['close-all-windows-but-current', 'mode main']
 b = ['balance-sizes', 'mode main'] # balance window sizes
+# Clean all ghost windows https://github.com/nikitabobko/AeroSpace/issues/1615
+w = 'exec-and-forget xonsh -c "aerospace_clear()"'
+
+
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
@@ -616,4 +614,8 @@ run = 'move-node-to-workspace PRD'
 # ============================================================================
 [[on-window-detected]]
 if.app-id = 'com.yourcompany.AmneziaVPN'
+run = 'move-node-to-workspace 12'
+
+[[on-window-detected]]
+if.app-id = 'com.google.android.studio'
 run = 'move-node-to-workspace 12'
