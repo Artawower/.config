@@ -74,5 +74,13 @@
   "/Users/darkawower/apps/flat-emacs": {
     "color": "red",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/emacs/raindrop.el": {
+    "color": "green",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote-client-master": {
+    "color": "green",
+    "marker": "\u25a0"
   }
 }
