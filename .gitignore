@@ -89,4 +89,5 @@ fonts/Monaspace*.ttf
 !xonsh
 !starship.toml
 !ghostty
-
+!docker-services
+prowlarr-config
