@@ -69,18 +69,14 @@
       "type": "local",
       "command": ["npx", "@playwright/mcp@latest"]
     },
-    "youtrackd": {
+    "youtrack": {
       "type": "local",
       "command": [
-        "docker",
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "YOUTRACK_URL",
-        "-e",
-        "YOUTRACK_API_TOKEN",
-        "tonyzorin/youtrack-mcp:latest"
+        "npx",
+        "mcp-remote",
+        "https://verifika.youtrack.cloud/mcp",
+        "--header",
+        "{env:YOUTRACK_AUTH_HEADER}"
       ]
     }
   }
