@@ -60,6 +60,12 @@ language-servers = ["angularls", "vscode-html-language-server"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
+[[language]]
+name = "c-sharp"
+language-servers = [ "csharp-language-server" ]
+
+
+
 [language-server.typescript-language-server.config]
 hostInfo = "helix"
 plugins = [ { name = "@vue/typescript-plugin", location = "/Users/darkawower/.volta/tools/shared/@vue/language-server", languages = ["vue"] } ]
@@ -224,3 +230,8 @@ args = ["--stdio"]
 command = "harper-ls"
 # notice the key:
 config = { harper-ls = { diagnosticSeverity = "error", linters = { long_sentences = false } } }
+
+
+[language-server.csharp-language-server]
+command = "csharp-ls"
+args = ["-v", "-loglevel", "trace"]

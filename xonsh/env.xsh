@@ -5,6 +5,9 @@ $VISUAL = 'emacsclient -ac'
 $LSP_USE_PLISTS = 'true'
 $PROMPT_FIELDS['env_name'] = ''
 $XONSH_COLOR_STYLE = 'monokai'
+$DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+$DOTNET_ROOT = '/usr/local/share/dotnet'
+$DOTNET_ROLL_FORWARD = "Major"
 
 $XONSH_HISTORY_BACKEND = 'sqlite'
 

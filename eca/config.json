@@ -1,23 +1,5 @@
 {
   "providers": {
-    "github-copilot": {
-      "models": {
-        "gpt-5.1-codex": {},
-        "gpt-5.1-codex-mini": {},
-        "gpt-5.1": {},
-        "gpt-5-codex": {},
-        "gpt-5": {},
-        "gpt-5-mini": {},
-        "gpt-4.1": {},
-        "gemini-3-pro-preview": {},
-        "gemini-2.5-pro": {},
-        "claude-opus-41": {},
-        "claude-sonnet-4.5": {},
-        "claude-sonnet-4": {},
-        "claude-haiku-4.5": {},
-        "grok-code-fast-1": {}
-      }
-    },
     "z-ai": {
       "api": "anthropic",
       "url": "https://api.z.ai/api/anthropic",
@@ -142,20 +124,11 @@
         "--header",
         "$YOUTRACK_AUTH_HEADER"
       ]
+    },
+    "codex": {
+      "command": "bunx",
+      "args": ["mcp-codex-cli", "--allow-npx"]
     }
-    // "youtrackd": {
-    //   "command": "docker",
-    //   "args": [
-    //     "run",
-    //     "-i",
-    //     "--rm",
-    //     "-e",
-    //     "YOUTRACK_URL",
-    //     "-e",
-    //     "YOUTRACK_API_TOKEN",
-    //     "tonyzorin/youtrack-mcp:latest"
-    //   ]
-    // }
   },
   "toolCall": {
     "approval": {
@@ -194,5 +167,5 @@
       }
     }
   },
-  "defaultModel": "anthropic/claude-sonnet-4-5-20250929"
+  "defaultModel": "anthropic/claude-opus-4.5"
 }
