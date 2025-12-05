@@ -82,5 +82,21 @@
   "/Users/darkawower/projects/pet/orgnote-client-master": {
     "color": "green",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/emacs/modern-themes": {
+    "color": "purple",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/tmp/fknet": {
+    "color": "bright-magenta",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/Yandex.Disk.localized/Dropbox/org-roam": {
+    "color": "green",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote-client_feat-better-notifications": {
+    "color": "green",
+    "marker": "\u25a0"
   }
 }

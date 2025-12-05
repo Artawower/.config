@@ -11,7 +11,7 @@ aliases['doom'] = '~/.emacs.d/bin/doom'
 aliases['emacs30'] = '/opt/homebrew/Cellar/emacs-plus@30/30.0.93/bin/emacs --init-dir ~/.emacs.d-30'
 aliases['pip'] = 'pip3'
 aliases['python'] = 'python3'
-aliases['wakatime-cli'] = '/opt/homebrew/bin/wakatime'
+# aliases['wakatime-cli'] = '/opt/homebrew/bin/wakatime'
 aliases['nv'] = '~/.config/nv.sh'
 
 aliases['ls'] = 'eza --icons'

@@ -13,11 +13,16 @@ after-startup-command = [
     # JankyBorders has a built-in detection of already running process,
     # so it won't be run twice on AeroSpace restart
     # 'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
-    # 'exec-and-forget borders active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff) inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb) blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \ width=4.0 \ hidpi=on'
+  # 'exec-and-forget borders active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff) inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb) blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \ width=4.0 \ hidpi=on'
+  """exec-and-forget borders active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff) inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)"""
+    # blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\\ Mirroring" \
+    # width=4.0 \
+    # hidpi=on \
+    # style=square"""
 ]
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -184,6 +189,7 @@ shift-alt-m = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-ar
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-quote = 'mode service'
+alt-quote = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -243,15 +249,39 @@ cmd-ctrl-j = 'join-with down'
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
-d = ['flatten-workspace-tree', 'mode main'] # reset layout
+e = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 r = ['reload-config', 'mode main'] # reload config
 backspace = ['close-all-windows-but-current', 'mode main']
 b = ['balance-sizes', 'mode main'] # balance window sizes
 # Clean all ghost windows https://github.com/nikitabobko/AeroSpace/issues/1615
-w = 'exec-and-forget xonsh -c "aerospace_clear()"'
+# c = ['exec-and-forget xonsh -c "aerospace_clear()"', 'mode main']
+c = [
+"""exec-and-forget aerospace list-windows --all --json \
+  | jq -r '.[] | select(."window-title"=="") | ."window-id"' \
+  | xargs -n1 aerospace close --window-id && terminal-notifier "Aerospace Cleanup" -message "Closed empty windows"""",
+  'mode main'
+]
+shift-b = [
+  """exec-and-forget borders \
+    "active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
+    "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
+    "blacklist=,qemu-system-aarch64,Simulator,iPhone Mirroring" \
+    width=4.0 \
+    hidpi=on \
+    order=above \
+    style=round"""
+    # style=square"""
+]
+shift-e = ['exec-and-forget pkill borders']
 
 
+# Quick focus apps
+d = ['exec-and-forget open -a Emacs.app', 'mode main']
+t = ['exec-and-forget open -a wezterm.app', 'mode main']
+m = ['exec-and-forget open -a Telegram.app', 'mode main']
+w = ['exec-and-forget open -a Twilight.app', 'mode main']
+a = ['exec-and-forget open -a Antigravity.app', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
@@ -426,15 +456,15 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'org.gnu.Emacs'
-run = 'move-node-to-workspace DEV'
+run = ['layout tiling', 'move-node-to-workspace DEV']
 
 [[on-window-detected]]
 if.app-id = 'io.emacs'
-run = 'move-node-to-workspace DEV'
+run = ['layout tiling', 'move-node-to-workspace DEV']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'emacs'
-run = 'move-node-to-workspace DEV'
+run = ['layout tiling', 'move-node-to-workspace DEV']
 
 # ============================================================================
 # Terminals → TRM workspace (space 2)
@@ -446,15 +476,15 @@ run = 'move-node-to-workspace TRM'
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
-run = 'move-node-to-workspace TRM'
+run = ['layout tiling', 'move-node-to-workspace TRM']
 
 [[on-window-detected]]
 if.app-id = 'com.wez.wezterm'
-run = 'move-node-to-workspace TRM'
+run = ['layout tiling', 'move-node-to-workspace TRM']
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = ['layout floating', 'move-node-to-workspace TRM']
+run = ['layout tiling', 'move-node-to-workspace TRM']
 
 # ============================================================================
 # Web Browsers → WEB workspace (space 3)

@@ -252,11 +252,12 @@ CINSE=$(echo $foreground | sed 's/#//')
 # $HOME/apps/JankyBorders/bin/borders \
     # yabai -m query --windows | jq '.[] | {id: .id, app: .app, title: .title, floating: ."is-floating", space: .id, sticky: ".is-sticky"}'
 # borders \
-# "active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
-#   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
-#   blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \
-#   width=4.0 \
-#   hidpi=on \
+#     "active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
+#     "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
+#     blacklist="Loom,qemu-system-aarch64,Simulator,iPhone\ Mirroring" \
+#     width=4.0 \
+#     hidpi=on \
+#     style=square
 
 # Float windows bug
 # yabai -m signal --add event=window_created action='
