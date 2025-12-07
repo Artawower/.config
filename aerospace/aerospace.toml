@@ -25,8 +25,9 @@ after-startup-command = [
 start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
-enable-normalization-flatten-containers = true
-enable-normalization-opposite-orientation-for-nested-containers = true
+# Disabled for i3-like manual tree layout control
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
@@ -106,6 +107,7 @@ outer.right =      14
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
+
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 alt-h = 'focus left'
@@ -210,9 +212,11 @@ alt-cmd-r = 'reload-config'
 #   '''
 
 # Additional terminal launchers
-ctrl-alt-enter = 'exec-and-forget open -na Ghostty.app'
-shift-alt-enter = 'exec-and-forget open -a wezterm.app'
-alt-enter = 'exec-and-forget /opt/homebrew/bin/wezterm'
+ctrl-alt-enter = 'exec-and-forget open -n -a Ghostty'
+# ctrl-alt-enter = 'exec-and-forget zsh -c "export TMPDIR=$(getconf DARWIN_USER_TEMP_DIR); /Applications/Ghostty.app/Contents/MacOS/Ghostty"'
+alt-enter = 'exec-and-forget zsh -c "open -a wezterm.app"'
+alt-shift-enter = 'exec-and-forget /opt/homebrew/bin/wezterm'
+# alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
 
 # Application launchers
 cmd-alt-f = 'exec-and-forget open -a Firefox.app'
@@ -250,7 +254,6 @@ cmd-ctrl-j = 'join-with down'
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 e = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 r = ['reload-config', 'mode main'] # reload config
 backspace = ['close-all-windows-but-current', 'mode main']
 b = ['balance-sizes', 'mode main'] # balance window sizes
@@ -275,9 +278,14 @@ shift-b = [
 ]
 shift-e = ['exec-and-forget pkill borders']
 
+alt-shift-v = 'split vertical'
+alt-shift-b = 'split horizontal'
+
+
 
 # Quick focus apps
 d = ['exec-and-forget open -a Emacs.app', 'mode main']
+f = ['exec-and-forget open -a Finder.app', 'mode main'] # Toggle between floating and tiling layout
 t = ['exec-and-forget open -a wezterm.app', 'mode main']
 m = ['exec-and-forget open -a Telegram.app', 'mode main']
 w = ['exec-and-forget open -a Twilight.app', 'mode main']
@@ -456,7 +464,7 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'org.gnu.Emacs'
-run = ['layout tiling', 'move-node-to-workspace DEV']
+run = ['layout floating', 'move-node-to-workspace DEV']
 
 [[on-window-detected]]
 if.app-id = 'io.emacs'
@@ -464,7 +472,7 @@ run = ['layout tiling', 'move-node-to-workspace DEV']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'emacs'
-run = ['layout tiling', 'move-node-to-workspace DEV']
+run = ['layout floating', 'move-node-to-workspace DEV']
 
 # ============================================================================
 # Terminals → TRM workspace (space 2)
@@ -484,7 +492,7 @@ run = ['layout tiling', 'move-node-to-workspace TRM']
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = ['layout tiling', 'move-node-to-workspace TRM']
+run = ['layout floating', 'move-node-to-workspace TRM']
 
 # ============================================================================
 # Web Browsers → WEB workspace (space 3)
@@ -649,3 +657,10 @@ run = 'move-node-to-workspace 12'
 [[on-window-detected]]
 if.app-id = 'com.google.android.studio'
 run = 'move-node-to-workspace 12'
+
+
+[exec]
+inherit-env-vars = true
+[exec.env-vars]
+TMPDIR = "/tmp"
+SHELL = "/run/current-system/sw/bin/zsh"

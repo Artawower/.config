@@ -87,6 +87,7 @@ fonts/Monaspace*.ttf
 
 
 !xonsh
+xonsh/.secrets.xsh
 !starship.toml
 !ghostty
 !docker-services

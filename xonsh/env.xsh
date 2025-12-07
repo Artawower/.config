@@ -1,3 +1,9 @@
+import os.path as op
+_secrets = op.expanduser('~/.config/xonsh/.secrets.xsh')
+if op.exists(_secrets):
+    source @(_secrets)
+del _secrets, op
+
 $VI_MODE = 'INSIDE_EMACS' not in ${...}
 $AUTO_CD = True
 $EDITOR = 'emacsclient -ac'
