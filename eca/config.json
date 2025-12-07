@@ -85,9 +85,13 @@
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"]
     },
-    // "codex-cli": {
-    //   "command": "mcp-codex-cli",
-    //   "args": ["--allow-npx"]
+    "qwen": {
+      "command": "npx",
+      "args": ["-y", "jeffery9/qwen-mcp-tool"]
+    },
+    // "deepseek": {
+    //   "command": "npx",
+    //   "args": ["-y", "deepseek-mcp-server"]
     // },
     "gemini-cli": {
       "command": "mcp-gemini-cli"

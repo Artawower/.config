@@ -95,8 +95,20 @@
     "color": "green",
     "marker": "\u25a0"
   },
-  "/Users/darkawower/projects/pet/orgnote-client_feat-better-notifications": {
-    "color": "green",
+  "/Users/darkawower/.emacs.d/elpaca/repos/track-changes": {
+    "color": "red",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/.emacs.d/elpaca/repos/copilot": {
+    "color": "blue",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/orgnote-backend": {
+    "color": "bright-cyan",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/.emacs.d/elpaca/repos/apheleia": {
+    "color": "blue",
     "marker": "\u25a0"
   }
 }

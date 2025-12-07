@@ -36,9 +36,13 @@
       "type": "local",
       "command": ["mcp-codex-cli", "--allow-npx"]
     },
-    "gemini-cli": {
+    // "gemini-cli": {
+    //   "type": "local",
+    //   "command": ["mcp-gemini-cli"]
+    // },
+    "gemini": {
       "type": "local",
-      "command": ["mcp-gemini-cli"]
+      "command": ["npx", "-y", "gemini-mcp-tool"]
     },
     "deepcontext": {
       "type": "local",
@@ -78,6 +82,14 @@
         "--header",
         "{env:YOUTRACK_AUTH_HEADER}"
       ]
+    },
+    "qwen": {
+      "type": "local",
+      "command": ["npx", "-y", "jeffery9/qwen-mcp-tool"]
+    },
+    "deepseek": {
+      "type": "local",
+      "command": ["npx", "-y", "deepseek-mcp-server"]
     }
   }
 }

@@ -11,16 +11,17 @@ keybind = cmd+t=unbind
 window-inherit-working-directory = false
 window-inherit-font-size = false
 
-shell-integration = fish
 background-opacity = 0.90
 background-blur-radius = 10
 # window-decoration = true
 # macos-titlebar-style = hidden
+macos-titlebar-style = "tabs"
 window-padding-x = 16,16
 window-padding-y = 16,16
 
-font-family = "JetBrains Mono"
-font-size = 15
+# font-family = "JetBrains Mono"
+font-family = "Myna Nerd Font"
+font-size = 17
 
 keybind = alt+arrow_left=unbind
 keybind = alt+arrow_right=unbind
@@ -30,4 +31,4 @@ shell-integration = fish
 # command = /Users/darkawower/.nix-profile/bin/fish
 command = /opt/homebrew/bin/zellij
 
-term = xterm-256color
+# term = xterm-256color
