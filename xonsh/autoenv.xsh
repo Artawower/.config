@@ -16,5 +16,6 @@ def load_dotenv(olddir, newdir, **_):
                     continue
                 key, value = line.split("=", 1)
                 __xonsh__.env[key.strip()] = value.strip()
+            print(f'Env from {env_file}: loaded')
         except Exception as e:
             print(f"[dotenv] failed to read {env_file}: {e}")

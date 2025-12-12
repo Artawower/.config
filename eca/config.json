@@ -85,25 +85,9 @@
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"]
     },
-    "qwen": {
-      "command": "npx",
-      "args": ["-y", "jeffery9/qwen-mcp-tool"]
-    },
-    // "deepseek": {
-    //   "command": "npx",
-    //   "args": ["-y", "deepseek-mcp-server"]
-    // },
-    "gemini-cli": {
-      "command": "mcp-gemini-cli"
-    },
     "deepcontext": {
       "command": "npx",
       "args": ["-y", "@wildcard-ai/deepcontext@latest"]
-    },
-    "sentry": {
-      "disabled": true,
-      "command": "npx",
-      "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
     },
     "serena": {
       "command": "uvx",
@@ -115,6 +99,22 @@
         "--enable-web-dashboard",
         "False"
       ]
+    },
+    "qwen": {
+      "command": "npx",
+      "args": ["-y", "jeffery9/qwen-mcp-tool"]
+    },
+    // "deepseek": {
+    //   "command": "npx",
+    //   "args": ["-y", "deepseek-mcp-server"]
+    // },
+    "gemini-cli": {
+      "command": "mcp-gemini-cli"
+    },
+    "sentry": {
+      "disabled": true,
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
     },
     "playwright": {
       "command": "npx",

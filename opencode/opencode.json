@@ -17,6 +17,19 @@
       "options": {
         "timeout": 600000
       }
+    },
+    "openai": {
+      "models": {
+        "gpt-5.1-codex": {
+          "options": {
+            "store": true,
+            "reasoningEffort": "high",
+            "textVerbosity": "medium",
+            "reasoningSummary": "auto",
+            "include": ["reasoning.encrypted_content"]
+          }
+        }
+      }
     }
   },
   "mcp": {
