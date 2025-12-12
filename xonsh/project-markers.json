@@ -110,5 +110,13 @@
   "/Users/darkawower/.emacs.d/elpaca/repos/apheleia": {
     "color": "blue",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/emacs/package-json-compilation-runner": {
+    "color": "blue",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/orgnote-cli": {
+    "color": "green",
+    "marker": "\u25a0"
   }
 }

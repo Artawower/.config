@@ -10,19 +10,17 @@ $EDITOR = 'emacsclient -ac'
 $VISUAL = 'emacsclient -ac'
 $LSP_USE_PLISTS = 'true'
 $PROMPT_FIELDS['env_name'] = ''
-$XONSH_COLOR_STYLE = 'monokai'
+$XONSH_COLOR_STYLE = 'one-dark'
 $DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 $DOTNET_ROOT = '/usr/local/share/dotnet'
 $DOTNET_ROLL_FORWARD = "Major"
 
 $XONSH_HISTORY_BACKEND = 'sqlite'
 
-# Syntax highlighting overrides
 $XONSH_STYLE_OVERRIDES = {
-    'Token.Name': 'ansired',                    # Несуществующие команды - красным (для отладки)
-    'Token.Name.Builtin': 'ansibrightcyan',     # Встроенные команды - ярко-голубым
-    'Token.Name.Constant': 'ansibrightblue',    # Константы
-    'Token.Literal.String': 'ansibrightgreen',  # Строки - ярко-зелёным
-    'Token.Text': 'bold ansibrightblack',       # Аргументы - жирным серым
+    'Token.Name': 'ansired',                    
+    'Token.Name.Builtin': 'ansibrightcyan',     
+    'Token.Name.Constant': 'ansibrightblue',    
+    'Token.Literal.String': 'ansibrightgreen'
 }
 

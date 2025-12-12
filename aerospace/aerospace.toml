@@ -265,7 +265,7 @@ c = [
   | xargs -n1 aerospace close --window-id && terminal-notifier "Aerospace Cleanup" -message "Closed empty windows"""",
   'mode main'
 ]
-shift-b = [
+shift-v = [
   """exec-and-forget borders \
     "active_color=gradient(top_left=0xffff7f50,bottom_right=0xff00bfff)" \
     "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xff87ceeb)" \
@@ -273,10 +273,21 @@ shift-b = [
     width=4.0 \
     hidpi=on \
     order=above \
-    style=round"""
+    style=round""",
     # style=square"""
+    'mode main'
 ]
-shift-e = ['exec-and-forget pkill borders']
+
+# """exec-and-forget borders \
+#   "active_color=gradient(top_left=0xffffa858,bottom_right=0xffff6a00)" \
+#   "inactive_color=gradient(top_left=0xfff2d5cf,bottom_right=0xffe8bba0)" \
+#   "blacklist=,qemu-system-aarch64,Simulator,iPhone Mirroring" \
+#   width=4.0 \
+#   hidpi=on \
+#   order=above \
+#   style=round""",
+  
+shift-e = ['exec-and-forget pkill borders', 'mode main']
 
 alt-shift-v = 'split vertical'
 alt-shift-b = 'split horizontal'

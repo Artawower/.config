@@ -32,7 +32,7 @@ aliases['kg'] = 'kubectl get'
 aliases['dublog'] = 'ssh darkawower@49.12.98.254'
 aliases['on'] = 'ssh -i ~/.ssh/orgnote darkawower@65.108.90.95'
 
-aliases['o'] = 'cd ~/projects/pet/orgnote'
+aliases['om'] = 'cd ~/projects/pet/orgnote'
 aliases['oc'] = 'cd ~/projects/pet/orgnote/orgnote-client'
 aliases['os'] = 'cd ~/projects/pet/orgnote/org-mode-ast'
 aliases['oa'] = 'cd ~/projects/pet/orgnote/orgnote-api'
@@ -57,3 +57,5 @@ aliases['dcu'] = 'docker compose up'
 aliases['d'] = 'docker'
 
 aliases['ql'] = 'quasar clean'
+
+aliases['o'] = 'opencode'
