@@ -1,30 +1,30 @@
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server", "eslint", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server", "eslint", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server", "eslint", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "tsx"
-language-servers = ["typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server", "eslint", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff-lsp"]
+language-servers = ["pyright", "gpt"]
 auto-format = true
 formatter = { command = "black", args = ["--quiet", "-"] }
 indent = { tab-width = 4, unit = "    " }
@@ -98,6 +98,7 @@ indent = { tab-width = 2, unit = "  " }
 [[language]]
 name = "toml"
 auto-format = true
+language-servers = ["gpt"]
 indent = { tab-width = 2, unit = "  " }
 
 [language-server.typescript-language-server]
@@ -235,3 +236,7 @@ config = { harper-ls = { diagnosticSeverity = "error", linters = { long_sentence
 [language-server.csharp-language-server]
 command = "csharp-ls"
 args = ["-v", "-loglevel", "trace"]
+
+[language-server.gpt]
+command = "bun"
+args = ["run", "~/tmp/helix-gpt"]

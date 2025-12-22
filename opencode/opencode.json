@@ -1,6 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-openai-codex-auth@1.0.2"],
+  "plugin": [
+    "opencode-openai-codex-auth@1.0.2"
+  ],
   "agent": {
     "translator": {
       "description": "Manually edits i18n dictionary files. Always updates keys and values by hand according to provided i18n errors and user-specified words. Automatic generation is strictly forbidden, as is removing existing words. Must use jq utility for nested dictionaries.",
@@ -26,7 +28,9 @@
             "reasoningEffort": "high",
             "textVerbosity": "medium",
             "reasoningSummary": "auto",
-            "include": ["reasoning.encrypted_content"]
+            "include": [
+              "reasoning.encrypted_content"
+            ]
           }
         }
       }
@@ -43,11 +47,18 @@
     },
     "context7": {
       "type": "local",
-      "command": ["npx", "-y", "@upstash/context7-mcp@latest"]
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
     },
     "codex-cli": {
       "type": "local",
-      "command": ["mcp-codex-cli", "--allow-npx"]
+      "command": [
+        "mcp-codex-cli",
+        "--allow-npx"
+      ]
     },
     // "gemini-cli": {
     //   "type": "local",
@@ -55,11 +66,19 @@
     // },
     "gemini": {
       "type": "local",
-      "command": ["npx", "-y", "gemini-mcp-tool"]
+      "command": [
+        "npx",
+        "-y",
+        "gemini-mcp-tool"
+      ]
     },
     "deepcontext": {
       "type": "local",
-      "command": ["npx", "-y", "@wildcard-ai/deepcontext@latest"]
+      "command": [
+        "npx",
+        "-y",
+        "@wildcard-ai/deepcontext@latest"
+      ]
     },
     "sentry": {
       "type": "local",
@@ -84,7 +103,10 @@
     },
     "playwright": {
       "type": "local",
-      "command": ["npx", "@playwright/mcp@latest"]
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ]
     },
     "youtrack": {
       "type": "local",
@@ -98,11 +120,26 @@
     },
     "qwen": {
       "type": "local",
-      "command": ["npx", "-y", "jeffery9/qwen-mcp-tool"]
+      "command": [
+        "npx",
+        "-y",
+        "jeffery9/qwen-mcp-tool"
+      ]
     },
     "deepseek": {
       "type": "local",
-      "command": ["npx", "-y", "deepseek-mcp-server"]
+      "command": [
+        "npx",
+        "-y",
+        "deepseek-mcp-server"
+      ]
+    },
+    "toon-context": {
+      "type": "local",
+      "command": [
+        "bun",
+        "/Users/darkawower/apps/TOON-context-mcp-server/toon-context-mcp/build/index.js"
+      ]
     }
   }
 }

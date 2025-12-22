@@ -132,7 +132,25 @@
     "codex": {
       "command": "bunx",
       "args": ["mcp-codex-cli", "--allow-npx"]
+    },
+    "toon-context": {
+      "command": "bun",
+      "args": [
+        "/Users/darkawower/apps/TOON-context-mcp-server/toon-context-mcp/build/index.js"
+      ],
+      "env": {
+        "TOON_THRESHOLD": "0.7",
+        "AUTO_CONVERT": "true"
+      }
+    },
+    "emacs-mcp": {
+      "command": "bunx",
+      "args": ["@keegancsmith/emacs-mcp-server", "--allow-npx"]
     }
+    // "ddg-search": {
+    //   "command": "uvx",
+    //   "args": ["duckduckgo-mcp-server"]
+    // }
   },
   "toolCall": {
     "approval": {
