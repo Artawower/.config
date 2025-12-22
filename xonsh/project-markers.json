@@ -118,5 +118,29 @@
   "/Users/darkawower/projects/pet/orgnote/orgnote-cli": {
     "color": "green",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/tmp/helix": {
+    "color": "bright-blue",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/tmp/helix_alt": {
+    "color": "red",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/apps/TOON-context-mcp-server": {
+    "color": "bright-blue",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/workation-mode": {
+    "color": "red",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/it-blog": {
+    "color": "bright-magenta",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/tmp/rs/task1": {
+    "color": "red",
+    "marker": "\u25a0"
   }
 }

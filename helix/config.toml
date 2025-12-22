@@ -30,7 +30,7 @@ clipboard-provider = "pasteboard"
 
 # Indentation settings (adapted from NeoVim: tabstop=2, shiftwidth=2, expandtab)
 [editor.indent-guides]
-render = true
+render = false
 character = "╎"
 skip-levels = 1
 
@@ -41,7 +41,7 @@ left = [
   "version-control",
   "spacer",
   "separator",
-  "file-name",
+  "file-base-name",
   "read-only-indicator",
   "file-modification-indicator"
 ]
@@ -97,7 +97,7 @@ smart-case = true
 wrap-around = true
 
 [editor.whitespace]
-render = "all"
+render = "none"
 
 [editor.whitespace.characters]
 space = "·"
@@ -141,6 +141,8 @@ G = "goto_file_end"
 V = ["select_mode", "extend_to_line_bounds"]
 esc = ["collapse_selection", "keep_primary_selection"]
 
+"*" = ["move_prev_word_start", "move_next_word_end", "search_selection", "global_search"]
+
 
 [keys.normal.g]
 "d" = "goto_definition"
@@ -166,9 +168,10 @@ esc = ["collapse_selection", "keep_primary_selection"]
 
 "Q" = ":quit-all"
 
-"/" = "toggle_comments"
+"/" = "global_search"
 
 "e" = "file_explorer"
+
 
 [keys.normal.space.b]
 "]" = "goto_next_buffer"
@@ -235,6 +238,7 @@ esc = ["collapse_selection", "keep_primary_selection"]
 "s" = [":new", ":insert-output git status", ":buffer-close!", ":redraw"]
 "l" = [":new", ":insert-output git log --oneline -10", ":buffer-close!", ":redraw"]
 "d" = [":new", ":insert-output git diff", ":buffer-close!", ":redraw"]
+"c" = "toggle_comments"
 
 f = "changed_file_picker"
 r = ":reset-diff-change"
