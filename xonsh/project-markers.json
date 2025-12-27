@@ -142,5 +142,17 @@
   "/Users/darkawower/projects/pet/tmp/rs/task1": {
     "color": "red",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/orgnote-client_dev": {
+    "color": "purple",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/orgnote.el": {
+    "color": "yellow",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/orgnote-client-master": {
+    "color": "green",
+    "marker": "\u25a0"
   }
 }
