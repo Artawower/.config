@@ -1,0 +1,53 @@
+[state]
+path = "/Users/darkawower/.config/wallboy/state.json"
+
+[theme]
+mode = "auto"
+
+[light]
+upload-dir = "/Users/darkawower/Pictures/wallpappers/light"
+
+[[light.datasource]]
+id = ""
+type = "local"
+dir = "/Users/darkawower/Pictures/wallpappers/light"
+recursive = true
+provider = ""
+auth = ""
+limit = 0
+url = ""
+
+[dark]
+upload-dir = "/Users/darkawower/Pictures/wallpappers/dark"
+
+[[dark.datasource]]
+id = ""
+type = "local"
+dir = "/Users/darkawower/Pictures/wallpappers/dark"
+recursive = true
+provider = ""
+auth = ""
+limit = 0
+url = ""
+
+[[dark.datasource]]
+id = "wallhaven-dark"
+type = "remote"
+provider = "wallhaven"
+auth = "${WALLHAVEN}"
+queries = ["night city", "space", "cyberpunk", "neon"]
+
+[[dark.datasource]]
+id = "wallhaven-dark-minimalist"
+type = "remote"
+provider = "wallhaven"
+auth = "${WALLHAVEN}"
+queries = ["black", "minimal", "digital illustration"]
+
+
+[[dark.datasource]]
+id = "unsplash-dark"
+type = "remote"
+provider = "unsplash"
+auth = "${UNSPLASH_ACCESS_KEY}" 
+queries = ["universe"]

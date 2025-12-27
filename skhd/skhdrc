@@ -28,7 +28,10 @@ alt - v : layout=$(/opt/homebrew/bin/yabai -m query --spaces --space | /Users/da
             /opt/homebrew/bin/yabai -m space --layout bsp; \
           fi
 
-alt + shift + ctrl - i: ~/.nix-profile/bin/walsh set
+alt + shift + ctrl - i: /opt/homebrew/bin/wallboy next
+alt + shift + ctrl - d: /opt/homebrew/bin/wallboy save
+alt + shift + ctrl - o: /opt/homebrew/bin/wallboy open
+# alt + shift + ctrl - i: ~/.nix-profile/bin/walsh set
 
 
 # Moving windows

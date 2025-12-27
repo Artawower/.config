@@ -66,6 +66,7 @@ fish/functions/fish_title.fish
 fish/functions/zi.fish
 !walsh
 !cava
+!wallboy
 
 # Temporary/state files
 **/.!*
