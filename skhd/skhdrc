@@ -1,4 +1,6 @@
-:: default : PATH=/opt/homebrew/bin:$PATH
+:: default : PATH=/opt/homebrew/bin:/Users/darkawower/.nix-profile/bin:$PATH
+# .shell /bin/bash
+# path /opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/darkawower/.nix-profile/bin
 
 # Navigation
 # alt - h : /opt/homebrew/bin/yabai -m window --focus west
@@ -7,10 +9,26 @@
 # alt - l : /opt/homebrew/bin/yabai -m window --focus east
 
 alt - h : /opt/homebrew/bin/yabai -m window --focus west || /opt/homebrew/bin/yabai -m display --focus west
-alt - j : /opt/homebrew/bin/yabai -m window --focus south || /opt/homebrew/bin/yabai -m display --focus south
-alt - k : /opt/homebrew/bin/yabai -m window --focus north || /opt/homebrew/bin/yabai -m display --focus north
+# alt - j : /opt/homebrew/bin/yabai -m window --focus south || /opt/homebrew/bin/yabai -m display --focus south
+# alt - k : /opt/homebrew/bin/yabai -m window --focus north || /opt/homebrew/bin/yabai -m display --focus north
+
+# alt - j : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | /Users/darkawower/.nix-profile/bin/jq -re 'map(select(."is-minimized" == false and ."can-move" == true)) | . as $array | index(map(select(."has-focus" == true))[0]) as $idx | $array[($idx + 1) % length].id')"
+# alt - k : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | /Users/darkawower/.nix-profile/bin/jq -re 'map(select(."is-minimized" == false and ."can-move" == true)) | . as $array | index(map(select(."has-focus" == true))[0]) as $idx | $array[($idx - 1 + length) % length].id')"
+
+alt - j : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | /Users/darkawower/.nix-profile/bin/jq -re 'map(select(."is-minimized" == false and ."can-move" == true)) | sort_by(.frame.y, .frame.x) | . as $array | index(map(select(."has-focus" == true))[0]) as $idx | $array[($idx + 1) % length].id')"
+alt - k : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | /Users/darkawower/.nix-profile/bin/jq -re 'map(select(."is-minimized" == false and ."can-move" == true)) | sort_by(.frame.y, .frame.x) | . as $array | index(map(select(."has-focus" == true))[0]) as $idx | $array[($idx - 1 + length) % length].id')"
+
 alt - l : /opt/homebrew/bin/yabai -m window --focus east || /opt/homebrew/bin/yabai -m display --focus east
 alt - a: alt - tab : $(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "map(select(.\"has-focus\" == true)) | length != 0") = true ] && /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | reverse | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(/opt/homebrew/bin/yabai -m query --windows --window | jq -re ".id")) - 1)")" ||  /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --spaces --space | jq -re ".windows[0]?")" &> /dev/null
+
+alt - v : layout=$(/opt/homebrew/bin/yabai -m query --spaces --space | /Users/darkawower/.nix-profile/bin/jq -r '.type'); \
+          if [ "$layout" = "bsp" ]; then \
+            /opt/homebrew/bin/yabai -m space --layout stack; \
+          else \
+            /opt/homebrew/bin/yabai -m space --layout bsp; \
+          fi
+
+alt + shift + ctrl - i: ~/.nix-profile/bin/walsh set
 
 
 # Moving windows
@@ -80,10 +98,22 @@ lctrl + alt - 0 : /opt/homebrew/bin/yabai -m space --balance
 # Enable / Disable gaps in current workspace
 lctrl + alt - g : /opt/homebrew/bin/yabai -m space --toggle padding; /opt/homebrew/bin/yabai -m space --toggle gap
 # Enable / Disable borders in current workspace
-lctrl + alt - b : /opt/homebrew/bin/yabai -m config window_border on
-lctrl + alt + shift - b : /opt/homebrew/bin/yabai -m config window_border off
+# lctrl + alt - b : /opt/homebrew/bin/yabai -m config window_border on
+# lctrl + alt + shift - b : /opt/homebrew/bin/yabai -m config window_border off
 lctrl + alt + shift - t : /opt/homebrew/bin/yabai -m config top_padding 20
 lctrl + alt + shift - g : /opt/homebrew/bin/yabai -m config top_padding 50
+
+lctrl + alt - b: /opt/homebrew/bin/borders \
+  "active_color=gradient(top_left=0xff8b5cf6,bottom_right=0xff5b21b6)" \
+  "inactive_color=gradient(top_left=0xff2e2a3a,bottom_right=0xff1f1b2e)" \
+  "blacklist=,qemu-system-aarch64,Simulator,iPhone Mirroring" \
+  width=2.0 \
+  hidpi=on \
+  order=above \
+  style=round
+
+
+lctrl + alt + shift - b : pkill borders
 
 
 # Rotate windows clockwise and anticlockwise
@@ -112,14 +142,17 @@ shift + lctrl + alt - r :
 
 # launchctl kickstart -k "gui/${UID}/homebrew.mxcl./opt/homebrew/bin/yabai"
 # restart sketchybar
-shift + lctrl + alt - s : 
-    /usr/bin/env osascript <<< \
-        "display notification \"Restarting Sketchybar\" with title \"Sketchybar\""; \
-    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"
+# shift + lctrl + alt - s : 
+#     /usr/bin/env osascript <<< \
+#         "display notification \"Restarting Sketchybar\" with title \"Sketchybar\""; \
+#     launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"
 
 # Restart skhd
 
-shift + lctrl + alt - k : skhd --restart-service
+shift + lctrl + alt - s : 
+    /usr/bin/env osascript <<< \
+        "display notification \"Restarting Skhd\" with title \"SKHD\""; \
+    skhd --restart-sevice
 
 # Zen mode
 cmd + alt - l : /opt/homebrew/bin/yabai -m config window_opacity off
@@ -175,8 +208,9 @@ alt - o : /opt/homebrew/bin/yabai -m space --focus other
 # alt - return : open -na kitty.app
 
 # alt - return : kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
-ctrl + alt - return : /opt/homebrew/bin/wezterm
-shift + alt - return : open -na Ghostty.app
+# ctrl + alt - return : /opt/homebrew/bin/wezterm
+shift + alt - return : /opt/homebrew/bin/wezterm
+alt - return : open -na Ghostty.app
 
 cmd + alt - return : open -a kitty.app
 
@@ -234,12 +268,7 @@ cmd + ctrl + alt - r: /opt/homebrew/bin/yabai --start-service
 
 alt - b: $HOME/.config//opt/homebrew/bin/yabai/toggle-bar.sh
 
-# cmd + ctrl + i: emacsclient --eval "(emacs-everywhere)"
-
-
-
-# Magic :)
-alt + ctrl + shift - m: python3 $HOME/.config//opt/homebrew/bin/yabai/order-windows.py
+lctrl + alt + shift - m: /Users/darkawower/.nix-profile/bin/python3 $HOME/.config/yabai/init.py
 
 cmd + shift - w: open -a Marta;
                  # /opt/homebrew/bin/yabai -m window --toggle float;\

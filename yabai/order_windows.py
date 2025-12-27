@@ -10,7 +10,7 @@ app_to_window = {
     "^Docker": "thrash",
     "^wezterm": "term",
     "^Ghostty": "term",
-    "^WezTerm": "term",
+    "^WezTerm": "6",
     "^Spark": "thrash",
     "^Emacs": "dev",
     "^Telegram": "social",
@@ -26,17 +26,23 @@ app_to_window = {
     "^Android": "thrash",
     "^Discord": "entertainment",
     "^Lightroom": "entertainment",
-    "^Chromium": "10"
+    "^Chromium": "10",
+    "^OrbStack": "12"
 }
 
-for window in parsed_json:
-    for regexp in app_to_window:
-        if not re.search(regexp, window["app"]):
-            continue
-        space = app_to_window[regexp]
-        print(
-            "Moving window {}:{}, app name: {}, to space {}".format(
-                window["id"], window["app"], window["title"], space
-            )
-        )
-        subprocess.run(["yabai", "-m", "window", f'{window["id"]}', "--space", space])
+def order_windows():
+   for window in parsed_json:
+       for regexp in app_to_window:
+           if not re.search(regexp, window["app"]):
+               continue
+           space = app_to_window[regexp]
+           print(
+               "Moving window {}:{}, app name: {}, to space {}".format(
+                   window["id"], window["app"], window["title"], space
+               )
+           )
+           subprocess.run(["yabai", "-m", "window", f'{window["id"]}', "--space", space])
+
+
+if __name__ == "__main__":
+    order_windows()

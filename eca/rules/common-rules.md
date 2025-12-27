@@ -7,3 +7,4 @@
 - Never write files with explanations or documentation unless someone asks you directly
 - Don't be verbose, answer only to the point, like Spock
 - Never add unstaged changes to stage via git!
+- Never use BEM for CSS and SCSS files! Use incapsulated styles instead!

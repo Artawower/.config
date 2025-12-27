@@ -59,3 +59,8 @@ aliases['d'] = 'docker'
 aliases['ql'] = 'quasar clean'
 
 aliases['o'] = 'opencode'
+
+
+# Yabai
+aliases['yabai-apps'] = "yabai -m query --windows | jq '.[].app'"
+aliases['yabai-titles'] = "yabai -m query --windows | jq '.[].title'"

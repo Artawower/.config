@@ -1,8 +1,16 @@
 from prompt_toolkit.keys import Keys
+from prompt_toolkit.filters import Condition
 import re
 
 @events.on_ptk_create
 def custom_keybindings(bindings, **kw):
+    @bindings.add(Keys.ControlK)
+    def history_backward_prefix(event):
+        event.current_buffer.history_backward(count=1)
+
+    @bindings.add(Keys.ControlJ)
+    def history_forward_prefix(event):
+        event.current_buffer.history_forward(count=1)
     @bindings.add(Keys.ControlA)
     def _(event):
         event.current_buffer.cursor_position = 0
