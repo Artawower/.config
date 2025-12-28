@@ -81,3 +81,6 @@ def boot_env():
         set_system_env(k, v)
 
     print("✔ environment restored")
+
+
+boot_env()
