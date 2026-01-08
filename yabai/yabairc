@@ -33,6 +33,7 @@ yabai -m signal --add event=mission_control_exit action="echo \"mission_control_
 # Rules
 yabai -m rule --add app="^System Preferences$" manage=off space=9
 yabai -m rule --add app="^Shottr" manage=off 
+yabai -m rule --add app="^LICEcap" manage=off 
 yabai -m rule --add app="^Preview" manage=off grid=100:100:10:10:80:80
 yabai -m rule --add app="^Weather$" manage=off space=9
 yabai -m rule --add app="^NeoHtop$" manage=off grid=100:100:0:0:100:100
@@ -55,6 +56,7 @@ yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Flameshot$" manage=off
 yabai -m rule --add app="^zoom.us$" manage=off
 yabai -m rule --add app="^Android Emulator.*" manage=off
+yabai -m rule --add app="^Android Studio" manage=on space=7
 yabai -m rule --add app="^qemu-system-aarch64" manage=off
 yabai -m rule --add app="^OpenVPN Connect$" manage=off
 yabai -m rule --add app="^Loom" manage=off
@@ -108,7 +110,7 @@ yabai -m config focus_follows_mouse autoraise
 yabai -m config window_placement second_child
 yabai -m config window_shadow off
 yabai -m config window_opacity on
-yabai -m config active_window_opacity 0.95
+yabai -m config active_window_opacity 0.97
 yabai -m config normal_window_opacity 0.85
 yabai -m config split_ratio 0.50
 yabai -m config auto_balance off
@@ -153,7 +155,7 @@ borders \
   width=2.0 \
   hidpi=on \
   order=above \
-  style=round
+  style=round &
 
 
 echo "yabai configuration loaded.."
@@ -169,13 +171,20 @@ yabai -m signal --add event=window_resized action='echo "refresh windows" | nc -
 yabai -m signal --add event=window_minimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=window_deminimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 
+python3 $HOME/.config/yabai/order_windows.py
+# $HOME/.config/yabai/visit-all-windows.sh
+# $HOME/.config/yabai/stack-windows.sh
+
 # Window specifinc configs
 
-yabai -m space 6 --gap rel:64
-yabai -m space 6 --padding abs:64:64:64:64
+# Apply after yabai is fully loaded
 
-yabai -m space 8 --gap rel:32
-yabai -m space 8 --padding abs:64:64:64:64
+# yabai -m space 6 --gap rel:64
+# yabai -m space 6 --padding abs:64:64:64:64
+yabai -m space 9 --gap rel:64 
+yabai -m space 9 --padding abs:64:64:64:64
+yabai -m space 8 --gap rel:32 
+yabai -m space 8 --padding abs:64:64:64:64 
 
 # focus window after active space changes
 # yabai -m signal --add event=space_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
@@ -188,6 +197,3 @@ yabai -m signal --add app='^Finder$' event=window_destroyed action='yabai -m spa
 
 
 
-python3 $HOME/.config/yabai/order_windows.py
-# $HOME/.config/yabai/visit-all-windows.sh
-# $HOME/.config/yabai/stack-windows.sh

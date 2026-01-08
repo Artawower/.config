@@ -21,15 +21,15 @@ alt - k : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -
 alt - l : /opt/homebrew/bin/yabai -m window --focus east || /opt/homebrew/bin/yabai -m display --focus east
 alt - a: alt - tab : $(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "map(select(.\"has-focus\" == true)) | length != 0") = true ] && /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | reverse | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(/opt/homebrew/bin/yabai -m query --windows --window | jq -re ".id")) - 1)")" ||  /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --spaces --space | jq -re ".windows[0]?")" &> /dev/null
 
-alt - v : layout=$(/opt/homebrew/bin/yabai -m query --spaces --space | /Users/darkawower/.nix-profile/bin/jq -r '.type'); \
+alt + shift - v : layout=$(/opt/homebrew/bin/yabai -m query --spaces --space | /Users/darkawower/.nix-profile/bin/jq -r '.type'); \
           if [ "$layout" = "bsp" ]; then \
             /opt/homebrew/bin/yabai -m space --layout stack; \
           else \
             /opt/homebrew/bin/yabai -m space --layout bsp; \
           fi
 
-# alt + shift + ctrl - i: /opt/homebrew/bin/wallboy next &
-alt + shift + ctrl - i : nohup /opt/homebrew/bin/wallboy next >> /tmp/wallboy.log 2>&1 &
+# alt + shift + ctrl - i: /opt/homebrew/bin/wallboy next
+alt + shift + ctrl - i : nohup /opt/homebrew/bin/wallboy next >> /tmp/wallboy.log 2>&1
 alt + shift + ctrl - d: /opt/homebrew/bin/wallboy save
 alt + shift + ctrl - o: /opt/homebrew/bin/wallboy open
 # alt + shift + ctrl - i: ~/.nix-profile/bin/walsh set
@@ -104,8 +104,8 @@ lctrl + alt - g : /opt/homebrew/bin/yabai -m space --toggle padding; /opt/homebr
 # Enable / Disable borders in current workspace
 # lctrl + alt - b : /opt/homebrew/bin/yabai -m config window_border on
 # lctrl + alt + shift - b : /opt/homebrew/bin/yabai -m config window_border off
-lctrl + alt + shift - t : /opt/homebrew/bin/yabai -m config top_padding 20
-lctrl + alt + shift - g : /opt/homebrew/bin/yabai -m config top_padding 50
+# lctrl + alt + shift - t : /opt/homebrew/bin/yabai -m config top_padding 20
+# lctrl + alt + shift - g : /opt/homebrew/bin/yabai -m config top_padding 50
 
 lctrl + alt - b: /opt/homebrew/bin/borders \
   "active_color=gradient(top_left=0xff8b5cf6,bottom_right=0xff5b21b6)" \
@@ -273,6 +273,9 @@ cmd + ctrl + alt - r: /opt/homebrew/bin/yabai --start-service
 alt - b: $HOME/.config//opt/homebrew/bin/yabai/toggle-bar.sh
 
 lctrl + alt + shift - m: /Users/darkawower/.nix-profile/bin/python3 $HOME/.config/yabai/init.py
+
+# Scratchpads
+lctrl + alt + shift - t : /Users/darkawower/.nix-profile/bin/python3 /Users/darkawower/.config/yabai/scratchpad.py toggle term
 
 cmd + shift - w: open -a Marta;
                  # /opt/homebrew/bin/yabai -m window --toggle float;\
