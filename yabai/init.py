@@ -122,6 +122,21 @@ class WeztermRule(WindowRule):
         return win.get('app') in ('wezterm-gui', 'WezTerm')
 
 
+@dataclass(frozen=True)
+class EnsureApp:
+    app: str
+    launch_cmd: list[str] | str
+
+    def is_running(self, yabai: Yabai) -> bool:
+        return yabai.find_window(lambda w: w.get('app') == self.app) is not None
+
+    def launch(self) -> None:
+        if isinstance(self.launch_cmd, str):
+            subprocess.Popen(['open', '-a', self.launch_cmd])
+        else:
+            subprocess.Popen(self.launch_cmd)
+
+
 class BrowserRule(WindowRule):
     def __init__(self, app: str, url: str, title_pattern: str, layout: WindowLayout, yabai: Yabai, paths: Paths = Paths()):
         super().__init__(layout, yabai)
@@ -145,11 +160,18 @@ class BrowserRule(WindowRule):
 @dataclass
 class AppConfig:
     rules: list[WindowRule]
+    ensure_apps: list[EnsureApp]
+    yabai: Yabai
     notifier_path: str = Paths.notifier
 
     def apply_all(self) -> None:
         for rule in self.rules:
             rule.apply()
+
+    def ensure_running(self) -> None:
+        for app in self.ensure_apps:
+            if not app.is_running(self.yabai):
+                app.launch()
 
     def configure_existing(self) -> None:
         for rule in self.rules:
@@ -190,11 +212,25 @@ def create_config() -> AppConfig:
         ),
     ]
 
-    return AppConfig(rules=rules, notifier_path=paths.notifier)
+    ensure_apps = [
+        EnsureApp(app='Telegram', launch_cmd='Telegram'),
+        EnsureApp(app='Mattermost', launch_cmd='Mattermost'),
+        EnsureApp(app='ChatGPT', launch_cmd='ChatGPT'),
+        EnsureApp(app='OrbStack', launch_cmd='OrbStack'),
+EnsureApp(app='Emacs', launch_cmd='EmacsClient.app'),
+    ]
+
+    return AppConfig(
+        rules=rules,
+        ensure_apps=ensure_apps,
+        yabai=yabai,
+        notifier_path=paths.notifier,
+    )
 
 
 def main() -> None:
     config = create_config()
+    config.ensure_running()
     config.apply_all()
     time.sleep(2)
     config.configure_existing()

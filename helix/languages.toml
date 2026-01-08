@@ -1,24 +1,24 @@
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "eslint", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "eslint", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "eslint", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "tsx"
-language-servers = ["typescript-language-server", "eslint", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
@@ -63,6 +63,12 @@ indent = { tab-width = 2, unit = "  " }
 [[language]]
 name = "c-sharp"
 language-servers = [ "csharp-language-server" ]
+
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer"]
+auto-format = true
+indent = { tab-width = 4, unit = "    " }
 
 
 
@@ -166,24 +172,17 @@ args = ["--stdio"]
 "https://json.schemastore.org/kustomization" = "kustomization.{yml,yaml}"
 "https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json" = "*.k8s.{yml,yaml}"
 
-[language-server.vscode-json-language-server]
-command = "vscode-json-language-server"
-args = ["--stdio"]
+[language-server.vscode-eslint-language-server]
+command = "node"
+args = ["bun", "~/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js", '--stdio']
 
-[language-server.eslint]
-command = "vscode-eslint-language-server"
-args = ["--stdio"]
-[language-server.eslint.config]
-"eslint.format" = true
-"eslint.nodePath" = ""
-"eslint.workingDirectories" = [ { "mode" = "auto" } ]
-"eslint.validate" = [
-  "javascript",
-  "javascriptreact",
-  "typescript",
-  "typescriptreact",
-  "vue"
-]
+[language-server.vscode-eslint-language-server.config]
+validate = "on"
+experimental = { useFlatConfig = false }
+rulesCustomizations = []
+run = "onType"
+problems = { shortenToSingleLine = false }
+nodePath = ""
 
 [language-server.marksman]
 command = "marksman"
@@ -240,3 +239,16 @@ args = ["-v", "-loglevel", "trace"]
 [language-server.gpt]
 command = "bun"
 args = ["run", "~/tmp/helix-gpt"]
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config]
+check.command = "clippy"
+cargo.features = "all"
+inlayHints.bindingModeHints.enable = true
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false

@@ -10,6 +10,9 @@ auth = "${UNSPLASH_ACCESS_KEY}"
 [providers.local]
 recursive = true
 
+[providers.wallhalla]
+pass = true
+
 [theme]
 mode = "auto"
 
@@ -21,4 +24,4 @@ queries = ["light minimalist illustration", "light minimal line art", "light dig
 [dark]
 dirs = ["/Users/darkawower/Pictures/wallpappers/dark"]
 upload-dir = "/Users/darkawower/Pictures/wallpappers/dark"
-queries = ["night city art", "minimalist illustration", "cyberpunk", "neon", "minimal line art", "digital art", "universe", "epic anime", "arcane"]
+queries = ["night city digital art", "neon cyberpunk", "minimal line art", "flat digital art", "universe", "flat cosmos art", "flat digital universe art", "anime", "arcane", "flat mountain art", "anime girl", "tokyo ghoul", "abstract", "linux", "mr robot", "minimal digital line art", "line art", "minimalistic", "2d", "tokio", "japan", "warcraft", "lovecraft"]

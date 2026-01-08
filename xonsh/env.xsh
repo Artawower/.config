@@ -17,6 +17,9 @@ $DOTNET_ROLL_FORWARD = "Major"
 
 $XONSH_HISTORY_BACKEND = 'sqlite'
 
+# Title терминала - показывает текущую задачу или директорию
+$TITLE = '{current_job:{} | }{cwd}'
+
 $XONSH_STYLE_OVERRIDES = {
     'Token.Name': 'ansired',                    
     'Token.Name.Builtin': 'ansibrightcyan',     

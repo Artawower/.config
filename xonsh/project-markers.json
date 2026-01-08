@@ -158,5 +158,13 @@
   "/Users/darkawower/projects/pet/wallboy": {
     "color": "bright-green",
     "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/aictl": {
+    "color": "bright-magenta",
+    "marker": "\u25a0"
+  },
+  "/Users/darkawower/projects/pet/orgnote/org-blog": {
+    "color": "yellow",
+    "marker": "\u25a0"
   }
 }

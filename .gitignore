@@ -67,6 +67,7 @@ fish/functions/zi.fish
 !walsh
 !cava
 !wallboy/config.toml
+!rassumfrassum
 
 # Temporary/state files
 **/.!*

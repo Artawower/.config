@@ -23,6 +23,9 @@ RULES (HARD)
 - Tests: require unit/behavior tests for branches; deterministic; fast; edge cases covered.
 - Formatting: idiomatic style for the language; consistent lint rules; zero warnings.
 
+IGNORE
+- Yalc issue. This applies only to local development; we have a hook that replaces Yalc with the real dependency before a git commit.
+
 ALLOWED REFACTORING TOOLS
 - Guard clauses, early returns.
 - Small pure helpers; extract functions/modules.
