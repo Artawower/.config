@@ -1,0 +1,45 @@
+:PROPERTIES:
+:ID: elisp-helpers
+:END:
+
+#+TITLE: Collection of helper functions for Emacs Lisp
+#+FILETAGS: :config:emacs:elisp:
+#+STARTUP: content
+
+
+* Ligher/darker hex color under cursor
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/color-adjust-hex-at-point ()
+  (interactive)
+  (let* ((region-active (use-region-p))
+         (raw
+          (if region-active
+              (buffer-substring-no-properties
+               (region-beginning) (region-end))
+            ""))
+         (hex
+          (if (string-match-p "^#?[0-9a-fA-F]\\{6\\}$" raw)
+              raw
+            (read-string "Hex color (#RRGGBB): " raw)))
+         (hex (if (string-prefix-p "#" hex) hex (concat "#" hex))))
+    (unless (string-match "^#[0-9a-fA-F]\\{6\\}$" hex)
+      (user-error "Invalid hex color"))
+    (let* ((percent (read-number "Adjust percent (positive=lighter, negative=darker): "))
+           (factor (/ percent 100.0))
+           (rgb (mapcar
+                 (lambda (i)
+                   (/ (string-to-number (substring hex i (+ i 2)) 16) 255.0))
+                 '(1 3 5)))
+           (adj (mapcar
+                 (lambda (c)
+                   (min 1.0
+                        (max 0.0
+                             (+ c (* factor (if (> factor 0) (- 1 c) c))))))
+                 rgb))
+           (new-hex
+            (apply
+             #'format "#%02X%02X%02X"
+             (mapcar (lambda (c) (round (* c 255))) adj))))
+      (kill-new new-hex)
+      (message "Copied: %s" new-hex))))
+#+END_SRC

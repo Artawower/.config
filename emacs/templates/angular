@@ -1,0 +1,58 @@
+ts-mode ng2-ts-mode typescript-ts-mode typescript-mode web-mode
+
+
+(inputDecoratorAngular "@Input()" n>
+"public readonly " p n>)
+
+(storybook "import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';" n>
+"import {" (p "component" component) "} from './';" n> n>
+"import { importProvidersFrom } from '@angular/core';" n> n>
+
+"const meta: Meta<" (p "component" component) "> = {" n>
+"  title: '/ '," n>
+"  component: " (p "component" component) "," n>
+" decorators: [" n>
+"    moduleMetadata({" n>
+"      imports: [" (p "component" component) "]," n>
+"    })," n>
+"    applicationConfig({" n>
+"      providers: [importProvidersFrom(IconModule)]," n>
+"    })," n>
+"  ]," n>
+"  parameters: {" n>
+"    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout" n>
+"   layout: 'centered'," n>
+"  }," n>
+"};" n>
+
+"export default meta;" n> n>
+"type Story = StoryObj<" (p "component" component) ">;" n>
+
+"const argTypes: Story['argTypes'] = {};" n>
+
+"export const story: Story = {" n>
+"  argTypes," n>
+"  render: (args) => ({" n>
+"    props: args," n>
+"    template: ``," n>
+"  })," n>
+"  args: {" n>
+"   }," n>
+"  tags: \['autodocs'\]," n>
+"};" n>
+)
+
+
+(ngxsState "@State<" (p "stateName" stateName) "Model>({" n>
+"  name: '" p "'," n>
+"  defaults: {}," n>
+"})" n>
+"@Injectable()" n>
+"export class " (p "stateName" stateName) " {" n>
+"  " n>
+"}")
+
+
+(inputSignal "public readonly " (p "name") " = " "input<" (p "type") ">(" p ")" )
+(signal "public readonly " (p "name") " = " "signal<" (p "type") ">(" p ")" )
+(modelSignal "public readonly " (p "name") " = " "model<" (p "type") ">(" p ")" )

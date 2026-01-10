@@ -1,0 +1,114 @@
+js-mode ts-mode ng2-ts-mode typescript-ts-mode typescript-mode web-mode vue-ts-mode
+
+(export-all "export * from '" p "'")
+
+(l "console.log(" p ")")
+(constructor "constructor(" p ") {" p "}")
+(console.date "console.log(`[${new Date().toString()}] " p "`)")
+
+(console.trace "console.trace(`"
+              (format "✎: [%s]" (or (turbo-log--get-context) (buffer-name)))  " "
+              p
+              "`)"
+              )
+              
+(console.full "console.log(`"
+              (format "✎: [%s]" (or (turbo-log--get-context) (buffer-name))) 
+              p " ${" r "}"
+              "`)"
+              )
+
+(console.full-object "console.log(`"
+                     (format "✎: [%s]" (or (turbo-log--get-context) (buffer-name)))
+                     "[${new Date().toString()}] "
+                     p "`" " , " r ")"
+                     )
+
+(loggerInfo "logger.info(`"
+             (format "[%s]" (buffer-name)) 
+             "[" (@treesit-ts-func) "]: "
+             p " %o`" " , " r ")"
+             )
+             
+(loggerWarn "logger.warn(`"
+             (format "[%s]" (buffer-name)) 
+             "[" (@treesit-ts-func) "]: "
+             p " %o`" " , " r ")"
+             )
+(loggerDebug "logger.debug(`"
+             (format "[%s]" (buffer-name)) 
+             "[" (@treesit-ts-func) "]: "
+             p " %o`" " , " r ")"
+             )
+
+(loggerError "logger.error(`"
+             (format "[%s]" (buffer-name)) 
+             "[" (@treesit-ts-func) "]: "
+             p " %o`" " , " r ")"
+             )
+
+
+
+(console.full-line-object "console.log(`"
+                          (format "✎: [line %s][%s]" (line-number-at-pos) (buffer-name)) 
+                          "[${new Date().toString()}]: "
+                          p "`" " , " r ")"
+                          )
+
+(console.pretty-stringify "console.log(`"
+                     (format "✎: [%s]" (or (turbo-log--get-context) (buffer-name)))
+                     "[${new Date().toString()}] "
+                     (r "val" val) "`" " , JSON.stringify(" (r "val" val) ", null, 2))")
+
+(consoleDivider "console.log('-'.repeat(40));")
+
+(console.log > "console.log('"
+             (format "[line %s]%s: " (line-number-at-pos) (if (turbo-log--get-context) (format "[%s]" (turbo-log--get-context)) "")) p "'" ", "
+             r
+             ")")
+
+
+(crab > "// TODO: (\\/) @_@ (\\/)")
+
+(privateClassMethod "private " (p "name") "(" (p "arguments") "): " (p "type") " {" n> p n> "}")
+(privateReadonlyDependency "private readonly " (p "field") ": " (p "type"))
+(privateReadonlyVariable "private readonly " (p "field") " = " (p "value"))
+(protectedReadonlyDependency "protected readonly " (p "field") " = " (p "value"))
+(privateMethodSharp "#" (p "name") "(" (p "arguments") "): " (p "type") "{" n> p n> "}")
+(publicMethod "public " (p "name") "(" (p "arguments") "): " (p "type") "{" n> p> n> "}")
+(publicReadonly "public readonly " (p "field") ": " (p "type"))
+(publicStaticReadonly "public static readonly " (p "field") " = " (p "value"))
+
+
+
+fundamental-mode prog-mode text-mode
+(prettier "{
+  \"trailingComma\": \"es5\",
+  \"tabWidth\": 2,
+  \"semi\": true,
+  \"singleQuote\": true,
+  \"lineWidth\": 80
+}
+")
+
+
+python-mode
+
+(print "print(\""
+       (format "✎: [%s] " (or (turbo-log--get-context) (buffer-name)))
+       p "\" " p ")"
+       
+       )
+
+web-mode vue-ts-mode vue-mode
+(template "<template>"
+          n> p n
+          "</template>"
+          n n
+          "<script lang=\"ts\" setup>"
+          n> p n
+          "</script>")
+
+(script "<script lang=\"ts\" setup>"
+        n> p n
+        "</script>")
