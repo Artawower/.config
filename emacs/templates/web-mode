@@ -1,0 +1,4 @@
+web-mode vue-ts-mode vue-mode
+
+(props "const props = defineProps<{" n> p n "}>();")
+(emits "const emits = defineEmits<{" n> p n "}>();")

@@ -15,7 +15,7 @@
 !alacritty.yaml
 !.zshrc
 !nv.sh
-!emacs-tree-sitter
+# !emacs-tree-sitter
 !wal
 !README.org
 !.p10k.zsh
@@ -69,6 +69,7 @@ fish/functions/zi.fish
 !wallboy/config.toml
 !rassumfrassum
 
+
 # Temporary/state files
 **/.!*
 
@@ -80,7 +81,6 @@ wezterm/.last-appearance
 wezterm/.theme-idx
 
 # Emacs tree-sitter - binaries can be regenerated
-emacs-tree-sitter/
 
 # Fonts - standard fonts installed via Homebrew/Nix (see fonts/README.md)
 fonts/JetBrainsMono*.ttf
@@ -96,3 +96,13 @@ xonsh/.secrets.xsh
 !ghostty
 !docker-services
 prowlarr-config
+
+# Emacs
+!emacs/
+emacs/**
+!emacs/README.org
+!emacs/elpaca.lock
+!emacs/HERLPERS.org
+!emacs/init.el
+!emacs/templates
+!emacs/templates/**

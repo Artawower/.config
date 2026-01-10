@@ -1,0 +1,30 @@
+typescript-ts-mode typescript-mode
+
+(state
+"import { StateRepository } from '@angular-ru/ngxs/decorators';
+import { State } from '@ngxs/store';
+import { Injectable } from '@angular/core';
+import {
+  " (p "Actions imports") "
+} from './" (car (split-string (file-name-nondirectory (buffer-file-name)) "\\.")) ".actions';
+
+export interface " (string-inflection-upper-camelcase-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\."))) "StateModel {
+  " (p "stateProperties") "
+}
+
+export const " (string-inflection-upcase-function (string-inflection-underscore-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\.")))) "_STATE_NAME = '" (string-inflection-lower-camelcase-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\."))) "';
+
+const defaultState: " (string-inflection-upper-camelcase-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\."))) "StateModel = {
+      
+};
+
+@StateRepository()
+@State<" (string-inflection-upper-camelcase-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\."))) "StateModel>({
+  name: " (string-inflection-upcase-function (string-inflection-underscore-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\.")))) "_STATE_NAME,
+  defaults: defaultState,
+})
+@Injectable()
+export class " (string-inflection-upper-camelcase-function (car (split-string (file-name-nondirectory (buffer-file-name)) "\\."))) "State {
+
+}
+")
