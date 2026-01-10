@@ -97,6 +97,8 @@ xonsh/.secrets.xsh
 !docker-services
 prowlarr-config
 
+!aictl
+
 # Emacs
 !emacs/
 emacs/**
