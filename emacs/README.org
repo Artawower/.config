@@ -2322,7 +2322,10 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   :init
   (dirvish-override-dired-mode)
   :bind (("C-c o p" . dirvish-side)
-         ("C-c f g" . dirvish-quick-access))
+         ("C-c f g" . dirvish-quick-access)
+         :map dirvish-mode-map
+         ("f" . avy-goto-word-1)
+         ("r" . dirvish-file-info-menu))
   :custom
   (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
    `(("h" "~/"                          "Home")
