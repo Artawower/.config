@@ -2332,6 +2332,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
      ("d" "~/Downloads/"                "Downloads")
      ("p" "~/projects/pet"              "Pet")
      ("o" "~/projects/pet/orgnote"      "Orgnote")
+     ("s" "~/Pictures/screenshots"      "Screenshots")
      ("e" "~/projects/pet/emacs"        "Emacs")
      ("a" ,my/agenda-dir                "Agenda")))
   (dirvish-side-width 45)

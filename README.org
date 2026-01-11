@@ -1,14 +1,192 @@
-* Init
-#+BEGIN_SRC bash
-git clone git@github.com:Artawower/.config.git
-cp -rf ~/.config ~/.config_backup
-cp -rf .config/* ~/.config
-#+END_SRC
+#+TITLE: 🚀 My Awesome Dotfiles
+#+AUTHOR: artawower@protonmail.com
+#+OPTIONS: toc:2 num:nil ^:nil
+
+* 📋 Overview
+
+Modern, AI-powered development environment for macOS. A polyglot configuration featuring Xonsh shell, Nix package management, and extensive editor integrations.
+
+#+begin_quote
+*Philosophy:* Modular, reproducible, AI-assisted development with literate configuration.
+#+end_quote
 
 
-* Oh My ZSH
-#+BEGIN_SRC bash
-ln -s ~/.config/oh-my-zsh-custom ~/.oh-my-zsh/custom
-ln -s ~/.config/.p10k.zsh ~/.p10k.zsh
-ln -s ~/.config/.zshrc .zshrc
+#+html: <img src="./images/media.webp"><br/>
+#+html: <img src="./images/coding.webp">
+
+** 🎯 Key Features
+
+- ⌨️ Vim-oriented keyboard navigation
+- 💻 *Zellij* for rich terminal and multiplexing
+- 🐚 *Xonsh* - Python-powered shell with rich customization
+- 📦 *Nix + Home Manager* - Declarative, reproducible system configuration
+- ✨ *Multi-editor* - Emacs (primary), Helix for quick terminal edits
+- 🤖 *AI Integration* - OpenCode, Codex, Claude, ECA for intelligent coding assistance
+- 🎨 *Desktop* - Yabai tiling WM, ICE, auto theme switching, JankyBorders
+- 🔧 *Polyglot* - Go, Rust, Node.js, Python, Java tooling
+
+* 🚀 Quick Start
+
+** Prerequisites
+
+macOS (Apple Silicon or Intel)
+
+** Bootstrap Installation
+
+The system uses *Nix* as the foundation for reproducible package management. Install it first:
+
+#+NAME: install-nix
+#+BEGIN_SRC bash :tangle bootstrap.sh
+# Install Nix package manager (multi-user installation)
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
+  sh -s -- install
+
+# Source nix
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 #+END_SRC
+
+** Clone Configuration
+
+#+NAME: clone-config
+#+BEGIN_SRC bash :tangle bootstrap.sh
+# Backup existing config
+[ -d ~/.config ] && mv ~/.config ~/.config.backup.$(date +%Y%m%d_%H%M%S)
+
+# Clone dotfiles
+git clone https://github.com/Artawower/.config.git ~/.config
+cd ~/.config
+#+END_SRC
+
+** Initialize with Nix
+
+#+NAME: nix-init
+#+BEGIN_SRC bash :tangle bootstrap.sh
+# Build and activate the configuration
+cd ~/.config/nix
+nix flake update  # Update dependencies
+
+# For Darwin (macOS) system configuration
+nix build .#darwinConfigurations.$(hostname -s).system
+./result/sw/bin/darwin-rebuild switch --flake .
+
+# For Home Manager
+nix run home-manager/master -- switch --flake ~/.config/nix
+#+END_SRC
+
+** Post-Installation
+
+#+NAME: post-install
+#+BEGIN_SRC bash
+# Install launch agents for system theme watching
+cd ~/.config/launchagents
+./install.sh
+
+# Configure Xonsh as default shell
+echo "$(which xonsh)" | sudo tee -a /etc/shells
+chsh -s $(which xonsh)
+
+# Restart terminal
+#+END_SRC
+
+* 🛠️ Core Tools
+
+** Shell Environment
+
+| Tool      | Purpose                    | Config                    |
+|-----------+----------------------------+---------------------------|
+| [[https://xon.sh/][Xonsh]]     | Python-powered shell       | =xonsh/rc.xsh=            |
+| [[https://zellij.dev/][Zellij]]    | Terminal multiplexer       | =zellij/=                 |
+| [[https://starship.rs/][Starship]]  | Cross-shell prompt         | =starship.toml=           |
+| [[https://github.com/ajeetdsouza/zoxide][Zoxide]]    | Smart directory jumper     | =xonsh/zoxide.xsh=        |
+
+** Editors & IDEs
+
+| Tool  | Role                   | Features                                |
+|-------+------------------------+-----------------------------------------|
+| [[https://www.gnu.org/software/emacs/][Emacs]] | IDE                    | Elpaca, extensive packages              |
+| [[https://helix-editor.com/][Helix]] | Quick terminal editing | LSP, tree-sitter, yazi, git integration |
+
+** AI Coding Assistants
+
+| Tool     | Model       | Purpose                                          |
+|----------+-------------+--------------------------------------------------|
+| [[https://github.com/editor-code-assistant/eca][ECA]]      | Various     | The best AI tool with seamless Emacs integration |
+| [[https://github.com/Codex][Codex]]    | GPT-5-Codex | Advanced code assistant with MCP                 |
+| [[https://claude.ai/][Claude]]   | Sonnet 4.5  | Interactive coding via codex integration         |
+| Aictl    | Multi-model | Unified AI client control                        |
+| [[https://github.com/anomalyco/opencode][Opencode]] | Various     | One of the best AI pair programming tools        |
+
+** Package Managers
+
+| Language   | Tools                      |
+|------------+----------------------------|
+| System     | Nix, Home Manager          |
+| Node.js    | Bun, Volta             |
+| Python     | UV, pip3                   |
+| Rust       | Cargo                      |
+| Go         | Go modules                 |
+| Java       | SDKMAN                     |
+
+** Desktop Environment
+
+| Component  | Tool            | Purpose                  |
+|------------+-----------------+--------------------------|
+| WM         | [[https://github.com/koekeishiya/yabai][Yabai]]           | Tiling window management |
+| Borders    | [[https://github.com/FelixKratz/JankyBorders][JankyBorders]]    | Window border effects    |
+| Menu Bar   | [[https://github.com/jordanbaird/Ice][ICE]]             | Menu bar management      |
+| Hotkeys    | [[https://github.com/koekeishiya/skhd][Skhd]]            | Keyboard shortcuts       |
+| Bar        | [[https://github.com/FelixKratz/SketchyBar][Sketchybar]]      | Status bar               |
+| Launcher   | [[https://www.raycast.com/][Raycast]]         | Productivity launcher    |
+| Keyboard   | [[https://karabiner-elements.pqrs.org/][Karabiner]]       | Advanced key remapping   |
+| Wallpapers | [[https://github.com/Zagaz/wallboy][Wallboy]]         | Wallpaper management     |
+
+* 🎨 Customization
+** Xonsh Aliases
+
+60+ aliases configured in =xonsh/aliases.xsh=:
+
+- Docker shortcuts (=dps=, =drm=, =dex=)
+- Kubernetes (=k=, =kgp=, =kd=)
+- Git operations (=gst=, =gco=, =gp=)
+- Development (=pn= for pnpm, =bn= for bun)
+
+* 🔧 System Requirements
+
+- *OS:* macOS 12+ (Monterey or later)
+- *Arch:* Apple Silicon (M1/M2/M3) or Intel
+- *Disk:* ~5GB for full installation
+- *Network:* Internet connection for Nix packages
+
+* 📚 Documentation
+
+- [[https://nixos.org/manual/nix/stable/][Nix Manual]]
+- [[https://nix-community.github.io/home-manager/][Home Manager Guide]]
+- [[https://xon.sh/tutorial.html][Xonsh Tutorial]]
+- [[https://docs.helix-editor.com/][Helix Docs]]
+
+* 🤝 Contributing
+
+This is a personal configuration, but feel free to:
+- Fork and adapt for your needs
+- Open issues for bugs
+- Share improvements via PR
+
+* 📝 License
+
+MIT License - Use freely, attribution appreciated.
+
+-----
+
+#+begin_center
+/Built with ❤️  and AI assistance/
+
+#+HTML: <p align="center">
+#+HTML: <a href="https://nixos.org/"><img src="https://img.shields.io/badge/Nix-5277C3?style=for-the-badge&logo=nixos&logoColor=white" alt="Nix"></a>
+#+HTML: <a href="https://xon.sh/"><img src="https://img.shields.io/badge/Xonsh-Shell-285EAD?style=for-the-badge" alt="Xonsh"></a>
+#+HTML: <a href="https://www.gnu.org/software/emacs/"><img src="https://img.shields.io/badge/Emacs-7F5AB6?style=for-the-badge&logo=gnuemacs&logoColor=white" alt="Emacs"></a>
+#+HTML: <a href="https://zellij.dev/"><img src="https://img.shields.io/badge/Zellij-Terminal-F39C12?style=for-the-badge" alt="Zellij"></a>
+#+HTML: <a href="https://github.com/koekeishiya/yabai"><img src="https://img.shields.io/badge/Yabai-WM-1E1E2E?style=for-the-badge" alt="Yabai"></a>
+#+HTML: <a href="https://github.com/editor-code-assistant/eca"><img src="https://img.shields.io/badge/ECA-AI-00D9FF?style=for-the-badge" alt="ECA"></a>
+#+HTML: <a href="https://helix-editor.com/"><img src="https://img.shields.io/badge/Helix-7E57C2?style=for-the-badge" alt="Helix"></a>
+#+HTML: </p>
+#+end_center
