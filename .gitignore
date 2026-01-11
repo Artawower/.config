@@ -37,6 +37,7 @@ opencode/plugin
 !fish
 !eca
 !codex
+!nix
 
 .DS_Store
 
@@ -64,6 +65,8 @@ fish/functions/fish_prompt.fish
 fish/functions/fish_mode_prompt.fish
 fish/functions/fish_title.fish
 fish/functions/zi.fish
+fish/functions/bash.fish
+fish/functions/hx.fish
 !walsh
 !cava
 !wallboy/config.toml
@@ -92,6 +95,7 @@ fonts/Monaspace*.ttf
 
 !xonsh
 xonsh/.secrets.xsh
+xonsh/project-markers.json
 !starship.toml
 !ghostty
 !docker-services
