@@ -3849,6 +3849,17 @@ def servers():
     ]
 #+END_SRC
 
+**** Python preset
+#+BEGIN_SRC python :tangle ~/.config/rassumfrassum/angular.py
+"""Python preset: pyright + ty"""
+
+def servers():
+    return [
+        ['basedpyright-langserver', '--stdio'],
+        ['ty', '--server'],
+    ]
+#+END_SRC
+
 *** Eglot boosted
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package eglot-booster
@@ -4437,9 +4448,9 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
   :defer t 
   :hook (pythons-ts-mode . uv-mode))
 #+END_SRC
-*** COMMENT Virtualenv
+*** Virtualenv
 #+BEGIN_SRC emacs-lisp :results silent
-(use-package virtualenv :defer t)
+(use-package pyvenv :ensure t :hook (pythons-ts-mode . pyvenv-mode))
 #+END_SRC
 
 ** Nix
