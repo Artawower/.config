@@ -94,15 +94,15 @@ def _reload(args):
         print(f'Config not found: {config_path}')
 
 def _u(args): 
-    cd ~/nix
+    cd ~/.config/nix
     ![make rebuild]
 
 def _uh(args): 
-    cd ~/nix
+    cd ~/.config/nix
     ![make home]
 
 def _ud(args): 
-    cd ~/nix
+    cd ~/.config/nix
     ![make darwin]
 
 def print_colors():
