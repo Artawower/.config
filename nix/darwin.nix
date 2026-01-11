@@ -199,6 +199,7 @@ in
       "gleam"
       "erlang"
       "llvm"
+      "ast-grep"
     ];
     taps = [
       "kamillobinski/thock"
