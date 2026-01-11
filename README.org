@@ -88,6 +88,11 @@ chsh -s $(which xonsh)
 # Restart terminal
 #+END_SRC
 
+** Polish some tools
+*** Opencode
+#+BEGIN_SRC bash
+bunx oh-my-opencode install
+#+END_SRC
 * 🛠️ Core Tools
 
 ** Shell Environment
