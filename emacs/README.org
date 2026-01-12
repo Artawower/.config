@@ -3844,10 +3844,16 @@ Create =~/.config/rassumfrassum/angular.py=:
 #+BEGIN_SRC python :tangle ~/.config/rassumfrassum/angular.py
 """Angular/TypeScript preset: typescript-language-server + eslint."""
 
+
 def servers():
     return [
-        ['typescript-language-server', '--stdio'],
-        ['vscode-eslint-language-server', '--stdio'],
+        ["typescript-language-server", "--stdio"],
+        ["ngserver", "--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."],
+        [
+            "node",
+            "/Users/darkawower/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js",
+            "--stdio",
+        ],
     ]
 #+END_SRC
 
@@ -3862,7 +3868,7 @@ def servers():
     ]
 #+END_SRC
 
-*** Eglot boosted
+*** COMMENT Eglot booster
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package eglot-booster
 	:ensure ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster")
@@ -3905,6 +3911,7 @@ def servers():
   ((typescript-ts-mode
     tsx-ts-mode
     js-ts-mode
+    html-ts-mode
     ng2-ts-mode
     rust-ts-mode
     python-ts-mode
@@ -3912,7 +3919,8 @@ def servers():
     vue-ts-mode) . eglot-ensure)
   :custom
   (eglot-confirm-server-initiated-edits nil)
-  (eglot-events-buffer-config '(:size 0 :format nil))
+  (eglot-code-action-indicator "")
+  ;; (eglot-events-buffer-config '(:size 0 :format nil))
   :config
 
   (defun my/eglot-disable-inline-hints ()
@@ -3941,9 +3949,22 @@ def servers():
   (add-to-list 'eglot-server-programs
                '(python-ts-mode . ("rass" "python")))
 
+  (add-to-list 'eglot-server-programs
+               '(html-ts-mode . ("rass" "angular-html")))
+
   ;; Go (single server, no rass needed)
   (add-to-list 'eglot-server-programs
                '(go-ts-mode . ("gopls")))
+
+  ;; (add-to-list 'eglot-server-programs '((typescript-mode typescript-ts-mode) . ("rass" "angular")))
+  (add-to-list 'eglot-server-programs
+               '((typescript-mode typescript-ts-mode tsx-ts-mode js-mode js-ts-mode) .
+                 ("lspx"
+                  "--lsp" "typescript-language-server --stdio"
+                  "--lsp" "ngserver --stdio --tsProbeLocations . --ngProbeLocations ."
+                  "--lsp" "/Users/darkawower/.vscode/extensions/dbaeumer.vscode-eslint-3.0.10/server/out/eslintServer.js --stdio"
+                  )))
+
 
   ;; Rust
   (add-to-list 'eglot-server-programs

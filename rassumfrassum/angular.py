@@ -1,7 +1,13 @@
 """Angular/TypeScript preset: typescript-language-server + eslint."""
 
+
 def servers():
     return [
+        ["ngserver", "--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."],
         ['typescript-language-server', '--stdio'],
-        ["node", "/Users/darkawower/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js", '--stdio']
+        [
+            "node",
+            "~/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js",
+            "--stdio",
+        ],
     ]
