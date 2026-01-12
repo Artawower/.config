@@ -2141,6 +2141,7 @@ The format is:
           (python "https://github.com/tree-sitter/tree-sitter-python")
           (rust "https://github.com/tree-sitter/tree-sitter-rust")
           (scss "https://github.com/tree-sitter-grammars/tree-sitter-scss")
+          (swift "https://github.com/alex-pinkus/tree-sitter-swift")
           (toml "https://github.com/tree-sitter/tree-sitter-toml")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
@@ -4407,6 +4408,10 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 
 
 * Programming languages
+** Swift
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package swift-ts-mode :defer t :mode ("\\.swift" . swift-ts-mode))
+#+END_SRC
 ** Gleam
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package gleam-ts-mode
@@ -5555,6 +5560,7 @@ Raindrop search
 Ob raindrop (dynamic block)
 #+BEGIN_SRC emacs-lisp
 (use-package ob-raindrop
+  :after org
   :commands (org-babel-execute:raindrop)
   :ensure nil
   :config
