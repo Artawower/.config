@@ -1410,6 +1410,8 @@ Move to husky
    '("s-o" . meow-last-buffer)
    '("ge" . end-of-buffer)
    '("gg" . beginning-of-buffer)
+   '("gl" . my/meow-select-till-eol)
+   '("gh" . beginning-of-line)
    '("6" . meow-expand-6)
    '("@" . meow-end-or-call-kmacro)
    '("5" . meow-expand-5)
@@ -2326,7 +2328,9 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
          ("C-c f g" . dirvish-quick-access)
          :map dirvish-mode-map
          ("f" . avy-goto-word-1)
-         ("r" . dirvish-file-info-menu))
+         ("r" . dirvish-file-info-menu)
+         :map meow-normal-state-keymap
+         ("gf" . dirvish-quick-access))
   :custom
   (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
    `(("h" "~/"                          "Home")
@@ -3901,10 +3905,11 @@ def servers():
   :bind (("C-c g i" . eglot-find-implementation)
          ("C-c l r" . eglot-rename)
          ("C-c r l" . eglot)
-         ("C-c l i" . eglot-find-implementation)
          ("C-c l d" . eglot-find-typeDefinition)
          ("C-c l f" . xref-find-references)
          :map meow-normal-state-keymap
+         ("g i" . eglot-find-implementation)
+         ("g r" . xref-find-references)
          ("\\i" . my/eglot-toggle-inlay-hints)
          ("\\l" . eglot-code-actions))
   :hook
