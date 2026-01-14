@@ -1124,7 +1124,23 @@ simplified_ui false
 // Default: default
 //
 // theme "catppuccin-latte"
-theme "catppuccin-frappe"
+themes {
+    custom-violet {
+        fg "#c6d0f5"
+        bg "#303446"
+        black "#292c3c"
+        red "#e78284"
+        green "#8b5cf6"
+        yellow "#e5c890"
+        blue "#8caaee"
+        magenta "#8b5cf6"
+        cyan "#99d1db"
+        white "#c6d0f5"
+        orange "#ef9f76"
+    }
+}
+
+theme "custom-violet"
 // Choose the base input mode of zellij.
 // Default: normal
 //
