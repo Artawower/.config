@@ -57,6 +57,8 @@ yabai -m rule --add app="^Flameshot$" manage=off
 yabai -m rule --add app="^zoom.us$" manage=off
 yabai -m rule --add app="^Android Emulator.*" manage=off
 yabai -m rule --add app="^Android Studio" manage=on space=7
+yabai -m rule --add app="^Xcode" manage=on space=8
+yabai -m rule --add app="^Safari" manage=on space=4
 yabai -m rule --add app="^qemu-system-aarch64" manage=off
 yabai -m rule --add app="^OpenVPN Connect$" manage=off
 yabai -m rule --add app="^Loom" manage=off
