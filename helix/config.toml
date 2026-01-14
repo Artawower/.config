@@ -1,4 +1,4 @@
-theme = "my_light"
+theme = "my"
 
 
 [editor]
@@ -146,6 +146,8 @@ esc = ["collapse_selection", "keep_primary_selection"]
 
 [keys.normal.g]
 "d" = "goto_definition"
+"D" = [":buffer-close-others", "vsplit", "goto_definition"]
+"R" = [":buffer-close-others", "vsplit", "goto_reference"]
 "r" = "goto_reference"
 "i" = "goto_implementation"
 "t" = "goto_type_definition"
