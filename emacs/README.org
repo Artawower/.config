@@ -3818,7 +3818,7 @@ https://github.com/konrad1977/flyover
 (use-package consult-flycheck
   :after consult)
 #+END_SRC
-*** Flyckec posframe
+*** COMMENT Flyckec posframe
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package flycheck-posframe
   :after flycheck
@@ -3868,7 +3868,7 @@ def servers():
     ]
 #+END_SRC
 
-*** COMMENT Eglot booster
+*** Eglot booster
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package eglot-booster
 	:ensure ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster")
@@ -3883,10 +3883,10 @@ def servers():
   (global-flycheck-eglot-mode 1))
 #+END_SRC
 
-*** COMMENT Flycheck sidelined
+**** COMMENT Flycheck sidelined
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package sideline
-  :hook (flycheck-mode . sideline-mode)
+  ;; :hook (flycheck-mode . sideline-mode)
   :init
   (setq flycheck-display-errors-function nil)
   (setq sideline-backends-right '(sideline-flycheck)))
@@ -3917,10 +3917,13 @@ def servers():
     python-ts-mode
     go-ts-mode
     vue-ts-mode) . eglot-ensure)
+  ;; (eglot-managed-mode-hook . (lambda () (eglot-semantic-tokens-mode -1)))
   :custom
+  (eglot-semantic-token-modifiers nil)
+  (eglot-semantic-token-types nil)
   (eglot-confirm-server-initiated-edits nil)
   (eglot-code-action-indicator "")
-  ;; (eglot-events-buffer-config '(:size 0 :format nil))
+  (eglot-events-buffer-config '(:size 0 :format nil))
   :config
 
   (defun my/eglot-disable-inline-hints ()
@@ -3952,18 +3955,31 @@ def servers():
   (add-to-list 'eglot-server-programs
                '(html-ts-mode . ("rass" "angular-html")))
 
+  ;; (add-to-list 'eglot-server-programs
+  ;;              `(vue-ts-mode . ("rass" "vue-lint")))
+
+
   ;; Go (single server, no rass needed)
   (add-to-list 'eglot-server-programs
                '(go-ts-mode . ("gopls")))
 
   ;; (add-to-list 'eglot-server-programs '((typescript-mode typescript-ts-mode) . ("rass" "angular")))
+  (defun my/typescript-lsp-server (&optional _interactive _project)
+    "Return LSP server command based on whether project is Angular or not."
+    (let* ((project-root (locate-dominating-file default-directory "angular.json"))
+           (angular-p (and project-root
+                           (file-exists-p (expand-file-name "angular.json" project-root)))))
+(message "IS ANGULAR? %s" angular-p)
+      (if angular-p
+          ;; Angular project - include ngserver
+          '("lspx"
+            "--lsp" "typescript-language-server --stdio"
+            "--lsp" "ngserver --stdio --tsProbeLocations . --ngProbeLocations .")
+            ;; "--lsp" "node /Users/darkawower/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js --stdio")
+            '("rass" "vue"))))
+
   (add-to-list 'eglot-server-programs
-               '((typescript-mode typescript-ts-mode tsx-ts-mode js-mode js-ts-mode) .
-                 ("lspx"
-                  "--lsp" "typescript-language-server --stdio"
-                  "--lsp" "ngserver --stdio --tsProbeLocations . --ngProbeLocations ."
-                  "--lsp" "/Users/darkawower/.vscode/extensions/dbaeumer.vscode-eslint-3.0.10/server/out/eslintServer.js --stdio"
-                  )))
+               '((typescript-mode typescript-ts-mode tsx-ts-mode js-mode js-ts-mode) . my/typescript-lsp-server))
 
 
   ;; Rust
@@ -4019,41 +4035,6 @@ def servers():
         (message "Copied %d Flymake diagnostics from %s" (length diags) header)))))
 #+END_SRC
 
-*** COMMENT Flymake, lsp mode patch
-#+NAME: lsp-flymake-patch
-#+BEGIN_SRC emacs-lisp  :tangle no
-(defun my/lsp-diagnostics--flymake-update-diagnostics ()
-    "Report new diagnostics to flymake."
-    (funcall lsp-diagnostics--flymake-report-fn
-             (-some->> (lsp-diagnostics t)
-               (gethash (lsp--fix-path-casing buffer-file-name))
-               (--map (-let* (((&Diagnostic :message :severity?
-                                            :range (range &as &Range
-                                                          :start (&Position :line start-line :character)
-                                                          :end (&Position :line end-line))) it)
-                              ((start . end) (lsp--range-to-region range)))
-                        (when (= start end)
-                          (if-let* ((region (flymake-diag-region (current-buffer)
-                                                                (1+ start-line)
-                                                                character)))
-                              (setq start (car region)
-                                    end (cdr region))
-                            (lsp-save-restriction-and-excursion
-                              (goto-char (point-min))
-                              (setq start (line-beginning-position (1+ start-line))
-                                    end (line-end-position (1+ end-line))))))
-                        (flymake-make-diagnostic (current-buffer)
-                                                 start
-                                                 end
-                                                 (cl-case severity?
-                                                   (1 :error)
-                                                   (2 :warning)
-                                                   (t :note))
-                                                 message))))))
-
-(advice-add #'lsp-diagnostics--flymake-update-diagnostics
-              :override #'my/lsp-diagnostics--flymake-update-diagnostics)
-#+END_SRC
 *** Core Package
 #+BEGIN_SRC emacs-lisp
 (use-package flymake
@@ -4069,7 +4050,7 @@ def servers():
   (prog-mode . flymake-mode)
   (flymake-diagnostics-buffer-mode . meow-normal-mode)
   :custom
-  (flymake-no-changes-timeout 0.5)
+  (flymake-no-changes-timeout 0.6)
   (flymake-start-on-flymake-mode t)
   (flymake-start-on-save-buffer t)
   (flymake-start-on-newline t)
@@ -4104,12 +4085,14 @@ def servers():
 *** Flymake posframe
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package flymake-posframe
-  :defer 10
-  :after meow
+  :ensure (flymake-posframe :host github :repo "Ladicle/flymake-posframe")
   :hook ((flymake-mode . flymake-posframe-mode)
          (meow-normal-mode . my/toggle-flymake-posframe)
          (meow-insert-mode . my/toggle-flymake-posframe))
-  :ensure (flymake-posframe :host github :repo "Ladicle/flymake-posframe"))
+  :config
+  (get-buffer-create flymake-posframe-buffer)
+
+  (defalias 'flymake--diag-text #'flymake-diagnostic-text))
 #+END_SRC
 
 **** The function to toggle the posframe mode by current meow state
@@ -4126,7 +4109,9 @@ ESLint via flymake-eslint (separate from LSP, since vscode-eslint-language-serve
 #+BEGIN_SRC emacs-lisp
 (use-package flymake-jsts
   :ensure '(flymake-jsts :type git :host github :repo "orzechowskid/flymake-jsts" :branch "main")
-  :hook (eglot-managed-mode . flymake-jsts-eslint-enable))
+  :hook (eglot-managed-mode . flymake-jsts-eslint-enable)
+  :config
+  (setq flymake-eslint-executable-args nil))
 #+END_SRC
 
 *** Flymake, stylelint
@@ -4164,8 +4149,8 @@ ESLint via flymake-eslint (separate from LSP, since vscode-eslint-language-serve
   (eldoc-echo-area-display-truncation-message nil)
   (eldoc-idle-delay 0.7)
   :config
-  (setq-default eldoc-display-functions '(eldoc-display-in-buffer))
-  (advice-add 'eldoc-display-in-echo-area :override #'ignore)
+  ;; (setq-default eldoc-display-functions '(eldoc-display-in-buffer))
+  ;; (advice-add 'eldoc-display-in-echo-area :override #'ignore)
   (add-to-list
    'display-buffer-alist
    '("*eldoc*"
@@ -4903,6 +4888,16 @@ Requires Emacs 30+
    :defer t)
 #+END_SRC
 * AI
+** Agent shell
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package agent-shell
+    :ensure t
+    :bind ( :map agent-shell-mode-map
+            ("<return>" . newline)
+            ("s-<return>" . comint-send-input))
+    :ensure-system-package
+    ((claude-code-acp . "volta install @zed-industries/claude-code-acp")))
+#+END_SRC
 ** ECA. Agnostic code assistant
 *** Functions
 **** Open last eca view diff
