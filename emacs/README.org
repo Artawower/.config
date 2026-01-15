@@ -629,12 +629,10 @@ Modeline inactive color
 
 *** Mode line and header line faces
 #+BEGIN_SRC emacs-lisp
-(defun my/setup-modeline (&optional _frame &rest _)
-  "Configure the modeline and header-line globally."
-  (interactive)
+(defun my/setup-modeline--apply ()
+  "Internal function to apply modeline settings."
   (let* ((bg-inactive (my/get-modeline-inactive-color))
          (bg (my/get-modeline-background-color)))
-    ;; (message "Setup modeline, bg: %s, inactive: %s" bg bg-inactive)
     (set-face-attribute 'mode-line nil
                         :background bg
                         :box (list :line-width my/ui-box-padding :color bg))
@@ -653,6 +651,13 @@ Modeline inactive color
       (set-face-attribute 'header-line-inactive nil
                           :background bg-inactive
                           :box (list :line-width my/ui-box-padding :color bg-inactive)))))
+
+(defun my/setup-modeline (&optional _frame &rest _)
+  "Configure the modeline and header-line globally."
+  (interactive)
+  (if (daemonp)
+      (run-at-time 0.1 nil #'my/setup-modeline--apply)
+    (my/setup-modeline--apply)))
 #+END_SRC
 
 *** Divider face setup
@@ -681,9 +686,9 @@ Modeline inactive color
   :hook
   (after-load-theme . my/setup-divider)
   (after-load-theme . my/setup-modeline)
-  ;; (spacious-padding-mode . my/setup-modeline)
   (after-make-frame-functions . my/setup-divider)
   (after-make-frame-functions . my/setup-fonts-to-frame)
+  (server-after-make-frame . my/setup-divider)
   :config
   (unless (daemonp)
     (my/setup-fonts-to-frame)
@@ -856,7 +861,7 @@ Temporary disabled due to performance issues on macos
                               :scroll-bar-width 0))
   (spacious-padding-subtle-mode-line nil)
   :config
-  (advice-add 'custom-theme-set-faces :after (lambda (&rest _) (my/setup-modeline))))
+  (advice-add 'spacious-padding-set-faces :after #'my/setup-modeline))
 #+END_SRC
 
 ** Olivetti mode
@@ -2001,6 +2006,13 @@ The format is:
   :config
   (global-undo-fu-session-mode))
 #+END_SRC
+** Disable sgml-mode bindings
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'sgml-mode
+  (setq html-ts-mode-map (make-sparse-keymap))
+  (setq html-mode-map (make-sparse-keymap))
+  (setq sgml-mode-map (make-sparse-keymap)))
+#+END_SRC
 ** Autopairs
 #+BEGIN_SRC emacs-lisp
 (use-package electric
@@ -2888,11 +2900,21 @@ Setup blamer face
 #+BEGIN_SRC emacs-lisp
 (use-package smerge-mode
   :ensure nil
-  :bind (("C-c C-l" . smerge-keep-lower)
+  :bind (:map smerge-mode-map
+         ("C-c C-l" . smerge-keep-lower)
          ("C-c C-u" . smerge-keep-upper)
          ("C-c C-a" . smerge-keep-all)
          ("C-c C-j" . smerge-next)
-         ("C-c C-k" . smerge-prev)))
+         ("C-c C-k" . smerge-prev)
+         :map meow-normal-state-keymap
+         ("g s" . smerge-next)
+         ("g S" . smerge-prev))
+  :config
+  (defun my/smerge-keep-n-fix (fn n)
+    (let ((inhibit-modification-hooks t))
+      (smerge-match-conflict)
+      (funcall fn n)))
+  (advice-add 'smerge-keep-n :around #'my/smerge-keep-n-fix))
 #+END_SRC
 
 ** Browse at remote
@@ -3037,6 +3059,7 @@ Prevents closing the last frame in daemon mode on macOS."
          ("C-c f d" . project-find-dir)
          ("C-c p c" . project-compile)
          ("C-c p r" . project-recompile)
+         ("C-c p v" . my/show-compilation-buffer)
          ("C-c p b" . project-switch-to-buffer)))
 #+END_SRC
 
