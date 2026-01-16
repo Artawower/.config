@@ -200,6 +200,7 @@ in
       "erlang"
       "llvm"
       "ast-grep"
+      "quicktype"
     ];
     taps = [
       "kamillobinski/thock"
@@ -280,6 +281,7 @@ in
       "whatsapp"
       "keycastr"
       "thock"
+      "stats"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;
