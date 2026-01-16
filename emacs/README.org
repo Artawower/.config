@@ -2419,40 +2419,40 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 #+END_SRC
 *** Open vterm for current buffer
 #+BEGIN_SRC emacs-lisp :results silent
-(defun my/vterm-change-current-directory-to-active-buffer-pwd ()
-  "Just exec CD to pwd of active buffer."
-  (interactive)
-  (when-let* ((file-name (buffer-file-name))
-              (file-dir (file-name-directory file-name))
-              (file-dir (replace-regexp-in-string " " "\\\\\  " file-dir)))
-      (vterm-toggle-show)
-      (switch-to-first-matching-buffer "vterm")
-      (vterm-send-C-c)
-      (vterm-send-string (concat "cd " file-dir))
-      (vterm-send-return)))
-#+END_SRC
+(defun my/vterm--get-dir ()
+  "Get directory from current buffer or project root."
+  (expand-file-name
+   (or (when-let ((file (buffer-file-name)))
+         (file-name-directory file))
+       (when-let ((proj (project-current)))
+         (project-root proj))
+       default-directory)))
 
-*** Open vterm in right window
-#+BEGIN_SRC emacs-lisp :results silent
-(defun my/vterm-right ()
-  "Open vterm in right window and cd to current buffer dir or project root."
+(defun my/vterm--cd (buf dir)
+  "Send cd DIR command to vterm BUF."
+  (with-current-buffer buf
+    (vterm-send-C-c)
+    (vterm-send-string (concat "cd " (shell-quote-argument dir)))
+    (vterm-send-return)))
+
+(defun my/vterm-cd ()
+  "Open vterm toggle and cd to current buffer dir."
   (interactive)
-  (let* ((dir (expand-file-name
-               (or (when-let ((file (buffer-file-name)))
-                     (file-name-directory file))
-                   (when-let ((proj (project-current)))
-                     (project-root proj))
-                   default-directory)))
-         (cmd (concat "cd " (shell-quote-argument dir)))
+  (let ((dir (my/vterm--get-dir)))
+    (vterm-toggle-show)
+    (my/vterm--cd (current-buffer) dir)))
+
+(defun my/vterm-right ()
+  "Open vterm in right window and cd to current buffer dir."
+  (interactive)
+  (let* ((dir (my/vterm--get-dir))
          (vterm-buf (or (get-buffer "*vterm*")
-                        (vterm)))
+                        (save-window-excursion (vterm))))
          (win (or (window-in-direction 'right)
                   (split-window-right))))
     (select-window win)
     (switch-to-buffer vterm-buf)
-    (with-current-buffer vterm-buf
-      (vterm-send-string cmd)
-      (vterm-send-return))))
+    (my/vterm--cd vterm-buf dir)))
 #+END_SRC
 
 ** Vterm
