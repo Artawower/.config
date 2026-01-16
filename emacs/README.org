@@ -39,15 +39,16 @@ osascript -e 'tell application "Finder" to make alias file to posix file "/opt/h
 ** Paths
 Config path
 #+BEGIN_SRC emacs-lisp
-(setq my/config-dir "~/.config/emacs/")
-(setq my/config-file (concat my/config-dir "README.org"))
+(setq my/config-dir "~/.config/")
+(setq my/emacs-config-dir (concat my/config-dir "emacs/")
+(setq my/config-file (concat my/emacs-config-dir "README.org"))
 #+END_SRC
 
 Function for getting config related paths
 #+BEGIN_SRC emacs-lisp
 (defun my/get-config-related-path (path)
   "Get PATH relative to the Emacs config directory."
-  (concat my/config-dir path))
+  (concat my/emacs-config-dir path))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -2287,6 +2288,15 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
     (call-interactively 'find-file)))
 #+END_SRC
 
+*** Find configuration file
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/open-config-file ()
+  "Finc dot file"
+  (interactive)
+  (let ((default-directory my/config-dir))
+    (call-interactively 'project-find-file)))
+#+END_SRC
+
 ** Dired
 *** Core package
 #+BEGIN_SRC emacs-lisp
@@ -3289,6 +3299,7 @@ Function for search in buffer depends or visual or normal line
          ("C-c b b" . consult-buffer-other-tab)
          ("C-c b a" . consult-buffer)
          ("C-c b b" . consult-project-buffer)
+         ("C-c f C" . my/open-config-file)
          ("C-c f P" . my/open-emacs-config)
          ("C-c f p" . consult-ripgrep)
          ("C-c *" . (lambda () (interactive) (consult-ripgrep nil (thing-at-point 'symbol))))
