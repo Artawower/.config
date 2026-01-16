@@ -522,6 +522,20 @@ unreadable. Returns the names of envvars that were changed."
 #+END_SRC
 
 ** Functions
+*** Better window spliting
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/split-window-h ()
+    "Split window horizontally and focus the new window."
+    (interactive)
+    (let ((new-window (split-window-right)))
+        (select-window new-window)))
+
+(defun my/split-window-v ()
+    "Split window vertically and focus the new window."
+    (interactive)
+    (let ((new-window (split-window-below)))
+        (select-window new-window)))
+#+END_SRC
 *** Open youtrack
  #+BEGIN_SRC emacs-lisp
 (defvar my/youtrack-url "https://verifika.youtrack.cloud/issue")
@@ -1694,8 +1708,8 @@ Move to husky
 (global-set-key (kbd "C-S-j") 'enlarge-window)
 (global-set-key (kbd "<C-S-down>") 'enlarge-window)
 (global-set-key (kbd "C-S-k") 'shrink-window)
-(global-set-key (kbd "C-c w s") 'split-window-vertically)
-(global-set-key (kbd "C-c w v") 'split-window-horizontally)
+(global-set-key (kbd "C-c w s") 'my/split-window-v)
+(global-set-key (kbd "C-c w v") 'my/split-window-h)
 (global-set-key (kbd "s-w") 'delete-window)
 #+END_SRC
 
@@ -4925,17 +4939,6 @@ Requires Emacs 30+
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package just-ts-mode
    :defer t)
-#+END_SRC
-* AI
-** Agent shell
-#+BEGIN_SRC emacs-lisp :results silent
-(use-package agent-shell
-    :ensure t
-    :bind ( :map agent-shell-mode-map
-            ("<return>" . newline)
-            ("s-<return>" . comint-send-input))
-    :ensure-system-package
-    ((claude-code-acp . "volta install @zed-industries/claude-code-acp")))
 #+END_SRC
 ** ECA. Agnostic code assistant
 *** Functions
