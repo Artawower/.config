@@ -147,6 +147,7 @@ def __zoxide_zi(args: list[str]) -> None:
 #
 
 builtins.aliases["z"] = __zoxide_z  # type: ignore  # pylint:disable=no-member
+builtins.aliases["s"] = __zoxide_zi  # type: ignore  # pylint:disable=no-member
 builtins.aliases["zi"] = __zoxide_zi  # type: ignore  # pylint:disable=no-member
 
 # =============================================================================

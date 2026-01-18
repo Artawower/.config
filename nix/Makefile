@@ -1,6 +1,6 @@
 rebuild:
 	@echo "Running darwin-rebuild..."
-	sudo -v && sudo darwin-rebuild switch --flake ~/.config/nix
+	sudo -v && sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/.config/nix
 	@echo "Running home-manager switch..."
 	nix run home-manager/master -- switch -b backup --flake ~/.config/nix
 	@echo "All configurations applied!"
@@ -12,7 +12,7 @@ home:
 
 darwin:
 	@echo "Running darwin-rebuild..."
-	sudo -v && sudo darwin-rebuild switch --flake ~/.config/nix
+	sudo -v && sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/.config/nix
 	@echo "Darwin configurations applied!"
 
 cleanup:
