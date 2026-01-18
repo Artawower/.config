@@ -7,7 +7,7 @@ gutters = ["diagnostics", "spacer", "line-numbers", "diff"]
 mouse = true
 middle-click-paste = true
 scroll-lines = 3
-shell = ["/usr/bin/env", "fish", "-c"]
+shell = ["/usr/bin/env", "xonsh", "-c"]
 text-width = 80
 workspace-lsp-roots = [
   ".git",

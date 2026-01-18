@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:LnL7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin-login-items.url = "github:uncenter/nix-darwin-login-items";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       nix-darwin,
       nixpkgs,
       home-manager,
+      darwin-login-items,
       ...
     }:
     let
@@ -27,6 +29,7 @@
     {
       darwinConfigurations."Arturs-MacBook-Pro" = nix-darwin.lib.darwinSystem {
         modules = [
+          darwin-login-items.darwinModules.default
           (
             { pkgs, ... }:
             import ./darwin.nix {

@@ -40,7 +40,7 @@ osascript -e 'tell application "Finder" to make alias file to posix file "/opt/h
 Config path
 #+BEGIN_SRC emacs-lisp
 (setq my/config-dir "~/.config/")
-(setq my/emacs-config-dir (concat my/config-dir "emacs/")
+(setq my/emacs-config-dir (concat my/config-dir "emacs/"))
 (setq my/config-file (concat my/emacs-config-dir "README.org"))
 #+END_SRC
 
@@ -69,8 +69,8 @@ Function for getting config related paths
 ;; (setq my/font-default "JetBrainsMono Nerd Font")
 ;; (setq my/font-funny   "Monaspace Radon NF")
 (setq my/font-height 16)
-(setq my/font-default "Myna Nerd Font")
-(setq my/font-comic   "Myna Nerd Font")
+(setq my/font-default "Myna Nerd Font Mono")
+(setq my/font-comic   "Myna Nerd Font Mono")
 (setq my/ui-box-padding 6)
 (setq my/org-tag-color "#ff5555")
 
@@ -5009,6 +5009,7 @@ Requires Emacs 30+
 deps
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package track-changes
+  :preface (unload-feature 'track-changes t)
   :ensure (track-changes
            :host github
            :repo "emacs-mirror/emacs"
@@ -5016,15 +5017,15 @@ deps
            :files ("lisp/emacs-lisp/track-changes.el")
            :depth 1
            :inherit nil))
+
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (use-package copilot
-  :defer 5
   ;; :ensure (copilot :host github :repo "copilot-emacs/copilot.el" :files ("*.el") :ref "c42c18e346e1ff8399eb30d40527e593f614e4d3")
-  :hook
-  (prog-mode . copilot-mode)
-  (text-mode . copilot-mode)
+  ;; :hook
+  ;; (prog-mode . copilot-mode)
+  ;; (text-mode . copilot-mode)
   :bind
   (("s-]" . copilot-next-completion)
    ("s-[" . copilot-previous-completion)

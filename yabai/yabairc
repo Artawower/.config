@@ -17,11 +17,13 @@
 # grid optioins
 # <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
 
-pkill -x yabai
-yabai &
-
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# pkill -x yabai
+# yabai &
+#
 sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sleep 0.1
+
 
 yabai -m signal --add event=window_created action="echo \"create \$YABAI_WINDOW_ID\" | nc -U /tmp/yb_$USER.socket"
 yabai -m signal --add event=window_destroyed action="echo \"destroy \$YABAI_WINDOW_ID\" | nc -U /tmp/yb_$USER.socket"
@@ -173,7 +175,7 @@ yabai -m signal --add event=window_resized action='echo "refresh windows" | nc -
 yabai -m signal --add event=window_minimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=window_deminimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 
-python3 $HOME/.config/yabai/order_windows.py
+# python3 $HOME/.config/yabai/order_windows.py
 # $HOME/.config/yabai/visit-all-windows.sh
 # $HOME/.config/yabai/stack-windows.sh
 
@@ -190,8 +192,7 @@ yabai -m space 8 --padding abs:64:64:64:64
 
 # focus window after active space changes
 # yabai -m signal --add event=space_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
-yabai -m signal --add event=space_changed action='yabai -m window --focus $(yabai -m query --windows --space | jq -r "[.[] | select(.app != \"Raycast\")][0]")'
-
+yabai -m signal --add event=space_changed action='window_id=$(yabai -m query --windows --space | jq -r "[.[] | select(.app != \"Raycast\")][0].id"); if [ "$window_id" != "null" ]; then yabai -m window --focus $window_id; fi'
 
 yabai -m signal --add app='^Finder$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
 yabai -m signal --add app='^Finder$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'

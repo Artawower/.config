@@ -31,19 +31,113 @@ in
   };
 
   system.defaults = {
-    dock.autohide = true;
+    dock = {
+      autohide = true;
+      tilesize = 32;
+      largesize = 48;
+      magnification = true;
+      show-recents = false;
+    };
     loginwindow.LoginwindowText = "Husky v maske";
     screencapture.location = "~/Pictures/screenshots";
     screensaver.askForPasswordDelay = 30;
     NSGlobalDomain = {
       NSAutomaticWindowAnimationsEnabled = false;
+      _HIHideMenuBar = false;
+      "com.apple.swipescrolldirection" = false;
+      "com.apple.keyboard.fnState" = true;
     };
+    CustomUserPreferences = {
+      "com.apple.symbolichotkeys" = {
+        AppleSymbolicHotKeys = {
+          "61" = {
+            enabled = true;
+            value = {
+              parameters = [
+                65535
+                105
+                0
+              ];
+              type = "standard";
+            };
+          };
+        };
+      };
+    };
+  };
+
+  environment.loginItems = {
+    enable = true;
+    items = [
+      "/Applications/Ice.app"
+      "/Applications/AltTab.app"
+      "/Applications/AlDente.app"
+      "/Applications/VoiceInk.app"
+      "/Applications/Input Source Pro.app"
+    ];
   };
 
   system.activationScripts.setWorkspaceAutoSwoosh = ''
     echo "Disabling workspaces-auto-swoosh..."
     defaults write com.apple.dock workspaces-auto-swoosh -bool NO
     killall Dock || true
+  '';
+
+  system.activationScripts.setInputSourceHotkey = ''
+    su -l darkawower -c 'killall SystemUIServer || true'
+  '';
+
+  system.activationScripts.disableLanguageCursorPopup = ''
+    /usr/bin/defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO
+  '';
+
+  system.activationScripts.postActivation.text = ''
+        echo "Updating hotkeys..."
+        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+        echo "Checking Library Validation..."
+        if [ "$(/usr/bin/defaults read /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation 2>/dev/null)" != "1" ]; then
+          echo "Applying Library Validation fix..."
+          /usr/bin/defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool YES
+        fi
+
+        emacsclient_bin="/opt/homebrew/bin/emacsclient"
+        target_dir="/Applications/Emacsclient.app"
+        if [ -x "$emacsclient_bin" ]; then
+          if [ -d "$target_dir" ]; then
+            rm -rf "$target_dir"
+          fi
+          mkdir -p "$target_dir/Contents/MacOS" "$target_dir/Contents/Resources"
+          cat > "$target_dir/Contents/Info.plist" <<'EOF'
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>CFBundleDisplayName</key>
+      <string>Emacsclient</string>
+      <key>CFBundleName</key>
+      <string>Emacsclient</string>
+      <key>CFBundleIdentifier</key>
+      <string>org.gnu.emacsclient</string>
+      <key>CFBundleVersion</key>
+      <string>1.0</string>
+      <key>CFBundleShortVersionString</key>
+      <string>1.0</string>
+      <key>CFBundleExecutable</key>
+      <string>Emacsclient</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+      <key>LSUIElement</key>
+      <false/>
+    </dict>
+    </plist>
+    EOF
+          cat > "$target_dir/Contents/MacOS/Emacsclient" <<'EOF'
+    #!/bin/sh
+    exec /opt/homebrew/bin/emacsclient -c -a ""
+    EOF
+          chmod +x "$target_dir/Contents/MacOS/Emacsclient"
+        fi
   '';
 
   # ensure log dir exists for the user
@@ -60,6 +154,10 @@ in
   '';
 
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  security.sudo.extraConfig = ''
+    darkawower ALL=(root) NOPASSWD: /opt/homebrew/bin/yabai --load-sa
+  '';
 
   system.configurationRevision = self.rev or self.dirtyRev or null;
   system.stateVersion = 5;
@@ -120,17 +218,13 @@ in
       # Window management (system integration required)
       {
         name = "koekeishiya/formulae/yabai";
-        args = [ "--HEAD" ];
       }
-      # "yabai"
       {
-        name = "borders";
+        name = "FelixKratz/formulae/borders";
         restart_service = false;
       }
       { name = "koekeishiya/formulae/skhd"; }
-      # "skhd"
-      "sketchybar"
-
+      # "sketchybar"
       # Development tools (keep in Homebrew for reasons)
       "moar"
       "uv"
@@ -152,7 +246,7 @@ in
       "wakatime-cli"
       "proctools"
       "jj"
-      "SDKMAN-cli"
+      "sdkman/tap/sdkman-cli"
       "mkcert"
       "cocoapods"
       "staticcheck"
@@ -167,7 +261,7 @@ in
       "podman"
       "cloc"
       "claude-squad"
-      "sst/tap/opencode"
+      "opencode"
       "git-delta"
       "node@20"
       "harper"
@@ -178,14 +272,16 @@ in
       "zellij"
       # "helix"
       {
-        name = "emacs-plus@30";
+        name = "d12frosted/emacs-plus/emacs-plus@30";
+        restart_service = true;
         args = [
           "with-xwidgets"
           "with-imagemagick"
-          "with-modern-doom3-icon"
           "with-dbus"
+          "with-compress-install"
         ];
       }
+
       # "jackett"
       # "acsandmann/tap/rift"
       "just"
@@ -201,8 +297,13 @@ in
       "llvm"
       "ast-grep"
       "quicktype"
+      "gitu"
+      "fontforge"
+      "oven-sh/bun/bun"
+      "claude-code"
     ];
     taps = [
+      "clojure/tools"
       "kamillobinski/thock"
       "krtirtho/apps"
       "koraysels/personal"
@@ -214,6 +315,7 @@ in
       "ozankasikci/tap"
       "koekeishiya/formulae"
       "borkdude/brew"
+      "FelixKratz/formulae"
     ];
     casks = [
       # Fonts (not available as Nerd Fonts in nixpkgs)
@@ -231,7 +333,7 @@ in
       "freedom"
       "flameshot"
       "pearcleaner"
-      "spotube"
+      "krtirtho/apps/spotube"
       "discord"
       {
         name = "stretchly";
@@ -248,7 +350,6 @@ in
       "karabiner-elements"
       "loom"
       "zoom"
-      "skype"
       "shottr"
       "clop"
       "input-source-pro"
@@ -257,7 +358,6 @@ in
       "rustdesk"
       "wakatime"
       "rescuetime"
-      "google-chrome"
       "arc"
       "openvpn-connect"
       "hoppscotch"
@@ -271,17 +371,25 @@ in
       # "th-ch/youtube-music/youtube-music"
       # "swiftbar"
       "licecap"
-      "aerospace"
+      "nikitabobko/tap/aerospace"
       "amneziavpn"
       "dotnet-sdk@9"
-      "rust-disk-cleaner"
-      "macforge"
+      # "rust-disk-cleaner"
+      # "macforge"
       "telegram-desktop"
       "bitwarden"
       "whatsapp"
       "keycastr"
-      "thock"
+      "kamillobinski/thock/thock"
       "stats"
+      "freefilesync"
+      "zed"
+      "chia"
+      "aldente"
+      "voiceink"
+      "chatgpt"
+      "alt-tab"
+      "yandex-disk"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;
@@ -307,26 +415,4 @@ in
       echo "mas not found; skipping optional MAS apps" >&2
     fi
   '';
-
-  # launchd.user.agents."gnu.emacs.daemon" = {
-  #   serviceConfig = {
-  #     Label = "gnu.emacs.daemon";
-  #     ProgramArguments = [
-  #       "${emacsDaemonStarter}/bin/emacs-daemon-starter"
-  #     ];
-  #     RunAtLoad = true;
-  #     KeepAlive = {
-  #       SuccessfulExit = false;
-  #       Crashed = true;
-  #     };
-  #     ProcessType = "Background";
-  #     StandardOutPath = "/Users/darkawower/.local/state/emacs/daemon.log";
-  #     StandardErrorPath = "/Users/darkawower/.local/state/emacs/daemon.err";
-  #     EnvironmentVariables = {
-  #       LANG = "en_US.UTF-8";
-  #       PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin";
-  #       TERM = "xterm-256color";
-  #     };
-  #   };
-  # };
 }
