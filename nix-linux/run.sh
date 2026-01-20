@@ -3,59 +3,36 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# WiFi power save off (fixes frequent disconnects on Apple Silicon)
+WIFI_POWERSAVE_CONF="/etc/NetworkManager/conf.d/wifi-powersave-off.conf"
+sudo tee "$WIFI_POWERSAVE_CONF" >/dev/null <<'EOF'
+[connection]
+wifi.powersave = 2
+EOF
+
+WIFI_DISPATCHER="/etc/NetworkManager/dispatcher.d/99-wifi-powersave-off"
+sudo tee "$WIFI_DISPATCHER" >/dev/null <<'EOF'
+#!/bin/bash
+if [ "$2" = "up" ] && [ -n "$(iw dev "$1" info 2>/dev/null)" ]; then
+    iw dev "$1" set power_save off
+fi
+EOF
+sudo chmod +x "$WIFI_DISPATCHER"
+
 sudo cp "$ROOT_DIR/services/charge-thresholds.service" /etc/systemd/system/charge-thresholds.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now charge-thresholds.service || true
 
-KANATA_CONFIG="$HOME/.config/kanata/kanata.kbd"
-KANATA_SERVICE="$HOME/.config/systemd/user/kanata.service"
-KANATA_UINPUT_RULE="/etc/udev/rules.d/99-kanata-uinput.rules"
+# keyd setup (replaces kanata)
+sudo groupadd -f keyd
+sudo usermod -aG keyd "$USER"
 
-if [[ ! -f "$KANATA_CONFIG" ]]; then
-  echo "Missing kanata config: $KANATA_CONFIG" >&2
-  exit 1
+sudo mkdir -p /etc/keyd
+sudo ln -sf "$HOME/.config/keyd/default.conf" /etc/keyd/default.conf
+
+if systemctl --user is-active --quiet kanata; then
+  systemctl --user disable --now kanata
 fi
 
-if systemctl is-active --quiet keyd; then
-  sudo systemctl disable --now keyd
-fi
-
-sudo modprobe uinput
-sudo groupadd -f uinput
-sudo usermod -aG input,uinput "$USER"
-
-sudo tee "$KANATA_UINPUT_RULE" >/dev/null <<'EOF'
-KERNEL=="uinput", GROUP="uinput", MODE="0660"
-EOF
-sudo udevadm control --reload-rules
-sudo udevadm trigger
-
-mkdir -p "$(dirname "$KANATA_SERVICE")"
-KANATA_BIN="$(command -v kanata || true)"
-if [[ -z "$KANATA_BIN" ]]; then
-  echo "kanata binary not found in PATH" >&2
-  exit 1
-fi
-
-cat > "$KANATA_SERVICE" <<EOF
-[Unit]
-Description=kanata keyboard remapper
-After=graphical-session.target
-
-[Service]
-ExecStart=$KANATA_BIN -c %h/.config/kanata/kanata.kbd --no-wait
-Restart=on-failure
-RestartSec=3
-
-[Install]
-WantedBy=default.target
-EOF
-
-systemctl --user daemon-reload
-systemctl --user enable --now kanata
-
-if ! systemctl --user is-active --quiet kanata; then
-  echo "kanata service failed to start" >&2
-  systemctl --user status kanata >&2 || true
-  exit 1
-fi
+sudo systemctl enable --now keyd
+sudo systemctl restart keyd

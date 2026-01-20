@@ -2493,7 +2493,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
          ("C-c m c" . vterm-copy-mode))
   :custom
   (vterm-max-scrollback 5000)
-  (vterm-shell "/Users/darkawower/.nix-profile/bin/xonsh")
+  (vterm-shell "xonsh")
   :config
   (setq vterm-clear-scrollback t)
   (advice-add 'vterm-clear-scrollback :before #'my/clear-term-history))

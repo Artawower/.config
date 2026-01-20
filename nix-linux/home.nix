@@ -13,7 +13,6 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
-    inputs.zen-browser.packages.${pkgs.system}.default
     inputs.dms.packages.${pkgs.system}.dms-shell
     ghostty
     # wezterm
@@ -66,6 +65,9 @@
     kdePackages.breeze-icons
     networkmanager
     blueman
+    # impala требует iwd, а у нас NetworkManager + wpa_supplicant
+    # Используй nmtui для WiFi
+    bluetuith     # TUI for Bluetooth
     wireplumber
     neohtop
     gradia
