@@ -1148,7 +1148,9 @@ default_mode "locked"
 // Choose the path to the default shell that zellij will use for opening new panes
 // default_shell "/Users/darkawower/.nix-profile/bin/fish"
 // default_shell "/opt/homebrew/bin/xonsh"
-default_shell "/Users/darkawower/.nix-profile/bin/xonsh"
+// default_shell "/Users/darkawower/.nix-profile/bin/xonsh"
+default_shell "xonsh"
+
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd "/tmp"
@@ -1211,7 +1213,7 @@ pane_frames true
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
 //
-copy_command "pbcopy"
+copy_command "clipboard-copy"
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
 // Does not apply when using copy_command.
@@ -1368,4 +1370,3 @@ floating_panes {
     default_x "20%"
     default_y "20%"
 }
-

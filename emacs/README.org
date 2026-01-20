@@ -69,8 +69,8 @@ Function for getting config related paths
 ;; (setq my/font-default "JetBrainsMono Nerd Font")
 ;; (setq my/font-funny   "Monaspace Radon NF")
 (setq my/font-height 16)
-(setq my/font-default "Myna Nerd Font Mono")
-(setq my/font-comic   "Myna Nerd Font Mono")
+(setq my/font-default "Myna Nerd Font")
+(setq my/font-comic   "Myna Nerd Font")
 (setq my/ui-box-padding 6)
 (setq my/org-tag-color "#ff5555")
 
@@ -5005,7 +5005,7 @@ Requires Emacs 30+
 ;; (my/display-buffer-right-smart))))
 #+END_SRC
 
-** Copilot
+** COMMENT Copilot
 deps
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package track-changes

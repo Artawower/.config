@@ -17,6 +17,3 @@ source @(config_dir / 'prompt.xsh')
 source @(config_dir / 'zoxide.xsh')
 source @(config_dir / 'autoenv.xsh')
 source @(config_dir / 'smartenv.xsh')
-
-
-xontrib load direnv

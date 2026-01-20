@@ -2,6 +2,7 @@ from pathlib import Path
 
 $PATH.insert(0, str(Path.home() / '.local/share/uv/tools'))
 $PATH.insert(0, str(Path.home() / '.volta/bin'))
+$PATH.insert(0, str(Path.home() / '.config/bin'))
 $PATH.insert(0, str(Path.home() / 'bin'))
 $PATH.insert(0, str(Path.home() / 'go/bin'))
 $PATH.insert(0, str(Path.home() / '.go/bin'))

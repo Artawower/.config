@@ -7,7 +7,14 @@ config.font = wezterm.font("JetBrains Mono", { weight = 400 })
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.9
 config.macos_window_background_blur = 25
-config.font_size = 15.0
+
+if wezterm.target_triple:find("linux") then
+  config.font_size = 12.0
+else
+  config.font_size = 15.0
+end
+
+
 config.use_fancy_tab_bar = false
 config.enable_kitty_keyboard = true
 config.enable_kitty_graphics = true
@@ -21,6 +28,15 @@ config.enable_tab_bar = false
 config.enable_csi_u_key_encoding = true
 
 local act = wezterm.action
+
+if wezterm.target_triple:find("linux") then
+  config.front_end = "OpenGL"
+  config.enable_wayland = true
+  local current_path = os.getenv("PATH") or ""
+  config.set_environment_variables = {
+    PATH = current_path .. ":" .. wezterm.home_dir .. "/.config/bin",
+  }
+end
 
 wezterm.on(
   "window-config-reloaded",
@@ -68,6 +84,26 @@ config.keys = {
     action = wezterm.action.CloseCurrentPane { confirm = true }
   },
   {
+    key = "c",
+    mods = "CMD",
+    action = wezterm.action.CopyTo("Clipboard")
+  },
+  {
+    key = "v",
+    mods = "CMD",
+    action = wezterm.action.PasteFrom("Clipboard")
+  },
+  {
+    key = "v",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.PasteFrom("Clipboard")
+  },
+  {
+    key = "c",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.CopyTo("Clipboard")
+  },
+  {
     key = ".",
     mods = "CMD",
     action = wezterm.action.SendString(":SwitchWindow\n")
@@ -109,8 +145,9 @@ config.keys = {
   }
 }
 
-config.default_prog = { "/opt/homebrew/bin/zellij" }
-config.set_environment_variables = {
-  PATH = "/Users/darkawower/.nix-profile/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-}
+config.default_prog = { "zellij" }
+-- config.set_environment_variables = {
+--   PATH = "/Users/darkawower/.nix-profile/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+-- }
+
 return config

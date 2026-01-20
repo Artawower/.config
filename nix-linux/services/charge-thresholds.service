@@ -1,0 +1,12 @@
+[Unit]
+Description=Set battery charge thresholds
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c 'echo 70 > /sys/class/power_supply/macsmc-battery/charge_control_start_threshold'
+ExecStart=/usr/bin/sh -c 'echo 80 > /sys/class/power_supply/macsmc-battery/charge_control_end_threshold'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
