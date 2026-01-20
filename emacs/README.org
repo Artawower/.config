@@ -4515,12 +4515,12 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 #+END_SRC
 *** Virtualenv
 #+BEGIN_SRC emacs-lisp :results silent
-(use-package pyvenv :ensure t :hook (pythons-ts-mode . pyvenv-mode))
-#+END_SRC
+ (pythons-ts-mode . pyvenv-mode))
+,#+END_SRC
 
 ** Nix
 #+BEGIN_SRC emacs-lisp
-(use-package nix-mode :defer t)
+(use-package nix-mode :defer t :mode "\\.nix\\'")
 #+END_SRC
 
 ** Emacs lisp
@@ -5676,7 +5676,7 @@ Ob raindrop (dynamic block)
   (add-to-list 'jinx-camel-modes 'html-ts-mode)
   (add-to-list 'jinx-camel-modes 'html-mode)
   (add-to-list 'jinx-camel-modes 'typescript-ts-mode)
-  ;; Add function and variable names to jinx faces in prog-mode
+  (setq jinx-enchant-path (executable-find "enchant-2"))  ;; Add function and variable names to jinx faces in prog-mode
   (cl-callf cl-union
       (alist-get 'prog-mode jinx-include-faces)
     '(font-lock-function-name-face
