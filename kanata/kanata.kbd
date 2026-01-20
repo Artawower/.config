@@ -1,0 +1,108 @@
+;; Kanata config generated from keyd
+;; Base behavior: keep all keys unchanged; only remap chords and a layer toggle.
+
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+)
+
+(deflocalkeys-linux
+  fn 464
+)
+
+;; Keep physical layout unchanged.
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(deflayer base
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn-layer @ctrl-nav @meta-nav lalt           spc            ralt rmet rctl
+)
+
+;; Fn layer to match keyd: fn = layer(fn)
+;; ctrl-nav: lctl that activates nav layer for Ctrl+Cmd+hjkl -> arrows
+;; meta-nav: lmet that activates nav layer
+(defalias
+  fn-layer (multi lctl (layer-while-held fn))
+  ctrl-nav (multi lctl (layer-while-held ctrl-held))
+  meta-nav (multi lmet (layer-while-held meta-held))
+  ;; For cross-layer: when in ctrl-held, pressing meta should still work
+  meta-nav-ctrl (multi lmet (layer-while-held arrows-active))
+  ctrl-nav-meta (multi lctl (layer-while-held arrows-active))
+  ;; Arrow keys: release modifiers, then send arrow
+  ;; Single press = one arrow, hold = repeat
+  arr-left (tap-hold-press 200 200 (multi (release-key lctl) (release-key lmet) left) (macro-repeat left 30))
+  arr-down (tap-hold-press 200 200 (multi (release-key lctl) (release-key lmet) down) (macro-repeat down 30))
+  arr-up (tap-hold-press 200 200 (multi (release-key lctl) (release-key lmet) up) (macro-repeat up 30))
+  arr-right (tap-hold-press 200 200 (multi (release-key lctl) (release-key lmet) right) (macro-repeat right 30))
+)
+
+(deflayer fn
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    (macro-repeat tab 120) (macro-repeat S-tab 120) l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; When lctl is held, hjkl become arrows (for Ctrl+Cmd combo)
+(deflayer ctrl-held
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    @arr-left @arr-down @arr-up @arr-right ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn-layer lctl @meta-nav-ctrl lalt           spc            ralt rmet rctl
+)
+
+;; When lmet is held, hjkl become arrows (for Ctrl+Cmd combo)
+(deflayer meta-held
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    @arr-left @arr-down @arr-up @arr-right ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn-layer @ctrl-nav-meta lmet lalt           spc            ralt rmet rctl
+)
+
+;; Final layer when both Ctrl+Cmd are held - arrows active
+(deflayer arrows-active
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    @arr-left @arr-down @arr-up @arr-right ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn-layer lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; Chords (mod combinations) translated from keyd
+;; meta+<key> -> C-<key>
+(defchordsv2
+  (lmet c) C-c 200 all-released ()
+  (lmet v) C-v 200 all-released ()
+  (lmet x) C-x 200 all-released ()
+  (lmet z) C-z 200 all-released ()
+  (lmet a) C-a 200 all-released ()
+  (lmet f) C-f 200 all-released ()
+  (lmet l) C-l 200 all-released ()
+  (lmet t) C-t 200 all-released ()
+  (lmet w) C-w 200 all-released ()
+  (lmet r) C-r 200 all-released ()
+  (lmet s) C-s 200 all-released ()
+  (lmet n) C-n 200 all-released ()
+  (lmet q) C-q 200 all-released ()
+
+  ;; alt+backspace -> C-u
+  (lalt bspc) C-u 200 all-released ()
+
+  ;; meta+shift+x/1/2 -> M-S-x/1/2
+  (lmet lsft x) M-S-x 200 all-released ()
+  (lmet lsft 1) M-S-1 200 all-released ()
+  (lmet lsft 2) M-S-2 200 all-released ()
+
+)
