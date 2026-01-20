@@ -57,7 +57,7 @@
     libnotify
     satty
     ripgrep
-    keyd
+    fd
     mattermost-desktop
     swww
     gitu
@@ -74,11 +74,17 @@
     kooha
     wakatime-cli
     htop
-    kanata
+    xremap
+    pkg-config
+    enchant2
+    gcc
+    dash
   ];
 
   home.sessionVariables = {
     SHELL = "${pkgs.xonsh}/bin/xonsh";
+    CPATH = "${pkgs.enchant2}/include/enchant-2";
+    LIBRARY_PATH = "${pkgs.enchant2}/lib";
   };
 
   systemd.user.services.swww-daemon = {
