@@ -60,6 +60,8 @@ aliases['ql'] = 'quasar clean'
 
 aliases['o'] = 'opencode'
 
+# Preserve PATH for sudo (needed for Nix commands)
+aliases['sudo'] = 'sudo env PATH=$PATH'
 
 # Yabai
 aliases['yabai-apps'] = "yabai -m query --windows | jq '.[].app'"

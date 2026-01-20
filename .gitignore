@@ -1,5 +1,5 @@
 /*
-
+.gitignore
 !.gitignore
 !backup
 !fonts
@@ -38,6 +38,8 @@ opencode/plugin
 !eca
 !codex
 !nix
+!nix-linux
+!nix-linux/**
 !images
 
 .DS_Store

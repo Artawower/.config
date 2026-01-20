@@ -26,7 +26,7 @@ auto-format = true
 auto-save = false
 idle-timeout = 400
 completion-timeout = 250
-clipboard-provider = "pasteboard"
+clipboard-provider = "termcode"
 
 # Indentation settings (adapted from NeoVim: tabstop=2, shiftwidth=2, expandtab)
 [editor.indent-guides]

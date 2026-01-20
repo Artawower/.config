@@ -27,8 +27,8 @@ keybind = alt+arrow_left=unbind
 keybind = alt+arrow_right=unbind
 macos-option-as-alt = true
 
-shell-integration = fish
+# shell-integration = fish
 # command = /Users/darkawower/.nix-profile/bin/fish
-command = /opt/homebrew/bin/zellij
+command = zellij
 
 # term = xterm-256color
