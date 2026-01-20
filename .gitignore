@@ -12,7 +12,8 @@
 !ranger
 !skhd
 !wal
-!alacritty.yaml
+!alacritty.yamlREADME.md
+
 !.zshrc
 !nv.sh
 # !emacs-tree-sitter
@@ -115,3 +116,7 @@ emacs/**
 !emacs/init.el
 !emacs/templates
 !emacs/templates/**
+
+
+# Linux
+!kanata
