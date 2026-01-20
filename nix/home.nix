@@ -8,7 +8,14 @@
 let
   # Volta packages (not available in nixpkgs)
   voltaPackages = [
+    "node"
+    "eslint"
+    "@angular/language-server"
+    "@eslint/language-server"
+    "vscode-langservers-extracted"
     "@angular/language-service@next"
+    "@angular/cli"
+    "typescript"
     "copilot-node-server"
     "yalc"
     "lua-fmt"
@@ -19,11 +26,11 @@ let
     "@gy920/qwen-mcp-tool"
     "pretty-ts-errors-markdown"
     "playwright"
+    "typescript-language-server"
   ];
 
   # Cargo packages (not available in nixpkgs)
   cargoPackages = [
-    "gitu"
     "wrkflw"
     "kdlfmt"
   ];
@@ -37,6 +44,7 @@ let
   uvTools = [
     "rassumfrassum"
     "ty"
+    "ruff"
     "basedpyright"
     "http-prompt"
     "httpie"
