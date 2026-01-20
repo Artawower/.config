@@ -1140,7 +1140,7 @@ themes {
     }
 }
 
-theme "custom-violet"
+theme "catppuccin-latte"
 // Choose the base input mode of zellij.
 // Default: normal
 //

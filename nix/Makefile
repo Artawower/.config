@@ -1,6 +1,5 @@
 rebuild:
-	@echo "Running darwin-rebuild..."
-	sudo -v && sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/.config/nix
+	@echo "Running darwin-rebuild.	sudo -v && sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/.config/nix
 	@echo "Running home-manager switch..."
 	nix run home-manager/master -- switch -b backup --flake ~/.config/nix
 	@echo "All configurations applied!"
@@ -25,3 +24,8 @@ cleanup:
 			rm -f "$$link" 2>/dev/null || true; \
 		done
 	@echo "Cleanup complete!"
+
+
+init:
+	@echo "Disable language switch popup..."
+	sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool N
