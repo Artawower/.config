@@ -94,16 +94,6 @@ config.keys = {
     action = wezterm.action.PasteFrom("Clipboard")
   },
   {
-    key = "v",
-    mods = "CTRL|SHIFT",
-    action = wezterm.action.PasteFrom("Clipboard")
-  },
-  {
-    key = "c",
-    mods = "CTRL|SHIFT",
-    action = wezterm.action.CopyTo("Clipboard")
-  },
-  {
     key = ".",
     mods = "CMD",
     action = wezterm.action.SendString(":SwitchWindow\n")
