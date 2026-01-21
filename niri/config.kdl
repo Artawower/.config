@@ -275,6 +275,7 @@ layer-rule {
 
 // This line starts DankMaterialShell
 spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
+spawn-at-startup "hyprvoice serve"
 spawn-at-startup "dms" "run"
 // spawn-at-startup "xremap" "$HOME/.config/xremap/config.yml"
 spawn-at-startup "vicinae" "server"
@@ -684,6 +685,7 @@ binds {
   Super+Alt+R { spawn-sh "wf-recorder -g \"$(slurp)\" -f ~/Videos/crop_$(date +%H%M%S).mp4"; }
   Super+Alt+F { spawn-sh "wf-recorder -f ~/Videos/full_$(date +%H%M%S).mp4"; }
   Super+Alt+X { spawn-sh "killall -s SIGINT wf-recorder && sleep 0.5 && nautilus ~/Videos"; }
+  Ctrl+Backslash { spawn-sh "hyprvoice toggle"; }
 
 //   Caps_Lock {
 //     spawn-sh "~/.config/scripts/change-layout.sh"
