@@ -56,6 +56,16 @@ uv:
 nix-linux:
     nix run home-manager/master -- switch --flake . --impure
 
+[working-directory("/tmp")]
+manual-deps:
+    git clone https://github.com/leonardotrapani/hyprvoice.git
+    cd hyprvoice
+    go mod download
+    go build -o hyprvoice ./cmd/hyprvoice
+
+# Install locally
+mkdir -p ~/.local/bin
+cp hyprvoice ~/.local/bin/
 
 init-linux:
     just flatpak
@@ -63,3 +73,4 @@ init-linux:
     just nix-linux
     just volta
     just uv
+    just manual-deps
