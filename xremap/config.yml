@@ -23,8 +23,10 @@ keymap:
     remap:
       C-j: C-Tab
       C-k: C-Shift-Tab
+      Super-a: C-a
       Super-c: C-c
       Super-v: C-v
+      Super-f: C-f
 
   - name: Ctrl+Meta arrows
     remap:
@@ -45,3 +47,4 @@ keymap:
       S-k: S-k
       Super-c: Super-c
       Super-v: Super-v
+      # Super-Dot: Super-Dot

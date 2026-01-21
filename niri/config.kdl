@@ -267,6 +267,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts DankMaterialShell
+spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "dms" "run"
 // spawn-at-startup "xremap" "$HOME/.config/xremap/config.yml"
 spawn-at-startup "vicinae" "server"
@@ -408,8 +409,6 @@ binds {
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
-    // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -672,4 +671,15 @@ binds {
     Ctrl+Shift+Alt+E { spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"; }
     Ctrl+Shift+Alt+G { spawn "vicinae" "vicinae://extensions/rolandleth/kill-process/index"; }
     Ctrl+Shift+Alt+B { spawn "vicinae" "vicinae://extensions/lardissone/raindrop-io/search"; }
+    Alt+Tab { spawn "vicinae" "vicinae://extensions/vicinae/wm/switch-windows"; }
+  
+  Super+Alt+R { spawn-sh "wf-recorder -g \"$(slurp)\" -f ~/Videos/crop_$(date +%H%M%S).mp4"; }
+  Super+Alt+F { spawn-sh "wf-recorder -f ~/Videos/full_$(date +%H%M%S).mp4"; }
+  Super+Alt+X { spawn-sh "killall -s SIGINT wf-recorder && sleep 0.5 && nautilus ~/Videos"; }
+
+//   Caps_Lock {
+//     spawn-sh "~/.config/scripts/change-layout.sh"
+// }
+
 }
+include "dms/binds.kdl"

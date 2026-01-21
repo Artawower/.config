@@ -42,6 +42,7 @@ opencode/plugin
 !nix-linux
 !nix-linux/**
 !images
+!Justfile
 
 .DS_Store
 
