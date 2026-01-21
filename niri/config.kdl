@@ -11,7 +11,9 @@ input {
         xkb {
             layout "us,ru" // replace ru with needed language
             options "grp:caps_toggle" //feel free to change it to other input toggle options, i like to use caps_lock as language toggle 
-        }
+
+    }
+            track-layout "global"
 
         // Enable numlock on startup, omitting this setting disables it.
         numlock
@@ -111,6 +113,7 @@ workspace "oth"
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
+    background-color "00000020"
     // Set gaps around windows in logical pixels.
     gaps 16
 
@@ -259,6 +262,10 @@ layout {
         top 38  // MacBook notch compensation
         // bottom 64
     }
+}
+
+layer-rule {
+    place-within-backdrop true
 }
 
 // Add lines like this to spawn processes at startup.
@@ -669,6 +676,7 @@ binds {
     // Vicinae binds
     Ctrl+Shift+Alt+C { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
     Ctrl+Shift+Alt+E { spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"; }
+    Super+Space { spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"; }
     Ctrl+Shift+Alt+G { spawn "vicinae" "vicinae://extensions/rolandleth/kill-process/index"; }
     Ctrl+Shift+Alt+B { spawn "vicinae" "vicinae://extensions/lardissone/raindrop-io/search"; }
     Alt+Tab { spawn "vicinae" "vicinae://extensions/vicinae/wm/switch-windows"; }
