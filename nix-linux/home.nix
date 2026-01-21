@@ -79,6 +79,7 @@
     enchant2
     gcc
     dash
+    libz
   ];
 
   home.sessionVariables = {
