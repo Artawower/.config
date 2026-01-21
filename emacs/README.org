@@ -5874,9 +5874,9 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
 
   (setq mu4e-view-prefer-html t)
 
-  (use-package mu4e-transient :defer t :bind (("C-c u" . mu4e-transient-menu)))(setq mu4e-headers-fields
-                                                                                     '((:from-or-to . 30)
-                                                                                       (:subject . nil)))
+  (setq mu4e-headers-fields
+        '((:from-or-to . 30)
+          (:subject . nil)))
 
   (setq mu4e-marks
         '((delete . (char ?D))
@@ -5899,6 +5899,12 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
                        :c-name  "Personal"
                        :maildir "Gmail"
                        :mail    "artawower33@gmail.com"
+                       :smtp    "smtp.gmail.com"
+                       :sent-action delete)
+                      (mu4easy-context
+                       :c-name  "Orgnote"
+                       :maildir "GmailOrgnote"
+                       :mail    "app.orgnote@gmail.com"
                        :smtp    "smtp.gmail.com"
                        :sent-action delete))))
 #+END_SRC
