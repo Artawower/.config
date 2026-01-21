@@ -2,13 +2,21 @@
   config,
   pkgs,
   lib,
+  android-sdk,
   ...
 }:
 
 let
   # Volta packages (not available in nixpkgs)
   voltaPackages = [
+    "node"
+    "eslint"
+    "@angular/language-server"
+    "@eslint/language-server"
+    "vscode-langservers-extracted"
     "@angular/language-service@next"
+    "@angular/cli"
+    "typescript"
     "copilot-node-server"
     "yalc"
     "lua-fmt"
@@ -19,11 +27,11 @@ let
     "@gy920/qwen-mcp-tool"
     "pretty-ts-errors-markdown"
     "playwright"
+    "typescript-language-server"
   ];
 
   # Cargo packages (not available in nixpkgs)
   cargoPackages = [
-    "gitu"
     "wrkflw"
     "kdlfmt"
   ];
@@ -37,6 +45,7 @@ let
   uvTools = [
     "rassumfrassum"
     "ty"
+    "ruff"
     "basedpyright"
     "http-prompt"
     "httpie"
@@ -173,15 +182,40 @@ in
     # Software
     zoxide
     walsh
+    
+    # Android SDK for Capacitor
+    android-sdk
+    jdk21
+    gradle
   ];
 
   home.file = { };
 
   home.sessionVariables = {
     PATH = "$HOME/.volta/bin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:/Users/darkawower/.local/share/uv/tools";
+    ANDROID_HOME = "${android-sdk}/share/android-sdk";
+    ANDROID_SDK_ROOT = "${android-sdk}/share/android-sdk";
+    JAVA_HOME = "${pkgs.jdk21}/lib/openjdk";
   };
 
   programs.home-manager.enable = true;
+
+  programs.git = {
+    enable = true;
+    signing = {
+      key = "77E909ABBBD9368B";
+      signByDefault = true;
+    };
+    settings = {
+      user = {
+        name = "Artur Iaroshenko";
+        email = "artawower@protonmail.com";
+      };
+      commit.gpgsign = true;
+      tag.gpgsign = true;
+      gpg.program = "/opt/homebrew/bin/gpg";
+    };
+  };
 
 
   home.activation = {

@@ -13,6 +13,7 @@ in
 
   environment.variables = {
     EDITOR = "emacsclient -c";
+
     PATH = "/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH";
   };
 
@@ -43,7 +44,7 @@ in
     screensaver.askForPasswordDelay = 30;
     NSGlobalDomain = {
       NSAutomaticWindowAnimationsEnabled = false;
-      _HIHideMenuBar = false;
+      _HIHideMenuBar = true;
       "com.apple.swipescrolldirection" = false;
       "com.apple.keyboard.fnState" = true;
     };
@@ -74,6 +75,9 @@ in
       "/Applications/AlDente.app"
       "/Applications/VoiceInk.app"
       "/Applications/Input Source Pro.app"
+      "/Applications/Raycast.app"
+      "/Applications/Shottr.app"
+      "/Applications/Clop.app"
     ];
   };
 
@@ -263,7 +267,6 @@ in
       "claude-squad"
       "opencode"
       "git-delta"
-      "node@20"
       "harper"
       "pdf2svg"
       "fzf"
@@ -297,10 +300,12 @@ in
       "llvm"
       "ast-grep"
       "quicktype"
-      "gitu"
+      "rustup"
       "fontforge"
       "oven-sh/bun/bun"
-      "claude-code"
+      "rust"
+      "ripgrep"
+      "gitu"
     ];
     taps = [
       "clojure/tools"
@@ -316,6 +321,7 @@ in
       "koekeishiya/formulae"
       "borkdude/brew"
       "FelixKratz/formulae"
+      "sst/tap"
     ];
     casks = [
       # Fonts (not available as Nerd Fonts in nixpkgs)
@@ -373,6 +379,7 @@ in
       "licecap"
       "nikitabobko/tap/aerospace"
       "amneziavpn"
+      "dotnet-sdk"
       "dotnet-sdk@9"
       # "rust-disk-cleaner"
       # "macforge"
@@ -390,6 +397,8 @@ in
       "chatgpt"
       "alt-tab"
       "yandex-disk"
+      "claude-code"
+      "thock"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;
