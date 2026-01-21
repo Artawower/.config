@@ -1,2 +1,0 @@
-default:
-    nix run home-manager/master -- switch --flake . --impure
