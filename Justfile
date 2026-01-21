@@ -62,10 +62,8 @@ manual-deps:
     cd hyprvoice
     go mod download
     go build -o hyprvoice ./cmd/hyprvoice
-
-# Install locally
-mkdir -p ~/.local/bin
-cp hyprvoice ~/.local/bin/
+    mkdir -p ~/.local/bin
+    cp hyprvoice ~/.local/bin/
 
 init-linux:
     just flatpak
