@@ -682,9 +682,9 @@ binds {
     Ctrl+Shift+Alt+B { spawn "vicinae" "vicinae://extensions/lardissone/raindrop-io/search"; }
     Alt+Tab { spawn "vicinae" "vicinae://extensions/vicinae/wm/switch-windows"; }
   
-  Super+Alt+R { spawn-sh "wf-recorder -g \"$(slurp)\" -f ~/Videos/crop_$(date +%H%M%S).mp4"; }
-  Super+Alt+F { spawn-sh "wf-recorder -f ~/Videos/full_$(date +%H%M%S).mp4"; }
-  Super+Alt+X { spawn-sh "killall -s SIGINT wf-recorder && sleep 0.5 && nautilus ~/Videos"; }
+  Super+Shift+3 { spawn-sh "dms notify \"Start crop recording\" && wf-recorder --audio -g \"$(slurp)\" -f ~/Videos/crop_$(date +%H%M%S).mp4"; }
+  Super+Shift+4 { spawn-sh "dms notify \"Start full recording\" && wf-recorder --audio -f ~/Videos/full_$(date +%H%M%S).mp4"; }
+  Super+Shift+S { spawn-sh "killall -s SIGINT wf-recorder && dms notify \"Stop recording\" && sleep 0.5 && nautilus ~/Videos"; }
   Ctrl+Backslash { spawn-sh "hyprvoice toggle"; }
 
 //   Caps_Lock {
