@@ -77,6 +77,19 @@
     dash
     libz
     freetype
+    gnupg
+    
+    # Mail
+    isync
+    emacsPackages.mu4e
+    gawk
+    cacert
+    msmtp
+    pinentry-gnome3
+    pass
+
+    # Vpn
+    amnezia-vpn
   ];
 
   home.sessionVariables = {
@@ -124,5 +137,14 @@ xdg.portal = {
       "org.freedesktop.impl.portal.Screenshot" = "wlr";
     };
   };
+};
+
+programs.gpg.enable = true;
+
+services.gpg-agent = {
+  enable = true;
+  pinentry = {
+    package = pkgs.pinentry-gnome3;
+  }; 
 };
 }
