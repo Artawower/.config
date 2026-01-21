@@ -275,7 +275,7 @@ layer-rule {
 
 // This line starts DankMaterialShell
 spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
-spawn-at-startup "hyprvoice serve"
+spawn-at-startup "sh" "-c" "sleep 1; exec hyprvoice serve"
 spawn-at-startup "dms" "run"
 // spawn-at-startup "xremap" "$HOME/.config/xremap/config.yml"
 spawn-at-startup "vicinae" "server"
