@@ -14,13 +14,11 @@
 
   home.packages = with pkgs; [
     inputs.dms.packages.${pkgs.system}.dms-shell
-    ghostty
-    # wezterm
     helix
     fastfetch
     grim 
     slurp 
-    swappy 
+    swappy
     wl-clipboard
     cliphist
     fuzzel
@@ -55,7 +53,7 @@
     libtool
     libcanberra-gtk3
     libnotify
-    satty
+    # satty
     ripgrep
     fd
     mattermost-desktop
@@ -80,6 +78,7 @@
     gcc
     dash
     libz
+    freetype
   ];
 
   home.sessionVariables = {
