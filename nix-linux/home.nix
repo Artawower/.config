@@ -28,7 +28,7 @@
     brightnessctl
     playerctl
     bun
-    emacs30
+    # emacs30
     volta
     python3
     uv
@@ -38,7 +38,6 @@
     eza
     bat
     fzf
-    telegram-desktop
     nodejs_22
     xonsh
     zellij
@@ -56,7 +55,7 @@
     # satty
     ripgrep
     fd
-    mattermost-desktop
+    # mattermost-desktop
     swww
     gitu
     kdePackages.breeze-gtk
@@ -69,7 +68,6 @@
     wireplumber
     neohtop
     gradia
-    kooha
     wakatime-cli
     htop
     xremap
@@ -111,9 +109,20 @@
     style.name = "breeze";
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "gtk";
+xdg.portal = {
+  enable = true;
+  extraPortals = [ 
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-wlr
+  ];
+  config = {
+    common = {
+      default = "gtk";
+    };
+    niri = {
+      "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+      "org.freedesktop.impl.portal.Screenshot" = "wlr";
+    };
   };
+};
 }
