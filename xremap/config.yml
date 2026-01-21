@@ -17,6 +17,12 @@ keymap:
       Super-n: C-n
       Super-q: C-q
 
+  - name: Full delete
+    application:
+      not: [Emacs, emacs]
+    remap:
+      Super-Backspace: C-u
+
   - name: Next/prev tab
     application:
       only: [zen, app.zen_browser.zen, org.telegram.desktop]
