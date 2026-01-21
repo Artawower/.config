@@ -4516,11 +4516,11 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 *** Virtualenv
 #+BEGIN_SRC emacs-lisp :results silent
  (pythons-ts-mode . pyvenv-mode))
-,#+END_SRC
+#+END_SRC
 
 ** Nix
 #+BEGIN_SRC emacs-lisp
-(use-package nix-mode :defer t :mode "\\.nix\\'")
+(use-package nix-mode :mode "\\.nix\\'")
 #+END_SRC
 
 ** Emacs lisp

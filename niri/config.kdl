@@ -643,9 +643,11 @@ binds {
     // Mod+Shift+Space { switch-layout "prev"; }
 
     // Screenshot to clipboard with notification.
-    Super+Shift+X { spawn-sh "tmp=$(mktemp /tmp/niri-shot-XXXXXX.png); grim -g \"$(slurp -f '%x,%y %wx%h')\" - | swappy -f - -o \"$tmp\" && wl-copy -t image/png < \"$tmp\" && canberra-gtk-play -i camera-shutter; rm -f \"$tmp\""; }
-    Super+Shift+1 { spawn-sh "tmp=$(mktemp /tmp/niri-shot-XXXXXX.png); grim - - | swappy -f - -o \"$tmp\" && wl-copy -t image/png < \"$tmp\" && canberra-gtk-play -i camera-shutter; rm -f \"$tmp\""; }
-    Super+Shift+2 { spawn-sh "tmp=$(mktemp /tmp/niri-shot-XXXXXX.png); grim -g \"$(slurp -f '%x,%y %wx%h')\" - | swappy -f - -o \"$tmp\" && wl-copy -t image/png < \"$tmp\" && canberra-gtk-play -i camera-shutter; rm -f \"$tmp\""; }
+  Super+Shift+X { spawn-sh "GEOM=$(slurp); canberra-gtk-play -i camera-shutter & grim -g \"$GEOM\" - | gradia"; }
+
+  Super+Shift+1 { spawn-sh "canberra-gtk-play -i camera-shutter & grim - | gradia"; }
+
+  Super+Shift+2 { spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | gradia"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
