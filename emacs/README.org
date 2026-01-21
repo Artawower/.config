@@ -4034,9 +4034,10 @@ def servers():
 (message "IS ANGULAR? %s" angular-p)
       (if angular-p
           ;; Angular project - include ngserver
-          '("lspx"
-            "--lsp" "typescript-language-server --stdio"
-            "--lsp" "ngserver --stdio --tsProbeLocations . --ngProbeLocations .")
+          '("rass" "angular")
+          ;; '("lspx"
+          ;;   "--lsp" "typescript-language-server --stdio"
+          ;;   "--lsp" "ngserver --stdio --tsProbeLocations . --ngProbeLocations .")
             ;; "--lsp" "node /Users/darkawower/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js --stdio")
             '("rass" "vue"))))
 

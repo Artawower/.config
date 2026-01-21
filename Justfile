@@ -24,6 +24,8 @@ volta:
     volta install \
     node \
     @angular/language-service@next \
+    vscode-langservers-extracted \
+    @angular/cli \
     copilot-node-server \
     yalc \
     lua-fmt \
@@ -35,6 +37,7 @@ volta:
     pretty-ts-errors-markdown \
     playwright \
     typescript \
+    typescript-language-server \
     @angular/language-server \
     @vue/language-server
 
