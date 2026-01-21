@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  android-sdk,
   ...
 }:
 
@@ -181,15 +182,40 @@ in
     # Software
     zoxide
     walsh
+    
+    # Android SDK for Capacitor
+    android-sdk
+    jdk21
+    gradle
   ];
 
   home.file = { };
 
   home.sessionVariables = {
     PATH = "$HOME/.volta/bin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:/Users/darkawower/.local/share/uv/tools";
+    ANDROID_HOME = "${android-sdk}/share/android-sdk";
+    ANDROID_SDK_ROOT = "${android-sdk}/share/android-sdk";
+    JAVA_HOME = "${pkgs.jdk21}/lib/openjdk";
   };
 
   programs.home-manager.enable = true;
+
+  programs.git = {
+    enable = true;
+    signing = {
+      key = "77E909ABBBD9368B";
+      signByDefault = true;
+    };
+    settings = {
+      user = {
+        name = "Artur Iaroshenko";
+        email = "artawower@protonmail.com";
+      };
+      commit.gpgsign = true;
+      tag.gpgsign = true;
+      gpg.program = "/opt/homebrew/bin/gpg";
+    };
+  };
 
 
   home.activation = {
