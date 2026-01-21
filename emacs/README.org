@@ -62,13 +62,18 @@ Function for getting config related paths
 (setq my/doom-theme-directory (expand-file-name "~/.doom.d/themes"))
 (setq my/templates-dir (my/get-config-related-path "templates"))
 #+END_SRC
+** Patches
+#+BEGIN_SRC emacs-lisp
+(defvar flymake-allowed-file-name-masks nil)
+(setq flymake-err-line-patterns nil)
+#+END_SRC
 ** UI variables
 #+BEGIN_SRC emacs-lisp
 ;; (setq my/font-height 14)
 ;; (setq my/font-default "Monaspace Neon NF")
 ;; (setq my/font-default "JetBrainsMono Nerd Font")
 ;; (setq my/font-funny   "Monaspace Radon NF")
-(setq my/font-height 16)
+(setq my/font-height 14)
 (setq my/font-default "Myna Nerd Font")
 (setq my/font-comic   "Myna Nerd Font")
 (setq my/ui-box-padding 6)
@@ -1085,7 +1090,7 @@ TODO: move to package
 
 ** Disable menu bar mode and other stuff
 #+BEGIN_SRC emacs-lisp
-(set-frame-parameter nil 'alpha-background 0.1)
+(set-frame-parameter nil 'alpha-background 0.9)
 (add-to-list 'frameset-filter-alist '(ns-transparent-titlebar . t))
 (add-to-list 'frameset-filter-alist '(ns-appearance . dark))
 (tool-bar-mode -1)
@@ -2493,7 +2498,10 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
          ("C-c m c" . vterm-copy-mode))
   :custom
   (vterm-max-scrollback 5000)
-  (vterm-shell "xonsh")
+  (vterm-shell (or
+                (executable-find "/Users/darkawower/.nix-profile/bin/xonsh")
+                (executable-find "xonsh")
+                (executable-find "/home/darkawower/.nix-profile/bin/xonsh")))
   :config
   (setq vterm-clear-scrollback t)
   (advice-add 'vterm-clear-scrollback :before #'my/clear-term-history))
@@ -4515,7 +4523,7 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 #+END_SRC
 *** Virtualenv
 #+BEGIN_SRC emacs-lisp :results silent
- (pythons-ts-mode . pyvenv-mode))
+(use-package pyvenv :ensure t :hook (pythons-ts-mode . pyvenv-mode))
 #+END_SRC
 
 ** Nix
@@ -4966,7 +4974,7 @@ Requires Emacs 30+
 #+END_SRC
 *** Package
 #+BEGIN_SRC emacs-lisp
-(setq flymake-allowed-file-name-masks nil)
+(defvar flymake-allowed-file-name-masks nil)
 (setq flymake-err-line-patterns nil)
 
 (use-package eca
