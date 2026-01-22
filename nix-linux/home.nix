@@ -28,7 +28,6 @@
     brightnessctl
     playerctl
     bun
-    # emacs30
     volta
     python3
     uv
@@ -52,21 +51,17 @@
     libtool
     libcanberra-gtk3
     libnotify
-    # satty
     ripgrep
     fd
-    # mattermost-desktop
     swww
     gitu
     kdePackages.breeze-gtk
     kdePackages.breeze-icons
     networkmanager
     blueman
-    # impala требует iwd, а у нас NetworkManager + wpa_supplicant
-    # Используй nmtui для WiFi
-    bluetuith     # TUI for Bluetooth
+    bluetuith  
+    btop
     wireplumber
-    neohtop
     gradia
     wakatime-cli
     htop
@@ -78,6 +73,7 @@
     libz
     freetype
     gnupg
+    tesseract
     
     # Mail
     isync

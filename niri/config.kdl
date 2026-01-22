@@ -344,7 +344,7 @@ window-rule { match app-id=r#"^com\.mitchellh\.ghostty$"#; open-on-workspace "te
 window-rule { match app-id=r#"^Emacs$"#; open-on-workspace "dev"; }
 window-rule { match app-id=r#"^emacs"#; open-on-workspace "dev"; }
 
-window-rule { match app-id=r#"^org\.mozilla\.firefox$"#; open-on-workspace "web"; }
+// window-rule { match app-id=r#"^org\.mozilla\.firefox$"#; open-on-workspace "web"; }
 window-rule { match app-id=r#"^zen-browser$"#; open-on-workspace "web"; }
 window-rule { match app-id=r#"^app.zen_browser.zen$"#; open-on-workspace "web"; }
 
@@ -384,8 +384,8 @@ window-rule {
 
 
 window-rule {
-    match is-active=true
-    opacity 0.9
+    match is-active=false
+    opacity 0.92
 }
 
 // Rounded corners for all windows.
@@ -447,10 +447,6 @@ binds {
 
     Alt+Q repeat=false { close-window; }
 
-    Alt+Left  { focus-column-left; }
-    Alt+Down  { focus-window-down; }
-    Alt+Up    { focus-window-up; }
-    Alt+Right { focus-column-right; }
     Alt+H     { focus-column-left; }
     // Alt+J     { focus-window-down; }
     // Alt+K     { focus-window-up; }
@@ -675,11 +671,12 @@ binds {
     Alt+Shift+P { power-off-monitors; }
 
     // Vicinae binds
-    Ctrl+Shift+Alt+C { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
-    Ctrl+Shift+Alt+E { spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"; }
+    Super+Shift+Alt+C { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
+    Super+Shift+Alt+E { spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"; }
     Super+Space { spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"; }
-    Ctrl+Shift+Alt+G { spawn "vicinae" "vicinae://extensions/rolandleth/kill-process/index"; }
-    Ctrl+Shift+Alt+B { spawn "vicinae" "vicinae://extensions/lardissone/raindrop-io/search"; }
+    Super+Shift+Alt+G { spawn "vicinae" "vicinae://extensions/rolandleth/kill-process/index"; }
+    Super+Shift+Alt+B { spawn "vicinae" "vicinae://extensions/lardissone/raindrop-io/search"; }
+    Super+Shift+G { spawn-sh r#"grim -g "$(slurp)" - | tesseract - - -l rus+eng | wl-copy"#; }
     Alt+Tab { spawn "vicinae" "vicinae://extensions/vicinae/wm/switch-windows"; }
   
   Super+Shift+3 { spawn-sh "dms notify \"Start crop recording\" && wf-recorder --audio -g \"$(slurp)\" -f ~/Videos/crop_$(date +%H%M%S).mp4"; }
@@ -693,3 +690,5 @@ binds {
 
 }
 include "dms/binds.kdl"
+
+include "dms/cursor.kdl"

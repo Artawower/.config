@@ -2,6 +2,7 @@ default:
     just --choose
 
 fedora-deps:
+    sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
     sudo dnf install \
     freetype-devel \
     libepoxy-devel \
@@ -11,6 +12,7 @@ fedora-deps:
     gtk4-devel \
     libadwaita-devel \
     libspiro-devel \
+    neohtop
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
@@ -19,6 +21,7 @@ flatpak:
     flatpak install org.gnu.emacs
     flatpak install org.telegram.desktop
     flatpak install eu.betterbird.Betterbird
+    flatpak install com.github.KRTirtho.Spotube
 
 volta:
     volta install \
@@ -39,7 +42,8 @@ volta:
     typescript \
     typescript-language-server \
     @angular/language-server \
-    @vue/language-server
+    @vue/language-server \
+    @github/copilot-language-server
 
 cargo:
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig
@@ -68,6 +72,9 @@ manual-deps:
     mkdir -p ~/.local/bin
     cp hyprvoice ~/.local/bin/
 
+fedora-files:
+    ln -s /home/darkawower/.config/vicinae/scripts /home/darkawower/.local/share/vicinae/scripts
+
 init-linux:
     just flatpak
     just fedora-deps
@@ -75,3 +82,4 @@ init-linux:
     just volta
     just uv
     just manual-deps
+    just fedora-files
