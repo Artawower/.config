@@ -1,7 +1,7 @@
 keymap:
   - name: Super shortcuts
     application:
-      not: [Emacs, emacs, "app.zen_browser.zen", zen, org.gnu.Emacs, zen-browser, "org.wezfurlong.wezterm"]
+      not: [Emacs, emacs, "app.zen_browser.zen", zen, org.gnu.Emacs, zen-browser, "org.wezfurlong.wezterm", "com.mitchellh.ghostty"]
     remap:
       Super-c: C-c
       Super-v: C-v
@@ -19,7 +19,7 @@ keymap:
 
   - name: Terminals commands
     application:
-      only: [alacritty, kitty, wezterm, "org.wezfurlong.wezterm", app.kde.konsole, konsole]
+      only: [alacritty, kitty, wezterm, "org.wezfurlong.wezterm", app.kde.konsole, konsole, "com.mitchellh.ghostty"]
     remap:
       Super-v: C-Shift-v
       Super-c: C-Shift-c

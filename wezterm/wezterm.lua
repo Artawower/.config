@@ -94,11 +94,6 @@ config.keys = {
     action = wezterm.action.PasteFrom("Clipboard")
   },
   {
-    key = ".",
-    mods = "CMD",
-    action = wezterm.action.SendString(":SwitchWindow\n")
-  },
-  {
     key = "RightArrow",
     mods = "CMD|SHIFT",
     action = wezterm.action.MoveTabRelative(1)
