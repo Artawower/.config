@@ -83,3 +83,9 @@ init-linux:
     just uv
     just manual-deps
     just fedora-files
+
+
+init-mac:
+    just volta
+    just uv
+    
