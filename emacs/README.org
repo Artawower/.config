@@ -1090,7 +1090,7 @@ TODO: move to package
 
 ** Disable menu bar mode and other stuff
 #+BEGIN_SRC emacs-lisp
-(set-frame-parameter nil 'alpha-background 0.9)
+(set-frame-parameter nil 'alpha-background 1.0)
 (add-to-list 'frameset-filter-alist '(ns-transparent-titlebar . t))
 (add-to-list 'frameset-filter-alist '(ns-appearance . dark))
 (tool-bar-mode -1)
@@ -5015,7 +5015,7 @@ Requires Emacs 30+
 ;; (my/display-buffer-right-smart))))
 #+END_SRC
 
-** COMMENT Copilot
+** Copilot
 deps
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package track-changes
