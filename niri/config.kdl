@@ -142,10 +142,10 @@ window-rule {
     match app-id="^Alacritty$"
     open-on-workspace "term"
 }
-window-rule {
-    match app-id="^com\\.mitchellh\\.ghostty$"
-    open-on-workspace "term"
-}
+// window-rule {
+//     match app-id="^com\\.mitchellh\\.ghostty$"
+//     open-on-workspace "term"
+// }
 window-rule {
     match app-id="^Emacs$"
     open-on-workspace "dev"
@@ -186,6 +186,9 @@ binds {
     }
     Alt+Return hotkey-overlay-title="Open a Terminal: wezterm" {
         spawn "flatpak" "run" "org.wezfurlong.wezterm"
+    }
+    Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" {
+        spawn "ghostty"
     }
     Alt+Space hotkey-overlay-title="Run an Application: vicinae" {
         spawn "vicinae" "open"

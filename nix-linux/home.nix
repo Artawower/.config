@@ -83,9 +83,6 @@
     msmtp
     pinentry-gnome3
     pass
-
-    # Vpn
-    amnezia-vpn
   ];
 
   home.sessionVariables = {
