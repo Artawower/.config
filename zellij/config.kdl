@@ -1209,9 +1209,9 @@ pane_frames true
 //
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
-// copy_command "pbcopy"                     // osx
-//
-copy_command "clipboard-copy"
+copy_command "pbcopy"
+ // osx//
+// copy_command "clipboard-copy"
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
 // Does not apply when using copy_command.

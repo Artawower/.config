@@ -45,7 +45,7 @@ in
     NSGlobalDomain = {
       NSAutomaticWindowAnimationsEnabled = false;
       _HIHideMenuBar = true;
-      "com.apple.swipescrolldirection" = false;
+      # "com.apple.swipescrolldirection" = false;
       "com.apple.keyboard.fnState" = true;
     };
     CustomUserPreferences = {
@@ -399,6 +399,7 @@ in
       "yandex-disk"
       "claude-code"
       "thock"
+      "android-studio"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;

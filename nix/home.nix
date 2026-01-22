@@ -2,53 +2,13 @@
   config,
   pkgs,
   lib,
-  android-sdk,
   ...
 }:
 
 let
-  # Volta packages (not available in nixpkgs)
-  voltaPackages = [
-    "node"
-    "eslint"
-    "@angular/language-server"
-    "@eslint/language-server"
-    "vscode-langservers-extracted"
-    "@angular/language-service@next"
-    "@angular/cli"
-    "typescript"
-    "copilot-node-server"
-    "yalc"
-    "lua-fmt"
-    "@anthropic-ai/claude-code"
-    "@openai/codex"
-    "@qwen-code/qwen-code@latest"
-    "mcp-codex-cli"
-    "@gy920/qwen-mcp-tool"
-    "pretty-ts-errors-markdown"
-    "playwright"
-    "typescript-language-server"
-  ];
-
-  # Cargo packages (not available in nixpkgs)
-  cargoPackages = [
-    "wrkflw"
-    "kdlfmt"
-  ];
-
   # Go packages (not available in nixpkgs)
   goPackages = [
     "github.com/sahaj-b/wakafetch@latest"
-  ];
-
-  # UV tools (Python CLI tools)
-  uvTools = [
-    "rassumfrassum"
-    "ty"
-    "ruff"
-    "basedpyright"
-    "http-prompt"
-    "httpie"
   ];
 
   # Custom xonsh with extensions
@@ -110,6 +70,7 @@ let
     ps.pip
     ps.tomli-w
   ]);
+
 in
 {
   home.stateVersion = "23.05";
@@ -184,7 +145,6 @@ in
     walsh
     
     # Android SDK for Capacitor
-    android-sdk
     jdk21
     gradle
   ];
@@ -193,8 +153,8 @@ in
 
   home.sessionVariables = {
     PATH = "$HOME/.volta/bin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:/Users/darkawower/.local/share/uv/tools";
-    ANDROID_HOME = "${android-sdk}/share/android-sdk";
-    ANDROID_SDK_ROOT = "${android-sdk}/share/android-sdk";
+    ANDROID_HOME = "$HOME/Library/Android/sdk";
+    ANDROID_SDK_ROOT = "$HOME/Library/Android/sdk";
     JAVA_HOME = "${pkgs.jdk21}/lib/openjdk";
   };
 
@@ -232,46 +192,6 @@ in
         esac
       }
       export -f readlink
-    '';
-
-    installRarePackages = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      export PATH="$HOME/.volta/bin:$HOME/.cargo/bin:$HOME/go/bin:/opt/homebrew/bin:$PATH"
-
-      if command -v volta >/dev/null 2>&1; then
-        ${lib.concatMapStringsSep "\n" (
-          pkg:
-          "volta list 2>/dev/null | grep -q ${lib.escapeShellArg (builtins.head (lib.splitString "@" pkg))} || volta install ${pkg} 2>/dev/null"
-        ) voltaPackages}
-      fi
-
-      if command -v cargo >/dev/null 2>&1; then
-        ${lib.concatMapStringsSep "\n" (
-          pkg: "command -v ${pkg} >/dev/null 2>&1 || cargo install ${pkg} 2>/dev/null"
-        ) cargoPackages}
-      fi
-
-      if command -v go >/dev/null 2>&1; then
-        export GOPATH="$HOME/go"
-        export GOBIN="$HOME/go/bin"
-        ${lib.concatMapStringsSep "\n" (
-          pkg:
-          let
-            pkgName = lib.last (lib.splitString "/" (builtins.head (lib.splitString "@" pkg)));
-          in
-          "command -v ${pkgName} >/dev/null 2>&1 || go install ${pkg} 2>/dev/null"
-        ) goPackages}
-      fi
-
-      if command -v uv >/dev/null 2>&1; then
-        ${lib.concatMapStringsSep "\n" (
-          pkg:
-          let
-            pkgName = builtins.head (lib.splitString "@" pkg);
-          in
-          "uv tool list 2>/dev/null | grep -q ${lib.escapeShellArg pkgName} || uv tool install ${pkg} 2>/dev/null"
-        ) uvTools}
-      fi
-
     '';
   };
 

@@ -17,3 +17,5 @@ source @(config_dir / 'prompt.xsh')
 source @(config_dir / 'zoxide.xsh')
 source @(config_dir / 'autoenv.xsh')
 source @(config_dir / 'smartenv.xsh')
+
+source-bash ~/.nix-profile/etc/profile.d/hm-session-vars.sh

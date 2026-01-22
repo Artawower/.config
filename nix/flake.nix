@@ -41,7 +41,13 @@
       };
 
       homeConfigurations.darkawower = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-darwin"; };
+        pkgs = import nixpkgs {
+          system = "aarch64-darwin";
+          config = {
+            allowUnfree = true;
+            android_sdk.accept_license = true;
+          };
+        };
         modules = [ ./home.nix ];
       };
     };
