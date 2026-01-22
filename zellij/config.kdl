@@ -1139,7 +1139,6 @@ themes {
         orange "#ef9f76"
     }
 }
-
 theme "catppuccin-latte"
 // Choose the base input mode of zellij.
 // Default: normal
@@ -1150,7 +1149,6 @@ default_mode "locked"
 // default_shell "/opt/homebrew/bin/xonsh"
 // default_shell "/Users/darkawower/.nix-profile/bin/xonsh"
 default_shell "xonsh"
-
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd "/tmp"
@@ -1229,7 +1227,8 @@ copy_command "clipboard-copy"
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
 // scrollback_editor "/opt/homebrew/bin/hx"
-scrollback_editor "/opt/homebrew/bin/emacsclient -ac"
+// scrollback_editor "/opt/homebrew/bin/emacsclient -ac"
+scrollback_editor "hx"
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`
 // otherwise this will error if such a session exists.
@@ -1370,3 +1369,4 @@ floating_panes {
     default_x "20%"
     default_y "20%"
 }
+
