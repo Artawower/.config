@@ -38,6 +38,13 @@ if wezterm.target_triple:find("linux") then
   }
 end
 
+local current_path = os.getenv("PATH") or ""
+local my_paths = "/opt/homebrew/bin:/Users/darkawower/.nix-profile/bin:/usr/local/bin:" .. current_path
+
+config.set_environment_variables = {
+  PATH = my_paths
+}
+
 wezterm.on(
   "window-config-reloaded",
   function(window, pane)

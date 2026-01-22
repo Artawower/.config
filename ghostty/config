@@ -29,6 +29,6 @@ macos-option-as-alt = true
 
 # shell-integration = fish
 # command = /Users/darkawower/.nix-profile/bin/fish
-command = zellij
+command = bash -c "zellij"
 
 # term = xterm-256color
