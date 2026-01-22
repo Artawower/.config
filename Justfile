@@ -63,6 +63,32 @@ uv:
 nix-linux:
     nix run home-manager/master -- switch --flake . --impure
 
+nix-mac:
+    just nix-home-mac
+    just nix-darwin-mac
+
+[working-directory("./nix")]
+nix-darwin-mac:
+    sudo -v && sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/.config/nix
+    @echo "Sueccessfully applied Nix configuration for macOS."
+
+[working-directory("./nix")]
+nix-home-mac:
+    nix run home-manager/master -- switch -b backup --flake ~/.config/nix
+    @echo "Successfully applied Home Manager configuration for macOS."
+
+[working-directory("./nix")]
+nix-clean-mac:
+	find "$$HOME" \
+		-path "$$HOME/OrbStack/*" -prune -o \
+		-path "$$HOME/Library/Containers/*" -prune -o \
+		-xtype l -print0 | while IFS= read -r -d '' link; do \
+			echo "Removing broken link: $$link"; \
+			rm -f "$$link" 2>/dev/null || true; \
+		done
+
+
+
 [working-directory("/tmp")]
 manual-deps:
     git clone https://github.com/leonardotrapani/hyprvoice.git
