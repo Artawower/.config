@@ -13,7 +13,8 @@ fedora-deps:
     libadwaita-devel \
     libspiro-devel \
     android-tools \
-    neohtop
+    neohtop \
+    fontconfig
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  

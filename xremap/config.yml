@@ -2,6 +2,7 @@ keymap:
   - name: Super shortcuts
     application:
       not: [Emacs, emacs, "app.zen_browser.zen", zen, org.gnu.Emacs, zen-browser, "org.wezfurlong.wezterm", "com.mitchellh.ghostty"]
+    exact_match: true
     remap:
       Super-c: C-c
       Super-v: C-v

@@ -518,6 +518,15 @@ binds {
     Super+Shift+2 {
         spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | gradia"
     }
+    Ctrl+Shift+X {
+        spawn-sh "GEOM=$(slurp); canberra-gtk-play -i camera-shutter & grim -g \"$GEOM\" - | satty -f - "
+    }
+    Ctrl+Shift+1 {
+        spawn-sh "canberra-gtk-play -i camera-shutter & grim - | satty -f - "
+    }
+    Ctrl+Shift+2 {
+        spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | satty -f - "
+    }
     Alt+Escape allow-inhibiting=false {
         toggle-keyboard-shortcuts-inhibit
     }
@@ -531,6 +540,9 @@ binds {
         power-off-monitors
     }
     Super+Shift+Alt+C {
+        spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
+    }
+    Ctrl+Space {
         spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
     Super+Shift+Alt+E {
