@@ -5069,6 +5069,7 @@ deps
 * Org mode
 ** Org GPG encryption
 #+BEGIN_SRC emacs-lisp
+(setq epa-pinentry-mode 'loopback)
 (use-package org-crypt
   :defer t
   :ensure nil
