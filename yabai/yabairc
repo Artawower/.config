@@ -134,10 +134,10 @@ yabai -m config window_gap 20
 # Space names
 yabai -m space 1 --label social
 yabai -m space 2 --label term
-yabai -m space 3 --label www
+yabai -m space 3 --label dev
 yabai -m space 4 --label other
+yabai -m space 5 --label www
 
-yabai -m space 5 --label dev
 yabai -m space 6 --label entertainment
 yabai -m space 7 --label thrash
 yabai -m space 8 --label study

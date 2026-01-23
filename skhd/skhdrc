@@ -8,7 +8,6 @@
 # alt - k : /opt/homebrew/bin/yabai -m window --focus north
 # alt - l : /opt/homebrew/bin/yabai -m window --focus east
 
-alt - h : /opt/homebrew/bin/yabai -m window --focus west || /opt/homebrew/bin/yabai -m display --focus west
 # alt - j : /opt/homebrew/bin/yabai -m window --focus south || /opt/homebrew/bin/yabai -m display --focus south
 # alt - k : /opt/homebrew/bin/yabai -m window --focus north || /opt/homebrew/bin/yabai -m display --focus north
 
@@ -18,7 +17,11 @@ alt - h : /opt/homebrew/bin/yabai -m window --focus west || /opt/homebrew/bin/ya
 alt - j : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | /Users/darkawower/.nix-profile/bin/jq -re 'map(select(."is-minimized" == false and ."can-move" == true)) | sort_by(.frame.y, .frame.x) | . as $array | index(map(select(."has-focus" == true))[0]) as $idx | $array[($idx + 1) % length].id')"
 alt - k : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | /Users/darkawower/.nix-profile/bin/jq -re 'map(select(."is-minimized" == false and ."can-move" == true)) | sort_by(.frame.y, .frame.x) | . as $array | index(map(select(."has-focus" == true))[0]) as $idx | $array[($idx - 1 + length) % length].id')"
 
-alt - l : /opt/homebrew/bin/yabai -m window --focus east || /opt/homebrew/bin/yabai -m display --focus east
+# alt - l : /opt/homebrew/bin/yabai -m window --focus east || /opt/homebrew/bin/yabai -m display --focus east
+# alt - h : /opt/homebrew/bin/yabai -m window --focus west || /opt/homebrew/bin/yabai -m display --focus west
+alt - l : python3 ~/.config/yabai/cycle_windows.py east
+alt - h : python3 ~/.config/yabai/cycle_windows.py west
+
 alt - a: alt - tab : $(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "map(select(.\"has-focus\" == true)) | length != 0") = true ] && /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | reverse | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(/opt/homebrew/bin/yabai -m query --windows --window | jq -re ".id")) - 1)")" ||  /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --spaces --space | jq -re ".windows[0]?")" &> /dev/null
 
 alt + shift - v : layout=$(/opt/homebrew/bin/yabai -m query --spaces --space | /Users/darkawower/.nix-profile/bin/jq -r '.type'); \
@@ -64,12 +67,11 @@ shift + alt - 0x1B : /opt/homebrew/bin/yabai -m window --space 11 && /opt/homebr
 shift + alt - 0x18 : /opt/homebrew/bin/yabai -m window --space 12 && /opt/homebrew/bin/yabai -m space --focus 12
 
 
-shift + alt - d : /opt/homebrew/bin/yabai -m window --space 5 && /opt/homebrew/bin/yabai -m space --focus 5 #dev
+shift + alt - d : /opt/homebrew/bin/yabai -m window --space dev && /opt/homebrew/bin/yabai -m space --focus dev
 shift + alt - w : /opt/homebrew/bin/yabai -m window --space www && /opt/homebrew/bin/yabai -m space --focus www
 shift + alt - s : /opt/homebrew/bin/yabai -m window --space social && /opt/homebrew/bin/yabai -m space --focus social
 shift + alt - i : /opt/homebrew/bin/yabai -m window --space thrash && /opt/homebrew/bin/yabai -m space --focus thrash
 shift + alt - t : /opt/homebrew/bin/yabai -m window --space term && /opt/homebrew/bin/yabai -m space --focus term
-# shift + alt - c : /opt/homebrew/bin/yabai -m window --space term && /opt/homebrew/bin/yabai -m space --focus term
 shift + alt - t : /opt/homebrew/bin/yabai -m window --space term && /opt/homebrew/bin/yabai -m space --focus term
 shift + alt - e : /opt/homebrew/bin/yabai -m window --space entertainment && /opt/homebrew/bin/yabai -m space --focus entertainment
 shift + alt - o : /opt/homebrew/bin/yabai -m window --space other && /opt/homebrew/bin/yabai -m space --focus other
@@ -101,11 +103,6 @@ lctrl + alt - 0 : /opt/homebrew/bin/yabai -m space --balance
 
 # Enable / Disable gaps in current workspace
 lctrl + alt - g : /opt/homebrew/bin/yabai -m space --toggle padding; /opt/homebrew/bin/yabai -m space --toggle gap
-# Enable / Disable borders in current workspace
-# lctrl + alt - b : /opt/homebrew/bin/yabai -m config window_border on
-# lctrl + alt + shift - b : /opt/homebrew/bin/yabai -m config window_border off
-# lctrl + alt + shift - t : /opt/homebrew/bin/yabai -m config top_padding 20
-# lctrl + alt + shift - g : /opt/homebrew/bin/yabai -m config top_padding 50
 
 lctrl + alt - b: /opt/homebrew/bin/borders \
   "active_color=gradient(top_left=0xff8b5cf6,bottom_right=0xff5b21b6)" \
@@ -191,35 +188,19 @@ alt - 0 : /opt/homebrew/bin/yabai -m space --focus 10
 alt - 0x1B : /opt/homebrew/bin/yabai -m space --focus 11
 alt - 0x18 : /opt/homebrew/bin/yabai -m space --focus 12
 
-# alt - m : /opt/homebrew/bin/yabai -m space --focus 1
 alt - s : /opt/homebrew/bin/yabai -m space --focus social
 alt - w : /opt/homebrew/bin/yabai -m space --focus www
-# alt - d : /opt/homebrew/bin/yabai -m space --focus dev
-# alt - d : /opt/homebrew/bin/yabai -m space --focus dev
-alt - d : /opt/homebrew/bin/yabai -m space --focus 5
+alt - d : /opt/homebrew/bin/yabai -m space --focus dev
 alt - i : /opt/homebrew/bin/yabai -m space --focus thrash
 alt - t : /opt/homebrew/bin/yabai -m space --focus term
-# alt - c : /opt/homebrew/bin/yabai -m space --focus term
 alt - e : /opt/homebrew/bin/yabai -m space --focus entertainment
 alt - o : /opt/homebrew/bin/yabai -m space --focus other
-# alt - o : /opt/homebrew/bin/yabai -m space --focus other
 
 
-# Applications
-# alt - return : open -na alacritty.app
-# cmd + alt - return : open -a alacritty.app
-# 
-# alt - return : open -na kitty.app
-
-# alt - return : kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
-# ctrl + alt - return : /opt/homebrew/bin/wezterm
 shift + alt - return : /opt/homebrew/bin/wezterm
 alt - return : open -na Ghostty.app
 
 cmd + alt - return : open -a kitty.app
-
-# alt - a : open -na alacritty.app
-# cmd + alt - a : open -a alacritty.app
 
 cmd + alt - f : /opt/homebrew/bin/yabai -m space --focus 3;\
                 open -a firefox.app;\
@@ -233,19 +214,7 @@ cmd + alt - w : /opt/homebrew/bin/yabai -m space --focus 3;\
 cmd + alt - t : /opt/homebrew/bin/yabai -m space --focus 1;\
                 open -a telegram.app
 
-# cmd + shift + alt - s : /opt/homebrew/bin/yabai -m space --focus 1;\
-#                 open -a skype.app
 
-cmd + alt - e : /opt/homebrew/bin/yabai -m space --focus dev; \
-               export $(dbus-launch) && emacs
-
-cmd + alt + shift - r : open -na kitty --args "ranger"
-
-cmd + alt - v : open -na kitty --args "nvim"
-
-cmd + alt - m : open -na kitty --args "spt"
-
-# Close window
 cmd + alt - x : /opt/homebrew/bin/yabai -m window --close
 alt - q : /opt/homebrew/bin/yabai -m window --close
 
