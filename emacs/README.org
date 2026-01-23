@@ -2151,6 +2151,7 @@ The format is:
   ("\\.ts\\'" . typescript-ts-mode)
   ("\\.go\\'" . go-ts-mode)
   ("\\.json\\'" . json-ts-mode)
+  ("\\.lua\\'" . lua-ts-mode)
   ("\\.rs\\'" . rust-ts-mode)
   ("\\.html\\'" . html-ts-mode)
   ("\\.cs\\'" . csharp-ts-mode)
