@@ -14,7 +14,11 @@ fedora-deps:
     libspiro-devel \
     android-tools \
     neohtop \
-    fontconfig
+    fontconfig \
+    pkg-config \
+    rustup \
+    openssl-devel \
+    vulkan-loader-devel vulkan-headers shaderc
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
@@ -46,7 +50,9 @@ volta:
     @angular/language-server \
     @vue/language-server \
     @github/copilot-language-server \
-    eslint
+    eslint \
+    npm-check-updates \
+    npm-upgrade
 
 cargo:
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig
