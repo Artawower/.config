@@ -142,10 +142,10 @@ window-rule {
     match app-id="^Alacritty$"
     open-on-workspace "term"
 }
-window-rule {
-    match app-id="^com\\.mitchellh\\.ghostty$"
-    open-on-workspace "term"
-}
+// window-rule {
+//     match app-id="^com\\.mitchellh\\.ghostty$"
+//     open-on-workspace "term"
+// }
 window-rule {
     match app-id="^Emacs$"
     open-on-workspace "dev"
@@ -186,6 +186,9 @@ binds {
     }
     Alt+Return hotkey-overlay-title="Open a Terminal: wezterm" {
         spawn "flatpak" "run" "org.wezfurlong.wezterm"
+    }
+    Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" {
+        spawn "ghostty"
     }
     Alt+Space hotkey-overlay-title="Run an Application: vicinae" {
         spawn "vicinae" "open"
@@ -515,6 +518,15 @@ binds {
     Super+Shift+2 {
         spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | gradia"
     }
+    Ctrl+Shift+X {
+        spawn-sh "GEOM=$(slurp); canberra-gtk-play -i camera-shutter & grim -g \"$GEOM\" - | satty -f - "
+    }
+    Ctrl+Shift+1 {
+        spawn-sh "canberra-gtk-play -i camera-shutter & grim - | satty -f - "
+    }
+    Ctrl+Shift+2 {
+        spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | satty -f - "
+    }
     Alt+Escape allow-inhibiting=false {
         toggle-keyboard-shortcuts-inhibit
     }
@@ -528,6 +540,9 @@ binds {
         power-off-monitors
     }
     Super+Shift+Alt+C {
+        spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
+    }
+    Ctrl+Space {
         spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
     Super+Shift+Alt+E {

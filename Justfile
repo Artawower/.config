@@ -2,7 +2,7 @@ default:
     just --choose
 
 fedora-deps:
-    sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+    if ! dnf repolist --all | rg -q '^terra\s'; then sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; fi
     sudo dnf install \
     freetype-devel \
     libepoxy-devel \
@@ -12,7 +12,13 @@ fedora-deps:
     gtk4-devel \
     libadwaita-devel \
     libspiro-devel \
-    neohtop
+    android-tools \
+    neohtop \
+    fontconfig \
+    pkg-config \
+    rustup \
+    openssl-devel \
+    vulkan-loader-devel vulkan-headers shaderc
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
@@ -43,7 +49,10 @@ volta:
     typescript-language-server \
     @angular/language-server \
     @vue/language-server \
-    @github/copilot-language-server
+    @github/copilot-language-server \
+    eslint \
+    npm-check-updates \
+    npm-upgrade
 
 cargo:
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig
