@@ -31,13 +31,13 @@
     volta
     python3
     uv
-    rustup
+    # rustup
     go
     zoxide
     eza
     bat
     fzf
-    nodejs_22
+    nodejs_20
     xonsh
     zellij
     codex
@@ -66,7 +66,7 @@
     wakatime-cli
     htop
     xremap
-    pkg-config
+    # pkg-config
     enchant2
     gcc
     dash
