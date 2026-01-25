@@ -76,6 +76,7 @@ fish/functions/hx.fish
 !cava
 !wallboy/config.toml
 !rassumfrassum
+rassumfrassum/__pycache__
 
 
 # Temporary/state files

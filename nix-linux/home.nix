@@ -19,7 +19,6 @@
     grim 
     slurp 
     swappy
-    wl-clipboard
     cliphist
     fuzzel
     swaynotificationcenter
@@ -27,7 +26,6 @@
     swaybg
     brightnessctl
     playerctl
-    bun
     volta
     python3
     uv
@@ -37,7 +35,6 @@
     eza
     bat
     fzf
-    nodejs_20
     xonsh
     zellij
     codex
@@ -71,7 +68,7 @@
     gcc
     dash
     libz
-    freetype
+    # freetype
     gnupg
     tesseract
     
@@ -83,9 +80,25 @@
     msmtp
     pinentry-gnome3
     pass
+
+    # Clipboard
+    wl-clipboard
+    wl-clip-persist
+
+    # Tools
+    amneziawg-tools
+
+    lazydocker
+    # Development
+    bun
+
+    # Cli/tui
+    vi-mongo
+    s-tui
   ];
 
   home.sessionVariables = {
+    BROWSER = "app.zen_browser.zen";
     SHELL = "${pkgs.xonsh}/bin/xonsh";
     CPATH = "${pkgs.enchant2}/include/enchant-2";
     LIBRARY_PATH = "${pkgs.enchant2}/lib";

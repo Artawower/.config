@@ -629,12 +629,6 @@ Modeline inactive color
         (set-face-attribute 'font-lock-comment-face frame :inherit 'my/comic-face)
         (set-face-attribute 'font-lock-keyword-face frame :inherit 'my/comic-face)
 
-        (set-face-attribute 'font-lock-variable-name-face frame
-                            :foreground (my/get-variable-name-color)
-                            :height 1.0
-                            :bold nil
-                            :family my/font-default)
-
         (setq line-spacing 0.3)
         (when (fboundp 'set-fontset-font)
           (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))))
@@ -1883,7 +1877,7 @@ Bookmark for navigation inside file
 (use-package bm
   :defer t
   :custom-face
-  (bm-face ((t (:inherit font-lock-warning-face :background unspecified))))
+  (bm-face ((t (:inherit font-lock-warning-face :foreground "#ffb6c1" :background unspecified))))
   :custom
   (bm-in-lifo-order t)
   (bm-highlight-fringe 'bm-highlight-line-and-fringe)
@@ -2171,6 +2165,7 @@ The format is:
           (html "https://github.com/tree-sitter/tree-sitter-html")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
           (json "https://github.com/tree-sitter/tree-sitter-json")
+          (vue "https://github.com/ikatyang/tree-sitter-vue")
           (make "https://github.com/alemuller/tree-sitter-make")
           (markdown-inline "https://github.com/ikatyang/tree-sitter-markdown")
           (markdown "https://github.com/ikatyang/tree-sitter-markdown")
@@ -2446,54 +2441,43 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   (let ((bn vterm-buffer-name))
     (if (get-buffer bn)
         (switch-to-buffer bn)
-      (vterm))))
+      (project-vterm))))
 #+END_SRC
 *** Open vterm for current buffer
 #+BEGIN_SRC emacs-lisp :results silent
 (defun my/vterm--get-dir ()
-  "Get directory from current buffer or project root."
   (expand-file-name
-   (or (when-let ((file (buffer-file-name)))
-         (file-name-directory file))
-       (when-let ((proj (project-current)))
-         (project-root proj))
+   (or (when-let ((f (buffer-file-name)))
+         (file-name-directory f))
+       (when-let ((p (project-current)))
+         (project-root p))
        default-directory)))
 
 (defun my/vterm--cd (buf dir)
-  "Send cd DIR command to vterm BUF."
   (with-current-buffer buf
-    (vterm-send-C-c)
+    (when (get-buffer-process buf)
+      (vterm-send-C-c))
     (vterm-send-string (concat "cd " (shell-quote-argument dir)))
-    (vterm-send-return)))
-
-(defun my/vterm-cd ()
-  "Open vterm toggle and cd to current buffer dir."
-  (interactive)
-  (let ((dir (my/vterm--get-dir)))
-    (vterm-toggle-show)
-    (my/vterm--cd (current-buffer) dir)))
+    (vterm-send-key "<return>")))
 
 (defun my/vterm-right ()
-  "Open vterm in right window and cd to current buffer dir."
   (interactive)
   (let* ((dir (my/vterm--get-dir))
-         (vterm-buf (or (get-buffer "*vterm*")
-                        (save-window-excursion (vterm))))
+         (buf (or (get-buffer "*vterm")
+                  (save-window-excursion (multi-vterm-project))))
          (win (or (window-in-direction 'right)
                   (split-window-right))))
     (select-window win)
-    (switch-to-buffer vterm-buf)
-    (my/vterm--cd vterm-buf dir)))
+    (switch-to-buffer buf)
+    (my/vterm--cd buf dir)))
 #+END_SRC
 
 ** Vterm
 #+BEGIN_SRC emacs-lisp
 (use-package vterm
   :defer t
-  :bind (("C-c o t" . vterm-toggle)
-         ("C-c o T" . my/vterm-change-current-directory-to-active-buffer-pwd)
-         ("C-c o v" . vterm)
-         ("C-c o V" . my/vterm-open-here)
+  :bind (("C-c o V" . my/vterm-open-here)
+         ("C-c o T" . my/vterm-cd)
          ("C-c o R" . my/vterm-right)
          :map vterm-mode-map
          ("C-u" . vterm--self-insert)
@@ -2514,6 +2498,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 (use-package vterm-toggle
   :defer t
   :commands (vterm-toggle-show)
+  :bind (("C-c o t" . vterm-toggle))
   :config
   (setq vterm-always-compile-module t)
   (setq vterm-kill-buffer-on-exit nil)
@@ -2532,6 +2517,11 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
                  (window-height . 0.3))))
 #+END_SRC
 
+** Multi vterm
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package multi-vterm
+  :bind (("C-c o v" . multi-vterm-project)))
+#+END_SRC
 ** Detached. Background commands
 *** Core package
 #+BEGIN_SRC emacs-lisp

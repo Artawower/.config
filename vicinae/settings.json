@@ -13,11 +13,11 @@
    "pop_to_root_on_close": true,
    "theme": {
       "light": {
-         "name": "catppuccin-latte",
+         "name": "noctalia",
          "icon_theme": "Hicolor"
       },
       "dark": {
-         "name": "tokyo-night",
+         "name": "noctalia",
          "icon_theme": "Hicolor"
       }
    },
