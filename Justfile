@@ -3,7 +3,7 @@ default:
 
 fedora-deps:
     if ! dnf repolist --all | rg -q '^terra\s'; then sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; fi
-    sudo dnf install \
+    sudo dnf install --skip-unavailable \
     freetype-devel \
     libepoxy-devel \
     fontconfig-devel \
@@ -18,7 +18,14 @@ fedora-deps:
     pkg-config \
     rustup \
     openssl-devel \
-    vulkan-loader-devel vulkan-headers shaderc
+    vulkan-loader-devel vulkan-headers shaderc \
+    docker \
+    docker-compose \
+    nodejs22 \
+    bun
+
+    sudo systemctl enable --now docker
+    sudo usermod -aG docker $USER
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
@@ -31,7 +38,7 @@ flatpak:
 
 volta:
     volta install \
-    node \
+    node@22 \
     @angular/language-service@next \
     vscode-langservers-extracted \
     @angular/cli \
@@ -59,6 +66,9 @@ cargo:
     LD_LIBRARY_PATH=/usr/lib64
     cargo install gitu kdlfmt
     cargo install wl-screenrec
+
+go:
+    go install golang.org/x/tools/gopls@latest
 
 uv:
     uv tool install rassumfrassum 
