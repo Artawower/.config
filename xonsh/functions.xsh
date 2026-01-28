@@ -3,22 +3,31 @@ from xonsh import color_tools
 import re
 import subprocess
 import os
+import platform
 
 def _hx(args):
-    """Helix with auto theme switching"""
-    # Get system theme on macOS
+    """Helix with auto theme switching (macOS & Linux)"""
+    system = platform.system()
+    is_dark = True  
+
     try:
-        result = subprocess.run(
-            ['osascript', '-e', 'tell application "System Events" to tell appearance preferences to get dark mode'],
-            capture_output=True,
-            text=True,
-            timeout=1
-        )
-        is_dark = result.stdout.strip() == 'true'
-    except:
+        if system == 'Darwin':  # macOS
+            result = subprocess.run(
+                ['osascript', '-e', 'tell application "System Events" to tell appearance preferences to get dark mode'],
+                capture_output=True, text=True, timeout=1
+            )
+            is_dark = result.stdout.strip() == 'true'
+        
+        elif system == 'Linux': 
+            result = subprocess.run(
+                ['gsettings', 'get', 'org.gnome.desktop.interface', 'color-scheme'],
+                capture_output=True, text=True, timeout=1
+            )
+            is_dark = 'dark' in result.stdout.lower()
+    except Exception:
+        print("EXCEPTION")
         is_dark = True
-    
-    # Set theme based on system appearance
+
     theme = 'my' if is_dark else 'my_light'
     config_file = Path.home() / '.config/helix/config.toml'
     
@@ -28,7 +37,6 @@ def _hx(args):
         if new_content != content:
             config_file.write_text(new_content)
     
-    # Launch helix
     ![hx @(args)]
 
 def _e(args):
@@ -126,6 +134,35 @@ def aerospace_clear():
     | xargs -n1 aerospace close --window-id
     terminal-notifier "Aerospace Cleanup" -message "Closed empty windows"
 
+
+def _limit(args):
+    if not args:
+        return
+
+    cmd_args = list(args)
+    
+    if cmd_args[0] in aliases:
+        aliased_cmd = aliases[cmd_args[0]]
+        
+        if isinstance(aliased_cmd, list):
+            cmd_args = aliased_cmd + cmd_args[1:]
+        elif isinstance(aliased_cmd, str):
+            cmd_args = aliased_cmd.split() + cmd_args[1:]
+
+    systemd_cmd = [
+        'systemd-run', '--user', '--scope',
+        '-p', 'MemoryMax=4G',
+        '-p', 'CPUWeight=20',
+        '-p', 'ManagedOOMMemoryPressure=kill',
+        '-p', 'ManagedOOMMemoryPressureLimit=4%'
+    ]
+    
+    final_cmd = systemd_cmd + cmd_args
+    $[ @(final_cmd) ]
+
+aliases['limit'] = _limit
+
+aliases['limit'] = _limit
 aliases['hx'] = _hx
 aliases['e'] = _e
 aliases['cl'] = _cl

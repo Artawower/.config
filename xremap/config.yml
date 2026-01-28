@@ -1,5 +1,5 @@
 keymap:
-  - name: Super shortcuts
+  - name: Common Super shortcuts
     application:
       not: [Emacs, emacs, "app.zen_browser.zen", zen, org.gnu.Emacs, zen-browser, "org.wezfurlong.wezterm", "com.mitchellh.ghostty"]
     exact_match: true
@@ -26,22 +26,43 @@ keymap:
       Super-c: C-Shift-c
       Super-z: C-Shift-z
       
-  - name: Full delete
+  - name: Delete
     application:
       not: [Emacs, emacs]
     remap:
-      Super-Backspace: C-u
+      Alt-Backspace: C-u
+      Super-Backspace: C-Backspace
 
-  - name: Next/prev tab
+  - name: GUI shortcuts
     application:
-      only: [zen, app.zen_browser.zen, org.telegram.desktop]
+      only: [brave-browser, org.mozilla.firefox, "app.zen_browser.zen", zen, org.telegram.desktop]
     remap:
       C-j: C-Tab
       C-k: C-Shift-Tab
+      Alt-Left: Home
+      Alt-Right: End
       Super-a: C-a
       Super-c: C-c
       Super-v: C-v
+      Super-z: C-z
+
+
+  - name: Browser shortcuts
+    application:
+      only: [brave-browser, org.mozilla.firefox, "app.zen_browser.zen", zen]
+    remap:
       Super-f: C-f
+      Super-1: C-1
+      Super-2: C-2
+      Super-3: C-3
+      Super-4: C-4
+      Super-5: C-5
+      Super-6: C-6
+      Super-7: C-7
+      Super-8: C-8
+      Super-9: C-9
+      Super-z: C-z
+
 
   - name: Ctrl+Meta arrows
     remap:
@@ -55,7 +76,7 @@ keymap:
       Fn-j: C-Tab
       Fn-k: C-S-Tab
 
-  - name: Disable Shift-k remap in Emacs
+  - name: Emacs
     application:
       only: emacs
     remap:

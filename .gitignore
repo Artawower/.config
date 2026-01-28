@@ -76,6 +76,7 @@ fish/functions/hx.fish
 !cava
 !wallboy/config.toml
 !rassumfrassum
+rassumfrassum/__pycache__
 
 
 # Temporary/state files
@@ -123,3 +124,10 @@ emacs/**
 !xremap
 !niri
 !vicinae
+
+!noctalia
+noctalia/*
+!noctalia/settings.json
+!noctalia/plugins.json
+!noctalia/user-templates.toml
+!noctalia/colors.json
