@@ -95,6 +95,7 @@
     # Cli/tui
     vi-mongo
     s-tui
+    gh
   ];
 
   home.sessionVariables = {
