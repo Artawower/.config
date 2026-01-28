@@ -124,3 +124,10 @@ emacs/**
 !xremap
 !niri
 !vicinae
+
+!noctalia
+noctalia/*
+!noctalia/settings.json
+!noctalia/plugins.json
+!noctalia/user-templates.toml
+!noctalia/colors.json
