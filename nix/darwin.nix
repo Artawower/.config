@@ -306,6 +306,7 @@ in
       "rust"
       "ripgrep"
       "gitu"
+      "pinentry-mac"
     ];
     taps = [
       "clojure/tools"
