@@ -98,14 +98,16 @@ layer-rule {
     place-within-backdrop true
 }
 spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
-spawn-at-startup "sh" "-c" "sleep 1; exec hyprvoice serve"
-spawn-at-startup "wl-clip-persist --clipboard regular"
 spawn-at-startup "darkman run"
 // spawn-at-startup "dms" "run"
-spawn-at-startup "qs -c noctalia-shell"
 spawn-at-startup "vicinae" "server"
-spawn-at-startup "sh" "-c" "sleep 1; exec xremap --watch /home/darkawower/.config/xremap/config.yml"
+spawn-sh-at-startup "pkill xremap; xremap --watch ~/.config/xremap/config.yml"
+spawn-at-startup "sh" "-c" "sleep 1 && /usr/bin/quickshell -c noctalia-shell"
+spawn-at-startup "sh" "-c" "sleep 1; exec hyprvoice serve"
 spawn-sh-at-startup "$HOME/.config/bin/wallpaper-rotate"
+spawn-at-startup "wl-clip-persist" "--clipboard" "regular"
+spawn-at-startup "wl-paste --type text --watch cliphist store"
+spawn-at-startup "wl-paste --type image --watch cliphist store"
 hotkey-overlay {
  // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     // skip-at-startup
@@ -164,7 +166,8 @@ window-rule {
 }
 window-rule {
     match is-active=true
-    opacity 0.95
+    draw-border-with-background false
+    opacity 0.96
 }
 window-rule {
     match is-active=false
