@@ -43,11 +43,11 @@ input {
     // focus-follows-mouse max-scroll-amount="0%"
 }
 workspace "soc"
-workspace "term"
 workspace "web"
 workspace "dev"
 workspace "deb"
 workspace "oth"
+// workspace "term"
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
@@ -71,8 +71,8 @@ layout {
         inactive-color "#505050"
     }
     border {
-        width 2
-        active-color "#5b21b6"
+        width 1
+        active-color "#7b57ff"
         inactive-color "#2e2a3a"
         urgent-color "#9b0000"
  // active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
@@ -90,7 +90,7 @@ layout {
     struts {
         // left 64
         // right 64
-        top 38
+        top 0
  // MacBook notch compensation // bottom 64
     }
 }
@@ -99,7 +99,10 @@ layer-rule {
 }
 spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "sh" "-c" "sleep 1; exec hyprvoice serve"
-spawn-at-startup "dms" "run"
+spawn-at-startup "wl-clip-persist --clipboard regular"
+spawn-at-startup "darkman run"
+// spawn-at-startup "dms" "run"
+spawn-at-startup "qs -c noctalia-shell"
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "sh" "-c" "sleep 1; exec xremap --watch /home/darkawower/.config/xremap/config.yml"
 spawn-sh-at-startup "$HOME/.config/bin/wallpaper-rotate"
@@ -139,14 +142,6 @@ window-rule {
     open-on-workspace "soc"
 }
 window-rule {
-    match app-id="^Alacritty$"
-    open-on-workspace "term"
-}
-// window-rule {
-//     match app-id="^com\\.mitchellh\\.ghostty$"
-//     open-on-workspace "term"
-// }
-window-rule {
     match app-id="^Emacs$"
     open-on-workspace "dev"
 }
@@ -177,7 +172,7 @@ window-rule {
 }
 // Rounded corners for all windows.
 window-rule {
-    geometry-corner-radius 8
+    geometry-corner-radius 6
     clip-to-geometry true
 }
 binds {
@@ -187,7 +182,7 @@ binds {
     Alt+Return hotkey-overlay-title="Open a Terminal: wezterm" {
         spawn "flatpak" "run" "org.wezfurlong.wezterm"
     }
-    Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" {
+    Ctrl+Return hotkey-overlay-title="Open a Terminal: wezterm" {
         spawn "ghostty"
     }
     Alt+Space hotkey-overlay-title="Run an Application: vicinae" {
@@ -368,18 +363,15 @@ binds {
         focus-workspace "soc"
     }
     Alt+2 {
-        focus-workspace "term"
-    }
-    Alt+3 {
         focus-workspace "web"
     }
-    Alt+4 {
+    Alt+3 {
         focus-workspace "dev"
     }
-    Alt+5 {
+    Alt+4 {
         focus-workspace "deb"
     }
-    Alt+6 {
+    Alt+5 {
         focus-workspace "oth"
     }
     Alt+E {
@@ -387,9 +379,6 @@ binds {
     }
     Alt+S {
         focus-workspace "soc"
-    }
-    Alt+T {
-        focus-workspace "term"
     }
     Alt+D {
         focus-workspace "dev"
@@ -401,18 +390,15 @@ binds {
         move-window-to-workspace "soc"
     }
     Alt+Shift+2 {
-        move-window-to-workspace "term"
-    }
-    Alt+Shift+3 {
         move-window-to-workspace "web"
     }
-    Alt+Shift+4 {
+    Alt+Shift+3 {
         move-window-to-workspace "dev"
     }
-    Alt+Shift+5 {
+    Alt+Shift+4 {
         move-window-to-workspace "deb"
     }
-    Alt+Shift+6 {
+    Alt+Shift+5 {
         move-window-to-workspace "oth"
     }
     Alt+Shift+E {
@@ -420,9 +406,6 @@ binds {
     }
     Alt+Shift+S {
         move-window-to-workspace "soc"
-    }
-    Alt+Shift+T {
-        move-window-to-workspace "term"
     }
     Alt+Shift+W {
         move-window-to-workspace "web"
@@ -434,18 +417,15 @@ binds {
         move-column-to-workspace "soc"
     }
     Alt+Ctrl+2 {
-        move-column-to-workspace "term"
+        move-column-to-workspace "dev"
     }
     Alt+Ctrl+3 {
         move-column-to-workspace "web"
     }
     Alt+Ctrl+4 {
-        move-column-to-workspace "dev"
-    }
-    Alt+Ctrl+5 {
         move-column-to-workspace "deb"
     }
-    Alt+Ctrl+6 {
+    Alt+Ctrl+5 {
         move-column-to-workspace "oth"
     }
     Alt+BracketLeft {
@@ -509,22 +489,22 @@ binds {
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
     // Alt+Dot       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
-    Super+Shift+X {
+    Ctrl+Shift+X {
         spawn-sh "GEOM=$(slurp); canberra-gtk-play -i camera-shutter & grim -g \"$GEOM\" - | gradia"
     }
-    Super+Shift+1 {
+    Ctrl+Shift+1 {
         spawn-sh "canberra-gtk-play -i camera-shutter & grim - | gradia"
     }
-    Super+Shift+2 {
+    Ctrl+Shift+2 {
         spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | gradia"
     }
-    Ctrl+Shift+X {
+    Super+Shift+X {
         spawn-sh "GEOM=$(slurp); canberra-gtk-play -i camera-shutter & grim -g \"$GEOM\" - | satty -f - "
     }
-    Ctrl+Shift+1 {
+    Super+Shift+1 {
         spawn-sh "canberra-gtk-play -i camera-shutter & grim - | satty -f - "
     }
-    Ctrl+Shift+2 {
+    Super+Shift+2 {
         spawn-sh "canberra-gtk-play -i camera-shutter & grim -g \"$(slurp)\" - | satty -f - "
     }
     Alt+Escape allow-inhibiting=false {
@@ -542,13 +522,10 @@ binds {
     Super+Shift+Alt+C {
         spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
-    Ctrl+Space {
+    Super+Space {
         spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
-    Super+Shift+Alt+E {
-        spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"
-    }
-    Super+Space {
+    Super+Shift+E {
         spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"
     }
     Super+Shift+Alt+G {
@@ -575,6 +552,9 @@ binds {
     Ctrl+Backslash {
         spawn-sh "hyprvoice toggle"
     }
+ // Ctrl+Backslash {
+    //     spawn-sh "hyprvoice toggle && sleep 0.1 && wtype -M ctrl -k v -m ctrl"
+    // }
 }
 include "dms/binds.kdl"
 include "dms/cursor.kdl"
