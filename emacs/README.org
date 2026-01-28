@@ -89,6 +89,24 @@ Function for getting config related paths
 ;; (set-face-attribute 'my/comic-face nil :inherit 'shadow :family my/font-funny :height 1.0 :italic t)
 #+END_SRC
 
+** Linux specific configs
+#+BEGIN_SRC emacs-lisp :results silent
+(when (and (eq system-type 'gnu/linux) (getenv "WAYLAND_DISPLAY"))
+  (setq select-enable-clipboard t)
+  (setq select-enable-primary t)
+
+  (defun wl-copy (text)
+    (let ((process-connection-type nil))
+      (let ((proc (start-process "wl-copy" nil "wl-copy")))
+        (process-send-string proc text)
+        (process-send-eof proc))))
+
+  (defun wl-paste ()
+    (shell-command-to-string "wl-paste -n | tr -d '\r'"))
+
+  (setq interprogram-cut-function 'wl-copy)
+  (setq interprogram-paste-function 'wl-paste))
+#+END_SRC
 * Bootstrap
 ** Garbage collector
 #+BEGIN_SRC emacs-lisp
@@ -2145,6 +2163,7 @@ The format is:
   ("\\.ts\\'" . typescript-ts-mode)
   ("\\.go\\'" . go-ts-mode)
   ("\\.json\\'" . json-ts-mode)
+  ("\\.yaml\\'" . yaml-ts-mode)
   ("\\.lua\\'" . lua-ts-mode)
   ("\\.rs\\'" . rust-ts-mode)
   ("\\.html\\'" . html-ts-mode)
