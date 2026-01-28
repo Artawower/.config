@@ -13,9 +13,8 @@ $PATH.insert(0, str(Path.home() / '.local/bin'))
 $PATH.insert(0, str(Path.home() / '.orbstack/bin'))
 $PATH.insert(0, str(Path.home() / 'dev/flutter/bin'))
 $PATH.insert(0, str(Path.home() / 'tmp/lua-language-server/bin'))
-$PATH.insert(0, str(Path.home() / 'Library/Android/sdk/tools'))
-$PATH.insert(0, str(Path.home() / 'Library/Android/sdk/platform-tools'))
-$PATH.insert(0, str(Path.home() / 'Library/Android/sdk/build-tools/34.0.0'))
+$PATH.insert(0, str(Path.home() / '$ANDROID_SDK_ROOT/platform-tools'))
+$PATH.insert(0, str(Path.home() / '$ANDROID_SDK_ROOT/cmdline-tools/latest/bin'))
 $PATH.insert(0, str(Path.home() / 'Library/pnpm'))
 $PATH.insert(0, '/opt/homebrew/bin')
 $PATH.insert(0, '/opt/homebrew/sbin')
@@ -35,3 +34,6 @@ sdkman_base = Path.home() / '.sdkman/candidates'
 if sdkman_base.exists():
     $PATH.insert(0, str(sdkman_base / 'java/current/bin'))
     $PATH.insert(0, str(sdkman_base / 'gradle/current/bin'))
+
+$ANDROID_SDK_ROOT = '/opt/homebrew/share/android-commandlinetools'
+$ANDROID_HOME = ($ANDROID_SDK_ROOT)

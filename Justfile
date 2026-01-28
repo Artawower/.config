@@ -52,7 +52,8 @@ volta:
     @github/copilot-language-server \
     eslint \
     npm-check-updates \
-    npm-upgrade
+    npm-upgrade \
+    stylelint
 
 cargo:
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig
