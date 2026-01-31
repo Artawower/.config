@@ -63,11 +63,20 @@
     wakatime-cli
     htop
     xremap
-    # pkg-config
     enchant2
     gcc
     dash
     libz
+
+    # Build deps
+    cmake
+    libtool
+    pkg-config
+    enchant2
+    dash
+    libz
+    llvmPackages.libclang.lib
+
     # freetype
     gnupg
     tesseract
@@ -96,6 +105,14 @@
     vi-mongo
     s-tui
     gh
+
+
+    # Voice to text
+    (writeShellScriptBin "waystt" ''
+  export ALSA_PLUGIN_DIRS="/usr/lib64/alsa-lib"
+  export LD_LIBRARY_PATH="/usr/lib64:${pkgs.stdenv.cc.cc.lib}/lib"
+  exec /home/darkawower/.local/bin/waystt-bin "$@"
+'')
   ];
 
   home.sessionVariables = {
@@ -103,6 +120,9 @@
     SHELL = "${pkgs.xonsh}/bin/xonsh";
     CPATH = "${pkgs.enchant2}/include/enchant-2";
     LIBRARY_PATH = "${pkgs.enchant2}/lib";
+    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+    LD_LIBRARY_PATH = "${pkgs.llvmPackages.libclang.lib}/lib:${pkgs.libz}/lib";
+    BINDGEN_EXTRA_CLANG_ARGS = "-I${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.llvmPackages.libclang.version}/include";
   };
 
   systemd.user.services.swww-daemon = {
@@ -146,12 +166,20 @@ xdg.portal = {
   };
 };
 
-programs.gpg.enable = true;
+programs.gpg = {
+    enable = true;
+    settings = {
+      pinentry-mode = "loopback";
+    };
+  };
 
-services.gpg-agent = {
-  enable = true;
-  pinentry = {
-    package = pkgs.pinentry-gnome3;
-  }; 
-};
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-tty;
+    enableSshSupport = true;
+    enableExtraSocket = true;
+    extraConfig = ''
+      allow-loopback-pinentry
+    '';
+  };
 }

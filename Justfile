@@ -26,6 +26,11 @@ fedora-deps:
 
     sudo systemctl enable --now docker
     sudo usermod -aG docker $USER
+
+
+    sudo rpm -v --import https://yum.tableplus.com/apt.tableplus.com.gpg.key
+    sudo dnf config-manager addrepo --from-repofile=https://yum.tableplus.com/rpm/arm64/tableplus.repo
+    sudo dnf install tableplus
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  

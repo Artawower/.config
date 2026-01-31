@@ -99,6 +99,7 @@ layer-rule {
 }
 spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "darkman run"
+spawn-at-startup "ydotoold"
 // spawn-at-startup "dms" "run"
 spawn-at-startup "vicinae" "server"
 spawn-sh-at-startup "pkill xremap; xremap --watch ~/.config/xremap/config.yml"
@@ -142,14 +143,6 @@ window-rule {
 window-rule {
     match app-id="^discord$"
     open-on-workspace "soc"
-}
-window-rule {
-    match app-id="^Emacs$"
-    open-on-workspace "dev"
-}
-window-rule {
-    match app-id="^emacs"
-    open-on-workspace "dev"
 }
 window-rule {
     match app-id="^zen-browser$"
@@ -554,6 +547,13 @@ binds {
     }
     Ctrl+Backslash {
         spawn-sh "hyprvoice toggle"
+    }
+    Ctrl+Shift+Backslash {
+        spawn-sh "/home/darkawower/.local/bin/waystt-toggle"
+    }
+    // waystt - Speech to Text (clipboard copy)
+    Ctrl+Shift+R {
+        spawn "/home/darkawower/.local/bin/waystt-toggle"
     }
  // Ctrl+Backslash {
     //     spawn-sh "hyprvoice toggle && sleep 0.1 && wtype -M ctrl -k v -m ctrl"

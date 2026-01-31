@@ -91,21 +91,21 @@ Function for getting config related paths
 
 ** Linux specific configs
 #+BEGIN_SRC emacs-lisp :results silent
-(when (and (eq system-type 'gnu/linux) (getenv "WAYLAND_DISPLAY"))
-  (setq select-enable-clipboard t)
-  (setq select-enable-primary t)
+(defun my-wl-copy (text)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "wl-copy-host" nil "flatpak-spawn" "--host" "wl-copy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
 
-  (defun wl-copy (text)
-    (let ((process-connection-type nil))
-      (let ((proc (start-process "wl-copy" nil "wl-copy")))
-        (process-send-string proc text)
-        (process-send-eof proc))))
+(defun my-wl-paste ()
+  (with-output-to-string
+    (with-current-buffer standard-output
+      (call-process "flatpak-spawn" nil t nil "--host" "wl-paste" "--no-newline"))))
 
-  (defun wl-paste ()
-    (shell-command-to-string "wl-paste -n | tr -d '\r'"))
+(setq interprogram-cut-function 'my-wl-copy)
+(setq interprogram-paste-function 'my-wl-paste)
 
-  (setq interprogram-cut-function 'wl-copy)
-  (setq interprogram-paste-function 'wl-paste))
+
 #+END_SRC
 * Bootstrap
 ** Garbage collector
