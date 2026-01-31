@@ -76,11 +76,12 @@ def del_env(key):
 
 def boot_env():
     storage = load_storage()
-
     for k, v in storage.items():
         set_system_env(k, v)
 
-    print("✔ environment restored")
+    if __xonsh__.env.get("XONSH_INTERACTIVE"):
+        print("✔ environment restored")
+
 
 
 boot_env()
