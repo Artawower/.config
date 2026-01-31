@@ -1,4 +1,6 @@
 import os.path as op
+import platform
+
 _secrets = op.expanduser('~/.config/xonsh/.secrets.xsh')
 if op.exists(_secrets):
     source @(_secrets)
@@ -8,6 +10,10 @@ $VI_MODE = 'INSIDE_EMACS' not in ${...}
 $AUTO_CD = True
 $EDITOR = 'emacsclient -ac'
 $VISUAL = 'emacsclient -ac'
+if platform.system() == 'Linux':
+  $EDITOR = 'hx'
+  $VISUAL = 'hx'
+
 $LSP_USE_PLISTS = 'true'
 $PROMPT_FIELDS['env_name'] = ''
 $XONSH_COLOR_STYLE = 'one-dark'
@@ -27,3 +33,4 @@ $XONSH_STYLE_OVERRIDES = {
     'Token.Literal.String': 'ansibrightgreen'
 }
 
+$FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
