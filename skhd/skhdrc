@@ -19,8 +19,17 @@ alt - k : /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -
 
 # alt - l : /opt/homebrew/bin/yabai -m window --focus east || /opt/homebrew/bin/yabai -m display --focus east
 # alt - h : /opt/homebrew/bin/yabai -m window --focus west || /opt/homebrew/bin/yabai -m display --focus west
-alt - l : python3 ~/.config/yabai/cycle_windows.py east
-alt - h : python3 ~/.config/yabai/cycle_windows.py west
+
+# alt - l : python3 ~/.config/yabai/cycle_windows.py east
+# alt - h : python3 ~/.config/yabai/cycle_windows.py west
+# alt + shift - h : /opt/homebrew/bin/yabai -m window --swap west || $(/opt/homebrew/bin/yabai -m window --display west; /opt/homebrew/bin/yabai -m display --focus west)
+# alt + shift - l : /opt/homebrew/bin/yabai -m window --swap east || $(/opt/homebrew/bin/yabai -m window --display east; /opt/homebrew/bin/yabai -m display --focus east)
+
+
+alt - l : /opt/homebrew/bin/yabai -m window --focus east || /opt/homebrew/bin/yabai -m space --focus next
+alt - h : /opt/homebrew/bin/yabai -m window --focus west || /opt/homebrew/bin/yabai -m space --focus prev
+alt + shift - l : /opt/homebrew/bin/yabai -m window --warp east || (/opt/homebrew/bin/yabai -m window --space next && /opt/homebrew/bin/yabai -m space --focus next)
+alt + shift - h : /opt/homebrew/bin/yabai -m window --warp west || (/opt/homebrew/bin/yabai -m window --space prev && /opt/homebrew/bin/yabai -m space --focus prev)
 
 alt - a: alt - tab : $(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "map(select(.\"has-focus\" == true)) | length != 0") = true ] && /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | reverse | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(/opt/homebrew/bin/yabai -m query --windows --window | jq -re ".id")) - 1)")" ||  /opt/homebrew/bin/yabai -m window --focus "$(/opt/homebrew/bin/yabai -m query --spaces --space | jq -re ".windows[0]?")" &> /dev/null
 
@@ -44,10 +53,8 @@ alt + shift + ctrl - o: /opt/homebrew/bin/wallboy open
 # shift + alt - k : /opt/homebrew/bin/yabai -m window --warp north
 # shift + alt - l : /opt/homebrew/bin/yabai -m window --warp east
 
-alt + shift - h : /opt/homebrew/bin/yabai -m window --swap west || $(/opt/homebrew/bin/yabai -m window --display west; /opt/homebrew/bin/yabai -m display --focus west)
 alt + shift - j : /opt/homebrew/bin/yabai -m window --swap south || $(/opt/homebrew/bin/yabai -m window --display south; /opt/homebrew/bin/yabai -m display --focus south)
 alt + shift - k : /opt/homebrew/bin/yabai -m window --swap north || $(/opt/homebrew/bin/yabai -m window --display north; /opt/homebrew/bin/yabai -m display --focus north)
-alt + shift - l : /opt/homebrew/bin/yabai -m window --swap east || $(/opt/homebrew/bin/yabai -m window --display east; /opt/homebrew/bin/yabai -m display --focus east)
 
 # Move focus container to workspace
 shift + alt - m : /opt/homebrew/bin/yabai -m window --space last && /opt/homebrew/bin/yabai -m space --focus last

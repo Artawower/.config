@@ -68,11 +68,20 @@ volta:
     stylelint
 
 cargo:
-    PKG_CONFIG_PATH=/usr/lib64/pkgconfig
-    LD_LIBRARY_PATH=/usr/lib64
+    just _cargo-{{os()}}
+
     cargo install gitu kdlfmt
+    # Lsp checker for spelling
+    cargo install codebook-lsp
+
+_cargo-linux:
+    PKG_CONFIG_PATH=/usr/lib64/pkgconfig
+    LD_LIBRARY_PATH=/usr/lib64    # Lsp checker for spelling
     cargo install wl-screenrec
 
+_cargo-macos:
+    :
+    
 go:
     go install golang.org/x/tools/gopls@latest
 

@@ -42,12 +42,6 @@ in
     loginwindow.LoginwindowText = "Husky v maske";
     screencapture.location = "~/Pictures/screenshots";
     screensaver.askForPasswordDelay = 30;
-    NSGlobalDomain = {
-      NSAutomaticWindowAnimationsEnabled = false;
-      _HIHideMenuBar = true;
-      # "com.apple.swipescrolldirection" = false;
-      "com.apple.keyboard.fnState" = true;
-    };
     CustomUserPreferences = {
       "com.apple.symbolichotkeys" = {
         AppleSymbolicHotKeys = {
@@ -307,6 +301,7 @@ in
       "ripgrep"
       "gitu"
       "pinentry-mac"
+      "lgug2z/tap/komorebi-for-mac"
     ];
     taps = [
       "clojure/tools"
@@ -323,6 +318,7 @@ in
       "borkdude/brew"
       "FelixKratz/formulae"
       "sst/tap"
+      "lgug2z/tap"
     ];
     casks = [
       # Fonts (not available as Nerd Fonts in nixpkgs)
