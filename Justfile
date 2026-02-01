@@ -22,7 +22,8 @@ fedora-deps:
     docker \
     docker-compose \
     nodejs22 \
-    bun
+    bun \
+    emacs
 
     sudo systemctl enable --now docker
     sudo usermod -aG docker $USER
@@ -36,7 +37,6 @@ flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
     flatpak install flathub io.github.seadve.Kooha
     flatpak install com.mattermost.Desktop
-    flatpak install org.gnu.emacs
     flatpak install org.telegram.desktop
     flatpak install eu.betterbird.Betterbird
     flatpak install com.github.KRTirtho.Spotube
