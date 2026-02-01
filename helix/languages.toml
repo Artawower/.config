@@ -1,72 +1,72 @@
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "tsx"
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "gpt", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "python"
-language-servers = ["pyright", "gpt"]
+language-servers = ["pyright", "gpt", "codebook"]
 auto-format = true
 formatter = { command = "black", args = ["--quiet", "-"] }
 indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "go"
-language-servers = ["gopls"]
+language-servers = ["gopls", "codebook"]
 auto-format = true
 formatter = { command = "gofmt" }
 indent = { tab-width = 4, unit = "\t" }
 
 [[language]]
 name = "lua"
-language-servers = ["lua-language-server"]
+language-servers = ["lua-language-server", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "css"
-language-servers = ["vscode-css-language-server"]
+language-servers = ["vscode-css-language-server", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "scss"
-language-servers = ["vscode-css-language-server"]
+language-servers = ["vscode-css-language-server", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "html"
-language-servers = ["angularls", "vscode-html-language-server"]
+language-servers = ["angularls", "vscode-html-language-server", "codebook"]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "c-sharp"
-language-servers = [ "csharp-language-server" ]
+language-servers = [ "csharp-language-server", "codebook"]
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer"]
+language-servers = ["rust-analyzer", "codebook"]
 auto-format = true
 indent = { tab-width = 4, unit = "    " }
 
@@ -252,3 +252,8 @@ inlayHints.closureReturnTypeHints.enable = "with_block"
 inlayHints.discriminantHints.enable = "fieldless"
 inlayHints.lifetimeElisionHints.enable = "skip_trivial"
 inlayHints.typeHints.hideClosureInitialization = false
+
+
+[language-server.codebook]
+command = "codebook-lsp"
+args = ["serve"]
