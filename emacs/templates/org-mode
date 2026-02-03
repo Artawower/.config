@@ -27,7 +27,11 @@ org-mode
 "#+TITLE: " (p "title") n
 "#+DESCRIPTION: " (p "description") n
 "#+FILETAGS: " (p "tags") n
-"#+STARTUP: " (p "content" startup) n)
+"#+STARTUP: " (p "content" startup) n n n
+"* Links" n
+"- " n
+"* Connected notes" n
+"- " n n)
 
 (scss "#+BEGIN_SRC scss" n> p n "#+END_SRC")
 (yaml "#+BEGIN_SRC yaml" n> p n "#+END_SRC")
