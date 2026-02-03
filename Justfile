@@ -2,36 +2,25 @@ default:
     just --choose
 
 fedora-deps:
-    if ! dnf repolist --all | rg -q '^terra\s'; then sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; fi
-    sudo dnf install --skip-unavailable \
-    freetype-devel \
-    libepoxy-devel \
-    fontconfig-devel \
-    cairo-devel \
-    pango-devel \
-    gtk4-devel \
-    libadwaita-devel \
-    libspiro-devel \
-    android-tools \
-    neohtop \
-    fontconfig \
-    pkg-config \
-    rustup \
-    openssl-devel \
-    vulkan-loader-devel vulkan-headers shaderc \
-    docker \
-    docker-compose \
-    nodejs22 \
-    bun \
-    emacs
+    sudo rm -f /etc/yum.repos.d/terra.repo
+    if ! env -u LD_LIBRARY_PATH dnf repolist --all | rg -q '^terra\s'; then \
+        sudo env -u LD_LIBRARY_PATH dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; \
+    fi
+
+    sudo env -u LD_LIBRARY_PATH dnf install -y --skip-unavailable \
+        freetype-devel libepoxy-devel fontconfig-devel cairo-devel \
+        pango-devel gtk4-devel libadwaita-devel libspiro-devel \
+        android-tools neohtop fontconfig pkg-config rustup \
+        openssl-devel vulkan-loader-devel vulkan-headers shaderc \
+        docker docker-compose nodejs22 bun emacs hunspell \
+        hunspell-ru hunspell-en-US wl-clipboard enchant2-devel
 
     sudo systemctl enable --now docker
     sudo usermod -aG docker $USER
 
-
     sudo rpm -v --import https://yum.tableplus.com/apt.tableplus.com.gpg.key
-    sudo dnf config-manager addrepo --from-repofile=https://yum.tableplus.com/rpm/arm64/tableplus.repo
-    sudo dnf install tableplus
+    sudo env -u LD_LIBRARY_PATH dnf config-manager addrepo --overwrite --from-repofile=https://yum.tableplus.com/rpm/arm64/tableplus.repo
+    sudo env -u LD_LIBRARY_PATH dnf install -y tableplus
     
 flatpak:
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
