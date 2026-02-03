@@ -5321,8 +5321,10 @@ Automatically creates parent directories if needed."
   (org-use-property-inheritance t)
   :config
   (require 'ob-clojure)
-  (add-to-list 'org-src-lang-modes
-               '("rust" . rust-ts))
+  (add-to-list 'org-src-lang-modes '("typescript" . typescript-ts))
+  (add-to-list 'org-src-lang-modes '("ts" . typescript-ts))
+  (add-to-list 'org-src-lang-modes '("python" . python-ts))
+  (add-to-list 'org-src-lang-modes '("rust" . rust-ts))
   (setq org-capture-templates
         `(("t" "Task → Inbox" entry
            (file ,(expand-file-name "inbox.org" my/agenda-dir))
