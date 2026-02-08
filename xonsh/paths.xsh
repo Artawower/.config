@@ -41,4 +41,5 @@ $PATH.insert(0, '/opt/homebrew/lib/node_modules/typescript/bin')
 $PATH.insert(0, str(Path.home() / '.nix-profile/bin'))
 $PATH.insert(0, '/nix/var/nix/profiles/default/bin')
 $PATH.insert(0, str(Path.home() / '.local/bin'))
+$PATH.insert(0, '/opt/homebrew/opt/libpq/bin')
 
