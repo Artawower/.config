@@ -9,7 +9,7 @@ org-mode
 (clojure "#+BEGIN_SRC clojure :results output" n> p n "#+END_SRC")
 (res-python "#+BEGIN_SRC python :results output" n> p n "#+END_SRC")
 (js "#+BEGIN_SRC js" n> p n "#+END_SRC")
-(sql "#+BEGIN_SRC sql" n> p n "#+END_SRC")
+(sql "#+BEGIN_SRC sql :results table" n> p n "#+END_SRC")
 (json "#+BEGIN_SRC json" n> p n "#+END_SRC")
 (html "#+BEGIN_SRC html" n> p n "#+END_SRC")
 (go "#+BEGIN_SRC go" n> p n "#+END_SRC")

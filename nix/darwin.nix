@@ -65,8 +65,10 @@ in
     enable = true;
     items = [
       "/Applications/Ice.app"
-      "/Applications/AltTab.app"
+      # "/Applications/AltTab.app"
       "/Applications/AlDente.app"
+      "/Applications/Stats.app"
+      "/Applications/SpatialDock.app"
       "/Applications/VoiceInk.app"
       "/Applications/Input Source Pro.app"
       "/Applications/Raycast.app"
@@ -302,6 +304,7 @@ in
       "gitu"
       "pinentry-mac"
       "lgug2z/tap/komorebi-for-mac"
+      "gopls"
     ];
     taps = [
       "clojure/tools"
