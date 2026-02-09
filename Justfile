@@ -2,18 +2,21 @@ default:
     just --choose
 
 fedora-deps:
-    sudo rm -f /etc/yum.repos.d/terra.repo
-    if ! env -u LD_LIBRARY_PATH dnf repolist --all | rg -q '^terra\s'; then \
-        sudo env -u LD_LIBRARY_PATH dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; \
+    if [ ! -f /etc/yum.repos.d/terra.repo ]; then \
+        sudo rpm -e terra-release 2>/dev/null || true; \
+        sudo env -u LD_LIBRARY_PATH dnf install -y --nogpgcheck \
+            --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; \
     fi
-
+    sudo env -u LD_LIBRARY_PATH dnf clean all
     sudo env -u LD_LIBRARY_PATH dnf install -y --skip-unavailable \
+        noctalia-shell \
         freetype-devel libepoxy-devel fontconfig-devel cairo-devel \
         pango-devel gtk4-devel libadwaita-devel libspiro-devel \
         android-tools neohtop fontconfig pkg-config rustup \
         openssl-devel vulkan-loader-devel vulkan-headers shaderc \
         docker docker-compose nodejs22 bun emacs hunspell \
-        hunspell-ru hunspell-en-US wl-clipboard enchant2-devel
+        hunspell-ru hunspell-en-US wl-clipboard enchant2-devel \
+        bitwarden
 
     sudo systemctl enable --now docker
     sudo usermod -aG docker $USER
@@ -21,14 +24,14 @@ fedora-deps:
     sudo rpm -v --import https://yum.tableplus.com/apt.tableplus.com.gpg.key
     sudo env -u LD_LIBRARY_PATH dnf config-manager addrepo --overwrite --from-repofile=https://yum.tableplus.com/rpm/arm64/tableplus.repo
     sudo env -u LD_LIBRARY_PATH dnf install -y tableplus
-    
+
 flatpak:
-    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  
-    flatpak install flathub io.github.seadve.Kooha
-    flatpak install com.mattermost.Desktop
-    flatpak install org.telegram.desktop
-    flatpak install eu.betterbird.Betterbird
-    flatpak install com.github.KRTirtho.Spotube
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    flatpak install -y flathub io.github.seadve.Kooha
+    flatpak install -y flathub com.mattermost.Desktop
+    flatpak install -y flathub org.telegram.desktop
+    flatpak install -y flathub eu.betterbird.Betterbird
+    flatpak install -y flathub com.github.KRTirtho.Spotube
 
 volta:
     volta install \
@@ -58,14 +61,12 @@ volta:
 
 cargo:
     just _cargo-{{os()}}
-
     cargo install gitu kdlfmt
-    # Lsp checker for spelling
     cargo install codebook-lsp
 
 _cargo-linux:
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig
-    LD_LIBRARY_PATH=/usr/lib64    # Lsp checker for spelling
+    LD_LIBRARY_PATH=/usr/lib64
     cargo install wl-screenrec
 
 _cargo-macos:
@@ -93,7 +94,7 @@ nix-mac:
 [working-directory("./nix")]
 nix-darwin-mac:
     sudo -v && sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/.config/nix
-    @echo "Sueccessfully applied Nix configuration for macOS."
+    @echo "Successfully applied Nix configuration for macOS."
 
 [working-directory("./nix")]
 nix-home-mac:
@@ -102,15 +103,13 @@ nix-home-mac:
 
 [working-directory("./nix")]
 nix-clean-mac:
-	find "$$HOME" \
-		-path "$$HOME/OrbStack/*" -prune -o \
-		-path "$$HOME/Library/Containers/*" -prune -o \
-		-xtype l -print0 | while IFS= read -r -d '' link; do \
-			echo "Removing broken link: $$link"; \
-			rm -f "$$link" 2>/dev/null || true; \
-		done
-
-
+    find "$$HOME" \
+        -path "$$HOME/OrbStack/*" -prune -o \
+        -path "$$HOME/Library/Containers/*" -prune -o \
+        -xtype l -print0 | while IFS= read -r -d '' link; do \
+            echo "Removing broken link: $$link"; \
+            rm -f "$$link" 2>/dev/null || true; \
+        done
 
 [working-directory("/tmp")]
 manual-deps:
@@ -135,8 +134,6 @@ init-linux:
     just manual-deps
     just fedora-files
 
-
 init-mac:
     just volta
     just uv
-    

@@ -42,6 +42,10 @@ input {
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
 }
+output "eDP-1" {
+    mode "3024x1964@60.004"
+    scale 2
+}
 workspace "soc"
 workspace "web"
 workspace "dev"
@@ -71,7 +75,7 @@ layout {
         inactive-color "#505050"
     }
     border {
-        width 1
+        width 2
         active-color "#7b57ff"
         inactive-color "#2e2a3a"
         urgent-color "#9b0000"
@@ -376,6 +380,9 @@ binds {
     Alt+S {
         focus-workspace "soc"
     }
+    Alt+P {
+        focus-workspace "deb"
+    }
     Alt+D {
         focus-workspace "dev"
     }
@@ -408,6 +415,9 @@ binds {
     }
     Alt+Shift+D {
         move-window-to-workspace "dev"
+    }
+    Alt+Shift+P {
+        move-window-to-workspace "deb"
     }
     Alt+Ctrl+1 {
         move-column-to-workspace "soc"
@@ -512,9 +522,6 @@ binds {
     Ctrl+Alt+Delete {
         quit
     }
-    Alt+Shift+P {
-        power-off-monitors
-    }
     Super+Shift+Alt+C {
         spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
@@ -549,12 +556,13 @@ binds {
         spawn-sh "hyprvoice toggle"
     }
     Ctrl+Shift+Backslash {
-        spawn-sh "/home/darkawower/.local/bin/waystt-toggle"
+        // spawn-sh "/home/darkawower/.local/bin/waystt-toggle"
+        spawn-sh "pkill -USR2 -n handy"
     }
-    // waystt - Speech to Text (clipboard copy)
-    Ctrl+Shift+R {
-        spawn "/home/darkawower/.local/bin/waystt-toggle"
-    }
+ // waystt - Speech to Text (clipboard copy)
+    // Ctrl+Shift+R {
+    //     spawn "/home/darkawower/.local/bin/waystt-toggle"
+    // }
  // Ctrl+Backslash {
     //     spawn-sh "hyprvoice toggle && sleep 0.1 && wtype -M ctrl -k v -m ctrl"
     // }

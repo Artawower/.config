@@ -9,6 +9,7 @@
     };
     zen-browser.url = "github:youwen5/zen-browser-flake";
     dms.url = "github:AvengeMedia/DankMaterialShell";
+    noctalia.url = "github:noctalia-dev/noctalia-shell";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs: {
