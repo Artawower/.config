@@ -90,22 +90,28 @@ Function for getting config related paths
 #+END_SRC
 
 ** Linux specific configs
+*** Copy
 #+BEGIN_SRC emacs-lisp :results silent
-(defun my-wl-copy (text)
-  (let ((process-connection-type nil))
-    (let ((proc (start-process "wl-copy-host" nil "flatpak-spawn" "--host" "wl-copy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
+(when (string= (getenv "XDG_SESSION_TYPE") "wayland")
+  (setq wl-copy-process nil)
+  
+  (defun wl-copy (text)
+    (setq wl-copy-process
+          (make-process :name "wl-copy"
+                        :buffer nil
+                        :command '("wl-copy" "-t" "text/plain")
+                        :connection-type 'pipe
+                        :noquery t))
+    (process-send-string wl-copy-process text)
+    (process-send-eof wl-copy-process))
 
-(defun my-wl-paste ()
-  (with-output-to-string
-    (with-current-buffer standard-output
-      (call-process "flatpak-spawn" nil t nil "--host" "wl-paste" "--no-newline"))))
+  (defun wl-paste ()
+    (if (and wl-copy-process (process-live-p wl-copy-process))
+        nil ; Don't paste what we just copied
+      (shell-command-to-string "wl-paste -n -t text/plain")))
 
-(setq interprogram-cut-function 'my-wl-copy)
-(setq interprogram-paste-function 'my-wl-paste)
-
-
+  (setq interprogram-cut-function 'wl-copy)
+  (setq interprogram-paste-function 'wl-paste))
 #+END_SRC
 * Bootstrap
 ** Garbage collector

@@ -20,6 +20,7 @@ try:
         start_new_session=True
     )
     subprocess.run(["notify-send", "-t", "500", "-u", "low", "Xremap restarted"])
+    subprocess.run(["vicinae", "close"])
 except Exception as e:
     subprocess.run(["notify-send", "-t", "500", "-u", "low", "Faield to restart"])
     

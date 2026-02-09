@@ -114,8 +114,10 @@ nix-clean-mac:
 
 [working-directory("/tmp")]
 manual-deps:
+    rm -rf /tmp/hyprvoice
+    cd /tmp
     git clone https://github.com/leonardotrapani/hyprvoice.git
-    cd hyprvoice
+    cd /tmp/hyprvoice
     go mod download
     go build -o hyprvoice ./cmd/hyprvoice
     mkdir -p ~/.local/bin
