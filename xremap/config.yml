@@ -30,8 +30,20 @@ keymap:
     application:
       not: [Emacs, emacs]
     remap:
-      Alt-Backspace: C-u
-      Super-Backspace: C-Backspace
+      Alt-Backspace: C-Backspace
+      Super-Backspace: [Shift-Home, Backspace]
+      Super-Left: Home
+      Super-Right: End
+      Super-Up: C-Home
+      Super-Down: C-End
+      Super-Shift-Left: [Shift-Home]
+      Super-Shift-Right: [Shift-End]
+      Super-Shift-Up: [C-Shift-Home]
+      Super-Shift-Down: [C-Shift-End]
+      Alt-Left: C-Left
+      Alt-Right: C-Right
+      Alt-Shift-Left: [C-Shift-Left]
+      Alt-Shift-Right: [C-Shift-Right]
 
   - name: GUI shortcuts
     application:
@@ -45,7 +57,6 @@ keymap:
       Super-c: C-c
       Super-v: C-v
       Super-z: C-z
-
 
   - name: Browser shortcuts
     application:
