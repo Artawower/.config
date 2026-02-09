@@ -14,74 +14,74 @@
 
   home.packages = with pkgs; [
     inputs.dms.packages.${pkgs.system}.dms-shell
+
     helix
     fastfetch
-    grim 
-    slurp 
+    zoxide
+    eza
+    bat
+    fzf
+    ripgrep
+    fd
+    btop
+    htop
+    starship
+    yazi
+    vicinae
+    gitu
+    just
+    dash
+    gnupg
+    tesseract
+    lazydocker
+    gh
+    vi-mongo
+    s-tui
+    wakatime-cli
+
+    xonsh
+    zellij
+
+    codex
+    opencode
+
+    grim
+    slurp
     swappy
     cliphist
     fuzzel
     swaynotificationcenter
     waybar
     swaybg
+    swww
     brightnessctl
     playerctl
-    volta
-    python3
-    uv
-    # rustup
-    go
-    zoxide
-    eza
-    bat
-    fzf
-    xonsh
-    zellij
-    codex
-    opencode
-    bitwarden-desktop
-    starship
-    yazi
-    vicinae
-    just
-    cmake
-    libtool
-    libcanberra-gtk3
-    libnotify
-    ripgrep
-    fd
-    swww
-    gitu
+    wl-clipboard
+    wl-clip-persist
+    xremap
+    gradia
+
     kdePackages.breeze-gtk
     kdePackages.breeze-icons
     networkmanager
     blueman
-    bluetuith  
-    btop
+    bluetuith
     wireplumber
-    gradia
-    wakatime-cli
-    htop
-    xremap
-    enchant2
-    gcc
-    dash
-    libz
+    libnotify
+    libcanberra-gtk3
 
-    # Build deps
+    volta
+    python3
+    uv
+    go
+    bun
+    gcc
     cmake
     libtool
     pkg-config
     enchant2
-    dash
-    libz
     llvmPackages.libclang.lib
 
-    # freetype
-    gnupg
-    tesseract
-    
-    # Mail
     isync
     emacsPackages.mu4e
     gawk
@@ -90,29 +90,13 @@
     pinentry-gnome3
     pass
 
-    # Clipboard
-    wl-clipboard
-    wl-clip-persist
-
-    # Tools
     amneziawg-tools
 
-    lazydocker
-    # Development
-    bun
-
-    # Cli/tui
-    vi-mongo
-    s-tui
-    gh
-
-
-    # Voice to text
     (writeShellScriptBin "waystt" ''
-  export ALSA_PLUGIN_DIRS="/usr/lib64/alsa-lib"
-  export LD_LIBRARY_PATH="/usr/lib64:${pkgs.stdenv.cc.cc.lib}/lib"
-  exec /home/darkawower/.local/bin/waystt-bin "$@"
-'')
+      export ALSA_PLUGIN_DIRS="/usr/lib64/alsa-lib"
+      export LD_LIBRARY_PATH="/usr/lib64:${pkgs.stdenv.cc.cc.lib}/lib"
+      exec /home/darkawower/.local/bin/waystt-bin "$@"
+    '')
   ];
 
   home.sessionVariables = {
@@ -121,7 +105,6 @@
     CPATH = "${pkgs.enchant2}/include/enchant-2";
     LIBRARY_PATH = "${pkgs.enchant2}/lib";
     LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
-    LD_LIBRARY_PATH = "${pkgs.llvmPackages.libclang.lib}/lib:${pkgs.libz}/lib";
     BINDGEN_EXTRA_CLANG_ARGS = "-I${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.llvmPackages.libclang.version}/include";
   };
 
