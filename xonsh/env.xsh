@@ -20,6 +20,7 @@ $XONSH_COLOR_STYLE = 'one-dark'
 $DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 $DOTNET_ROOT = '/usr/local/share/dotnet'
 $DOTNET_ROLL_FORWARD = "Major"
+$GPG_TTY = $(tty).strip()
 
 $XONSH_HISTORY_BACKEND = 'sqlite'
 
