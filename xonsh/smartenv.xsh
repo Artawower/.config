@@ -24,13 +24,21 @@ def save_storage(storage):
 
 # ---------- system ----------
 
+import platform as _platform
+
 def set_system_env(key, value):
-    $(launchctl setenv @(key) @(value))
+    if _platform.system() == "Darwin":
+        $(launchctl setenv @(key) @(value))
+    else:
+        $(systemctl --user set-environment @(f"{key}={value}"))
     __xonsh__.env[key] = value
 
 
 def unset_system_env(key):
-    $(launchctl unsetenv @(key))
+    if _platform.system() == "Darwin":
+        $(launchctl unsetenv @(key))
+    else:
+        $(systemctl --user unset-environment @(key))
     __xonsh__.env.pop(key, None)
 
 
