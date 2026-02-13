@@ -125,6 +125,7 @@ emacs/**
 !niri
 !hypr
 !vicinae
+!systemd
 
 !noctalia
 noctalia/*
