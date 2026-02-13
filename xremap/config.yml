@@ -61,6 +61,7 @@ keymap:
   - name: Browser shortcuts
     application:
       only: [brave-browser, org.mozilla.firefox, "app.zen_browser.zen", zen]
+    exact_match: true
     remap:
       Super-f: C-f
       Super-1: C-1
