@@ -17,7 +17,7 @@ fedora-deps:
         openssl-devel vulkan-loader-devel vulkan-headers shaderc \
         docker docker-compose nodejs22 bun emacs hunspell \
         hunspell-ru hunspell-en-US wl-clipboard enchant2-devel \
-        bitwarden swayidle \
+        bitwarden swayidle rclone \
         hyprland meson cmake cpio gcc-c++ gcc
 
     sudo systemctl enable --now docker

@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch opencode auth.json for changes
+
+[Path]
+PathModified=%h/.local/share/opencode/auth.json
+Unit=rclone-opencode-sync.service
+
+[Install]
+WantedBy=default.target
