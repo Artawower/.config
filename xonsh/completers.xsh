@@ -43,3 +43,7 @@ def _package_json_scripts_completer(prefix, line, begidx, endidx, ctx):
 
 __xonsh__.completers['package_json_scripts'] = _package_json_scripts_completer
 __xonsh__.completers.move_to_end('package_json_scripts', last=False)
+
+# Disable slow completers (bash spawns subprocess, man parses manpages)
+completer remove bash
+completer remove man
