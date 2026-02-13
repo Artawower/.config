@@ -7,6 +7,7 @@ fedora-deps:
         sudo env -u LD_LIBRARY_PATH dnf install -y --nogpgcheck \
             --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release; \
     fi
+    sudo dnf copr enable solopasha/hyprland
     sudo env -u LD_LIBRARY_PATH dnf clean all
     sudo env -u LD_LIBRARY_PATH dnf install -y --skip-unavailable \
         noctalia-shell \
@@ -16,7 +17,8 @@ fedora-deps:
         openssl-devel vulkan-loader-devel vulkan-headers shaderc \
         docker docker-compose nodejs22 bun emacs hunspell \
         hunspell-ru hunspell-en-US wl-clipboard enchant2-devel \
-        bitwarden
+        bitwarden swayidle \
+        hyprland meson cmake cpio gcc-c++ gcc
 
     sudo systemctl enable --now docker
     sudo usermod -aG docker $USER
@@ -122,6 +124,13 @@ manual-deps:
     mkdir -p ~/.local/bin
     cp hyprvoice ~/.local/bin/
 
+hyprland-plugins:
+    env -i HOME="$HOME" PATH="/usr/bin:/usr/sbin:/bin:/sbin" PKG_CONFIG_PATH="/usr/lib64/pkgconfig:/usr/share/pkgconfig" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprpm update -f
+    env -i HOME="$HOME" PATH="/usr/bin:/usr/sbin:/bin:/sbin" PKG_CONFIG_PATH="/usr/lib64/pkgconfig:/usr/share/pkgconfig" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprpm add https://github.com/hyprwm/hyprland-plugins || true
+    hyprpm enable hyprexpo || true
+    hyprpm enable hyprfocus || true
+    hyprpm reload
+
 fedora-files:
     ln -s /home/darkawower/.config/vicinae/scripts /home/darkawower/.local/share/vicinae/scripts
 
@@ -133,6 +142,7 @@ init-linux:
     just uv
     just manual-deps
     just fedora-files
+    just hyprland-plugins
 
 init-mac:
     just volta

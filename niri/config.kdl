@@ -110,6 +110,7 @@ spawn-sh-at-startup "pkill xremap; xremap --watch ~/.config/xremap/config.yml"
 spawn-at-startup "sh" "-c" "sleep 1 && /usr/bin/quickshell -c noctalia-shell"
 spawn-at-startup "sh" "-c" "sleep 1; exec hyprvoice serve"
 spawn-sh-at-startup "$HOME/.config/bin/wallpaper-rotate"
+spawn-sh-at-startup "swayidle -w timeout 300 'qs -c noctalia-shell ipc call lockScreen lock' timeout 600 'systemctl suspend' before-sleep 'qs -c noctalia-shell ipc call lockScreen lock'"
 spawn-at-startup "wl-clip-persist" "--clipboard" "regular"
 spawn-at-startup "wl-paste --type text --watch cliphist store"
 spawn-at-startup "wl-paste --type image --watch cliphist store"
@@ -188,8 +189,8 @@ binds {
     Alt+Space hotkey-overlay-title="Run an Application: vicinae" {
         spawn "vicinae" "open"
     }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" {
-        spawn "swaylock"
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"
     }
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
