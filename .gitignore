@@ -123,6 +123,7 @@ emacs/**
 # Linux
 !xremap
 !niri
+!hypr
 !vicinae
 
 !noctalia
