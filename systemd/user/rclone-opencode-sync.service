@@ -1,0 +1,7 @@
+[Unit]
+Description=Bisync opencode auth.json to Google Drive
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rclone bisync %h/.local/share/opencode/ gdrive:opencode-sync --include "auth.json"
