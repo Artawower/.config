@@ -133,3 +133,4 @@ noctalia/*
 !noctalia/plugins.json
 !noctalia/user-templates.toml
 !noctalia/colors.json
+!AGENTS.md

@@ -19,3 +19,12 @@ source @(config_dir / 'autoenv.xsh')
 source @(config_dir / 'smartenv.xsh')
 
 source-bash ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+
+# Nix home-manager sets LD_LIBRARY_PATH with Nix libs, which breaks
+# Fedora system binaries (e.g. libz version mismatch in binutils).
+# Nix binaries don't need it — they use RPATH. Just unset it.
+import platform as _platform
+if _platform.system() == 'Linux':
+    if 'LD_LIBRARY_PATH' in ${...}:
+        del $LD_LIBRARY_PATH
+del _platform
