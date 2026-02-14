@@ -11,6 +11,16 @@ if sdkman_base.exists():
     $PATH.insert(0, str(sdkman_base / 'gradle/current/bin'))
 
 
+# --- Nix (lowest priority — fallback after system) ---
+$PATH.insert(0, str(Path.home() / '.nix-profile/bin'))
+$PATH.insert(0, '/nix/var/nix/profiles/default/bin')
+
+# --- System Fedora paths (override Nix) ---
+$PATH.insert(0, '/usr/local/bin')
+$PATH.insert(0, '/usr/bin')
+$PATH.insert(0, '/usr/sbin')
+
+# --- SDK / tools ---
 $PATH.insert(0, str(sdk / "build-tools/36.1.0"))
 $PATH.insert(0, str(Path.home() / '.local/share/uv/tools'))
 $PATH.insert(0, str(Path.home() / '.volta/bin'))
@@ -38,8 +48,5 @@ $PATH.insert(0, '/opt/homebrew/opt/gnupg@2.2/bin')
 $PATH.insert(0, '/opt/homebrew/opt/autoconf@2.69/bin')
 $PATH.insert(0, '/opt/homebrew/opt/openssl@1.1/bin')
 $PATH.insert(0, '/opt/homebrew/lib/node_modules/typescript/bin')
-$PATH.insert(0, str(Path.home() / '.nix-profile/bin'))
-$PATH.insert(0, '/nix/var/nix/profiles/default/bin')
-$PATH.insert(0, str(Path.home() / '.local/bin'))
 $PATH.insert(0, '/opt/homebrew/opt/libpq/bin')
 

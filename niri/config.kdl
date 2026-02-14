@@ -18,8 +18,8 @@ input {
     }
     touchpad {
         // off
-        // tap
-        dwt
+        tap
+        // dwt
         dwtp
     }
     mouse {
