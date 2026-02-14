@@ -133,6 +133,8 @@ hyprland-plugins:
 
 fedora-files:
     ln -s /home/darkawower/.config/vicinae/scripts /home/darkawower/.local/share/vicinae/scripts
+    echo "darkawower ALL=(root) NOPASSWD: /home/darkawower/.local/bin/cpu-profile-apply" | sudo tee /etc/sudoers.d/cpu-profile
+    sudo chmod 440 /etc/sudoers.d/cpu-profile
 
 init-linux:
     just flatpak
