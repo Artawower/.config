@@ -13,7 +13,7 @@ fedora-deps:
         noctalia-shell \
         freetype-devel libepoxy-devel fontconfig-devel cairo-devel \
         pango-devel gtk4-devel libadwaita-devel libspiro-devel \
-        android-tools neohtop fontconfig pkg-config rustup \
+        android-tools neohtop fontconfig pkg-config rustup earlyoom \
         openssl-devel vulkan-loader-devel vulkan-headers shaderc \
         docker docker-compose nodejs22 bun emacs hunspell \
         hunspell-ru hunspell-en-US wl-clipboard enchant2-devel \
@@ -21,6 +21,7 @@ fedora-deps:
         hyprland meson cmake cpio gcc-c++ gcc
 
     sudo systemctl enable --now docker
+    sudo systemctl enable --now earlyoom
     sudo usermod -aG docker $USER
 
     sudo rpm -v --import https://yum.tableplus.com/apt.tableplus.com.gpg.key
@@ -124,12 +125,38 @@ manual-deps:
     mkdir -p ~/.local/bin
     cp hyprvoice ~/.local/bin/
 
+    rm -rf /tmp/trackpad-is-too-damn-big
+    git clone https://github.com/tascvh/trackpad-is-too-damn-big /tmp/trackpad-is-too-damn-big
+    cmake -B /tmp/trackpad-is-too-damn-big/build -S /tmp/trackpad-is-too-damn-big
+    make -C /tmp/trackpad-is-too-damn-big/build
+    sudo cp /tmp/trackpad-is-too-damn-big/build/titdb /usr/local/bin/titdb
+
 hyprland-plugins:
     env -i HOME="$HOME" PATH="/usr/bin:/usr/sbin:/bin:/sbin" PKG_CONFIG_PATH="/usr/lib64/pkgconfig:/usr/share/pkgconfig" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprpm update -f
     env -i HOME="$HOME" PATH="/usr/bin:/usr/sbin:/bin:/sbin" PKG_CONFIG_PATH="/usr/lib64/pkgconfig:/usr/share/pkgconfig" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprpm add https://github.com/hyprwm/hyprland-plugins || true
     hyprpm enable hyprexpo || true
     hyprpm enable hyprfocus || true
     hyprpm reload
+
+systemd-services:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    sudo tee /etc/systemd/system/titdb.service > /dev/null <<'EOF'
+    [Unit]
+    Description=Trackpad is too damn big - palm rejection for Apple trackpad
+    After=multi-user.target
+
+    [Service]
+    ExecStart=/usr/local/bin/titdb -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse -l 25 -r 25 -t 25 -b 15
+    Restart=on-failure
+    RestartSec=3
+
+    [Install]
+    WantedBy=multi-user.target
+    EOF
+    sudo systemctl daemon-reload
+    sudo systemctl enable titdb.service
+    sudo systemctl restart titdb.service
 
 fedora-files:
     ln -s /home/darkawower/.config/vicinae/scripts /home/darkawower/.local/share/vicinae/scripts
@@ -144,6 +171,7 @@ init-linux:
     just uv
     just manual-deps
     just fedora-files
+    just systemd-services
     just hyprland-plugins
 
 init-mac:
