@@ -147,7 +147,7 @@ systemd-services:
     After=multi-user.target
 
     [Service]
-    ExecStart=/usr/local/bin/titdb -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse -l 25 -r 25 -t 25 -b 15
+    ExecStart=/usr/local/bin/titdb -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse -l 15 -r 25 -t 20 -b 10
     Restart=on-failure
     RestartSec=3
 

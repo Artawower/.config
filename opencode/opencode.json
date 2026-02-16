@@ -3,7 +3,7 @@
   "plugin": [
     "opencode-openai-codex-auth@1.0.2",
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.4.6"
+    "opencode-antigravity-auth@1.5.1"
   ],
   "agent": {
     "translator": {
