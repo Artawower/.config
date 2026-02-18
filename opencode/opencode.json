@@ -236,6 +236,7 @@
     },
     "codex-cli": {
       "type": "local",
+      "enabled": false,
       "command": [
         "mcp-codex-cli",
         "--allow-npx"
@@ -243,6 +244,7 @@
     },
     "gemini": {
       "type": "local",
+      "enabled": false,
       "command": [
         "npx",
         "-y",
@@ -259,6 +261,7 @@
     },
     "sentry": {
       "type": "local",
+      "enabled": false,
       "command": [
         "npx",
         "-y",
@@ -297,6 +300,7 @@
     },
     "qwen": {
       "type": "local",
+      "enabled": false,
       "command": [
         "npx",
         "-y",
@@ -305,6 +309,7 @@
     },
     "deepseek": {
       "type": "local",
+      "enabled": false,
       "command": [
         "npx",
         "-y",
@@ -313,6 +318,7 @@
     },
     "toon-context": {
       "type": "local",
+      "enabled": false,
       "command": [
         "bun",
         "/Users/darkawower/apps/TOON-context-mcp-server/toon-context-mcp/build/index.js"
