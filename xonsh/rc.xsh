@@ -27,4 +27,9 @@ import platform as _platform
 if _platform.system() == 'Linux':
     if 'LD_LIBRARY_PATH' in ${...}:
         del $LD_LIBRARY_PATH
+    # Expose Nix .desktop files to XDG-aware apps (vicinae, etc.)
+    _nix_share = str(Path.home() / '.nix-profile/share')
+    if _nix_share not in $XDG_DATA_DIRS:
+        $XDG_DATA_DIRS.insert(0, _nix_share)
+    del _nix_share
 del _platform
