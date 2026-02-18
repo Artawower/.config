@@ -11,6 +11,7 @@ fedora-deps:
     sudo env -u LD_LIBRARY_PATH dnf clean all
     sudo env -u LD_LIBRARY_PATH dnf install -y --skip-unavailable \
         noctalia-shell \
+        fastfetch \
         freetype-devel libepoxy-devel fontconfig-devel cairo-devel \
         pango-devel gtk4-devel libadwaita-devel libspiro-devel \
         android-tools neohtop fontconfig pkg-config rustup earlyoom \
@@ -147,7 +148,7 @@ systemd-services:
     After=multi-user.target
 
     [Service]
-    ExecStart=/usr/local/bin/titdb -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse -l 15 -r 25 -t 20 -b 10
+    ExecStart=/usr/local/bin/titdb -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse -l 10 -r 15 -t 15 -b 10
     Restart=on-failure
     RestartSec=3
 
@@ -177,3 +178,32 @@ init-linux:
 init-mac:
     just volta
     just uv
+
+# Safe daily cleanup for Linux
+clean-linux:
+    @echo "=== Nix cleanup ==="
+    nix-collect-garbage --delete-older-than 7d
+    nix-store --optimise 2>/dev/null || true
+    
+    @echo "\n=== Docker cleanup ==="
+    docker system prune -f 2>/dev/null || true
+    docker builder prune -f --filter "until=24h" 2>/dev/null || true
+    
+    @echo "\n=== DNF cleanup ==="
+    sudo dnf clean all
+    
+    @echo "\n=== Journal cleanup (keep last 7 days) ==="
+    sudo journalctl --vacuum-time=7d
+    
+    @echo "\n=== Thumbnail cache ==="
+    rm -rf ~/.cache/thumbnails/* 2>/dev/null || true
+    
+    @echo "\n=== Broken symlinks ==="
+    find "$HOME" -xtype l -print0 2>/dev/null | \
+        while IFS= read -r -d '' link; do \
+            echo "Removing: $$link"; \
+            rm -f "$$link" 2>/dev/null || true; \
+        done
+    
+    @echo "\n=== Done! ==="
+    df -h /
