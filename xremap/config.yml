@@ -1,7 +1,7 @@
 keymap:
   - name: Common Super shortcuts
     application:
-      not: [Emacs, emacs, "app.zen_browser.zen", zen, org.gnu.Emacs, zen-browser, "org.wezfurlong.wezterm", "com.mitchellh.ghostty"]
+      not: [Emacs, emacs, "app.zen_browser.zen", zen, org.gnu.Emacs, zen-browser, "org.wezfurlong.wezterm", "com.mitchellh.ghostty", kitty]
     exact_match: true
     remap:
       Super-c: C-c
