@@ -1820,6 +1820,29 @@ Move to husky
   (reverse-im-mode t)
   (advice-add 'meow--keypad-format-key-1 :override #'my/meow--keypad-format-key-1))
 #+END_SRC
+*** Colemak
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/toggle-meow-colemak-local ()
+  "Toggle Colemak input method for current buffer with Meow."
+  (interactive)
+  (if (local-variable-p 'my/meow-colemak-enabled (current-buffer))
+      (progn
+        (remove-hook 'meow-insert-enter-hook #'my/meow-colemak-insert t)
+        (remove-hook 'meow-insert-exit-hook  #'my/meow-colemak-normal t)
+        (kill-local-variable 'my/meow-colemak-enabled)
+        (deactivate-input-method)
+        (message "Local Meow \u2194 Colemak hooks disabled"))
+    (progn
+      (defun my/meow-colemak-insert ()
+        (set-input-method "english-colemak"))
+      (defun my/meow-colemak-normal ()
+        (deactivate-input-method))
+      (add-hook 'meow-insert-enter-hook #'my/meow-colemak-insert nil t)
+      (add-hook 'meow-insert-exit-hook  #'my/meow-colemak-normal nil t)
+      (make-local-variable 'my/meow-colemak-enabled)
+      (setq my/meow-colemak-enabled t)
+      (message "Local Meow \u2194 Colemak hooks enabled"))))
+#+END_SRC
 ** Avy, quick jump to words
 #+BEGIN_SRC emacs-lisp
 (use-package avy
