@@ -1,5 +1,6 @@
 #!/usr/bin/env xonsh
 from pathlib import Path
+import platform
 
 STORAGE_PATH = Path.home() / ".global_env"
 
@@ -24,10 +25,9 @@ def save_storage(storage):
 
 # ---------- system ----------
 
-import platform as _platform
 
 def set_system_env(key, value):
-    if _platform.system() == "Darwin":
+    if platform.system() == "Darwin":
         $(launchctl setenv @(key) @(value))
     else:
         $(systemctl --user set-environment @(f"{key}={value}"))
@@ -35,7 +35,7 @@ def set_system_env(key, value):
 
 
 def unset_system_env(key):
-    if _platform.system() == "Darwin":
+    if platform.system() == "Darwin":
         $(launchctl unsetenv @(key))
     else:
         $(systemctl --user unset-environment @(key))
