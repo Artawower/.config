@@ -18,7 +18,7 @@ input {
     }
     touchpad {
         // off
-        tap
+        // tap
         // dwt
         dwtp
     }
@@ -151,6 +151,10 @@ window-rule {
     open-on-workspace "soc"
 }
 window-rule {
+    match app-id="^brave-browser"
+    open-on-workspace "oth"
+}
+window-rule {
     match app-id="^zen-browser$"
     open-on-workspace "web"
 }
@@ -223,7 +227,10 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true {
         spawn "brightnessctl" "--class=backlight" "set" "5%-"
     }
-    Alt+O repeat=false {
+    Alt+G {
+        maximize-window-to-edges
+    }
+    Alt+i repeat=false {
         toggle-overview
     }
     Alt+Q repeat=false {
@@ -376,7 +383,7 @@ binds {
     Alt+5 {
         focus-workspace "oth"
     }
-    Alt+E {
+    Alt+O {
         focus-workspace "oth"
     }
     Alt+S {
@@ -386,7 +393,10 @@ binds {
         focus-workspace "deb"
     }
     Alt+D {
-        focus-workspace "dev"
+        spawn-sh "niri msg action focus-workspace dev && niri msg action focus-column-last"
+    }
+    Alt+E {
+        spawn-sh "niri msg action focus-workspace dev && niri msg action focus-column-first"
     }
     Alt+W {
         focus-workspace "web"
@@ -406,7 +416,7 @@ binds {
     Alt+Shift+5 {
         move-window-to-workspace "oth"
     }
-    Alt+Shift+E {
+    Alt+Shift+O {
         move-window-to-workspace "oth"
     }
     Alt+Shift+S {
