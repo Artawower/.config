@@ -39,6 +39,8 @@ flatpak:
 
 volta:
     volta install \
+    opencode-ai \
+    env-cmd \
     node@22 \
     @angular/language-service@next \
     vscode-langservers-extracted \
