@@ -49,15 +49,22 @@ keymap:
     application:
       only: [brave-browser, org.mozilla.firefox, "app.zen_browser.zen", zen, org.telegram.desktop]
     remap:
+      C-n: C-Tab
+      C-e: C-Shift-Tab
       C-j: C-Tab
       C-k: C-Shift-Tab
+
       Alt-Left: Home
       Alt-Right: End
       Super-a: C-a
       Super-c: C-c
+      Super-r: C-r
+      Super-p: C-p
       Super-v: C-v
       Super-z: C-z
       Super-Shift-t: C-Shift-t
+      Super-Shift-f: C-Shift-f
+
 
   - name: Browser shortcuts
     application:
@@ -65,6 +72,18 @@ keymap:
     exact_match: true
     remap:
       Super-f: C-f
+      Super-t: C-t
+      Super-u: C-u
+      Super-e: C-e
+      Super-u: C-u
+      Super-w: C-w
+      Super-z: C-z
+
+  - name: Browser shortcuts super number
+    application:
+       only: [brave-browser, org.mozilla.firefox]
+    exact_match: true
+    remap:
       Super-1: C-1
       Super-2: C-2
       Super-3: C-3
@@ -74,8 +93,6 @@ keymap:
       Super-7: C-7
       Super-8: C-8
       Super-9: C-9
-      Super-z: C-z
-
 
   - name: Ctrl+Meta arrows
     remap:

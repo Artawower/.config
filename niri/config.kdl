@@ -11,6 +11,8 @@ input {
             layout "us,ru"
             // replace ru with needed language
             options "grp:caps_toggle"
+            // colemak for "us", default for "ru"
+            variant "colemak,"
         }
         //feel free to change it to other input toggle options, i like to use caps_lock as  language toggle        }
         track-layout "global"
@@ -194,7 +196,7 @@ binds {
     Alt+Space hotkey-overlay-title="Run an Application: vicinae" {
         spawn "vicinae" "open"
     }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" {
+    Super+Alt+I hotkey-overlay-title="Lock the Screen: noctalia" {
         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"
     }
     XF86AudioRaiseVolume allow-when-locked=true {
@@ -227,10 +229,12 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true {
         spawn "brightnessctl" "--class=backlight" "set" "5%-"
     }
-    Alt+G {
+    // Alt+G -> Alt+D (QWERTY G key becomes 'd' in Colemak)
+    Alt+D {
         maximize-window-to-edges
     }
-    Alt+i repeat=false {
+    // Alt+I -> Alt+U (QWERTY I key becomes 'u')
+    Alt+U repeat=false {
         toggle-overview
     }
     Alt+Q repeat=false {
@@ -239,7 +243,8 @@ binds {
     Alt+H {
         focus-column-left
     }
-    Alt+L {
+    // Alt+L -> Alt+I (QWERTY L key becomes 'i')
+    Alt+I {
         focus-column-right
     }
     Alt+Shift+Left {
@@ -257,7 +262,8 @@ binds {
     Alt+Shift+H {
         move-column-left
     }
-    Alt+Shift+L {
+    // Alt+Shift+L -> Alt+Shift+I
+    Alt+Shift+I {
         move-column-right
     }
     Alt+Home {
@@ -287,13 +293,16 @@ binds {
     Alt+Shift+Ctrl+H {
         move-column-to-monitor-left
     }
-    Alt+Shift+Ctrl+J {
+    // Alt+Shift+Ctrl+J -> Alt+Shift+Ctrl+N
+    Alt+Shift+Ctrl+N {
         move-column-to-monitor-down
     }
-    Alt+Shift+Ctrl+K {
+    // Alt+Shift+Ctrl+K -> Alt+Shift+Ctrl+E
+    Alt+Shift+Ctrl+E {
         move-column-to-monitor-up
     }
-    Alt+Shift+Ctrl+L {
+    // Alt+Shift+Ctrl+L -> Alt+Shift+Ctrl+I
+    Alt+Shift+Ctrl+I {
         move-column-to-monitor-right
     }
     Alt+Page_Down {
@@ -302,10 +311,12 @@ binds {
     Alt+Page_Up {
         focus-workspace-up
     }
-    Alt+J {
+    // Alt+J -> Alt+N
+    Alt+N {
         focus-workspace-down
     }
-    Alt+K {
+    // Alt+K -> Alt+E
+    Alt+E {
         focus-workspace-up
     }
     Alt+Ctrl+Page_Down {
@@ -314,10 +325,12 @@ binds {
     Alt+Ctrl+Page_Up {
         move-column-to-workspace-up
     }
-    Alt+Shift+J {
+    // Alt+Shift+J -> Alt+Shift+N
+    Alt+Shift+N {
         move-column-to-workspace-down
     }
-    Alt+Shift+K {
+    // Alt+Shift+K -> Alt+Shift+E
+    Alt+Shift+E {
         move-column-to-workspace-up
     }
     Alt+Shift+Page_Down {
@@ -326,10 +339,12 @@ binds {
     Alt+Shift+Page_Up {
         move-workspace-up
     }
-    Alt+Shift+U {
+    // Alt+Shift+U -> Alt+Shift+L (QWERTY U -> 'l')
+    Alt+Shift+L {
         move-workspace-down
     }
-    Alt+Shift+I {
+    // Alt+Shift+I -> Alt+Shift+U (QWERTY I -> 'u')
+    Alt+Shift+U {
         move-workspace-up
     }
     Alt+WheelScrollDown cooldown-ms=150 {
@@ -383,19 +398,24 @@ binds {
     Alt+5 {
         focus-workspace "oth"
     }
-    Alt+O {
+    // Alt+O -> Alt+Y
+    Alt+Y {
         focus-workspace "oth"
     }
-    Alt+S {
+    // Alt+S -> Alt+R
+    Alt+R {
         focus-workspace "soc"
     }
-    Alt+P {
+    // Alt+P -> Alt+Semicolon (QWERTY P key becomes ';')
+    Alt+Semicolon {
         focus-workspace "deb"
     }
-    Alt+D {
+    // Alt+D -> Alt+S (QWERTY D key becomes 's')
+    Alt+S {
         spawn-sh "niri msg action focus-workspace dev && niri msg action focus-column-last"
     }
-    Alt+E {
+    // Alt+E -> Alt+F (QWERTY E key becomes 'f')
+    Alt+F {
         spawn-sh "niri msg action focus-workspace dev && niri msg action focus-column-first"
     }
     Alt+W {
@@ -416,24 +436,29 @@ binds {
     Alt+Shift+5 {
         move-window-to-workspace "oth"
     }
-    Alt+Shift+O {
+    // Alt+Shift+O -> Alt+Shift+Y
+    Alt+Shift+Y {
         move-window-to-workspace "oth"
     }
-    Alt+Shift+S {
+    // Alt+Shift+S -> Alt+Shift+R
+    Alt+Shift+R {
         move-window-to-workspace "soc"
     }
     Alt+Shift+W {
         move-window-to-workspace "web"
     }
-    Alt+Shift+D {
+    // Alt+Shift+D -> Alt+Shift+S
+    Alt+Shift+S {
         move-window-to-workspace "dev"
     }
-    Alt+Shift+P {
+    // Alt+Shift+P -> Alt+Shift+Semicolon
+    Alt+Shift+Semicolon {
         move-window-to-workspace "deb"
     }
     Alt+Ctrl+1 {
         move-column-to-workspace "soc"
     }
+    // Alt+Ctrl+2 originally moved to "dev" \u2014 number keys unaffected
     Alt+Ctrl+2 {
         move-column-to-workspace "dev"
     }
@@ -458,22 +483,28 @@ binds {
     Alt+Period {
         expel-window-from-column
     }
-    Alt+R {
+    // Alt+R -> Alt+P
+    Alt+P {
         switch-preset-column-width
     }
-    Alt+Shift+R {
+    // Alt+Shift+R -> Alt+Shift+P
+    Alt+Shift+P {
         switch-preset-window-height
     }
-    Alt+Ctrl+R {
+    // Alt+Ctrl+R -> Alt+Ctrl+P
+    Alt+Ctrl+P {
         reset-window-height
     }
-    Alt+F {
+    // Alt+F -> Alt+T
+    Alt+T {
         maximize-column
     }
-    Alt+Shift+F {
+    // Alt+Shift+F -> Alt+Shift+T
+    Alt+Shift+T {
         fullscreen-window
     }
-    Alt+Ctrl+F {
+    // Alt+Ctrl+F -> Alt+Ctrl+T
+    Alt+Ctrl+T {
         expand-column-to-available-width
     }
     Alt+C {
@@ -497,6 +528,7 @@ binds {
     Alt+Shift+C {
         toggle-window-floating
     }
+    // Alt+Shift+V unchanged
     Alt+Shift+V {
         switch-focus-between-floating-and-tiling
     }
@@ -540,16 +572,19 @@ binds {
     Super+Space {
         spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
-    Super+Shift+E {
+    // Super+Shift+E -> Super+Shift+F
+    Super+Shift+F {
         spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"
     }
-    Super+Shift+Alt+G {
+    // Super+Shift+Alt+G -> Super+Shift+Alt+D
+    Super+Shift+Alt+D {
         spawn "vicinae" "vicinae://extensions/rolandleth/kill-process/index"
     }
     Super+Shift+Alt+B {
         spawn "vicinae" "vicinae://extensions/lardissone/raindrop-io/search"
     }
-    Super+Shift+G {
+    // Super+Shift+G -> Super+Shift+D
+    Super+Shift+D {
         spawn-sh "grim -g \"$(slurp)\" - | tesseract - - -l rus+eng | wl-copy"
     }
     Alt+Tab {
@@ -561,13 +596,14 @@ binds {
     Super+Shift+4 {
         spawn-sh "dms notify \"Start full recording\" && wf-recorder --audio -f ~/Videos/full_$(date +%H%M%S).mp4"
     }
-    Super+Shift+S {
+    // Super+Shift+S -> Super+Shift+R
+    Super+Shift+R {
         spawn-sh "killall -s SIGINT wf-recorder && dms notify \"Stop recording\" && sleep 0.5 && nautilus ~/Videos"
     }
-    Ctrl+Backslash {
+    Ctrl+Shift+Backslash {
         spawn-sh "hyprvoice toggle"
     }
-    Ctrl+Shift+Backslash {
+    Ctrl+Backslash {
         // spawn-sh "/home/darkawower/.local/bin/waystt-toggle"
         spawn-sh "pkill -USR2 -n handy"
     }
