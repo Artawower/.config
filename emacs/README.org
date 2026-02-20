@@ -127,6 +127,14 @@ Function for getting config related paths
 #+BEGIN_SRC emacs-lisp
   (setq read-process-output-max (* 1024 1024))
 #+END_SRC
+** Encoding 
+#+BEGIN_SRC emacs-lisp :results silent
+(set-selection-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+#+END_SRC
 ** Some performance optimization
 *** Package quick start
 #+BEGIN_SRC emacs-lisp
@@ -1028,8 +1036,8 @@ TODO: move to package
 ** Rotate windows
 #+BEGIN_SRC emacs-lisp
 (use-package rotate
-  :bind (("C-c w R" . rotate-layout)
-         ("C-c w r" . rotate-window)))
+  :bind (("C-c w P" . rotate-layout)
+         ("C-c w p" . rotate-window)))
 #+END_SRC
 
 ** Folding, outline
@@ -1077,18 +1085,18 @@ TODO: move to package
 ** Better emacs docs. Helpful
 #+BEGIN_SRC emacs-lisp
 (use-package helpful
-  :bind (("C-h k" . helpful-key)
-         ("C-h C-k" . helpful-key)
-         ("C-h p" . describe-package)
-         ("C-h C-p" . describe-package)
+  :bind (("C-h e" . helpful-key)
+         ("C-h C-e" . helpful-key)
+         ("C-h ;" . describe-package)
+         ("C-h C-;" . describe-package)
          ("C-h v" . helpful-variable)
          ("C-h C-v" . helpful-variable)
-         ("C-h f" . helpful-function)
-         ("C-h C-f" . helpful-function)
+         ("C-h t" . helpful-function)
+         ("C-h C-t" . helpful-function)
          ("C-h m" . describe-mode)
          ("C-h C-m" . describe-mode)
          ("C-h ." . helpful-at-point)
-         ("C-h F" . describe-face))
+         ("C-h T" . describe-face))
   :config
   (add-to-list
    'display-buffer-alist
@@ -1333,7 +1341,7 @@ Disable scrolls
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package topsy
-  :bind ("C-c t m" . topsy-mode)
+  :bind ("C-c g m" . topsy-mode)
   :config
   (add-to-list 'topsy-mode-functions '(scss-mode . my/scss-breadcrumbs))
   (add-to-list 'topsy-mode-functions '(html-ts-mode . my/treesit-html-breadcrumbs))
@@ -1424,13 +1432,13 @@ Move to husky
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
-   '("j" . meow-next)
-   '("k" . meow-prev)
+   '("n" . meow-next)
+   '("e" . meow-prev)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; C-c C-j C-/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
+   '("n" . "H-j")
+   '("e" . "H-k")
    ;; Use C-c C-`C-0-9 for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -1451,11 +1459,11 @@ Move to husky
    '("9" . meow-expand-9)
    '("8" . meow-expand-8)
    '("7" . meow-expand-7)
-   '("s-o" . meow-last-buffer)
-   '("ge" . end-of-buffer)
-   '("gg" . beginning-of-buffer)
-   '("gl" . my/meow-select-till-eol)
-   '("gh" . beginning-of-line)
+   '("s-y" . meow-last-buffer)
+   '("df" . end-of-buffer)
+   '("dd" . beginning-of-buffer)
+   '("di" . my/meow-select-till-eol)
+   '("dh" . beginning-of-line)
    '("6" . meow-expand-6)
    '("@" . meow-end-or-call-kmacro)
    '("5" . meow-expand-5)
@@ -1468,46 +1476,46 @@ Move to husky
    '(";" . meow-reverse)
    '("," . meow-inner-of-thing)
    '("." . meow-bounds-of-thing)
-   '("s-d" . meow-inner-of-thing)
-   '("s-D" . meow-bounds-of-thing)
+   '("s-s" . meow-inner-of-thing)
+   '("s-S" . meow-bounds-of-thing)
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
-   '("i" . meow-append)
-   '("o" . meow-open-below)
+   '("u" . meow-append)
+   '("y" . meow-open-below)
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
-   '("d" . meow-delete)
-   '("D" . meow-backward-delete)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
-   '("F" . meow-find)
-   '("f" . avy-goto-word-1)
+   '("s" . meow-delete)
+   '("S" . meow-backward-delete)
+   '("f" . meow-next-word)
+   '("F" . meow-next-symbol)
+   '("T" . meow-find)
+   '("t" . avy-goto-word-1)
    '("q" . meow-cancel-selection)
-   '("G" . meow-grab)
+   '("D" . meow-grab)
    '("h" . meow-left)
    '("H" . meow-left-expand)
    '("a" . meow-insert)
-   '("O" . meow-open-above)
-   '("j" . meow-next)
-   '("J" . meow-next-expand)
-   '("k" . meow-prev)
-   '("K" . meow-prev-expand)
-   '("l" . meow-right)
-   '("L" . meow-right-expand)
+   '("Y" . meow-open-above)
+   '("n" . meow-next)
+   '("N" . meow-next-expand)
+   '("e" . meow-prev)
+   '("E" . meow-prev-expand)
+   '("i" . meow-right)
+   '("I" . meow-right-expand)
    '("m" . meow-join)
-   '("n" . meow-search)
+   '("k" . meow-search)
    '("/" . meow-block)
    '("?" . meow-to-block)
-   '("P" . meow-yank)
+   '("R" . meow-yank)
    '("C" . my/meow-change-till-eol)
-   '("p" . my/meow-yank-below)
-   '("r" . meow-replace)
-   '("R" . meow-swap-grab)
+   '(";" . my/meow-yank-below)
+   '("p" . meow-replace)
+   '("P" . meow-swap-grab)
    '("s" . meow-kill)
-   '("t" . meow-till)
+   '("g" . meow-till)
    '("{" . my/meow-backward-till)
-   '("u" . meow-undo)
+   '("l" . meow-undo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
    '("V" . meow-visual-line)
@@ -1515,35 +1523,35 @@ Move to husky
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
-   '("y" . meow-save)
-   '("Y" . meow-sync-grab)
+   '("j" . meow-save)
+   '("J" . meow-sync-grab)
    '("Q" . meow-pop-selection)
    '("'" . repeat)
    '("=" . indent-for-tab-command)
    '(":" . query-replace-regexp)
    '("A" . my/edit-after-eol)
-   '("I" . my/edit-before-bol)
+   '("U" . my/edit-before-bol)
    '("<escape>" . ignore))
 
   (meow-define-keys 'motion
-    '("\\n" . meow-normal-mode)
+    '("\\k" . meow-normal-mode)
     '("[" . meow-beginning-of-thing)
     '("]" . meow-end-of-thing)
     '("\\q" . kill-current-buffer))
 
   (meow-define-keys 'insert
-   '("s-o" . meow-last-buffer)
-   '("s-p" . xah-paste-from-register-1))
+   '("s-y" . meow-last-buffer)
+   '("s-;" . xah-paste-from-register-1))
 
 
   (meow-define-keys 'normal
     '("\\q" . kill-current-buffer)
-    '("T" . meow-till-expand)
-    '("N" . my/copy-with-ai-context)
+    '("g" . meow-till-expand)
+    '("K" . my/copy-with-ai-context)
     '("z z" . recenter)
     '("C-<tab>" . indent-rigidly-right)
     '("<backtab>" . indent-rigidly-left)
-    '("g c" . comment-or-uncomment-region)))
+    '("d c" . comment-or-uncomment-region)))
 
 #+END_SRC
 
@@ -1595,15 +1603,15 @@ Move to husky
 
   (meow-define-keys 'paren
     '("<escape>" . meow-normal-mode)
-    '("l" . sp-forward-sexp)
+    '("i" . sp-forward-sexp)
     '("h" . sp-backward-sexp)
-    '("j" . sp-down-sexp)
-    '("k" . sp-up-sexp)
-    '("n" . sp-forward-slurp-sexp)
+    '("n" . sp-down-sexp)
+    '("e" . sp-up-sexp)
+    '("k" . sp-forward-slurp-sexp)
     '("b" . sp-forward-barf-sexp)
     '("v" . sp-backward-barf-sexp)
     '("c" . sp-backward-slurp-sexp)
-    '("u" . meow-undo)))
+    '("l" . meow-undo)))
 #+END_SRC
 
 *** Meow. Mode for agenda
@@ -1619,27 +1627,27 @@ Move to husky
   (meow-define-keys 'agenda-motion
     '("<escape>" . org-agenda-quit)
     '("q" . org-agenda-quit)
-    '("j" . org-agenda-next-line)
-    '("k" . org-agenda-previous-line)
+    '("n" . org-agenda-next-line)
+    '("e" . org-agenda-previous-line)
     '("h" . org-agenda-earlier)
-    '("l" . org-agenda-later)
-    '("J" . org-agenda-next-item)
-    '("K" . org-agenda-previous-item)
-    '("f" . avy-goto-word-1)
-    '("g" . org-agenda-redo)
+    '("i" . org-agenda-later)
+    '("N" . org-agenda-next-item)
+    '("E" . org-agenda-previous-item)
+    '("t" . avy-goto-word-1)
+    '("d" . org-agenda-redo)
     '("." . org-agenda-goto-today)
-    '("t" . org-agenda-todo)
-    '("s" . org-agenda-schedule)
-    '("d" . org-agenda-deadline)
-    '(":" . org-agenda-set-tags)
-    '("e" . org-agenda-set-effort)
+    '("g" . org-agenda-todo)
+    '("r" . org-agenda-schedule)
+    '("s" . org-agenda-deadline)
+    '("O" . org-agenda-set-tags)
+    '("f" . org-agenda-set-effort)
     '("/" . org-agenda-filter)
     '("\\" . org-agenda-filter-by-tag)
     '("v" . org-agenda-view-mode-dispatch)
-    '("G" . org-agenda-toggle-time-grid)
-    '("L" . org-agenda-log-mode)
-    '("i" . org-agenda-clock-in)
-    '("o" . org-agenda-clock-out)
+    '("D" . org-agenda-toggle-time-grid)
+    '("I" . org-agenda-log-mode)
+    '("u" . org-agenda-clock-in)
+    '("y" . org-agenda-clock-out)
     '("c" . org-agenda-capture)
     '("TAB" . org-agenda-goto)
     '("RET" . org-agenda-switch-to)
@@ -1681,7 +1689,12 @@ Move to husky
               (lambda (&rest _)
                 (when (and (bolp) (eolp))
                   (indent-according-to-mode))))
-  (meow-global-mode 1))
+  (meow-global-mode 1)
+  (global-set-key (kbd "C-S-y") #'yank)
+  (setq meow--kbd-yank "C-S-y"
+        meow--kbd-yank-pop "M-y")
+  (setq meow--kbd-forward-line "<down>")
+  (setq meow--kbd-backward-line "<up>"))
 #+END_SRC
 
 *** Meow. Treesit integration
@@ -1716,23 +1729,25 @@ Move to husky
 *** Standard editing
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "s-v") 'yank)
-(global-set-key (kbd "s-s") 'save-buffer)
+(global-set-key (kbd "M-o") 'comment-line)
+(global-set-key (kbd "M-O") 'eval-expression)
+(global-set-key (kbd "s-r") 'save-buffer)
 (global-set-key (kbd "s-c") 'meow-save)
-(global-set-key (kbd "s-u") 'revert-buffer)
+(global-set-key (kbd "s-l") 'revert-buffer)
 (global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-z") 'undo)
-(global-set-key "\C-u" 'my/backward-kill-line)
+(global-set-key "\C-l" 'my/backward-kill-line)
 #+END_SRC
 
 *** Window management
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-S-l") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-i") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-S-h") 'shrink-window-horizontally)
 (global-set-key (kbd "<C-S-up>") 'shrink-window)
-(global-set-key (kbd "C-S-j") 'enlarge-window)
+(global-set-key (kbd "C-S-n") 'enlarge-window)
 (global-set-key (kbd "<C-S-down>") 'enlarge-window)
-(global-set-key (kbd "C-S-k") 'shrink-window)
-(global-set-key (kbd "C-c w s") 'my/split-window-v)
+(global-set-key (kbd "C-S-e") 'shrink-window)
+(global-set-key (kbd "C-c w r") 'my/split-window-v)
 (global-set-key (kbd "C-c w v") 'my/split-window-h)
 (global-set-key (kbd "s-w") 'delete-window)
 #+END_SRC
@@ -1740,22 +1755,22 @@ Move to husky
 *** File operations
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c .") 'find-file)
-(global-set-key (kbd "C-c f D") 'my/delete-this-file)
-(global-set-key (kbd "C-c o F") 'ns-open-file-using-panel)
+(global-set-key (kbd "C-c t S") 'my/delete-this-file)
+(global-set-key (kbd "C-c y T") 'ns-open-file-using-panel)
 #+END_SRC
 
 *** Buffer operations
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c o l") 'my/open-messages)
-(global-set-key (kbd "C-c o M") 'my/open-clear-messages)
-(global-set-key (kbd "s-n") (lambda () (interactive) (switch-to-buffer (generate-new-buffer "Untitled"))))
+(global-set-key (kbd "C-c y i") 'my/open-messages)
+(global-set-key (kbd "C-c y M") 'my/open-clear-messages)
+(global-set-key (kbd "s-k") (lambda () (interactive) (switch-to-buffer (generate-new-buffer "Untitled"))))
 (global-set-key (kbd "C-c q") 'kill-current-buffer)
 #+END_SRC
 
 *** Package manager
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c p m") 'elpaca-manager)
-(global-set-key (kbd "C-c p M") 'elpaca-log)
+(global-set-key (kbd "C-c ; m") 'elpaca-manager)
+(global-set-key (kbd "C-c ; M") 'elpaca-log)
 #+END_SRC
 
 *** Theme
@@ -1765,10 +1780,10 @@ Move to husky
 
 *** Code annotations
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c t t") 'my/insert-todo-by-current-git-branch)
-(global-set-key (kbd "C-c t i") 'my/insert-todo-by-current-git-branch)
-(global-set-key (kbd "C-c t d") 'my/insert-debug-by-current-git-branch)
-(global-set-key (kbd "C-c t n") 'my/insert-note-by-current-git-branch)
+(global-set-key (kbd "C-c g g") 'my/insert-todo-by-current-git-branch)
+(global-set-key (kbd "C-c g u") 'my/insert-todo-by-current-git-branch)
+(global-set-key (kbd "C-c g d") 'my/insert-debug-by-current-git-branch)
+(global-set-key (kbd "C-c g k") 'my/insert-note-by-current-git-branch)
 #+END_SRC
 
 *** Narrowing
@@ -1779,10 +1794,10 @@ Move to husky
 
 *** Minibuffer navigation
 #+BEGIN_SRC emacs-lisp
-(define-key minibuffer-local-map (kbd "C-j") 'next-history-element)
-(define-key minibuffer-local-map (kbd "C-k") 'previous-history-element)
-(define-key read--expression-map (kbd "C-j") 'next-history-element)
-(define-key read--expression-map (kbd "C-k") 'previous-history-element)
+(define-key minibuffer-local-map (kbd "C-n") 'next-history-element)
+(define-key minibuffer-local-map (kbd "C-e") 'previous-history-element)
+(define-key read--expression-map (kbd "C-n") 'next-history-element)
+(define-key read--expression-map (kbd "C-e") 'previous-history-element)
 #+END_SRC
 
 ** Reverse im. Same commands accross layouts
@@ -1808,6 +1823,117 @@ Move to husky
   (search-default-mode #'char-fold-to-regexp))
 #+END_SRC
 *** Core package
+Colemak
+#+BEGIN_SRC emacs-lisp :results silent
+(require 'quail)
+
+(quail-define-package
+ "cyrillic-colemak" "Cyrillic" "CC" nil
+ "ЙЦУКЕН keyboard layout widely used in Russia (ISO 8859-5 encoding)
+  in assuming that your default keyboard layout is Colemak"
+ nil t t t t nil nil nil nil nil t)
+
+(quail-define-rules
+ ("1" ?1)
+ ("2" ?2)
+ ("3" ?3)
+ ("4" ?4)
+ ("5" ?5)
+ ("6" ?6)
+ ("7" ?7)
+ ("8" ?8)
+ ("9" ?9)
+ ("0" ?0)
+ ("[" ?х)
+ ("]" ?ъ)
+ ("`" ?ё)
+ ("'" ?э)
+ ("," ?б)
+ ("." ?ю)
+ ("p" ?к)
+ ("y" ?щ)
+ ("f" ?у)
+ ("g" ?е)
+ ("c" ?с)
+ ("r" ?ы)
+ ("l" ?г)
+ ("/" ?.)
+ ("=" ?=)
+ ("a" ?ф)
+ ("o" ?ж)
+ ("e" ?л)
+ ("u" ?ш)
+ ("i" ?д)
+ ("d" ?п)
+ ("h" ?р)
+ ("t" ?а)
+ ("n" ?о)
+ ("s" ?в)
+ ("-" ?-)
+ ("\\" ?\\)
+ (";" ?з)
+ ("q" ?й)
+ ("j" ?н)
+ ("k" ?т)
+ ("x" ?ч)
+ ("b" ?и)
+ ("m" ?ь)
+ ("w" ?ц)
+ ("v" ?м)
+ ("z" ?я)
+;; ("˘" ?і) ;; somehow wouldn't work by itself without reverse-im
+ ("ü" ?ў)
+
+ ("!" ?!)
+ ("@" ?\")
+ ("#" ?№)
+ ("$" ?\;)
+ ("%" ?%)
+ ("^" ?:)
+ ("&" ??)
+ ("*" ?*)
+ ("(" ?\()
+ (")" ?\))
+ ("{" ?Х)
+ ("}" ?Ъ)
+ ("~" ?Ё)
+ ("\"" ?Э)
+ ("<" ?Б)
+ (">" ?Ю)
+ ("P" ?К)
+ ("Y" ?Щ)
+ ("F" ?У)
+ ("G" ?Е)
+ ("C" ?С)
+ ("R" ?Ы)
+ ("L" ?Г)
+ ("?" ?,)
+ ("+" ?+)
+ ("A" ?Ф)
+ ("O" ?Ж)
+ ("E" ?Л)
+ ("U" ?Ш)
+ ("I" ?Д)
+ ("D" ?П)
+ ("H" ?Р)
+ ("T" ?А)
+ ("N" ?О)
+ ("S" ?В)
+ ("_" ?_)
+ ("|" ?/)
+ (":" ?З)
+ ("Q" ?Й)
+ ("J" ?Н)
+ ("K" ?Т)
+ ("X" ?Ч)
+ ("B" ?И)
+ ("M" ?Ь)
+ ("W" ?Ц)
+ ("V" ?М)
+ ("Z" ?Я))
+
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package reverse-im
   :demand t
@@ -1815,12 +1941,13 @@ Move to husky
   :custom
   (reverse-im-char-fold t) ; use lax matching
   (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
-  (reverse-im-input-methods '("russian-computer")) ; translate these methods
+  (reverse-im-input-methods '("cyrillic-colemak"))
+  ;; (reverse-im-input-methods '("russian-computer")) ; translate these methods
   :config
   (reverse-im-mode t)
   (advice-add 'meow--keypad-format-key-1 :override #'my/meow--keypad-format-key-1))
 #+END_SRC
-*** Colemak
+*** COMMENT Colemak
 #+BEGIN_SRC emacs-lisp :results silent
 (defun my/toggle-meow-colemak-local ()
   "Toggle Colemak input method for current buffer with Meow."
@@ -1847,12 +1974,12 @@ Move to husky
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :defer t
-  :bind (("s-r" . (lambda () (interactive) (set-mark-command nil) (call-interactively 'avy-goto-char) (right-char 1)))
-         ("C-c d l" . avy-kill-whole-line)
-         ("M-l" . avy-goto-line)
+  :bind (("s-p" . (lambda () (interactive) (set-mark-command nil) (call-interactively 'avy-goto-char) (right-char 1)))
+         ("C-c s i" . avy-kill-whole-line)
+         ("M-i" . avy-goto-line)
          :map meow-normal-state-keymap
-         ("f" . avy-goto-word-1)
-         ("\\f" . avy-goto-char-timer))
+         ("t" . avy-goto-word-1)
+         ("\\t" . avy-goto-char-timer))
   :custom
   (avy-single-candidate-jump t)
   (avy-keys '(?q ?w ?e ?r ?t ?y ?u ?i ?o ?p ?a ?s ?d ?f ?h ?j ?k ?l ?z ?x ?c ?v ?b ?n ?m)))
@@ -1896,8 +2023,8 @@ Function for preserve better jump befor buffer changed only for prog mode.
 (use-package better-jumper
   :defer 2
   :bind
-  (("C-o" . better-jumper-jump-backward)
-   ("C-i" . better-jumper-jump-forward)
+  (("C-y" . better-jumper-jump-backward)
+   ("C-u" . better-jumper-jump-forward)
    ("C-c 1" . better-jumper-set-jump))
   :custom
   (better-jumper-use-evil-jump-advice nil)
@@ -1929,11 +2056,11 @@ Bookmark for navigation inside file
   :custom
   (bm-in-lifo-order t)
   (bm-highlight-fringe 'bm-highlight-line-and-fringe)
-  :bind (("M-s-n" . bm-next)
-         ("M-s-p" . bm-previous)
+  :bind (("M-s-k" . bm-next)
+         ("M-s-;" . bm-previous)
          ("s-b" . bm-toggle)
-         ("C-c b L" . bm-show-all)
-         ("C-c b l" . bm-show)))
+         ("C-c b I" . bm-show-all)
+         ("C-c b i" . bm-show)))
 #+END_SRC
 
 ** Scroll golden ratio
@@ -2033,8 +2160,8 @@ The format is:
 #+BEGIN_SRC emacs-lisp
 (use-package persistent-values
   :defer t
-  :bind (("s-S" . persistent-values-add)
-         ("s-I" . persistent-values-search))
+  :bind (("s-R" . persistent-values-add)
+         ("s-U" . persistent-values-search))
   :ensure (persistent-values :host github :repo "artawower/persistent-values.el")
   :config
   (persistent-values-mode 1))
@@ -2059,7 +2186,7 @@ The format is:
   :defer t
   :bind (("C-r" . undo-fu-only-redo)
          :map meow-normal-state-keymap
-              ("u" . undo-fu-only-undo)))
+              ("l" . undo-fu-only-undo)))
 #+END_SRC
 *** Undo sessions (history saving)
 #+BEGIN_SRC emacs-lisp
@@ -2107,10 +2234,10 @@ The format is:
   :defer t
   :ensure (turbo-log :type git :host github :repo "Artawower/turbo-log.el")
   :commands (turbo-log--get-context)
-  :bind (("C-s-l" . turbo-log-print)
-         ("C-s-i" . turbo-log-print-immediately)
+  :bind (("C-s-i" . turbo-log-print)
+         ("C-s-u" . turbo-log-print-immediately)
          ("C-s-h" . turbo-log-comment-all-logs)
-         ("C-s-s" . turbo-log-uncomment-all-logs)
+         ("C-s-r" . turbo-log-uncomment-all-logs)
          ("C-s-x" . turbo-log-delete-all-logs)
          ("C-s-[" . turbo-log-paste-as-logger)
          ("C-s-]" . turbo-log-paste-as-logger-immediately))
@@ -2146,9 +2273,9 @@ The format is:
 (use-package persistent-kmacro
   :ensure (:host github :repo "artawower/persistent-kmacro.el")
   :defer t
-  :bind (("C-c m e" . persistent-kmacro-execute-macro)
+  :bind (("C-c m f" . persistent-kmacro-execute-macro)
          ("C-c m a" . persistent-kmacro-name-last-kbd-macro)
-         ("C-c m r" . persistent-kmacro-remove-macro)
+         ("C-c m p" . persistent-kmacro-remove-macro)
          :map meow-normal-state-keymap
          ("#" . persistent-kmacro-apply))
   :config
@@ -2159,8 +2286,8 @@ The format is:
 #+BEGIN_SRC emacs-lisp
 (use-package tempel
   :bind
-  (("s-y" . tempel-complete)
-   ("s-Y" . tempel-insert)
+  (("s-j" . tempel-complete)
+   ("s-J" . tempel-insert)
    ("s-\\" . tempel-done))
   :init
   ;; Setup completion at point
@@ -2256,8 +2383,8 @@ The format is:
   :bind (("s-q" . combobulate-mark-node-dwim)
          ("s-<down>" . combobulate-navigate-logical-next)
          ("s-<up>" . combobulate-navigate-logical-previous)
-         ("s-N" . combobulate-navigate-next)
-         ("s-P" . combobulate-navigate-previous)
+         ("s-K" . combobulate-navigate-next)
+         ("s-:" . combobulate-navigate-previous)
          :map combobulate-key-map
          ("C-M-t" . nil))
   :custom
@@ -2449,27 +2576,27 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
         :map dired-mode-map ; Dirvish respects all the keybindings in this map
         ("q" . dirvish-quit)
         ("h" . dired-up-directory)
-        ("j" . dired-next-line)
-        ("k" . dired-previous-line)
-        ("l" . dired-find-file)
-        ("i" . wdired-change-to-wdired-mode)
+        ("n" . dired-next-line)
+        ("e" . dired-previous-line)
+        ("i" . dired-find-file)
+        ("u" . wdired-change-to-wdired-mode)
         ("." . dired-omit-mode)
         ("b"   . dirvish-bookmark-jump)
-        ("f"   . dirvish-file-info-menu)
-        ("y"   . dirvish-yank-menu)
-        ("N"   . dirvish-narrow)
+        ("t"   . dirvish-file-info-menu)
+        ("j"   . dirvish-yank-menu)
+        ("K"   . dirvish-narrow)
         ("^"   . dirvish-history-last)
-        ("s"   . dirvish-quicksort) ; remapped `dired-sort-toggle-or-edit'
+        ("r"   . dirvish-quicksort) ; remapped `dired-sort-toggle-or-edit'
         ("?"   . dirvish-dispatch)  ; remapped `dired-summary'
         ("TAB" . dirvish-subtree-toggle)
-        ("M-n" . dirvish-history-go-forward)
-        ("M-p" . dirvish-history-go-backward)
-        ("M-l" . dirvish-ls-switches-menu)
+        ("M-k" . dirvish-history-go-forward)
+        ("M-;" . dirvish-history-go-backward)
+        ("M-i" . dirvish-ls-switches-menu)
         ("M-m" . dirvish-mark-menu)
-        ("M-f" . dirvish-toggle-fullscreen)
-        ("M-s" . dirvish-setup-menu)
-        ("M-e" . dirvish-emerge-menu)
-        ("M-j" . dirvish-fd-jump)))
+        ("M-t" . dirvish-toggle-fullscreen)
+        ("M-r" . dirvish-setup-menu)
+        ("M-f" . dirvish-emerge-menu)
+        ("M-n" . dirvish-fd-jump)))
 #+END_SRC
 * Terminal
 ** Functions
@@ -2527,9 +2654,9 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 #+BEGIN_SRC emacs-lisp
 (use-package vterm
   :defer t
-  :bind (("C-c o V" . my/vterm-open-here)
-         ("C-c o T" . my/vterm-cd)
-         ("C-c o R" . my/vterm-right)
+  :bind (("C-c y V" . my/vterm-open-here)
+         ("C-c y G" . my/vterm-cd)
+         ("C-c y P" . my/vterm-right)
          :map vterm-mode-map
          ("C-u" . vterm--self-insert)
          ("C-c m c" . vterm-copy-mode))
@@ -2549,7 +2676,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 (use-package vterm-toggle
   :defer t
   :commands (vterm-toggle-show)
-  :bind (("C-c o t" . vterm-toggle))
+  :bind (("C-c y g" . vterm-toggle))
   :config
   (setq vterm-always-compile-module t)
   (setq vterm-kill-buffer-on-exit nil)
@@ -2571,7 +2698,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 ** Multi vterm
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package multi-vterm
-  :bind (("C-c o v" . multi-vterm-project)))
+  :bind (("C-c y v" . multi-vterm-project)))
 #+END_SRC
 ** Detached. Background commands
 *** Core package
@@ -2585,12 +2712,12 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
          ([remap project-compile] . detached-compile)
          ([remap project-recompile] . detached-compile-recompile)
          ([remap detached-open-session] . detached-consult-session)
-         ("C-c D v" . detached-view-session)
-         ("C-c D k" . detached-kill-session)
-         ("C-c D a" . detached-rerun-session)
-         ("C-c D R" . my/detached-restart-session)
-         ("C-c D r" . detached-compile-recompile)
-         ("C-c D c" . detached-compile))
+         ("C-c S v" . detached-view-session)
+         ("C-c S e" . detached-kill-session)
+         ("C-c S a" . detached-rerun-session)
+         ("C-c S P" . my/detached-restart-session)
+         ("C-c S p" . detached-compile-recompile)
+         ("C-c S c" . detached-compile))
   :custom
   (detached-show-output-on-attach t)
   (detached-terminal-data-command system-type))
@@ -2616,40 +2743,40 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   :commands
   (magit-get-current-branch)
   :bind
-  (("C-M-g" . magit-status)
-   ("C-M-S-d" . magit-ediff-compare)
+  (("C-M-d" . magit-status)
+   ("C-M-S-s" . magit-ediff-compare)
    ("C-M-S-c" . magit-commit)
    ("C-M-S-a" . my/magit-stage-current-file)
-   ("C-M-d" . my/magit-ediff-current-file-against-head)
-   ("C-c g g" . magit-status)
+   ("C-M-s" . my/magit-ediff-current-file-against-head)
+   ("C-c d d" . magit-status)
    :map magit-mode-map
    ("C-1" . magit-section-show-level-1)
    ("C-2" . magit-section-show-level-2)
    ("C-3" . magit-section-show-level-3)
-   ("C-j" . magit-section-forward)
-   ("C-k" . magit-section-backward)
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward)
    ("C-4" . magit-section-show-level-4)
    ("q" . kill-current-buffer)
    ("<escape>" . kill-current-buffer)
    ("Q" . bury-buffer)
    (";" . meow-reverse)
    ("Z" . magit-stash)
-   ("P" . magit-fetch)
-   ("p" . magit-push)
+   (":" . magit-fetch)
+   (";" . magit-push)
    ("`" . magit-process-buffer)
-   ("f" . avy-goto-word-1)
+   ("t" . avy-goto-word-1)
    ("x" . magit-discard)
    :map magit-status-mode-map
    ("x" . meow-line)
    ("X" . magit-discard)
    ("z z" . recenter)
-   ("C-j" . magit-section-forward)
-   ("C-k" . magit-section-backward)
-   ("M-n" . husky-lsp-repeat-consult-search-forward)
-   ("M-p" . husky-lsp-repeat-consult-search-backward)
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward)
+   ("M-k" . husky-lsp-repeat-consult-search-forward)
+   ("M-;" . husky-lsp-repeat-consult-search-backward)
    :map magit-diff-mode-map
-   ("C-j" . magit-section-forward)
-   ("C-k" . magit-section-backward))
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward))
   :custom-face
   (git-commit-overlong-summary ((t :inherit error :weight bold)))
   :custom
@@ -2727,9 +2854,9 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 *** Magit todos
 #+BEGIN_SRC emacs-lisp
 (use-package magit-todos
-  :bind (("C-c g n" . magit-todos-list)
-         ("C-c l T" . magit-todos-list)
-         ("C-c t l" . magit-todos-list)))
+  :bind (("C-c d k" . magit-todos-list)
+         ("C-c i G" . magit-todos-list)
+         ("C-c g i" . magit-todos-list)))
 #+END_SRC
 
 *** Visit next dirty file
@@ -2784,11 +2911,11 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   :hook (emacs-startup . global-git-gutter-mode)
   :bind (("C-M-[" . git-gutter:previous-hunk)
          ("C-M-]" . git-gutter:next-hunk)
-         ("C-M-r" . git-gutter:revert-hunk)
-         ("C-M-s" . git-gutter:stage-hunk)
+         ("C-M-p" . git-gutter:revert-hunk)
+         ("C-M-r" . git-gutter:stage-hunk)
          :map meow-normal-state-keymap
-         ("g]" . git-gutter:next-hunk)
-         ("g[" . git-gutter:previous-hunk))
+         ("d]" . git-gutter:next-hunk)
+         ("d[" . git-gutter:previous-hunk))
   :custom
   (git-gutter:update-interval 2)
   :config
@@ -2853,9 +2980,9 @@ Setup blamer face
   (after-load-theme-hook . my/setup-blamer-face)
   ;; From MELPA, uncomment below for development version:
   ;; :ensure (:type git :host github :repo "artawower/blamer.el" :branch "fix/emacs-buffers-spawns")
-  :bind (("C-c b i" . blamer-show-commit-info)
+  :bind (("C-c b u" . blamer-show-commit-info)
          ("C-c b h" . (lambda () (interactive) (blamer-show-commit-info 'visual)))
-         ("s-i" . blamer-show-posframe-commit-info))
+         ("s-u" . blamer-show-posframe-commit-info))
   :custom
   (blamer-idle-time 0.8)
   (blamer-min-offset 20)
@@ -2961,14 +3088,14 @@ Setup blamer face
 #+BEGIN_SRC emacs-lisp
 (use-package git-timemachine
   :hook (git-timemachine-mode . font-lock-mode)
-  :bind (("C-M-t" . git-timemachine)
+  :bind (("C-M-g" . git-timemachine)
          ("C-M-m" . git-timemachine)
          :map git-timemachine-mode-map
-         ("C-k" . git-timemachine-show-previous-revision)
+         ("C-e" . git-timemachine-show-previous-revision)
          ("q" . git-timemachine-quit)
          ("<escape>" . git-timemachine-quit)
          ("Q" . git-timemachine-quit)
-         ("C-j" . git-timemachine-show-next-revision)))
+         ("C-n" . git-timemachine-show-next-revision)))
 #+END_SRC
 
 ** Smerge
@@ -2976,14 +3103,14 @@ Setup blamer face
 (use-package smerge-mode
   :ensure nil
   :bind (:map smerge-mode-map
-         ("C-c C-l" . smerge-keep-lower)
-         ("C-c C-u" . smerge-keep-upper)
+         ("C-c C-i" . smerge-keep-lower)
+         ("C-c C-l" . smerge-keep-upper)
          ("C-c C-a" . smerge-keep-all)
-         ("C-c C-j" . smerge-next)
-         ("C-c C-k" . smerge-prev)
+         ("C-c C-n" . smerge-next)
+         ("C-c C-e" . smerge-prev)
          :map meow-normal-state-keymap
-         ("g s" . smerge-next)
-         ("g S" . smerge-prev))
+         ("d r" . smerge-next)
+         ("d R" . smerge-prev))
   :config
   (defun my/smerge-keep-n-fix (fn n)
     (let ((inhibit-modification-hooks t))
@@ -2995,7 +3122,7 @@ Setup blamer face
 ** Browse at remote
 #+BEGIN_SRC emacs-lisp
 (use-package browse-at-remote
-  :bind (("C-c o r" . browse-at-remote)))
+  :bind (("C-c y p" . browse-at-remote)))
 #+END_SRC
 * Workspace
 ** Buffer navigation Functions
@@ -3084,17 +3211,17 @@ Prevents closing the last frame in daemon mode on macOS."
          ("s-5" . (lambda () (interactive) (tab-bar-select-tab 5)))
          ("s-6" . (lambda () (interactive) (tab-bar-select-tab 6)))
          ("C-c b0" . tabspaces-clear-buffers)
-         ("C-c TAB p" . tabspaces-open-or-create-project-and-workspace)
-         ("C-c TAB n" . tabspaces-switch-or-create-workspace)
-         ("C-c bt" . tabspaces-switch-to-buffer)
+         ("C-c TAB ;" . tabspaces-open-or-create-project-and-workspace)
+         ("C-c TAB k" . tabspaces-switch-or-create-workspace)
+         ("C-c bg" . tabspaces-switch-to-buffer)
          ("C-c TAB b" . tabspaces-switch-to-buffer)
          ("C-c TAB B" . switch-to-buffer)
          ("s-w" . delete-window)
-         ("C-c TAB d" . my/safe-tabspaces-kill-buffers-close-workspace)
-         ("C-c TAB S" . tabspaces-save-current-project-session)
-         ("C-c TAB s" . tabspaces-save-session)
-         ("C-c TAB r" . tab-rename)
-         ("C-c TAB l" . tabspaces-restore-session)
+         ("C-c TAB s" . my/safe-tabspaces-kill-buffers-close-workspace)
+         ("C-c TAB R" . tabspaces-save-current-project-session)
+         ("C-c TAB r" . tabspaces-save-session)
+         ("C-c TAB p" . tab-rename)
+         ("C-c TAB i" . tabspaces-restore-session)
          ("C-c ]" . my/tabspaces-switch-to-next-buffer)
          ("C-c [" . my/tabspaces-switch-to-prev-buffer))
   :custom
@@ -3127,15 +3254,15 @@ Prevents closing the last frame in daemon mode on macOS."
 (use-package project
   :after meow
   :ensure nil
-  :bind (("C-c p p" . project-switch-project)
-         ("C-c p d" . project-forget-project)
+  :bind (("C-c ; ;" . project-switch-project)
+         ("C-c ; s" . project-forget-project)
          ("C-c SPC" . project-find-file)
-         ("C-c f f" . project-find-file)
-         ("C-c f d" . project-find-dir)
-         ("C-c p c" . project-compile)
-         ("C-c p r" . project-recompile)
-         ("C-c p v" . my/show-compilation-buffer)
-         ("C-c p b" . project-switch-to-buffer)))
+         ("C-c t t" . project-find-file)
+         ("C-c t s" . project-find-dir)
+         ("C-c ; c" . project-compile)
+         ("C-c ; p" . project-recompile)
+         ("C-c ; v" . my/show-compilation-buffer)
+         ("C-c ; b" . project-switch-to-buffer)))
 #+END_SRC
 
 ** Ibuffer
@@ -3143,7 +3270,7 @@ Prevents closing the last frame in daemon mode on macOS."
 (use-package ibuffer
   :defer t
   :ensure nil
-  :bind ("C-c i b" . ibuffer))
+  :bind ("C-c u b" . ibuffer))
 #+END_SRC
 *** Icons
 #+BEGIN_SRC emacs-lisp
@@ -3188,21 +3315,21 @@ Prevents closing the last frame in daemon mode on macOS."
   (setq enable-recursive-minibuffers t)
 
   :hook (emacs-startup-hook . vertico-mode)
-  :bind (("C-c ;" . vertico-repeat-last)
+  :bind (("C-c o" . vertico-repeat-last)
          ("C-c '" . vertico-repeat)
          :map vertico-map
-         ("C-j" . vertico-next)
-         ("C-k" . vertico-previous)
-         ("C-n" . vertico-next-group)
-         ("C-p" . vertico-previous-group)
-         ("C-l" . vertico-quick-jump)
-         ("C-o" . embark-act)
+         ("C-n" . vertico-next)
+         ("C-e" . vertico-previous)
+         ("C-k" . vertico-next-group)
+         ("C-;" . vertico-previous-group)
+         ("C-i" . vertico-quick-jump)
+         ("C-y" . embark-act)
          ("C-q" . vertico-exit-input)
-         ("C-n" . vertico-next-group)
-         ("C-p" . vertico-previous-group)
+         ("C-k" . vertico-next-group)
+         ("C-;" . vertico-previous-group)
          ("<escape>" . abort-minibuffers)
-         ("C-d" . my/vertico-insert-home)
-         ("C-r" . my/vertico-insert-root))
+         ("C-s" . my/vertico-insert-home)
+         ("C-p" . my/vertico-insert-root))
   :custom
   (vertico-cycle t)
   (read-file-name-completion-ignore-case t)
@@ -3292,17 +3419,17 @@ Prevents closing the last frame in daemon mode on macOS."
   (prefix-help-command #'embark-prefix-help-command)
   :bind
   (("C-." . embark-act)
-   ("C-;" . embark-dwim)
+   ("C-O" . embark-dwim)
    ("C-h B" . embark-bindings)
    :map minibuffer-local-map
    ("C-SPC" . my/vertico-embark-preview)
-   ("C-u" . my/backward-kill-line)
+   ("C-l" . my/backward-kill-line)
    :map read--expression-map
    ("C-SPC" . my/vertico-embark-preview)
-   ("C-u" . my/backward-kill-line)
+   ("C-l" . my/backward-kill-line)
    :map vertico-map
    ("C-SPC" . my/vertico-embark-preview)
-   ("C-u" . my/backward-kill-line))
+   ("C-l" . my/backward-kill-line))
 
   :config
   (add-to-list 'display-buffer-alist '("^\\*Embark Export\\*$" (display-buffer-in-side-window) (window-height . 0.4)))
@@ -3360,21 +3487,22 @@ Function for search in buffer depends or visual or normal line
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package consult
-  :bind (("s-f" . my/consult-line-or-region)
+  :bind (("s-t" . my/consult-line-or-region)
          ("C-c b b" . consult-buffer-other-tab)
+         ("M-j" . consult-yank-from-kill-ring)
          ("C-c b a" . consult-buffer)
          ("C-c b b" . consult-project-buffer)
-         ("C-c f C" . my/open-config-file)
-         ("C-c f P" . my/open-emacs-config)
-         ("C-c f p" . consult-ripgrep)
+         ("C-c t C" . my/open-config-file)
+         ("C-c t :" . my/open-emacs-config)
+         ("C-c t ;" . consult-ripgrep)
          ("C-c *" . (lambda () (interactive) (consult-ripgrep nil (thing-at-point 'symbol))))
          ("C-c /" . my/consult-ripgrep-selected-p)
-         ("C-c f o" . my/consult-ripgrep-selected-p)
-         ("C-c s i" . consult-imenu)
+         ("C-c t y" . my/consult-ripgrep-selected-p)
+         ("C-c r u" . consult-imenu)
          ("C-c RET" . consult-bookmark)
          ("C-c c m" . consult-mark)
-         ("C-c f r" . consult-recent-file)
-         ("C-c f R" . consult-recent-file))
+         ("C-c t p" . consult-recent-file)
+         ("C-c t P" . consult-recent-file))
   :custom
   (consult-preview-key "C-SPC")
   (recentf-max-saved-items 3000)
@@ -3435,13 +3563,13 @@ Function for search in buffer depends or visual or normal line
   (corfu-auto-prefix 2)
   (corfu-separator ?\s)
   :bind
-  (("C-x C-o" . completion-at-point)
+  (("C-x C-y" . completion-at-point)
    ("C-SPC" . completion-at-point)
    :map corfu-map
    ("TAB" . corfu-next)
    ([tab] . corfu-next)
-   ("C-j" . corfu-next)
-   ("C-k" . corfu-previous)
+   ("C-n" . corfu-next)
+   ("C-e" . corfu-previous)
    ("S-TAB" . corfu-previous)
    ("<return>" . corfu-insert)
    ("RET" . corfu-insert)
@@ -3543,19 +3671,19 @@ Function for search in buffer depends or visual or normal line
     bash-ts-mode
     tsx-ts-mode) . lsp-deferred)
   :bind
-  (("C-c f n" . flycheck-next-error)
-   ("C-c l a" . lsp-execute-code-action)
-   ("C-c i m" . lsp-ui-imenu)
-   ("C-c l d" . lsp-workspace-folders-remove)
-   ("C-c l t" . lsp-find-type-definition)
-   ("C-c l f" . lsp-find-references)
-   ("C-c l i" . lsp-find-implementation)
-   ("C-c l w" . lsp-workspace-restart)
-   ("C-c r l" . lsp)
-   ("C-c l r" . lsp-rename)
+  (("C-c t k" . flycheck-next-error)
+   ("C-c i a" . lsp-execute-code-action)
+   ("C-c u m" . lsp-ui-imenu)
+   ("C-c i s" . lsp-workspace-folders-remove)
+   ("C-c i g" . lsp-find-type-definition)
+   ("C-c i t" . lsp-find-references)
+   ("C-c i u" . lsp-find-implementation)
+   ("C-c i w" . lsp-workspace-restart)
+   ("C-c p i" . lsp)
+   ("C-c i p" . lsp-rename)
    :map meow-normal-state-keymap
-   ("gt" . lsp-goto-type-definition)
-   ("gi" . lsp-goto-implementation)
+   ("dg" . lsp-goto-type-definition)
+   ("du" . lsp-goto-implementation)
    ("\\l" . lsp-execute-code-action))
   :bind-keymap
   ("s-9" . lsp-command-map)
@@ -3726,8 +3854,8 @@ See [[https://github.com/blahgeek/emacs-lsp-booster][detail]]
   :bind (:map meow-normal-state-keymap
          ("\\h" . lsp-ui-doc-toggle)
          :map lsp-ui-peek-mode-map
-         ("C-j" . lsp-ui-peek--select-next)
-         ("C-k" . lsp-ui-peek--select-prev))
+         ("C-n" . lsp-ui-peek--select-next)
+         ("C-e" . lsp-ui-peek--select-prev))
   :config
   (setq lsp-ui-sideline-diagnostic-max-line-length 100
         lsp-ui-sideline-diagnostic-max-lines 8
@@ -3791,14 +3919,14 @@ Installation instructions:
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
-  :bind (("C-j" . flycheck-next-error)
-         ("C-k" . flycheck-previous-error)
-         ("C-c f ]" . flycheck-next-error)
-         ("C-c f [" . flycheck-previous-error)
-         ("C-c l e" . flycheck-list-errors)
-         ("C-c e c" . flycheck-copy-errors-as-kill)
-         ("C-c e C" . my/flycheck-copy-errors-buffer)
-         ("C-c f e" . flycheck-list-errors))
+  :bind (("C-n" . flycheck-next-error)
+         ("C-e" . flycheck-previous-error)
+         ("C-c t ]" . flycheck-next-error)
+         ("C-c t [" . flycheck-previous-error)
+         ("C-c i f" . flycheck-list-errors)
+         ("C-c f c" . flycheck-copy-errors-as-kill)
+         ("C-c f C" . my/flycheck-copy-errors-buffer)
+         ("C-c t f" . flycheck-list-errors))
   :init
   (global-flycheck-mode)
   :custom
@@ -4001,16 +4129,16 @@ def servers():
 (use-package eglot
   :ensure nil
   :defer t
-  :bind (("C-c g i" . eglot-find-implementation)
-         ("C-c l r" . eglot-rename)
-         ("C-c r l" . eglot)
-         ("C-c l d" . eglot-find-typeDefinition)
-         ("C-c l f" . xref-find-references)
+  :bind (("C-c d u" . eglot-find-implementation)
+         ("C-c i p" . eglot-rename)
+         ("C-c p i" . eglot)
+         ("C-c i s" . eglot-find-typeDefinition)
+         ("C-c i t" . xref-find-references)
          :map meow-normal-state-keymap
-         ("g i" . eglot-find-implementation)
-         ("g r" . xref-find-references)
-         ("\\i" . my/eglot-toggle-inlay-hints)
-         ("\\l" . eglot-code-actions))
+         ("d u" . eglot-find-implementation)
+         ("d p" . xref-find-references)
+         ("\\u" . my/eglot-toggle-inlay-hints)
+         ("\\i" . eglot-code-actions))
   :hook
   ((typescript-ts-mode
     tsx-ts-mode
@@ -4145,12 +4273,12 @@ def servers():
 (use-package flymake
   :ensure nil
   :bind
-  (("C-j" . flymake-goto-next-error)
-   ("C-k" . flymake-goto-prev-error)
-   ("C-c e l" . flymake-show-diagnostics-buffer)
-   ("C-c l e" . flymake-show-diagnostics-buffer)
-   ("C-c e c" . my/flymake-kill-error)
-   ("C-c e C" . my/flymake-kill-errors))
+  (("C-n" . flymake-goto-next-error)
+   ("C-e" . flymake-goto-prev-error)
+   ("C-c f i" . flymake-show-diagnostics-buffer)
+   ("C-c i f" . flymake-show-diagnostics-buffer)
+   ("C-c f c" . my/flymake-kill-error)
+   ("C-c f C" . my/flymake-kill-errors))
   :hook
   (prog-mode . flymake-mode)
   (flymake-diagnostics-buffer-mode . meow-normal-mode)
@@ -4455,17 +4583,17 @@ By default ~compile-goto-error~ open new window. It's redundant.
   :defer t
   :ensure nil
   :bind
-  (("C-c p c" . project-compile)
-   ("C-c a r" . recompile)
-   ("C-c C-c C-r" . recompile)
-   ("C-c C-c r" . recompile)
+  (("C-c ; c" . project-compile)
+   ("C-c a p" . recompile)
+   ("C-c C-c C-p" . recompile)
+   ("C-c C-c p" . recompile)
    ("C-c C-v" . my/show-compilation-buffer)
    :map compilation-mode-map
-   ("C-j" . compilation-next-error)
-   ("C-k" . compilation-previous-error)
+   ("C-n" . compilation-next-error)
+   ("C-e" . compilation-previous-error)
    :map compilation-minor-mode-map
-   ("C-j" . compilation-next-error)
-   ("C-k" . compilation-previous-error))
+   ("C-n" . compilation-next-error)
+   ("C-e" . compilation-previous-error))
   :custom
   (compile-command "bun run build")
   :config
@@ -4499,19 +4627,19 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 (use-package dape
   :demand t
   :ensure (dape :type git :host github :repo "svaante/dape")
-  :bind (("C-c d d" . dape)
-         ("C-c d n" . dape-next)
-         ("C-c d i" . dape-step-in)
-         ("C-c d o" . dape-step-out)
-         ("C-c d b" . dape-breakpoint-toggle)
-         ("C-c d c" . dape-continue)
-         ("C-c d q" . dape-disconnect-quit)
-         ("C-c d r" . dape-restart)
-         ("C-c d k" . dape-kill)
-         ("C-c d X" . dape-remove-breakpoint-at-point)
-         ("C-c d s" . dape-select-stack)
-         ("C-c d t" . dape-select-thread)
-         ("C-c d x" . dape-breakpoint-remove-all))
+  :bind (("C-c s s" . dape)
+         ("C-c s k" . dape-next)
+         ("C-c s u" . dape-step-in)
+         ("C-c s y" . dape-step-out)
+         ("C-c s b" . dape-breakpoint-toggle)
+         ("C-c s c" . dape-continue)
+         ("C-c s q" . dape-disconnect-quit)
+         ("C-c s p" . dape-restart)
+         ("C-c s e" . dape-kill)
+         ("C-c s X" . dape-remove-breakpoint-at-point)
+         ("C-c s r" . dape-select-stack)
+         ("C-c s g" . dape-select-thread)
+         ("C-c s x" . dape-breakpoint-remove-all))
   :config
   (setq dape-buffer-window-arrangment 'right)
   (setq dape-inline-variables t))
@@ -4546,10 +4674,10 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 (use-package python
   :ensure nil
   :defer t
-  :bind (("C-c r p" . my/open-ipython-repl-here)
+  :bind (("C-c p ;" . my/open-ipython-repl-here)
          :map inferior-python-mode-map
-         ("C-k" . comint-previous-input)
-         ("C-j" . comint-next-input))
+         ("C-e" . comint-previous-input)
+         ("C-n" . comint-next-input))
   :custom
   (python-shell-interpreter "ipython")
   (python-shell-interpreter-args "-i --simple-prompt")
@@ -4582,15 +4710,15 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
   :defer t
   :ensure nil
   :hook ((emacs-lisp-mode . (lambda () (setq fill-column 80))))
-  :bind (("C-c o c" . outline-cycle)
-         ("C-c o a" . outline-show-all)
-         ("C-c o m" . outline-hide-body)
-         ("C-c o ]" . outline-next-heading)
-         ("C-c o [" . outline-previous-heading)
-         ("C-c o e" . outline-hide-entry)
-         ("C-c o n" . outline-toggle-children)
-         ("C-c o b" . outline-cycle-buffer)
-         ("C-c C-c e" . eval-buffer)))
+  :bind (("C-c y c" . outline-cycle)
+         ("C-c y a" . outline-show-all)
+         ("C-c y m" . outline-hide-body)
+         ("C-c y ]" . outline-next-heading)
+         ("C-c y [" . outline-previous-heading)
+         ("C-c y f" . outline-hide-entry)
+         ("C-c y k" . outline-toggle-children)
+         ("C-c y b" . outline-cycle-buffer)
+         ("C-c C-c f" . eval-buffer)))
 #+END_SRC
 
 *** Package development
@@ -4624,8 +4752,8 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
   :bind ( :map cider-repl-mode-map
          ("<return>" . cider-repl-newline-and-indent)
          ("s-<return>" . cider-repl-return)
-         ("C-k" . cider-repl-previous-input)
-         ("C-j" . cider-repl-next-input))
+         ("C-e" . cider-repl-previous-input)
+         ("C-n" . cider-repl-next-input))
   :defer t)
 #+END_SRC
 
@@ -4668,9 +4796,9 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 #+BEGIN_SRC emacs-lisp
 (use-package pkg-run
   :ensure (:host github :repo "Artawower/pkg-run")
-  :bind (("C-c j r" . pkg-run-script)
-         ("C-c j m" . pkg-run-menu)
-         ("C-c s r" . pkg-run-script))
+  :bind (("C-c n p" . pkg-run-script)
+         ("C-c n m" . pkg-run-menu)
+         ("C-c r p" . pkg-run-script))
   :custom
   (pkg-run-package-manager 'bun)
   :defer t)
@@ -4681,10 +4809,10 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
 (use-package nodejs-repl
   :ensure t
   :bind
-  (("C-c r n" . nodejs-repl)
+  (("C-c p k" . nodejs-repl)
    :map nodejs-repl-mode-map
-   ("C-j" . comint-next-input)
-   ("C-k" . comint-previous-input))
+   ("C-n" . comint-next-input)
+   ("C-e" . comint-previous-input))
   :defer t
   :config
   (add-to-list 'display-buffer-alist '("^\\*nodejs\\*$" . (display-buffer-same-window))))
@@ -4815,7 +4943,7 @@ Requires Emacs 30+
 (use-package cargo-transient
   :after rust-ts-mode
   :bind (:map rust-ts-mode-map
-              ("C-c s r" . cargo-transient)))
+              ("C-c r p" . cargo-transient)))
 #+END_SRC
 *** Rust ts mode
 #+BEGIN_SRC emacs-lisp :results silent
@@ -4837,9 +4965,9 @@ Requires Emacs 30+
 (use-package flutter
   :after dart-mode
   :bind
-  (("C-c m f s" . flutter-run)
-   ("C-c m f R" . flutter-hot-restart)
-   ("C-c m f r" . flutter-run-or-hot-reload)
+  (("C-c m t r" . flutter-run)
+   ("C-c m t P" . flutter-hot-restart)
+   ("C-c m t p" . flutter-run-or-hot-reload)
    :map dart-mode-map
    ("C-c C-r" . flutter-run-or-hot-reload))
   :custom
@@ -4856,7 +4984,7 @@ Requires Emacs 30+
 #+BEGIN_SRC emacs-lisp
 (use-package docker
   :defer t
-  :bind ("C-c o d" . docker))
+  :bind ("C-c y s" . docker))
 #+END_SRC
 ** Jenkins
 #+BEGIN_SRC emacs-lisp
@@ -4868,7 +4996,7 @@ Requires Emacs 30+
 (use-package kubernetes
   :defer t
   :commands (kubernetes-overview)
-  :bind (("C-c o K" . kubernetes-overview))
+  :bind (("C-c y E" . kubernetes-overview))
   :custom
   (kubernetes-poll-frequency 3600)
   (kubernetes-redraw-frequency 3600))
@@ -5034,19 +5162,19 @@ Requires Emacs 30+
    (propertize "" 'face 'default 'display '(height 1.3)))
   (eca-chat-mcp-tool-call-error-symbol
    (propertize "" 'face 'font-lock-builtin-face 'display '(height 1.3)))
-  :bind (("C-c e e" . eca)
-         ("C-c e m" . eca-transient-menu)
-         ("s-g" . eca-transient-menu)
+  :bind (("C-c f f" . eca)
+         ("C-c f m" . eca-transient-menu)
+         ("s-d" . eca-transient-menu)
          :map eca-chat-mode-map
          ("<tab>" . eca-chat-toggle-expandable-block)
          ("C-c C-v" . my/open-last-view-diff)
          ("s-<return>" . eca-chat--key-pressed-return)
          ("<return>" . eca-chat--key-pressed-newline)
          ("RET" . eca-chat--key-pressed-newline)
-         ("C-k" . eca-chat--key-pressed-previous-prompt-history)
-         ("C-j" . eca-chat--key-pressed-next-prompt-history)
-         ("C-S-j" . eca-chat-go-to-next-expandable-block)
-         ("C-S-k" . eca-chat-go-to-prev-expandable-block))
+         ("C-e" . eca-chat--key-pressed-previous-prompt-history)
+         ("C-n" . eca-chat--key-pressed-next-prompt-history)
+         ("C-S-n" . eca-chat-go-to-next-expandable-block)
+         ("C-S-e" . eca-chat-go-to-prev-expandable-block))
   :config
 
   (add-to-list
@@ -5081,10 +5209,10 @@ deps
   :bind
   (("s-]" . copilot-next-completion)
    ("s-[" . copilot-previous-completion)
-   ("s-l" . copilot-accept-completion)
-   ("s-k" . copilot-accept-completion)
-   ("s-j" . copilot-complete)
-   ("s-;" . copilot-accept-completion-by-word)
+   ("s-i" . copilot-accept-completion)
+   ("s-e" . copilot-accept-completion)
+   ("s-n" . copilot-complete)
+   ("s-o" . copilot-accept-completion-by-word)
    ("s-/" . copilot-accept-completion-by-line))
   :custom
   (copilot-idle-delay 0.3)
@@ -5272,30 +5400,30 @@ Automatically creates parent directories if needed."
   :bind
   (:map org-mode-map
         ("M-t" . org-todo)
-        ("C-c l s" . org-store-link)
-        ("M-l l" . org-insert-link)
-        ("C-c l l" . org-insert-link)
-        ("C-c d t" . org-time-stamp-inactive)
+        ("C-c i r" . org-store-link)
+        ("M-l i" . org-insert-link)
+        ("C-c i i" . org-insert-link)
+        ("C-c s g" . org-time-stamp-inactive)
         ("M-l t" . org-toggle-link-display)
-        ("C-c l d" . org-toggle-link-display)
-        ("C-c t b" . my/org-babel-tangle-current-block)
+        ("C-c i s" . org-toggle-link-display)
+        ("C-c g b" . my/org-babel-tangle-current-block)
         ("C-c C-b" . nil)
         ("C-c b ]" . org-babel-next-src-block)
         ("C-c b [" . org-babel-previous-src-block)
-        ("C-c d t" . org-time-stamp-inactive)
-        ("C-c s t" . org-set-tags-command)
+        ("C-c s g" . org-time-stamp-inactive)
+        ("C-c r g" . org-set-tags-command)
         ("C-c x" . org-toggle-checkbox)
         ("C-c h ]" . org-next-visible-heading)
         ("C-c h [" . org-previous-visible-heading)
         ("C-h ]" . org-next-visible-heading)
         ("C-h [" . org-previous-visible-heading)
-        ("C-h n" . org-babel-next-src-block)
-        ("C-h p" . org-babel-previous-src-block)
+        ("C-h k" . org-babel-next-src-block)
+        ("C-h ;" . org-babel-previous-src-block)
         :map meow-normal-state-keymap
-        ("\\o" . org-mode)
+        ("\\y" . org-mode)
         ("\\a" . org-agenda)
         :map org-read-date-minibuffer-local-map
-        ("C-s" . org-goto-calendar)
+        ("C-r" . org-goto-calendar)
         :map calendar-mode-map
         ("<return>" . org-calendar-select))
   :custom
@@ -5405,7 +5533,7 @@ Automatically creates parent directories if needed."
 (use-package org-agenda
   :ensure nil
   :defer t
-  :bind (("C-c a o" . my/open-agenda-file)
+  :bind (("C-c a y" . my/open-agenda-file)
          ("C-c a a" . org-agenda-list))
   :custom
   (org-log-done 'note)
@@ -5509,7 +5637,7 @@ Automatically creates parent directories if needed."
 (use-package org-menu
   :defer t
   :ensure (:host github :repo "sheijk/org-menu")
-  :bind (("C-c o a" . org-menu)))
+  :bind (("C-c y a" . org-menu)))
 #+END_SRC
 
 
@@ -5625,12 +5753,12 @@ My own package for publish roam files
 (use-package orgnote
   :ensure (:host github :repo "Artawower/orgnote.el" :branch "dev")
   :bind
-  (("C-c n p" . orgnote-publish-file)
-   ("C-c n F" . orgnote-force-sync)
-   ("C-c n S" . orgnote-sync)
+  (("C-c k ;" . orgnote-publish-file)
+   ("C-c k T" . orgnote-force-sync)
+   ("C-c k R" . orgnote-sync)
    :map org-mode-map
-   ("C-c n P" . orgnote-publish-all)
-   ("C-c n L" . orgnote-load))
+   ("C-c k :" . orgnote-publish-all)
+   ("C-c k I" . orgnote-load))
   :custom
   (orgnote-debug-p t)
   (orgnote-execution-script "bun /Users/darkawower/projects/pet/orgnote/orgnote-cli/dist/index.js"))
@@ -5642,7 +5770,7 @@ My own package for publish roam files
 #+BEGIN_SRC emacs-lisp
 (use-package org-make-toc
   :bind (:map org-mode-map
-              ("C-c o g" . org-make-toc)))
+              ("C-c y d" . org-make-toc)))
 #+END_SRC
 
 ** Org exporters
@@ -5708,7 +5836,7 @@ Ob raindrop (dynamic block)
   :bind (:map google-translate-minibuffer-keymap
               ("C-'" . google-translate-next-translation-direction)
               :map meow-normal-state-keymap
-              ("\\ t" . google-translate-smooth-translate))
+              ("\\ g" . google-translate-smooth-translate))
   :config
   (require 'google-translate-smooth-ui)
   (setq google-translate-backend-method 'curl)
@@ -5726,10 +5854,10 @@ Ob raindrop (dynamic block)
   :custom
   (jinx-languages "en_US ru_RU")
   (jinx-camel-modes '(prog-mode org-mode))
-  :bind (("C-c s c" . jinx-correct)
-         ("C-c s l" . jinx-languages)
-         ("C-c s ]" . jinx-next)
-         ("C-c s [" . jinx-previous))
+  :bind (("C-c r c" . jinx-correct)
+         ("C-c r i" . jinx-languages)
+         ("C-c r ]" . jinx-next)
+         ("C-c r [" . jinx-previous))
   :config
   (add-to-list 'jinx-camel-modes 'html-ts-mode)
   (add-to-list 'jinx-camel-modes 'html-mode)
@@ -5903,9 +6031,9 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
 (use-package mu4e
   :load-path "/nix/store/x3miwzs9b838pkl7bka36x70gg3fws2s-emacs-mu4e-1.12.13/share/emacs/site-lisp/elpa/mu4e-1.12.13"
   :defer t
-  :bind (("C-c u" . mu4e-transient-menu)
+  :bind (("C-c l" . mu4e-transient-menu)
          :map mu4e-main-mode-map
-         ("J" . mu4e-search-maildir))
+         ("N" . mu4e-search-maildir))
   :config
   (require 'mu4e-transient)
   (setenv "XDG_CACHE_HOME" (expand-file-name "~/.cache"))
@@ -5962,44 +6090,44 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
 (use-package husky
   :defer t
   :ensure (:type git :host github :repo "artawower/husky" :files ("lisp/*.el"))
-  :bind (("C-c t t" . husky-edit-insert-todo-by-current-git-branch)
-         ("C-c t i" . husky-edit-insert-todo-by-current-git-branch)
-         ("C-c t d" . husky-edit-insert-debug-by-current-git-branch)
-         ("C-c t n" . husky-edit-insert-note-by-current-git-branch)
-         ("C-c o l" . husky-buffers-open-messages)
-         ("C-c o M" . husky-buffers-open-clear-messages)
-         ("C-c f D" . husky-buffers-delete-this-file)
+  :bind (("C-c g g" . husky-edit-insert-todo-by-current-git-branch)
+         ("C-c g u" . husky-edit-insert-todo-by-current-git-branch)
+         ("C-c g s" . husky-edit-insert-debug-by-current-git-branch)
+         ("C-c g k" . husky-edit-insert-note-by-current-git-branch)
+         ("C-c y i" . husky-buffers-open-messages)
+         ("C-c y M" . husky-buffers-open-clear-messages)
+         ("C-c t S" . husky-buffers-delete-this-file)
          ("s-<backspace>" . husky-edit-kill-word-backward)
-         ("M-n" . husky-lsp-repeat-consult-search-forward)
-         ("M-p" . husky-lsp-repeat-consult-search-backward)
-         ("C-c b k i" . husky-buffers-kill-invisible-buffers)
+         ("M-k" . husky-lsp-repeat-consult-search-forward)
+         ("M-;" . husky-lsp-repeat-consult-search-backward)
+         ("C-c b e u" . husky-buffers-kill-invisible-buffers)
          ("C-c S-SPC" . husky-buffers-side-project-find-file)
          ("C-c b B" . husky-buffers-side-consult-projectile-switch-to-buffer)
          ("C-c >" . husky-buffers-side-find-file)
          :map magit-merge-preview-mode-map
-         ("M-n" . husky-lsp-repeat-consult-search-forward)
-         ("M-p" . husky-lsp-repeat-consult-search-backward)
+         ("M-k" . husky-lsp-repeat-consult-search-forward)
+         ("M-;" . husky-lsp-repeat-consult-search-backward)
          :map meow-normal-state-keymap
-         ("gd" . husky-lsp-find-definition)
+         ("ds" . husky-lsp-find-definition)
          ("%" . husky-navigation-bounce-paren)
-         ("g F" . husky-lsp-avy-go-to-definition)
-         ("g f" . husky-lsp-avy-go-to-definition)
-         ("g D" . husky-buffers-side-husky-actions-find-definition)
-         ("z r" . husky-fold-open)
-         ("z R" . husky-fold-open-all)
-         ("s-y" . husky-lsp-copy-to-register-1)
-         ("s-p" . husky-lsp-paste-from-register-1)
+         ("d T" . husky-lsp-avy-go-to-definition)
+         ("d t" . husky-lsp-avy-go-to-definition)
+         ("d S" . husky-buffers-side-husky-actions-find-definition)
+         ("z p" . husky-fold-open)
+         ("z P" . husky-fold-open-all)
+         ("s-j" . husky-lsp-copy-to-register-1)
+         ("s-;" . husky-lsp-paste-from-register-1)
          ("z A" . husky-fold-toggle-all)
          ("z a" . husky-fold-toggle)
-         ("z j" . husky-fold-next)
+         ("z n" . husky-fold-next)
          ("z M" . husky-fold-close-all)
-         ("z k" . husky-fold-previous)
+         ("z e" . husky-fold-previous)
          ("\\ m" . husky-window-manager-toggle-maximize-buffer)
          :map meow-motion-state-keymap
          ("\\ m" . husky-window-manager-toggle-maximize-buffer)
          :map magit-status-mode-map
-         ("M-n" . husky-lsp-repeat-consult-search-forward)
-         ("M-p" . husky-lsp-repeat-consult-search-backward)))
+         ("M-k" . husky-lsp-repeat-consult-search-forward)
+         ("M-;" . husky-lsp-repeat-consult-search-backward)))
 #+END_SRC
 
 * Overrides
