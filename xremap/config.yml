@@ -57,6 +57,7 @@ keymap:
       Super-c: C-c
       Super-v: C-v
       Super-z: C-z
+      Super-Shift-t: C-Shift-t
 
   - name: Browser shortcuts
     application:
