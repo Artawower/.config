@@ -5075,9 +5075,9 @@ deps
 #+BEGIN_SRC emacs-lisp
 (use-package copilot
   ;; :ensure (copilot :host github :repo "copilot-emacs/copilot.el" :files ("*.el") :ref "c42c18e346e1ff8399eb30d40527e593f614e4d3")
-  ;; :hook
-  ;; (prog-mode . copilot-mode)
-  ;; (text-mode . copilot-mode)
+  :hook
+  (prog-mode . copilot-mode)
+  (text-mode . copilot-mode)
   :bind
   (("s-]" . copilot-next-completion)
    ("s-[" . copilot-previous-completion)
@@ -5110,6 +5110,9 @@ deps
 ** Org GPG encryption
 #+BEGIN_SRC emacs-lisp
 (setq epa-pinentry-mode 'loopback)
+(when (string= (getenv "XDG_SESSION_TYPE") "wayland")
+  (setenv "GPG_TTY" (shell-command-to-string "tty"))
+  (setq epg-gpg-program "gpg"))
 (use-package org-crypt
   :defer t
   :ensure nil
@@ -6001,9 +6004,10 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
 
 * Overrides
 #+BEGIN_SRC emacs-lisp :results silent
-;; (setenv "SHELL" "/run/current-system/sw/bin/zsh")
-(setenv "SHELL" "/Users/darkawower/.nix-profile/bin/dash")
-(setenv "SHELL" (executable-find "dash"))
+(if (eq system-type 'darwin)
+    (setenv "SHELL" "/Users/darkawower/.nix-profile/bin/dash")
+  (setenv "SHELL" (executable-find "dash")))
+
 #+END_SRC
 
 * End config
