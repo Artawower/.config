@@ -54,6 +54,7 @@ yabai -m rule --add app="^Kap$" manage=off
 yabai -m rule --add app="^Xnip$" manage=off
 yabai -m rule --add app="^Hearthstone$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Bloom$" manage=off
 yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Flameshot$" manage=off
 yabai -m rule --add app="^zoom.us$" manage=off
@@ -108,7 +109,8 @@ yabai -m rule --add app="^Obsidian$" manage=on space=8
 
 # global settings
 yabai -m config mouse_follows_focus on
-yabai -m config focus_follows_mouse autoraise
+# yabai -m config focus_follows_mouse autoraise
+yabai -m config focus_follows_mouse off
 
 
 yabai -m config window_placement second_child

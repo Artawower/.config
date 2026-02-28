@@ -1,3 +1,17 @@
+# Monkey patch xonsh.tools.decode to handle strings
+import xonsh.tools
+
+def fixed_decode(s, encoding=None):
+    encoding = encoding or xonsh.tools.DEFAULT_ENCODING
+    if isinstance(s, bytes):
+        return s.decode(encoding, "replace")
+    elif isinstance(s, str):
+        return s
+    else:
+        raise TypeError(f"Expected bytes or str, got {type(s)}")
+
+xonsh.tools.decode = fixed_decode
+
 import subprocess
 from pathlib import Path
 from pprint import pprint

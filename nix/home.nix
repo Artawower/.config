@@ -69,6 +69,7 @@ let
     ps.httpx
     ps.pip
     ps.tomli-w
+    ps.setuptools
   ]);
 
 in

@@ -48,7 +48,6 @@ volta:
     copilot-node-server \
     yalc \
     lua-fmt \
-    @anthropic-ai/claude-code \
     @openai/codex \
     @qwen-code/qwen-code@latest \
     mcp-codex-cli \
@@ -180,6 +179,13 @@ init-linux:
 init-mac:
     just volta
     just uv
+    just nix-darwin-mac
+    just nix-home-mac
+    just uv
+    just go
+    just cargo
+    just nix-clean-mac
+
 
 # Safe daily cleanup for Linux
 clean-linux:
@@ -209,3 +215,6 @@ clean-linux:
     
     @echo "\n=== Done! ==="
     df -h /
+
+
+

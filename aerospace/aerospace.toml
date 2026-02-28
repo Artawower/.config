@@ -250,6 +250,11 @@ cmd-ctrl-right = 'join-with right'
 cmd-ctrl-k = 'join-with up'
 cmd-ctrl-j = 'join-with down'
 
+alt-shift-ctrl-i = 'exec-and-forget nohup /opt/homebrew/bin/wallboy next >> /tmp/wallboy.log 2>&1'
+alt-shift-ctrl-d = 'exec-and-forget /opt/homebrew/bin/wallboy save'
+alt-shift-ctrl-o = 'exec-and-forget /opt/homebrew/bin/wallboy open'
+
+
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
@@ -292,6 +297,8 @@ shift-e = ['exec-and-forget pkill borders', 'mode main']
 
 alt-shift-v = 'split vertical'
 alt-shift-b = 'split horizontal'
+
+
 
 
 

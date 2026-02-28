@@ -4,9 +4,10 @@
       "api": "anthropic",
       "url": "https://api.z.ai/api/anthropic",
       "models": {
-        "GLM-4.6": {}
+        "GLM-4.6": {},
+        "glm-4.7": {}
       },
-      "key": "30781b3da8e6457e9006abd32b386b5e.BGq0klizgyLUoNuN"
+      "key": "3c2eec49ad824de68f9355f9a90ce490.cdL1tqm8yHZvuCOu"
     }
   },
   "completion": {
@@ -38,22 +39,26 @@
                 ]
               }
             },
-            "context7": {},
-            "sequential-thinking": {},
             "issue_details": {},
-            "issue_comments": {},
+            "eca_editor_diagnostics": {},
             "find": {},
             "eca_directory_tree": {},
+            "issue_comments": {},
+            "sequential-thinking": {},
             "eca_read_file": {},
+            "search_codebase": {},
             "eca_grep": {},
-            "eca_editor_diagnostics": {},
-            "search_codebase": {}
+            "context7": {}
           }
         }
       }
     }
   },
-  "rules": [{ "path": "/Users/darkawower/.config/eca/rules/common-rules.md" }],
+  "rules": [
+    {
+      "path": "/Users/darkawower/.config/eca/rules/common-rules.md"
+    }
+  ],
   "hooks": {
     "notify-me": {
       "type": "postRequest",
@@ -77,61 +82,13 @@
     }
   },
   "mcpServers": {
-    "sequential-thinking": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
-    },
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
+    "codex": {
+      "command": "bunx",
+      "args": ["mcp-codex-cli", "--allow-npx"]
     },
     "deepcontext": {
       "command": "npx",
       "args": ["-y", "@wildcard-ai/deepcontext@latest"]
-    },
-    "serena": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server",
-        "--enable-web-dashboard",
-        "False"
-      ]
-    },
-    "qwen": {
-      "command": "npx",
-      "args": ["-y", "jeffery9/qwen-mcp-tool"]
-    },
-    // "deepseek": {
-    //   "command": "npx",
-    //   "args": ["-y", "deepseek-mcp-server"]
-    // },
-    "gemini-cli": {
-      "command": "mcp-gemini-cli"
-    },
-    "sentry": {
-      "disabled": true,
-      "command": "npx",
-      "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
-    },
-    "youtrack": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://verifika.youtrack.cloud/mcp",
-        "--header",
-        "$YOUTRACK_AUTH_HEADER"
-      ]
-    },
-    "codex": {
-      "command": "bunx",
-      "args": ["mcp-codex-cli", "--allow-npx"]
     },
     "toon-context": {
       "command": "bun",
@@ -146,11 +103,51 @@
     "emacs-mcp": {
       "command": "bunx",
       "args": ["@keegancsmith/emacs-mcp-server", "--allow-npx"]
+    },
+    "qwen": {
+      "command": "npx",
+      "args": ["-y", "jeffery9/qwen-mcp-tool"]
+    },
+    "youtrack": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://verifika.youtrack.cloud/mcp",
+        "--header",
+        "$YOUTRACK_AUTH_HEADER"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "sentry": {
+      "disabled": true,
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--enable-web-dashboard",
+        "False"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "gemini-cli": {
+      "command": "mcp-gemini-cli"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
     }
-    // "ddg-search": {
-    //   "command": "uvx",
-    //   "args": ["duckduckgo-mcp-server"]
-    // }
   },
   "toolCall": {
     "approval": {
@@ -173,21 +170,21 @@
             ]
           }
         },
-        "context7": {},
-        "youtrack__get_issue": {},
-        "sequential-thinking": {},
         "issue_details": {},
-        "issue_comments": {},
-        "find": {},
-        "serena": {},
-        "eca": {},
-        "eca_directory_tree": {},
-        "eca_read_file": {},
-        "eca_grep": {},
         "eca_editor_diagnostics": {},
-        "search_codebase": {}
+        "find": {},
+        "eca_directory_tree": {},
+        "issue_comments": {},
+        "sequential-thinking": {},
+        "eca_read_file": {},
+        "search_codebase": {},
+        "eca_grep": {},
+        "serena": {},
+        "context7": {},
+        "eca": {},
+        "youtrack__get_issue": {}
       }
     }
   },
-  "defaultModel": "anthropic/claude-opus-4.5"
+  "defaultModel": "anthropic/claude-opus-4.6"
 }
