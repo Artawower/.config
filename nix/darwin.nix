@@ -12,7 +12,8 @@ in
   ];
 
   environment.variables = {
-    EDITOR = "emacsclient -c";
+    # EDITOR = "emacsclient -c";
+    EDITOR = "hx";
 
     PATH = "/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH";
   };
@@ -400,6 +401,7 @@ in
       "claude-code"
       "thock"
       "android-studio"
+      "claude-code"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;

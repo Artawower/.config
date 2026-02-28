@@ -8,8 +8,11 @@ del _secrets, op
 
 $VI_MODE = 'INSIDE_EMACS' not in ${...}
 $AUTO_CD = True
-$EDITOR = 'emacsclient -ac'
-$VISUAL = 'emacsclient -ac'
+# $EDITOR = 'emacsclient -ac'
+$EDITOR = 'hx'
+$VISUAL = 'hx'
+$JJ_EDITOR = 'hx'
+# $VISUAL = 'emacsclient -ac'
 if platform.system() == 'Linux':
   $EDITOR = 'hx'
   $VISUAL = 'hx'
