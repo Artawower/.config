@@ -34,7 +34,7 @@ osascript -e 'tell application "Finder" to make alias file to posix file "/opt/h
 #+END_SRC
 ** Variables
 #+BEGIN_SRC emacs-lisp
-(setq my/user-email "artawower33@gmail.com")
+(setq my/user-email "artawower@protonmail.com")
 #+END_SRC
 ** Paths
 Config path
@@ -1722,6 +1722,7 @@ Move to husky
 (global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key "\C-u" 'my/backward-kill-line)
+(global-set-key (kbd "TAB") 'self-insert-command)
 #+END_SRC
 
 *** Window management
@@ -1806,6 +1807,29 @@ Move to husky
   :custom
   (char-fold-symmetric t)
   (search-default-mode #'char-fold-to-regexp))
+#+END_SRC
+*** Colemak for meow isnert
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/toggle-meow-colemak-local ()
+  "Toggle Colemak input method for current buffer with Meow."
+  (interactive)
+  (if (local-variable-p 'my/meow-colemak-enabled (current-buffer))
+      (progn
+        (remove-hook 'meow-insert-enter-hook #'my/meow-colemak-insert t)
+        (remove-hook 'meow-insert-exit-hook  #'my/meow-colemak-normal t)
+        (kill-local-variable 'my/meow-colemak-enabled)
+        (deactivate-input-method)
+        (message "Local Meow ↔ Colemak hooks disabled"))
+    (progn
+      (defun my/meow-colemak-insert ()
+        (set-input-method "english-colemak"))
+      (defun my/meow-colemak-normal ()
+        (deactivate-input-method))
+      (add-hook 'meow-insert-enter-hook #'my/meow-colemak-insert nil t)
+      (add-hook 'meow-insert-exit-hook  #'my/meow-colemak-normal nil t)
+      (make-local-variable 'my/meow-colemak-enabled)
+      (setq my/meow-colemak-enabled t)
+      (message "Local Meow ↔ Colemak hooks enabled"))))
 #+END_SRC
 *** Core package
 #+BEGIN_SRC emacs-lisp
@@ -2884,6 +2908,20 @@ Setup blamer face
   (setq blamer-bindings '(("<mouse-3>" . blamer-callback-open-remote)
                           ("<mouse-1>" . blamer-callback-show-commit-diff))))
 #+END_SRC
+
+** Jujutsu
+# #+BEGIN_SRC emacs-lisp :results silent
+# (use-package jj-mode
+#   :ensure (:host github :repo "bolivier/jj-mode.el"))
+# #+END_SRC
+
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package majutsu
+  :bind (("C-c j j" . majutsu)
+         ("C-c j d" . majutsu-diff))
+  :ensure (:host github :repo "0WD0/majutsu"))
+#+END_SRC
+
 
 ** Ediff
 *** Helper functions
@@ -5129,8 +5167,9 @@ deps
   :ensure nil
   :custom
   (epg-pinentry-mode 'loopback)
-  (epa-file-encrypt-to my/user-email)
   :config
+  (setq epa-file-encrypt-to `(,my/user-email)
+        org-crypt-key my/user-email)
   (epa-file-enable))
 #+END_SRC
 
