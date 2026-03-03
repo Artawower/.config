@@ -2918,8 +2918,18 @@ Setup blamer face
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package majutsu
   :bind (("C-c j j" . majutsu)
-         ("C-c j d" . majutsu-diff))
-  :ensure (:host github :repo "0WD0/majutsu"))
+         ("C-c j d" . majutsu-diff)
+         :map majutsu-diff-section-map
+         ("s-<return>" . majutsu-diff-visit-workspace-file)
+         ("C-j" . magit-section-forward)
+         ("C-k" . magit-section-backward)
+         :map majutsu-diff-mode-map
+         ("s-<return>" . majutsu-diff-visit-workspace-file)
+         ("C-j" . magit-section-forward)
+         ("C-k" . magit-section-backward))
+  :ensure (:host github :repo "0WD0/majutsu")
+  :config
+  (define-key majutsu-diff-mode-map (kbd "C-j") nil))
 #+END_SRC
 
 
@@ -5667,6 +5677,7 @@ My own package for publish roam files
   (("C-c n p" . orgnote-publish-file)
    ("C-c n F" . orgnote-force-sync)
    ("C-c n S" . orgnote-sync)
+   :hook (org-mode . orgnote-sync-mode)
    :map org-mode-map
    ("C-c n P" . orgnote-publish-all)
    ("C-c n L" . orgnote-load))
