@@ -20,7 +20,6 @@ fetch = "origin"
 push-new-bookmark = true
 
 [aliases]
-st = ["status"]
 l = ["log"]
 ll = ["log", "-n", "20"]
 d = ["diff"]
@@ -37,4 +36,3 @@ tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 
 unpushed = ["log", "-r", "@origin..@"]
 
-git = ["util", "exec", "--", "git"]
