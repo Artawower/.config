@@ -17,6 +17,8 @@
 .gitignore
 !.gitignore
 !jj
+jj/repos
+jj/repos/*
 
 !.zshrc
 !nv.sh
