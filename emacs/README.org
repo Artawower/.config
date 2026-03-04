@@ -2910,11 +2910,6 @@ Setup blamer face
 #+END_SRC
 
 ** Jujutsu
-# #+BEGIN_SRC emacs-lisp :results silent
-# (use-package jj-mode
-#   :ensure (:host github :repo "bolivier/jj-mode.el"))
-# #+END_SRC
-
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package majutsu
   :bind (("C-c j j" . majutsu)
@@ -2923,6 +2918,7 @@ Setup blamer face
          ("s-<return>" . majutsu-diff-visit-workspace-file)
          ("C-j" . magit-section-forward)
          ("C-k" . magit-section-backward)
+         ("z z" . recenter)
          :map majutsu-diff-mode-map
          ("s-<return>" . majutsu-diff-visit-workspace-file)
          ("C-j" . magit-section-forward)
