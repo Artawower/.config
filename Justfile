@@ -11,7 +11,7 @@ fedora-deps:
     sudo env -u LD_LIBRARY_PATH dnf clean all
     sudo env -u LD_LIBRARY_PATH dnf install -y --skip-unavailable \
         noctalia-shell \
-        fastfetch \
+        fastfetch waydroid \
         freetype-devel libepoxy-devel fontconfig-devel cairo-devel \
         pango-devel gtk4-devel libadwaita-devel libspiro-devel \
         android-tools neohtop fontconfig pkg-config rustup earlyoom \
