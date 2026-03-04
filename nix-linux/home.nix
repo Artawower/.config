@@ -43,7 +43,6 @@
     zellij
 
     codex
-    opencode
 
     grim
     slurp
