@@ -69,6 +69,7 @@ let
     ps.httpx
     ps.pip
     ps.tomli-w
+    ps.setuptools
   ]);
 
 in
@@ -143,7 +144,7 @@ in
     # Software
     zoxide
     walsh
-    
+
     # Android SDK for Capacitor
     jdk21
     gradle
@@ -163,7 +164,7 @@ in
   programs.git = {
     enable = true;
     signing = {
-      key = "77E909ABBBD9368B";
+      key = "4357424B95BAB5C5";
       signByDefault = true;
     };
     settings = {
@@ -176,7 +177,6 @@ in
       gpg.program = "/opt/homebrew/bin/gpg";
     };
   };
-
 
   home.activation = {
     fixReadlinkCompat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
