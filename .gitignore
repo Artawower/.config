@@ -1,6 +1,4 @@
 /*
-.gitignore
-!.gitignore
 !backup
 !fonts
 !htop
@@ -13,6 +11,14 @@
 !skhd
 !wal
 !alacritty.yamlREADME.md
+
+
+# Git
+.gitignore
+!.gitignore
+!jj
+jj/repos
+jj/repos/*
 
 !.zshrc
 !nv.sh

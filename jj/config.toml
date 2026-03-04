@@ -1,0 +1,38 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Artur Iaroshenko"
+email = "artawower@protonmail.com"
+
+[signing]
+behavior = "own"
+backend = "gpg"
+key = "4357424B95BAB5C5"
+
+[revsets]
+push-default = "@"
+
+
+[git]
+push = "origin"
+fetch = "origin"
+
+push-new-bookmark = true
+
+[aliases]
+l = ["log"]
+ll = ["log", "-n", "20"]
+d = ["diff"]
+sh = ["show"]
+
+fetch = ["git", "fetch"]
+push = ["git", "push"]
+
+pushc = ["git", "push", "--change"]
+
+pushc-prev = ["git", "push", "--change", "@-"]
+
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+
+unpushed = ["log", "-r", "@origin..@"]
+
