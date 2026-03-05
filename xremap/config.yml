@@ -65,6 +65,12 @@ keymap:
     exact_match: true
     remap:
       Super-f: C-f
+      Super-w: C-w
+      Super-x: C-x
+      Super-t: C-t
+      Super-c: C-c
+      Super-l: C-l
+      Super-z: C-z
       Super-1: C-1
       Super-2: C-2
       Super-3: C-3
@@ -74,7 +80,8 @@ keymap:
       Super-7: C-7
       Super-8: C-8
       Super-9: C-9
-      Super-z: C-z
+      Super-LeftBrace: C-LeftBrace
+      Super-RightBrace: C-RightBrace
 
 
   - name: Ctrl+Meta arrows

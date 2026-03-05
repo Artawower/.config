@@ -31,7 +31,6 @@
     gitu
     jujutsu
     jjui
-    kilocode-cli
     just
     dash
     gnupg
