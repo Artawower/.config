@@ -29,6 +29,9 @@
     yazi
     vicinae
     gitu
+    jujutsu
+    jjui
+    kilocode-cli
     just
     dash
     gnupg
@@ -43,7 +46,7 @@
     zellij
 
     codex
-    opencode
+    # opencode
 
     grim
     slurp
