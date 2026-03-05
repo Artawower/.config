@@ -34,5 +34,7 @@ pushc-prev = ["git", "push", "--change", "@-"]
 
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 
+cur = ["bookmark", "move", "--from", "heads(::@ & bookmarks())", "--to", "@"]
+
 unpushed = ["log", "-r", "@origin..@"]
 
