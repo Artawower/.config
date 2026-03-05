@@ -2,17 +2,34 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "google_auth": false,
   "agents": {
-    "librarian": {
-      "model": "opencode/glm-4.7-free"
+    "sisyphus": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "description": "Primary Ultrawork orchestrator and strategy lead"
     },
-    "explore": {
-      "model": "google/antigravity-gemini-3-flash"
+    "hephaestus": {
+      "model": "openai/gpt-5.3-codex",
+      "description": "Autonomous execution unit for code implementation"
+    },
+    "oracle": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "description": "Architecture and high-level logic consultant"
+    },
+    "metis": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "description": "Pre-flight plan validator and critic"
+    },
+    "librarian": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "description": "Context and documentation specialist"
     },
     "frontend-ui-ux-engineer": {
       "model": "google/antigravity-gemini-3-pro-high"
     },
+    "explore": {
+      "model": "opencode/minimax-m2.5-free"
+    },
     "document-writer": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "opencode/minimax-m2.5-free"
     },
     "multimodal-looker": {
       "model": "google/antigravity-gemini-3-flash"
