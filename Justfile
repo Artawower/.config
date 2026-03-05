@@ -42,6 +42,7 @@ volta:
     volta install \
     opencode-ai \
     env-cmd \
+    @kilocode/cli \
     node@22 \
     @angular/language-service@next \
     vscode-langservers-extracted \
@@ -119,15 +120,6 @@ nix-clean-mac:
 
 [working-directory("/tmp")]
 manual-deps:
-    rm -rf /tmp/hyprvoice
-    cd /tmp
-    git clone https://github.com/leonardotrapani/hyprvoice.git
-    cd /tmp/hyprvoice
-    go mod download
-    go build -o hyprvoice ./cmd/hyprvoice
-    mkdir -p ~/.local/bin
-    cp hyprvoice ~/.local/bin/
-
     rm -rf /tmp/trackpad-is-too-damn-big
     git clone https://github.com/tascvh/trackpad-is-too-damn-big /tmp/trackpad-is-too-damn-big
     cmake -B /tmp/trackpad-is-too-damn-big/build -S /tmp/trackpad-is-too-damn-big
