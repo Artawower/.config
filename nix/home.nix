@@ -98,6 +98,7 @@ in
     wget
     curl
     git
+    jjui
     tmux
     neovim
     bash
