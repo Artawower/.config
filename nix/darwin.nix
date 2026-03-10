@@ -308,6 +308,7 @@ in
       "gopls"
     ];
     taps = [
+      "BarutSRB/tap"
       "clojure/tools"
       "kamillobinski/thock"
       "krtirtho/apps"
@@ -402,6 +403,7 @@ in
       "thock"
       "android-studio"
       "claude-code"
+      # "omniwm"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;
