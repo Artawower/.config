@@ -2925,6 +2925,7 @@ Setup blamer face
          ("C-k" . magit-section-backward))
   :ensure (:host github :repo "0WD0/majutsu")
   :config
+  (set-face-attribute 'majutsu-interactive-selected-hunk nil :background (modus-themes-get-color-value 'green-cooler))
   (define-key majutsu-diff-mode-map (kbd "C-j") nil))
 #+END_SRC
 
