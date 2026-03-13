@@ -130,7 +130,7 @@ Function for getting config related paths
 ** Some performance optimization
 *** Package quick start
 #+BEGIN_SRC emacs-lisp
-(setq package-quickstart t)
+(setq package-quickstart nil)
 #+END_SRC
 *** Initial mode
 #+BEGIN_SRC emacs-lisp
@@ -164,15 +164,15 @@ https://github.com/D4lj337/Emacs-performance
 * Package manager.
 ** Elpaca. Package manager.
 #+BEGIN_SRC emacs-lisp
-(defvar elpaca-installer-version 0.11)
+(defvar elpaca-installer-version 0.12)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
                               :ref nil :depth 1 :inherit ignore
                               :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+                              :build (:not elpaca-activate)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-sources-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
        (default-directory repo))
@@ -215,7 +215,7 @@ https://github.com/D4lj337/Emacs-performance
   ;; Enable :ensure use-package keyword.
   (elpaca-use-package-mode)
   ;; Assume :ensure t unless otherwise specified.
-  (setq elpaca-use-package-by-default t)
+  (setq use-package-always-ensure t)
   (setq use-package-compute-statistics t))
 
 ;; Block until current queue processed.
@@ -620,8 +620,12 @@ Modeline background colors
   (let ((region-bg (face-background 'region nil t))
         (modeline-bg (face-attribute 'mode-line :background nil t)))
     (cond
-     ((stringp region-bg) region-bg)
-     ((stringp modeline-bg) modeline-bg)
+     ((and (stringp region-bg)
+           (not (string-prefix-p "unspecified" region-bg)))
+      region-bg)
+     ((and (stringp modeline-bg)
+           (not (string-prefix-p "unspecified" modeline-bg)))
+      modeline-bg)
      (t "#555555"))))
 #+END_SRC
 
@@ -632,9 +636,13 @@ Modeline inactive color
   (let ((default-bg (face-background 'default nil t))
         (inactive-bg (face-attribute 'mode-line-inactive :background nil t)))
     (cond
-     ((and (stringp default-bg) (fboundp 'color-darken-name))
-      (color-darken-name default-bg 5))
-     ((stringp inactive-bg) inactive-bg)
+     ((and (stringp default-bg)
+           (not (string-prefix-p "unspecified" default-bg))
+           (fboundp 'color-darken-name))
+       (color-darken-name default-bg 5))
+     ((and (stringp inactive-bg)
+           (not (string-prefix-p "unspecified" inactive-bg)))
+      inactive-bg)
      (t "#333333"))))
 #+END_SRC
 
@@ -889,8 +897,6 @@ Temporary disabled due to performance issues on macos
 ** Fringes via spacious padding
 #+BEGIN_SRC emacs-lisp
 (use-package spacious-padding
-  :hook
-  (emacs-startup . spacious-padding-mode)
   :custom
   (spacious-padding-widths '( :internal-border-width 16
                               :header-line-width 8
@@ -900,7 +906,8 @@ Temporary disabled due to performance issues on macos
                               :scroll-bar-width 0))
   (spacious-padding-subtle-mode-line nil)
   :config
-  (advice-add 'spacious-padding-set-faces :after #'my/setup-modeline))
+  (advice-add 'spacious-padding-set-faces :after #'my/setup-modeline)
+  (spacious-padding-mode 1))
 #+END_SRC
 
 ** Olivetti mode
@@ -958,12 +965,12 @@ Temporary disabled due to performance issues on macos
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package tab-bar-echo-area
-  :hook
-  (emacs-startup . tab-bar-echo-area-mode)
+  :demand t
   :bind (("C-c TAB TAB" . tab-bar-echo-area-display-tab-names))
   :config
   (tab-bar-mode)
-  (setq tab-bar-echo-area-display-tab-names-format-string "%s"))
+  (setq tab-bar-echo-area-display-tab-names-format-string "%s")
+  (tab-bar-echo-area-mode 1))
 #+END_SRC
 
 *** Tab bar manager
@@ -1697,9 +1704,9 @@ Move to husky
 #+BEGIN_SRC emacs-lisp
 (use-package meow-vterm
   :ensure (meow-vterm :type git :host github :repo "accelbread/meow-vterm")
-  :init
-  (meow-vterm-enable)
+  :after (meow vterm)
   :config
+  (meow-vterm-enable)
   (setq vterm-keymap-exceptions '("C-c")))
 #+END_SRC
 
@@ -2048,10 +2055,12 @@ The format is:
 #+BEGIN_SRC emacs-lisp
 (use-package autorevert
     :ensure nil
-    :hook ((emacs-startup . global-auto-revert-mode))
+    :demand t
     :custom
     (auto-revert-verbose nil)
-    (auto-revert-use-notify nil))
+    (auto-revert-use-notify nil)
+    :config
+    (global-auto-revert-mode))
 #+END_SRC
 ** Persistent values
 #+BEGIN_SRC emacs-lisp
@@ -2435,8 +2444,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 ** Dirvish.
 #+BEGIN_SRC emacs-lisp
 (use-package dirvish
-  :init
-  (dirvish-override-dired-mode)
+  :demand t
   :bind (("C-c o p" . dirvish-side)
          ("C-c f g" . dirvish-quick-access)
          :map dirvish-mode-map
@@ -2464,6 +2472,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
                           ("Archives"      (extensions "gz" "rar" "zip"))))
 
   :config
+  (dirvish-override-dired-mode)
   (setq dirvish-attributes
         '(file-time collapse subtree-state))
   (setq delete-by-moving-to-trash t)
@@ -2601,9 +2610,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package detached
-  :defer t
-  :init
-  (detached-init)
+  :demand t
   :bind (([remap compile] . detached-compile)
          ([remap recompile] . detached-compile-recompile)
          ([remap project-compile] . detached-compile)
@@ -2617,7 +2624,10 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
          ("C-c D c" . detached-compile))
   :custom
   (detached-show-output-on-attach t)
-  (detached-terminal-data-command system-type))
+  (detached-terminal-data-command system-type)
+  :config
+  (unless noninteractive
+    (detached-init)))
 #+END_SRC
 
 *** Force restart session
@@ -2805,7 +2815,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package git-gutter
-  :hook (emacs-startup . global-git-gutter-mode)
+  :demand t
   :bind (("C-M-[" . git-gutter:previous-hunk)
          ("C-M-]" . git-gutter:next-hunk)
          ("C-M-r" . git-gutter:revert-hunk)
@@ -2819,7 +2829,8 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   (setq git-gutter:added-sign " "
         git-gutter:modified-sign " "
         git-gutter:deleted-sign " ")
-  (setq git-gutter:window-width 1))
+  (setq git-gutter:window-width 1)
+  (global-git-gutter-mode))
 #+END_SRC
 
 *** Better gitgutter fringe :ui:
@@ -2928,7 +2939,6 @@ Setup blamer face
   (set-face-attribute 'majutsu-interactive-selected-hunk nil :background (modus-themes-get-color-value 'green-cooler))
   (define-key majutsu-diff-mode-map (kbd "C-j") nil))
 #+END_SRC
-
 
 ** Ediff
 *** Helper functions
@@ -3217,6 +3227,7 @@ Prevents closing the last frame in daemon mode on macOS."
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package vertico
+  :demand t
   :ensure (:host github :repo "minad/vertico" :files ("vertico.el" "extensions/*.el"))
   :init
   ;; Add prompt indicator to `completing-read-multiple'
@@ -3232,7 +3243,6 @@ Prevents closing the last frame in daemon mode on macOS."
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t)
 
-  :hook (emacs-startup-hook . vertico-mode)
   :bind (("C-c ;" . vertico-repeat-last)
          ("C-c '" . vertico-repeat)
          :map vertico-map
@@ -3262,7 +3272,8 @@ Prevents closing the last frame in daemon mode on macOS."
                           (fboundp 'consult-completion-in-region))
                      #'consult-completion-in-region
                    #'completion--in-region)
-                 args))))
+                 args)))
+  (vertico-mode 1))
 
 #+END_SRC
 
@@ -3365,7 +3376,7 @@ Prevents closing the last frame in daemon mode on macOS."
 ** Completion annotations marginalia
 #+BEGIN_SRC emacs-lisp
   (use-package marginalia
-    :hook (emacs-startup . marginalia-mode)
+    :demand t
     :bind (("M-A" . marginalia-cycle)
            :map minibuffer-local-map
            ("M-A" . marginalia-cycle))
@@ -3374,7 +3385,8 @@ Prevents closing the last frame in daemon mode on macOS."
     (pushnew! marginalia-command-categories
             '(+default/find-file-under-here . file)
             '(flycheck-error-list-set-filter . builtin)
-            '(persp-switch-to-buffer . buffer)))
+            '(persp-switch-to-buffer . buffer))
+             (marginalia-mode t))
 
 #+END_SRC
 
@@ -4911,6 +4923,8 @@ Requires Emacs 30+
 ** K8S
 #+BEGIN_SRC emacs-lisp
 (use-package kubernetes
+  :ensure nil
+  :if (locate-library "kubernetes")
   :defer t
   :commands (kubernetes-overview)
   :bind (("C-c o K" . kubernetes-overview))
@@ -5104,16 +5118,9 @@ Requires Emacs 30+
 
 ** Copilot
 deps
-#+BEGIN_SRC emacs-lisp :tangle no
 (use-package track-changes
-  :preface (unload-feature 'track-changes t)
-  :ensure (track-changes
-           :host github
-           :repo "emacs-mirror/emacs"
-           :branch "master"
-           :files ("lisp/emacs-lisp/track-changes.el")
-           :depth 1
-           :inherit nil))
+  :ensure (track-changes :wait t)
+  :demand t)
 
 #+END_SRC
 
@@ -5674,10 +5681,10 @@ My own package for publish roam files
   (("C-c n p" . orgnote-publish-file)
    ("C-c n F" . orgnote-force-sync)
    ("C-c n S" . orgnote-sync)
-   :hook (org-mode . orgnote-sync-mode)
-   :map org-mode-map
-   ("C-c n P" . orgnote-publish-all)
-   ("C-c n L" . orgnote-load))
+    :map org-mode-map
+    ("C-c n P" . orgnote-publish-all)
+    ("C-c n L" . orgnote-load))
+  :hook (org-mode . orgnote-autosync-mode)
   :custom
   (orgnote-debug-p t)
   (orgnote-execution-script "bun /Users/darkawower/projects/pet/orgnote/orgnote-cli/dist/index.js"))
@@ -5769,7 +5776,7 @@ Ob raindrop (dynamic block)
 ** Jinx. Spellchecker.
 #+BEGIN_SRC emacs-lisp
 (use-package jinx
-  :hook (emacs-startup . global-jinx-mode)
+  :demand t
   :custom
   (jinx-languages "en_US ru_RU")
   (jinx-camel-modes '(prog-mode org-mode))
@@ -5778,15 +5785,16 @@ Ob raindrop (dynamic block)
          ("C-c s ]" . jinx-next)
          ("C-c s [" . jinx-previous))
   :config
+  (setq jinx-enchant-path (executable-find "enchant-2"))
   (add-to-list 'jinx-camel-modes 'html-ts-mode)
   (add-to-list 'jinx-camel-modes 'html-mode)
   (add-to-list 'jinx-camel-modes 'typescript-ts-mode)
-  (setq jinx-enchant-path (executable-find "enchant-2"))  ;; Add function and variable names to jinx faces in prog-mode
   (cl-callf cl-union
       (alist-get 'prog-mode jinx-include-faces)
     '(font-lock-function-name-face
       font-lock-variable-name-face)
-    :test #'eq))
+    :test #'eq)
+  (global-jinx-mode 1))
  #+END_SRC
 
 * Emacs for everything
@@ -5944,51 +5952,13 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
   (setq persistent-scratch-autosave-interval 5))
 #+END_SRC
 
-** mu4e mail client
-*** Mu4e core package
-#+BEGIN_SRC emacs-lisp :results silent
-(use-package mu4e
-  :load-path "/nix/store/x3miwzs9b838pkl7bka36x70gg3fws2s-emacs-mu4e-1.12.13/share/emacs/site-lisp/elpa/mu4e-1.12.13"
-  :defer t
-  :bind (("C-c u" . mu4e-transient-menu)
-         :map mu4e-main-mode-map
-         ("J" . mu4e-search-maildir))
-  :config
-  (require 'mu4e-transient)
-  (setenv "XDG_CACHE_HOME" (expand-file-name "~/.cache"))
-
-  (setq mu4e-maildir "~/Mail"
-        mu4e-get-mail-command "mbsync -a"
-        mu4e-update-interval 120
-        mu4e-index-update-in-background t)
-
-  (setq mu4e-use-fancy-chars t
-        mu4e-headers-show-threads t
-        mu4e-headers-skip-duplicates t
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t)
-
-  (setq mu4e-view-prefer-html t)
-
-  (setq mu4e-headers-fields
-        '((:from-or-to . 30)
-          (:subject . nil)))
-
-  (setq mu4e-marks
-        '((delete . (char ?D))
-          (trash  . (char ?T))
-          (refile . (char ?r))
-          (flag   . (char ?f))
-          (move   . (char ?m))
-          (read   . (char ?R))
-          (unread . (char ?U)))))
-
-#+END_SRC
 
 *** Easy setup
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package mu4easy
   :ensure t
+  :if (file-directory-p my/mu4e-load-path)
+  :after mu4e
   :config (mu4easy-mode)
   :custom
   (mu4easy-contexts '((mu4easy-context
