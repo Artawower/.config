@@ -62,7 +62,8 @@ volta:
     eslint \
     npm-check-updates \
     npm-upgrade \
-    stylelint
+    stylelint \
+    @mermaid-js/mermaid-cli
 
 cargo:
     just _cargo-{{os()}}
