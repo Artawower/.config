@@ -5028,6 +5028,15 @@ Requires Emacs 30+
         (write-file path)))
     (xwidget-webkit-browse-url (format "file://%s" path))))
 #+END_SRC
+*** Mermaid preview package
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package markdown-mermaid
+  :ensure (markdown-mermaid :type git :host github :repo "pasunboneleve/markdown-mermaid")
+  :custom
+  (markdown-mermaid-mmdc-path "/Users/darkawower/.volta/bin/mmdc")
+  :bind (:map markdown-mode-map
+              ("C-c m" . markdown-mermaid-preview)))
+#+END_SRC
 *** Org babel
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package ob-mermaid
