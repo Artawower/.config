@@ -52,10 +52,10 @@ Function for getting config related paths
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(setq my/org-roam-dir (expand-file-name "~/Yandex.Disk.localized/Dropbox/org-roam"))
+(setq my/org-roam-dir (expand-file-name "~/org-roam"))
 (setq my/agenda-dir (concat my/org-roam-dir "/agenda/"))
 
-(setq my/org-roam-charts-dir (expand-file-name "~/Yandex.Disk.localized/Dropbox/org-roam/charts"))
+(setq my/org-roam-charts-dir (expand-file-name "~/org-roam/charts"))
 (setq my/config-path (my/get-config-related-path "README.org"))
 (setq my/backup-dir (expand-file-name "~/tmp/emacs-backups"))
 (setq my/private-config-path (my/get-config-related-path "private.el"))
