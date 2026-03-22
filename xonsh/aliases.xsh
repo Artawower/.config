@@ -22,8 +22,6 @@ aliases['br'] = 'bun run'
 aliases['bi'] = 'bun install'
 aliases['bis'] = 'bun install --exact --save'
 aliases['bid'] = 'bun install --exact --save --dev'
-aliases['pi'] = 'pnpm install'
-aliases['pr'] = 'pnpm run'
 
 aliases['m'] = 'minikube'
 aliases['ms'] = 'minikube start --driver=docker --alsologtostderr'

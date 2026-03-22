@@ -13,6 +13,8 @@ $EDITOR = 'hx'
 $VISUAL = 'hx'
 $JJ_EDITOR = 'hx'
 # $VISUAL = 'emacsclient -ac'
+# $JJ_EDITOR = 'emacsclient -ac'
+# $VISUAL = 'emacsclient -ac'
 if platform.system() == 'Linux':
   $EDITOR = 'hx'
   $VISUAL = 'hx'
