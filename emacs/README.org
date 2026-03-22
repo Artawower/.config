@@ -5645,9 +5645,8 @@ Automatically creates parent directories if needed."
   (org-node-roam-accelerator-mode)
   (setq org-node-affixation-fn
         (defun my/org-node-prefix-with-tag (node title)
-          "Let NODE's tags prefix TITLE."
           (list title
-                (when-let ((tags (org-node-get-tags node)))
+                (when-let ((tags (org-mem-entry-tags node)))
                   (propertize (concat "(" (string-join tags ", ") ") ")
                               'face `(:foreground ,my/org-tag-color :weight bold :slant italic)))
                 nil))))
@@ -6036,6 +6035,26 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
 
 #+END_SRC
 
+* COMMENT RSS reader
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package newsflash
+  :ensure (:type git :host github :repo "zenitsu7772000/newsflash")
+  :commands (newsflash newsflash-refresh newsflash-search)
+  :custom
+  (newsflash-refresh-interval    300)
+  (newsflash-max-items-per-feed  3)
+  (newsflash-max-dashboard-items 8)
+  (newsflash-quick-start         t)
+  (newsflash-fetch-timeout       5)
+  (newsflash-open-links-in       'eww)
+  (newsflash-eww-in-side-window  t)
+  :config
+  (add-to-list 'newsflash-feeds
+             '(:category "news"
+               :icon "★"
+               :feeds
+               (("Meduza" . "https://meduza.io/rss/en/all")))))
+#+END_SRC
 * End config
 #+BEGIN_SRC emacs-lisp
 (elpaca-wait)
