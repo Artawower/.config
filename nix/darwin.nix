@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ self, pkgs, user, ... }:
 let
   emacsDaemonStarter = pkgs.writeShellScriptBin "emacs-daemon-starter" ''
     exec /opt/homebrew/bin/emacs --fg-daemon=server --eval '(server-start)'
@@ -20,15 +20,15 @@ in
 
   nix.settings.experimental-features = "nix-command flakes";
 
-  system.primaryUser = "darkawower";
+  system.primaryUser = user.username;
 
   # programs.fish.enable = true;
 
-  # users.users.darkawower.shell = pkgs.fish;
+  # users.users.${user.username}.shell = pkgs.fish;
 
   environment.shells = [ pkgs.xonsh ];
 
-  users.users.darkawower = {
+  users.users.${user.username} = {
     shell = pkgs.xonsh;
   };
 
@@ -85,7 +85,7 @@ in
   '';
 
   system.activationScripts.setInputSourceHotkey = ''
-    su -l darkawower -c 'killall SystemUIServer || true'
+    su -l ${user.username} -c 'killall SystemUIServer || true'
   '';
 
   system.activationScripts.disableLanguageCursorPopup = ''
@@ -143,7 +143,7 @@ in
 
   # ensure log dir exists for the user
   system.activationScripts.ensureEmacsLogDir = ''
-    su -l darkawower -c 'mkdir -p "$HOME/.local/state/emacs"'
+    su -l ${user.username} -c 'mkdir -p "$HOME/.local/state/emacs"'
   '';
 
   # Fix readlink for home-manager on macOS
@@ -157,7 +157,7 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
 
   security.sudo.extraConfig = ''
-    darkawower ALL=(root) NOPASSWD: /opt/homebrew/bin/yabai --load-sa
+    ${user.username} ALL=(root) NOPASSWD: /opt/homebrew/bin/yabai --load-sa
   '';
 
   system.configurationRevision = self.rev or self.dirtyRev or null;

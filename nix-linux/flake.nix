@@ -12,12 +12,15 @@
     noctalia.url = "github:noctalia-dev/noctalia-shell";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: {
-    homeConfigurations."darkawower" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
-      extraSpecialArgs = { inherit inputs; };
-      modules = [ ./home.nix ];
+  outputs = { nixpkgs, home-manager, ... }@inputs:
+    let
+      user = import ./user.nix;
+    in
+    {
+      homeConfigurations.${user.username} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        extraSpecialArgs = { inherit inputs user; };
+        modules = [ ./home.nix ];
+      };
     };
-
-  };
 }

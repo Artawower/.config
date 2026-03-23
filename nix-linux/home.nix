@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, user, ... }:
 
 {
   imports = [
@@ -6,8 +6,8 @@
     ./fonts.nix
   ];
 
-  home.username = "darkawower";
-  home.homeDirectory = "/home/darkawower";
+  home.username = user.username;
+  home.homeDirectory = "/home/${user.username}";
   home.stateVersion = "25.11";
 
   nixpkgs.config.allowUnfree = true;
@@ -95,7 +95,7 @@
     (writeShellScriptBin "waystt" ''
       export ALSA_PLUGIN_DIRS="/usr/lib64/alsa-lib"
       export LD_LIBRARY_PATH="/usr/lib64:${pkgs.stdenv.cc.cc.lib}/lib"
-      exec /home/darkawower/.local/bin/waystt-bin "$@"
+      exec /home/${user.username}/.local/bin/waystt-bin "$@"
     '')
   ];
 

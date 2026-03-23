@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }:
 
@@ -75,8 +76,8 @@ let
 in
 {
   home.stateVersion = "23.05";
-  home.username = "darkawower";
-  home.homeDirectory = "/Users/darkawower";
+  home.username = user.username;
+  home.homeDirectory = "/Users/${user.username}";
 
   # Enable font management
   fonts.fontconfig.enable = true;
@@ -154,7 +155,7 @@ in
   home.file = { };
 
   home.sessionVariables = {
-    PATH = "$HOME/.volta/bin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:/Users/darkawower/.local/share/uv/tools";
+    PATH = "$HOME/.volta/bin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:$HOME/.local/share/uv/tools";
     ANDROID_HOME = "$HOME/Library/Android/sdk";
     ANDROID_SDK_ROOT = "$HOME/Library/Android/sdk";
     JAVA_HOME = "${pkgs.jdk21}/lib/openjdk";
@@ -165,13 +166,13 @@ in
   programs.git = {
     enable = true;
     signing = {
-      key = "4357424B95BAB5C5";
+      key = user.gpgKey;
       signByDefault = true;
     };
     settings = {
       user = {
-        name = "Artur Iaroshenko";
-        email = "artawower@protonmail.com";
+        name = user.fullName;
+        email = user.email;
       };
       commit.gpgsign = true;
       tag.gpgsign = true;
@@ -199,7 +200,7 @@ in
   launchd.agents.walsh = {
     enable = true;
     config = {
-      Label = "com.darkawower.walsh";
+      Label = "com.${user.username}.walsh";
       ProgramArguments = [
         "${walsh}/bin/walsh"
         "set"

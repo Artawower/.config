@@ -1,5 +1,5 @@
 {
-  description = "Darkawower nix-darwin system flake";
+  description = "Nix-darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -20,6 +20,7 @@
       ...
     }:
     let
+      user = import ./user.nix;
       systems = [
         "aarch64-darwin"
         "x86_64-linux"
@@ -27,20 +28,19 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      darwinConfigurations."Arturs-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${user.hostname} = nix-darwin.lib.darwinSystem {
         modules = [
           darwin-login-items.darwinModules.default
           (
             { pkgs, ... }:
             import ./darwin.nix {
-              inherit self;
-              inherit pkgs;
+              inherit self pkgs user;
             }
           )
         ];
       };
 
-      homeConfigurations.darkawower = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${user.username} = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
           config = {
@@ -48,7 +48,10 @@
             android_sdk.accept_license = true;
           };
         };
-        modules = [ ./home.nix ];
+        modules = [
+          ./home.nix
+          { _module.args = { inherit user; }; }
+        ];
       };
     };
 }

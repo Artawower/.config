@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of darkawower";
+  description = "Home Manager configuration";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -14,16 +14,14 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
+      user = import ./user.nix;
     in {
-      homeConfigurations."darkawower" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${user.username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+        modules = [
+          ./home.nix
+          { _module.args = { inherit user; }; }
+        ];
       };
     };
 }
