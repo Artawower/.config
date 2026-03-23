@@ -4271,9 +4271,14 @@ ESLint via flymake-eslint (separate from LSP, since vscode-eslint-language-serve
 #+BEGIN_SRC emacs-lisp
 (use-package flymake-jsts
   :ensure '(flymake-jsts :type git :host github :repo "orzechowskid/flymake-jsts" :branch "main")
-  :hook (eglot-managed-mode . flymake-jsts-eslint-enable)
+  :hook (eglot-managed-mode . my/flymake-jsts-eslint-maybe-enable)
   :config
-  (setq flymake-eslint-executable-args nil))
+  (setq flymake-eslint-executable-args nil)
+
+  (defun my/flymake-jsts-eslint-maybe-enable ()
+    (when (derived-mode-p 'js-mode 'js-ts-mode 'typescript-mode 'typescript-ts-mode
+                          'tsx-ts-mode 'web-mode 'vue-mode)
+      (flymake-jsts-eslint-enable))))
 #+END_SRC
 
 *** Flymake, stylelint
@@ -5096,6 +5101,7 @@ Requires Emacs 30+
   :custom
   (eca-chat-diff-tool 'ediff)
   (eca-chat-use-side-window nil)
+  (eca-chat-custom-model"anthropic/claude-opus-4.6")
   (eca-chat-mcp-tool-call-success-symbol
    (propertize "󰄭" 'face 'font-lock-string-face 'display '(height 1.3)))
   (eca-chat-mcp-tool-call-loading-symbol
