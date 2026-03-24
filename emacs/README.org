@@ -4007,24 +4007,21 @@ Create =~/.config/rassumfrassum/angular.py=:
 
 def servers():
     return [
-        ["typescript-language-server", "--stdio"],
+        ['typescript-language-server', '--stdio'],
         ["ngserver", "--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."],
-        [
-            "node",
-            "/Users/darkawower/.emacs.d/var/lsp/server/eslint/unzipped/extension/server/out/eslintServer.js",
-            "--stdio",
-        ],
+        ['codebook-lsp', 'serve'],
     ]
 #+END_SRC
 
 **** Python preset
-#+BEGIN_SRC python :tangle ~/.config/rassumfrassum/angular.py
+#+BEGIN_SRC python :tangle ~/.config/rassumfrassum/python.py
 """Python preset: pyright + ty"""
 
 def servers():
     return [
         ['basedpyright-langserver', '--stdio'],
         ['ty', '--server'],
+        ['codebook-lsp', 'serve'],
     ]
 #+END_SRC
 

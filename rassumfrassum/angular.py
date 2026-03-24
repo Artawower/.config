@@ -3,8 +3,8 @@
 
 def servers():
     return [
-        ["ngserver", "--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."],
         ['typescript-language-server', '--stdio'],
+        ["ngserver", "--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."],
         ['codebook-lsp', 'serve'],
         # [
         #     "node",
