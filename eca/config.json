@@ -182,9 +182,10 @@
         "serena": {},
         "context7": {},
         "eca": {},
-        "youtrack__get_issue": {}
-      }
-    }
-  },
+              "youtrack__get_issue": {},
+              "eca__spawn_agent": {}
+            }
+          }
+        },
   "defaultModel": "anthropic/claude-opus-4.6"
 }
