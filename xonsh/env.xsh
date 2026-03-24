@@ -40,3 +40,6 @@ $XONSH_STYLE_OVERRIDES = {
 }
 
 $FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+
+if platform.system() == 'Darwin':
+    $TMPDIR = '/tmp'
