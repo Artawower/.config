@@ -5128,8 +5128,9 @@ Requires Emacs 30+
 ;; (my/display-buffer-right-smart))))
 #+END_SRC
 
-** Copilot
+** COMMENT Copilot
 deps
+#+BEGIN_SRC emacs-lisp
 (use-package track-changes
   :ensure (track-changes :wait t)
   :demand t)
