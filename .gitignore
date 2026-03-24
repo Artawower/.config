@@ -57,13 +57,7 @@ opencode/plugin
 .pi/skills
 .pi/agent/skills
 eca/skills
-eca/agent
 opencode/skills
-opencode/agent/architecture-planner.md
-opencode/agent/codebase-analyzer.md
-opencode/agent/edge-case-tester.md
-opencode/agent/project-manager.md
-opencode/agent/quality-reviewer.md
 
 .DS_Store
 
@@ -169,3 +163,4 @@ noctalia/*
 !.pi/agent/prompts/
 !.pi/agent/prompts/*.md
 !.pi/agent/settings.json
+!.pi/agent/*.md

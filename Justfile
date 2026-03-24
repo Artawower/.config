@@ -170,6 +170,41 @@ fedora-files:
 link-ai-skills:
     test -d "$HOME/.config/ai/skills"
     mkdir -p "$HOME/.agents" "$HOME/.config/.pi" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
+    rm -f \
+        "$HOME/.agents/agent/architecture-planner.md" \
+        "$HOME/.agents/agent/code-reviewer.md" \
+        "$HOME/.agents/agent/codebase-analyzer.md" \
+        "$HOME/.agents/agent/edge-case-tester.md" \
+        "$HOME/.agents/agent/project-manager.md" \
+        "$HOME/.agents/agent/quality-reviewer.md" \
+        "$HOME/.config/.pi/agent/architecture-planner.md" \
+        "$HOME/.config/.pi/agent/code-reviewer.md" \
+        "$HOME/.config/.pi/agent/codebase-analyzer.md" \
+        "$HOME/.config/.pi/agent/edge-case-tester.md" \
+        "$HOME/.config/.pi/agent/project-manager.md" \
+        "$HOME/.config/.pi/agent/quality-reviewer.md" \
+        "$HOME/.config/opencode/agent/architecture-planner.md" \
+        "$HOME/.config/opencode/agent/codebase-analyzer.md" \
+        "$HOME/.config/opencode/agent/edge-case-tester.md" \
+        "$HOME/.config/opencode/agent/project-manager.md" \
+        "$HOME/.config/opencode/agent/quality-reviewer.md" \
+        "$HOME/.config/eca/agent/architecture-planner.md" \
+        "$HOME/.config/eca/agent/code-reviewer.md" \
+        "$HOME/.config/eca/agent/codebase-analyzer.md" \
+        "$HOME/.config/eca/agent/edge-case-tester.md" \
+        "$HOME/.config/eca/agent/project-manager.md" \
+        "$HOME/.config/eca/agent/quality-reviewer.md" \
+        "$HOME/.claude/agent/architecture-planner.md" \
+        "$HOME/.claude/agent/codebase-analyzer.md" \
+        "$HOME/.claude/agent/edge-case-tester.md" \
+        "$HOME/.claude/agent/project-manager.md" \
+        "$HOME/.claude/agent/quality-reviewer.md" \
+        "$HOME/.codex/agent/architecture-planner.md" \
+        "$HOME/.codex/agent/code-reviewer.md" \
+        "$HOME/.codex/agent/codebase-analyzer.md" \
+        "$HOME/.codex/agent/edge-case-tester.md" \
+        "$HOME/.codex/agent/project-manager.md" \
+        "$HOME/.codex/agent/quality-reviewer.md"
     rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.agents/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/.pi/skills"
