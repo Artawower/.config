@@ -166,6 +166,17 @@ fedora-files:
     echo "darkawower ALL=(root) NOPASSWD: /home/darkawower/.local/bin/cpu-profile-apply" | sudo tee /etc/sudoers.d/cpu-profile
     sudo chmod 440 /etc/sudoers.d/cpu-profile
 
+link-ai-skills:
+    test -d "$HOME/.config/ai/skills"
+    mkdir -p "$HOME/.agents" "$HOME/.config/.pi" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
+    rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.agents/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.config/.pi/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.config/opencode/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.config/eca/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.claude/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.codex/skills"
+
 init-linux:
     just flatpak
     just fedora-deps
@@ -174,6 +185,7 @@ init-linux:
     just uv
     just manual-deps
     just fedora-files
+    just link-ai-skills
     just systemd-services
     just hyprland-plugins
 
@@ -185,6 +197,7 @@ init-mac:
     just uv
     just go
     just cargo
+    just link-ai-skills
     just nix-clean-mac
 
 

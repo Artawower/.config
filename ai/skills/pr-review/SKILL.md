@@ -27,7 +27,7 @@ Perform end-to-end AI code review of GitHub Pull Requests:
 Run the bundled script. It handles URL parsing, GraphQL + REST queries, filtering, chunking, and saves data locally:
 
 ```bash
-python3 ~/.config/opencode/skills/pr-review/fetch-pr-data.py <PR_REFERENCE>
+python3 ~/.config/ai/skills/pr-review/fetch-pr-data.py <PR_REFERENCE>
 ```
 
 Supported input formats:
@@ -43,7 +43,7 @@ The script **automatically**:
 - **Removes diff duplication** (only `file_patches` with per-file patches, no full unified diff)
 - **Chunks large PRs** into groups of 20 files (configurable via `--chunk-size`)
 
-Output JSON saved to `~/.local/share/opencode/pr-reviews/`:
+Output JSON saved to `~/.local/share/ai/pr-reviews/`:
 ```json
 {
   "repo": "owner/repo",
@@ -81,8 +81,8 @@ If the PR is a draft, warn the user and ask if they still want to review.
 When `chunking.total_chunks > 1`, review chunk-by-chunk:
 
 ```bash
-python3 ~/.config/opencode/skills/pr-review/fetch-pr-data.py <PR_REFERENCE> --chunk 1
-python3 ~/.config/opencode/skills/pr-review/fetch-pr-data.py <PR_REFERENCE> --chunk 2
+python3 ~/.config/ai/skills/pr-review/fetch-pr-data.py <PR_REFERENCE> --chunk 1
+python3 ~/.config/ai/skills/pr-review/fetch-pr-data.py <PR_REFERENCE> --chunk 2
 ```
 
 Each chunk returns only its file patches:
@@ -183,7 +183,7 @@ Save the review in two formats:
 
 #### JSON (for programmatic analysis):
 
-Save to `~/.local/share/opencode/pr-reviews/{owner}_{repo}_{pr_number}_review.json`:
+Save to `~/.local/share/ai/pr-reviews/{owner}_{repo}_{pr_number}_review.json`:
 
 ```json
 {
@@ -220,7 +220,7 @@ Save to `~/.local/share/opencode/pr-reviews/{owner}_{repo}_{pr_number}_review.js
 
 #### Markdown (for human reading):
 
-Save to `~/.local/share/opencode/pr-reviews/{owner}_{repo}_{pr_number}_review.md`.
+Save to `~/.local/share/ai/pr-reviews/{owner}_{repo}_{pr_number}_review.md`.
 
 Use the OUTPUT FORMAT from Step 6.
 
@@ -314,7 +314,7 @@ gh api /repos/{owner}/{repo}/pulls/{pr}/reviews \
 4. Report what was fixed
 
 #### If "compare":
-Load previous review from `~/.local/share/opencode/pr-reviews/` and diff findings.
+Load previous review from `~/.local/share/ai/pr-reviews/` and diff findings.
 
 ## Hard rules
 
@@ -342,7 +342,7 @@ Adjust chunk size if needed: `--chunk-size 15` for large patches, `--chunk-size 
 
 ## Viewing saved reviews
 
-All reviews are saved persistently in `~/.local/share/opencode/pr-reviews/`:
+All reviews are saved persistently in `~/.local/share/ai/pr-reviews/`:
 - `{owner}_{repo}_{pr}_review.json` — structured data
 - `{owner}_{repo}_{pr}_review.md` — human-readable report
 - `{owner}_{repo}_{pr}.json` — raw PR data from fetch
@@ -350,10 +350,10 @@ All reviews are saved persistently in `~/.local/share/opencode/pr-reviews/`:
 
 To list saved reviews:
 ```bash
-ls -la ~/.local/share/opencode/pr-reviews/
+ls -la ~/.local/share/ai/pr-reviews/
 ```
 
 To re-analyze a previously fetched PR without re-fetching:
 ```bash
-cat ~/.local/share/opencode/pr-reviews/{owner}_{repo}_{pr}.json
+cat ~/.local/share/ai/pr-reviews/{owner}_{repo}_{pr}.json
 ```

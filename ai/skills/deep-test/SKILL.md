@@ -11,7 +11,7 @@ Use this skill when a normal test list is not enough.
 
 Before generating the plan, load:
 
-- `../../agent/edge-case-tester.md`
+- `references/edge-case-tester.md`
 
 Treat it as the base standard for edge cases, failure modes, and test-writing quality.
 

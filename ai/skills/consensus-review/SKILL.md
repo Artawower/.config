@@ -11,7 +11,7 @@ Use this skill when the user wants several independent review opinions and one c
 
 Before starting, load:
 
-- `../../agent/code-reviewer.md`
+- `references/code-reviewer.md`
 
 Use that rubric as the common review contract for every model.
 
@@ -41,7 +41,7 @@ Create `plans/review/` if needed.
 
 1. Identify the exact diff scope.
 2. Inspect available MCP or model gateway tools instead of assuming tool names blindly.
-3. Prepare one shared review brief based on `../../agent/code-reviewer.md`.
+3. Prepare one shared review brief based on `references/code-reviewer.md`.
 4. Run independent reviews with these targets when available:
    - qwen cli
    - codex 5.1 high

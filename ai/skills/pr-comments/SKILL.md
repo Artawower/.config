@@ -26,7 +26,7 @@ Process GitHub Pull Request review feedback end-to-end:
 Run the bundled script. It handles URL parsing, GraphQL query, and filters to unresolved only:
 
 ```bash
-python3 ~/.config/opencode/skills/pr-comments/fetch-pr-comments.py <PR_REFERENCE>
+python3 ~/.config/ai/skills/pr-comments/fetch-pr-comments.py <PR_REFERENCE>
 ```
 
 Supported input formats:

@@ -114,7 +114,7 @@ query FetchPRData($owner: String!, $repo: String!, $pr: Int!) {
 }
 """
 
-REVIEWS_DIR = Path.home() / ".local" / "share" / "opencode" / "pr-reviews"
+REVIEWS_DIR = Path.home() / ".local" / "share" / "ai" / "pr-reviews"
 
 SKIP_PATTERNS = [
     r"(^|/)package-lock\.json$",

@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.62.0",
   "hideThinkingBlock": false,
-  "quietStartup": true,
+  "quietStartup": false,
   "enableSkillCommands": true,
   "packages": [
     {
@@ -17,18 +17,29 @@
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer",
-    "npm:oh-pi",
+    {
+      "source": "npm:oh-pi",
+      "skills": [
+        "-pi-package/skills/context7/SKILL.md",
+        "-pi-package/skills/liquid-glass/SKILL.md",
+        "-pi-package/skills/glassmorphism/SKILL.md",
+        "+pi-package/skills/git-workflow/SKILL.md",
+        "-pi-package/skills/debug-helper/SKILL.md",
+        "-pi-package/skills/neubrutalism/SKILL.md",
+        "-pi-package/skills/quick-setup/SKILL.md"
+      ]
+    },
     {
       "source": "npm:pi-messenger-swarm",
       "extensions": [
-        "+index.ts"
+        "-index.ts"
       ],
       "skills": [
-        "+skills/pi-messenger-swarm/SKILL.md"
+        "-skills/pi-messenger-swarm/SKILL.md"
       ]
     },
     "npm:lsp-pi@latest"
   ],
   "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4"
+  "defaultModel": "claude-sonnet-4.6"
 }

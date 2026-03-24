@@ -11,7 +11,7 @@ Use this skill for review-only work.
 
 Before reviewing, load the canonical reviewer policy:
 
-- `../../agent/code-reviewer.md`
+- `references/code-reviewer.md`
 
 Treat that file as the source of truth for:
 - review rules
@@ -36,7 +36,7 @@ If there is no diff, say so clearly and stop.
 
 1. Determine the exact review scope.
 2. Read only the changed files and the minimum nearby context needed to judge correctness.
-3. Apply the rubric from `../../agent/code-reviewer.md` strictly.
+3. Apply the rubric from `references/code-reviewer.md` strictly.
 4. Focus on correctness first, then maintainability, then style.
 5. Call out missing tests and edge cases explicitly.
 6. Respond in the same language as the user's request.
@@ -50,4 +50,4 @@ If there is no diff, say so clearly and stop.
 
 ## Output
 
-Follow the output structure defined in `../../agent/code-reviewer.md`.
+Follow the output structure defined in `references/code-reviewer.md`.

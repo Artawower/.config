@@ -11,8 +11,8 @@ Use this skill for non-trivial planning.
 
 Before planning, load the relevant role prompts:
 
-- `../../agent/codebase-analyzer.md`
-- `../../agent/architecture-planner.md`
+- `references/codebase-analyzer.md`
+- `references/architecture-planner.md`
 
 Use them as the baseline for codebase mapping and implementation-plan quality.
 
@@ -32,8 +32,8 @@ If the task is already well-scoped, proceed without blocking the user unnecessar
 
 1. Restate the request in a clearer, stricter form.
 2. Identify ambiguities, assumptions, and hidden constraints.
-3. If this is repository-specific, analyze the codebase first using the standards from `../../agent/codebase-analyzer.md`.
-4. Build a concrete implementation plan using the standards from `../../agent/architecture-planner.md`.
+3. If this is repository-specific, analyze the codebase first using the standards from `references/codebase-analyzer.md`.
+4. Build a concrete implementation plan using the standards from `references/architecture-planner.md`.
 5. Generate at least 3 viable solution variants.
 6. Keep the variants genuinely different in tradeoffs, not just reworded copies.
 7. Critique each variant adversarially:

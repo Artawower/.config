@@ -47,7 +47,23 @@ opencode/plugin
 !nix-linux
 !nix-linux/**
 !images
+
+# Shared AI registry
+!ai
+!ai/**
 !Justfile
+
+# Generated AI links
+.pi/skills
+.pi/agent/skills
+eca/skills
+eca/agent
+opencode/skills
+opencode/agent/architecture-planner.md
+opencode/agent/codebase-analyzer.md
+opencode/agent/edge-case-tester.md
+opencode/agent/project-manager.md
+opencode/agent/quality-reviewer.md
 
 .DS_Store
 
@@ -57,6 +73,8 @@ opencode/plugin
 **/*.bak
 **/*.backup
 **/*.bak[0-9]*
+**/__pycache__/
+**/*.pyc
 
 # Raycast - only keep .rayconfig, extensions auto-install from Store
 raycast/extensions/
@@ -150,7 +168,4 @@ noctalia/*
 !.pi/agent/agents/
 !.pi/agent/prompts/
 !.pi/agent/prompts/*.md
-!.pi/agent/skills/
-!.pi/agent/skills/**
 !.pi/agent/settings.json
-!.pi/agent/*.md
