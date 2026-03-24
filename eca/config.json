@@ -10,11 +10,12 @@
       "key": "3c2eec49ad824de68f9355f9a90ce490.cdL1tqm8yHZvuCOu"
     }
   },
-  "completion": {
-    "model": "anthropic/claude-haiku-4-5-20251001",
-    "systemPromptFile": "/Users/darkawower/.config/eca/agents/completion.md"
-  },
+  "defaultModel": "anthropic/claude-sonnet-4-6",
+  "defaultAgent": "manager",
   "behavior": {
+    "manager": {
+      "systemPromptFile": "/Users/darkawower/.config/eca/agents/manager.md"
+    },
     "code-reviewer": {
       "systemPromptFile": "/Users/darkawower/.config/eca/agents/code-reviewer.md",
       "toolCall": {
@@ -182,10 +183,9 @@
         "serena": {},
         "context7": {},
         "eca": {},
-              "youtrack__get_issue": {},
-              "eca__spawn_agent": {}
-            }
-          }
-        },
-  "defaultModel": "anthropic/claude-opus-4.6"
+        "youtrack__get_issue": {},
+        "eca__spawn_agent": {}
+      }
+    }
+  }
 }

@@ -5099,9 +5099,9 @@ Requires Emacs 30+
   :ensure (:type git :host github :repo "editor-code-assistant/eca-emacs" :files (:defaults "*.el"))
   ;; :ensure (:type git :host github :repo "artawower/eca-emacs" :files (:defaults "*.el"))
   :custom
+  (eca-chat-custom-behavior "manager")
   (eca-chat-diff-tool 'ediff)
   (eca-chat-use-side-window nil)
-  (eca-chat-custom-model"anthropic/claude-opus-4.6")
   (eca-chat-mcp-tool-call-success-symbol
    (propertize "󰄭" 'face 'font-lock-string-face 'display '(height 1.3)))
   (eca-chat-mcp-tool-call-loading-symbol

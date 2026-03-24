@@ -1,0 +1,33 @@
+{
+  "lastChangelogVersion": "0.62.0",
+  "hideThinkingBlock": false,
+  "quietStartup": true,
+  "enableSkillCommands": true,
+  "packages": [
+    {
+      "source": "npm:pi-teams",
+      "skills": [
+        "-skills/teams.md"
+      ],
+      "extensions": [
+        "-extensions/index.ts"
+      ]
+    },
+    "npm:pi-subagents",
+    "npm:pi-mcp-adapter",
+    "npm:pi-powerline-footer",
+    "npm:oh-pi",
+    {
+      "source": "npm:pi-messenger-swarm",
+      "extensions": [
+        "+index.ts"
+      ],
+      "skills": [
+        "+skills/pi-messenger-swarm/SKILL.md"
+      ]
+    },
+    "npm:lsp-pi@latest"
+  ],
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4"
+}
