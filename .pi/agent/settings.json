@@ -14,6 +14,7 @@
       ]
     },
     "npm:pi-subagents",
+    "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer",
     "npm:oh-pi",
