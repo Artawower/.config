@@ -82,6 +82,7 @@ go:
     go install golang.org/x/tools/gopls@latest
 
 uv:
+    uv tool upgrade --all
     uv tool install rassumfrassum 
     uv tool install ty
     uv tool install basedpyright

@@ -109,6 +109,7 @@ def servers():
     return [
         ['vue-language-server', '--stdio'],
         ['vscode-eslint-language-server', '--stdio'],
+        ['codebook-lsp', 'serve'],
     ]
 
 

@@ -3,5 +3,6 @@
 def servers():
     return [
         ['ngserver', "--stdio", "--tsProbeLocations", ".", "--ngProbeLocations", "."],
-        ["vscode-html-language-server", '--stdio']
+        ["vscode-html-language-server", '--stdio'],
+        ['codebook-lsp', 'serve'],
     ]

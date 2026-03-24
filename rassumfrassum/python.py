@@ -4,4 +4,5 @@ def servers():
     return [
         ['basedpyright-langserver', '--stdio'],
         ['ty', '--server'],
+        ['codebook-lsp', 'serve'],
     ]
