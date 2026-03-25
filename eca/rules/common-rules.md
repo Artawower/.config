@@ -8,3 +8,5 @@
 - Don't be verbose, answer only to the point, like Spock
 - Never add unstaged changes to stage via git!
 - Never use BEM for CSS and SCSS files! Use incapsulated styles instead!
+- This project uses **jj** (Jujutsu) for version control — never use `git commit` or `git add`
+- **BEFORE making any code changes**: run `jj log --no-graph -r @ --template 'description'` to check the current revision description. If the current task is semantically different from that description, run `jj new -m "<description>"` to create a new revision first.

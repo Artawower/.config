@@ -39,6 +39,7 @@ flatpak:
 
 volta:
     volta install \
+    skillfish \
     opencode-ai \
     env-cmd \
     node@22 \
