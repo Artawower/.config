@@ -979,59 +979,6 @@ Temporary disabled due to performance issues on macos
 #+END_SRC
 
 ** COMMENT Quick show current file name whens witch
-*** Function
-TODO: move to package
-#+BEGIN_SRC emacs-lisp :results silent
-(defcustom my/display-buffer-name-exclude-regexps '("^\\*" "^ \\*Minibuf" "<eca.*")
-  "List of regexps for buffer names to exclude from display."
-  :type '(repeat string)
-  :group 'convenience)
-
-(defun my/display-buffer-name ()
-  "Quick display current buffer name."
-  (interactive)
-  (let* ((buffer-name (buffer-name)))
-    (unless (seq-some (lambda (regexp)
-                        (string-match-p regexp buffer-name))
-                      my/display-buffer-name-exclude-regexps)
-      (let* ((win-start (window-start))
-         (indent-width (save-excursion
-                         (goto-char win-start)
-                         (or (get-text-property (point) 'line-prefix)
-                             (get-text-property (point) 'wrap-prefix)
-                             "")))
-         (indent-len (if (stringp indent-width)
-                         (string-width indent-width)
-                       0))
-         (win-width (- (window-body-width) indent-len))
-         (text (concat " " buffer-name " "))
-         (padding (make-string (max 0 (- win-width (length text))) ?\s))
-         (display-text (propertize (concat text padding)
-                                   'face 'tab-bar-echo-area-tab
-                                   'line-prefix ""
-                                   'wrap-prefix ""))
-         (line-end (save-excursion
-                     (goto-char win-start)
-                     (line-end-position)))
-         (ov (make-overlay win-start line-end)))
-    (overlay-put ov 'display display-text)
-    (overlay-put ov 'line-prefix "")
-    (overlay-put ov 'wrap-prefix "")
-             (overlay-put ov 'priority 1000)
-             (run-at-time 1 nil
-                          (lambda (overlay)
-                            (delete-overlay overlay))
-                          ov)))))
-#+END_SRC
-
-*** Hooks
-#+BEGIN_SRC emacs-lisp :results silent
-(add-hook 'window-buffer-change-functions
-          (lambda (_) (my/display-buffer-name)))
-(add-hook 'window-selection-change-functions
-          (lambda (_) (my/display-buffer-name)))
-(add-hook 'focus-in-hook #'my/display-buffer-name)
-#+END_SRC
 ** Rotate windows
 #+BEGIN_SRC emacs-lisp
 (use-package rotate
