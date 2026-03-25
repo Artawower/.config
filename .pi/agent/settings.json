@@ -7,10 +7,10 @@
     {
       "source": "npm:pi-teams",
       "skills": [
-        "-skills/teams.md"
+        "+skills/teams.md"
       ],
       "extensions": [
-        "-extensions/index.ts"
+        "+extensions/index.ts"
       ]
     },
     "npm:pi-subagents",

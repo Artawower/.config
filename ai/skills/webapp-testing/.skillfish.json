@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "webapp-testing",
+  "owner": "anthropics",
+  "repo": "skills",
+  "path": "skills/webapp-testing",
+  "branch": "main",
+  "sha": "74cb751576f9e9af2aedff47e67861ef26db2dc4",
+  "source": "manual"
+}
