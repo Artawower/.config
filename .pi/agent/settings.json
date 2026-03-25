@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.62.0",
-  "hideThinkingBlock": false,
-  "quietStartup": false,
+  "hideThinkingBlock": true,
+  "quietStartup": true,
   "enableSkillCommands": true,
   "packages": [
     {
@@ -38,9 +38,14 @@
         "-skills/pi-messenger-swarm/SKILL.md"
       ]
     },
-    "npm:lsp-pi@latest"
+    "npm:lsp-pi@1.0.4",
+    "npm:@heyhuynhgiabuu/pi-diff",
+    "npm:pi-copy-output",
+    "npm:@heyhuynhgiabuu/pi-pretty"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "claude-sonnet-4.6",
-  "defaultThinkingLevel": "medium"
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "medium",
+  "collapseChangelog": false,
+  "theme": "light"
 }
