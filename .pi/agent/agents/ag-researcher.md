@@ -2,7 +2,7 @@
 name: ag-researcher
 description: Research mode, gathers info online, explores project
 tools: read, bash, grep, find, ls, web_search, fetch_content, get_search_content
-model: anthropic/claude-haiku-4-5
+model: claude-haiku-4.5
 skills: web-search, web-fetch
 ---
 
