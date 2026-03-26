@@ -1,4 +1,9 @@
-{ self, pkgs, user, ... }:
+{
+  self,
+  pkgs,
+  user,
+  ...
+}:
 let
   emacsDaemonStarter = pkgs.writeShellScriptBin "emacs-daemon-starter" ''
     exec /opt/homebrew/bin/emacs --fg-daemon=server --eval '(server-start)'
@@ -215,6 +220,7 @@ in
       "wireguard-tools"
       "mas"
       "terminal-notifier"
+      "ntfy"
 
       # Window management (system integration required)
       {

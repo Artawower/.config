@@ -67,6 +67,10 @@
         {
           "type": "shell",
           "shell": "terminal-notifier -title \"Eca\" -message \"Hey, prompt finished!\""
+        },
+        {
+          "type": "shell",
+          "shell": "LOG=\"$HOME/.config/eca/ntfy-hook.log\"; TOPIC=\"${ECA_NTFY_TOPIC:-$OPENCODE_NTFY_TOPIC}\"; if [ -z \"$TOPIC\" ] && [ -f \"$HOME/.config/eca/ntfy-topic\" ]; then TOPIC=\"$(tr -d '\\r\\n' < \"$HOME/.config/eca/ntfy-topic\")\"; fi; { printf '%s stage=start topic=%s\\n' \"$(date -Is)\" \"${TOPIC:-<empty>}\"; printf '%s path=%s\\n' \"$(date -Is)\" \"$PATH\"; command -v /opt/homebrew/bin/ntfy >/dev/null 2>&1 && printf '%s ntfy=/opt/homebrew/bin/ntfy\\n' \"$(date -Is)\" || printf '%s ntfy=<missing>\\n' \"$(date -Is)\"; } >> \"$LOG\"; if [ -z \"$TOPIC\" ]; then printf '%s error=missing-topic\\n' \"$(date -Is)\" >> \"$LOG\"; exit 1; fi; if /opt/homebrew/bin/ntfy publish --title \"ECA\" --priority high --tags computer \"$TOPIC\" \"ECA prompt finished\" >> \"$LOG\" 2>&1; then printf '%s stage=published\\n' \"$(date -Is)\" >> \"$LOG\"; else printf '%s error=publish-failed\\n' \"$(date -Is)\" >> \"$LOG\"; exit 1; fi"
         }
       ]
     },

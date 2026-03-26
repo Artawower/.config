@@ -38,7 +38,11 @@ jj/repos/*
 !raycast
 !zellij
 !launchagents
-opencode/plugin
+opencode/plugin/*
+!opencode/plugin/
+!opencode/plugin/ntfy.js
+opencode/plugins/ntfy-debug.log
+opencode/plugins/ntfy-state.json
 !home-manager
 !fish
 !eca
@@ -164,3 +168,5 @@ noctalia/*
 !.pi/agent/prompts/*.md
 !.pi/agent/settings.json
 !.pi/agent/*.md
+eca/ntfy-hook.log
+eca/ntfy-topic
