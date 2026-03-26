@@ -11,7 +11,7 @@ config.macos_window_background_blur = 25
 if wezterm.target_triple:find("linux") then
   config.font_size = 12.0
 else
-  config.font_size = 15.0
+  config.font_size = 14.0
 end
 
 
