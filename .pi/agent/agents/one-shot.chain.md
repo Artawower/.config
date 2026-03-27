@@ -43,10 +43,11 @@ Write clean, tested, production-ready code.
 Plan: {previous}
 
 ## ag-reviewer
-reads: implementation_notes.md
+reads: implementation_notes.md, final_plan.md
 output: review.md
 
-Perform strict code review. Identify bugs, style issues, missing tests, security gaps.
+Perform strict code review on the implementation. Read the changed files directly.
+Check against the plan's acceptance criteria. Identify bugs, style issues, missing tests, security gaps.
 {previous}
 
 ## ag-coder

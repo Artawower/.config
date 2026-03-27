@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.63.1",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "quietStartup": true,
   "enableSkillCommands": true,
   "packages": [

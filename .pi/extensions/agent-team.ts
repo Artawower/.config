@@ -35,12 +35,6 @@ interface AgentDef {
 	file: string;
 }
 
-interface UsageTotals {
-	input: number;
-	output: number;
-	cost: number;
-}
-
 interface AgentState {
 	def: AgentDef;
 	status: "idle" | "running" | "done" | "error";
@@ -51,7 +45,6 @@ interface AgentState {
 	contextPct: number;
 	sessionFile: string | null;
 	runCount: number;
-	usage: UsageTotals;
 	timer?: ReturnType<typeof setInterval>;
 }
 
@@ -59,44 +52,6 @@ interface AgentState {
 
 function displayName(name: string): string {
 	return name.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-}
-
-function emptyUsage(): UsageTotals {
-	return { input: 0, output: 0, cost: 0 };
-}
-
-function toNumber(value: any): number {
-	return typeof value === "number" && Number.isFinite(value) ? value : 0;
-}
-
-function extractUsage(usage: any): UsageTotals {
-	if (!usage || typeof usage !== "object") return emptyUsage();
-	return {
-		input: Math.max(0, toNumber(usage.input ?? usage.inputTokens ?? usage.prompt_tokens ?? usage.promptTokens)),
-		output: Math.max(0, toNumber(usage.output ?? usage.outputTokens ?? usage.completion_tokens ?? usage.completionTokens)),
-		cost: Math.max(0, toNumber(usage.cost ?? usage.totalCost ?? usage.costUsd ?? usage.total_cost)),
-	};
-}
-
-function sumUsage(states: Iterable<AgentState>): UsageTotals {
-	const total = emptyUsage();
-	for (const state of states) {
-		total.input += state.usage.input;
-		total.output += state.usage.output;
-		total.cost += state.usage.cost;
-	}
-	return total;
-}
-
-function formatUsageSummary(usage: UsageTotals): string {
-	const parts: string[] = [];
-	if (usage.input > 0 || usage.output > 0) {
-		parts.push(`${Math.round(usage.input)}i/${Math.round(usage.output)}o`);
-	}
-	if (usage.cost > 0) {
-		parts.push(`$${usage.cost < 0.01 ? usage.cost.toFixed(4) : usage.cost.toFixed(2)}`);
-	}
-	return parts.join(" · ");
 }
 
 // ── Teams YAML Parser ────────────────────────────
@@ -240,7 +195,6 @@ export default function (pi: ExtensionAPI) {
 				contextPct: 0,
 				sessionFile: existsSync(sessionFile) ? sessionFile : null,
 				runCount: 0,
-				usage: emptyUsage(),
 			});
 		}
 
@@ -315,8 +269,6 @@ export default function (pi: ExtensionAPI) {
 						return text.render(width);
 					}
 
-					const usageSummary = formatUsageSummary(sumUsage(agentStates.values()));
-
 					const cols = Math.min(gridCols, agentStates.size);
 					const gap = 1;
 					const colWidth = Math.floor((width - gap * (cols - 1)) / cols);
@@ -338,9 +290,6 @@ export default function (pi: ExtensionAPI) {
 					}
 
 					const output = rows.map(cols => cols.join(" ".repeat(gap)));
-					if (usageSummary) {
-						output.unshift(theme.fg("dim", `Total ${usageSummary}`));
-					}
 					text.setText(output.join("\n"));
 					return text.render(width);
 				},
@@ -381,7 +330,6 @@ export default function (pi: ExtensionAPI) {
 		state.toolCount = 0;
 		state.elapsed = 0;
 		state.lastWork = "";
-		state.usage = emptyUsage();
 		state.runCount++;
 		updateWidget();
 
@@ -427,7 +375,6 @@ export default function (pi: ExtensionAPI) {
 			});
 
 			let buffer = "";
-			let usageCaptured = false;
 
 			proc.stdout!.setEncoding("utf-8");
 			proc.stdout!.on("data", (chunk: string) => {
@@ -449,34 +396,6 @@ export default function (pi: ExtensionAPI) {
 							}
 						} else if (event.type === "tool_execution_start") {
 							state.toolCount++;
-							updateWidget();
-						} else if (event.type === "message_end") {
-							const msg = event.message;
-							const usage = extractUsage(msg?.usage);
-							if (!usageCaptured && (usage.input > 0 || usage.output > 0 || usage.cost > 0)) {
-								state.usage = usage;
-								usageCaptured = true;
-							}
-							if (usage.input > 0 && contextWindow > 0) {
-								state.contextPct = (usage.input / contextWindow) * 100;
-							}
-							updateWidget();
-						} else if (event.type === "agent_end") {
-							const eventUsage = extractUsage((event as any).usage);
-							if (!usageCaptured && (eventUsage.input > 0 || eventUsage.output > 0 || eventUsage.cost > 0)) {
-								state.usage = eventUsage;
-								usageCaptured = true;
-							}
-							const msgs = event.messages || [];
-							const last = [...msgs].reverse().find((m: any) => m.role === "assistant");
-							const lastUsage = extractUsage(last?.usage);
-							if (!usageCaptured && (lastUsage.input > 0 || lastUsage.output > 0 || lastUsage.cost > 0)) {
-								state.usage = lastUsage;
-								usageCaptured = true;
-							}
-							if (lastUsage.input > 0 && contextWindow > 0) {
-								state.contextPct = (lastUsage.input / contextWindow) * 100;
-							}
 							updateWidget();
 						}
 					} catch {}
@@ -793,13 +712,9 @@ ${agentCatalog}`,
 				const filled = Math.round(pct / 10);
 				const bar = "#".repeat(filled) + "-".repeat(10 - filled);
 
-				const childUsage = formatUsageSummary(sumUsage(agentStates.values()));
 				const left = theme.fg("dim", ` ${model}`) +
 					theme.fg("muted", " · ") +
-					theme.fg("accent", activeTeamName) +
-					(childUsage
-						? theme.fg("muted", " · ") + theme.fg("dim", childUsage)
-						: "");
+					theme.fg("accent", activeTeamName);
 				const right = theme.fg("dim", `[${bar}] ${Math.round(pct)}% `);
 				const pad = " ".repeat(Math.max(1, width - visibleWidth(left) - visibleWidth(right)));
 
