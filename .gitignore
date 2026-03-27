@@ -164,6 +164,10 @@ noctalia/*
 !.pi/agent/
 !.pi/extensions/
 !.pi/extensions/**
+!.pi/docs/
+!.pi/docs/**
+.pi/extensions/pi-ntfy-debug.log
+.pi/extensions/pi-ntfy-state.json
 !.pi/agents/
 !.pi/agents/**
 !.pi/themes/

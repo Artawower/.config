@@ -28,8 +28,8 @@
     "npm:pi-system-theme",
     "npm:@sherif-fanous/pi-catppuccin"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "claude-haiku-4.5",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-latte"
