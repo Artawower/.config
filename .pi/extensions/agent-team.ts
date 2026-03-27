@@ -23,7 +23,6 @@ import { Text, type AutocompleteItem, truncateToWidth, visibleWidth } from "@mar
 import { spawn } from "child_process";
 import { readdirSync, readFileSync, existsSync, mkdirSync, unlinkSync } from "fs";
 import { join, resolve } from "path";
-import { applyExtensionDefaults } from "./themeMap.ts";
 
 // ── Types ────────────────────────────────────────
 
@@ -108,6 +107,7 @@ function scanAgentDirs(cwd: string): AgentDef[] {
 	const dirs = [
 		join(cwd, "agents"),
 		join(cwd, ".claude", "agents"),
+		join(cwd, ".pi", "agent", "agents"),
 		join(cwd, ".pi", "agents"),
 	];
 
@@ -118,7 +118,7 @@ function scanAgentDirs(cwd: string): AgentDef[] {
 		if (!existsSync(dir)) continue;
 		try {
 			for (const file of readdirSync(dir)) {
-				if (!file.endsWith(".md")) continue;
+				if (!file.endsWith(".md") || file.endsWith(".chain.md")) continue;
 				const fullPath = resolve(dir, file);
 				const def = parseAgentFile(fullPath);
 				if (def && !seen.has(def.name.toLowerCase())) {
@@ -669,7 +669,6 @@ ${agentCatalog}`,
 	// ── Session Start ────────────────────────────
 
 	pi.on("session_start", async (_event, _ctx) => {
-		applyExtensionDefaults(import.meta.url, _ctx);
 		// Clear widgets from previous session
 		if (widgetCtx) {
 			widgetCtx.ui.setWidget("agent-team", undefined);

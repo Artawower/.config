@@ -24,11 +24,13 @@
     "npm:@heyhuynhgiabuu/pi-diff",
     "npm:pi-copy-output",
     "npm:@heyhuynhgiabuu/pi-pretty",
-    "npm:pi-teams"
+    "npm:pi-teams",
+    "npm:pi-system-theme",
+    "npm:@sherif-fanous/pi-catppuccin"
   ],
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
-  "theme": "oh-p-dark"
+  "theme": "catppuccin-latte"
 }

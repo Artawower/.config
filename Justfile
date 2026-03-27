@@ -239,7 +239,7 @@ init-mac:
     just nix-clean-mac
 
 pi-agent-team:
-    pi -e .pi/extensions/agent-team.ts -e .pi/extensions/theme-cycler.ts
+    pi -e .pi/extensions/agent-team.ts
 
 
 # Safe daily cleanup for Linux
@@ -258,18 +258,20 @@ clean-linux:
     @echo "\n=== Journal cleanup (keep last 7 days) ==="
     sudo journalctl --vacuum-time=7d
     
-    @echo "\n=== Thumbnail cache ==="
-    rm -rf ~/.cache/thumbnails/* 2>/dev/null || true
-    
-    @echo "\n=== Broken symlinks ==="
-    find "$HOME" -xtype l -print0 2>/dev/null | \
-        while IFS= read -r -d '' link; do \
-            echo "Removing: $$link"; \
-            rm -f "$$link" 2>/dev/null || true; \
-        done
-    
-    @echo "\n=== Done! ==="
-    df -h /
 
+mac:
+    sudo lsof -iTCP -sTCP:LISTEN -n -P
 
+# Quick diagnostics for Nix/Fedora env split issues
+check-env:
+    @echo "Shell: $$SHELL"
+    @echo "PATH entries:"; printf '%s\n' "$${PATH//:/\n}"
+    @echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH-<unset>}"
+    @echo "which ld: $$(which ld || true)"
+    @echo "ldd --version:"; ldd --version | head -n1 || true
+    @echo "rustc: $$(command -v rustc || true)"
+    @echo "cargo: $$(command -v cargo || true)"
 
+build-templates:
+    docker buildx build --progress=plain -f docker-services/devcontainer/templates/Dockerfile -t darkawower/devtemplates:latest docker-services/devcontainer/templates
+    docker push darkawower/devtemplates:latest

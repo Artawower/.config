@@ -1,25 +1,27 @@
 full:
-  - scout
-  - planner
-  - builder
-  - reviewer
-  - documenter
-  - red-team
+  - ag-researcher
+  - ag-planner
+  - ag-coder
+  - ag-reviewer
+  - ag-critic
 
-plan-build:
-  - planner
-  - builder
-  - reviewer
+research:
+  - ag-researcher
+  - ag-planner
+  - ag-critic
 
-info:
-  - scout
-  - documenter
-  - reviewer
+implementation:
+  - ag-planner
+  - ag-coder
+  - ag-reviewer
 
-frontend:
-  - planner
-  - builder
-  - bowser
+review:
+  - ag-reviewer
+  - ag-critic
+
+coding:
+  - ag-coder
+  - ag-reviewer
 
 pi-pi:
   - ext-expert
