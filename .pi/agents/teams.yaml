@@ -23,6 +23,15 @@ coding:
   - ag-coder
   - ag-reviewer
 
+lightweight-coder:
+  - builder
+
+lightweight-versatile:
+  - scout
+  - planner
+  - builder
+  - reviewer
+
 pi-pi:
   - ext-expert
   - theme-expert
