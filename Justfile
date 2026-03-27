@@ -40,6 +40,7 @@ flatpak:
 volta:
     volta install \
     skillfish \
+    @mariozechner/pi-coding-agent \
     opencode-ai \
     env-cmd \
     node@22 \
