@@ -238,6 +238,9 @@ init-mac:
     just link-ai-skills
     just nix-clean-mac
 
+pi-agent-team:
+    pi -e .pi/extensions/agent-team.ts -e .pi/extensions/theme-cycler.ts
+
 
 # Safe daily cleanup for Linux
 clean-linux:

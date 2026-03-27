@@ -162,6 +162,12 @@ noctalia/*
 !.pi/
 .pi/*
 !.pi/agent/
+!.pi/extensions/
+!.pi/extensions/**
+!.pi/agents/
+!.pi/agents/**
+!.pi/themes/
+!.pi/themes/**
 .pi/agent/*
 !.pi/agent/agents/
 !.pi/agent/prompts/
