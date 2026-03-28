@@ -18,23 +18,37 @@
         "-pi-package/skills/debug-helper/SKILL.md",
         "-pi-package/skills/neubrutalism/SKILL.md",
         "-pi-package/skills/quick-setup/SKILL.md"
+      ],
+      "extensions": [
+        "-pi-package/extensions/bg-process.ts",
+        "+pi-package/extensions/auto-update.ts",
+        "+pi-package/extensions/auto-session-name.ts",
+        "+pi-package/extensions/ant-colony/index.ts"
       ]
     },
     "npm:lsp-pi@1.0.4",
-    "npm:@heyhuynhgiabuu/pi-diff",
+    {
+      "source": "npm:@heyhuynhgiabuu/pi-diff",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
     "npm:pi-copy-output",
-    "npm:@heyhuynhgiabuu/pi-pretty",
+    {
+      "source": "npm:@heyhuynhgiabuu/pi-pretty",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
     "npm:pi-teams",
-    "npm:pi-system-theme",
     "npm:@sherif-fanous/pi-catppuccin",
     "npm:pi-notify",
     "npm:pi-animations",
-    "npm:pi-gitnexus",
     "npm:pi-tool-display"
   ],
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
-  "theme": "catppuccin-latte"
+  "theme": "catppuccin-macchiato"
 }

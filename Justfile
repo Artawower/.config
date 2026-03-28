@@ -238,6 +238,7 @@ init-mac:
     just link-ai-skills
     just nix-clean-mac
 
+[no-cd]
 pi-agent-team:
     pi -e .pi/extensions/agent-team.ts
 
