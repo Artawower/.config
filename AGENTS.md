@@ -28,3 +28,38 @@
 ### Other touchpad tuning (not yet applied)
 - `libinput-config` — scroll speed factor (`/etc/libinput.conf`, `scroll-factor=0.5`)
 - Niri touchpad config in `~/.config/niri/config.kdl`: `dwt` (disable while typing), `accel-speed`, `accel-profile`
+
+## Orchestration Policy
+
+### Scope
+- `AGENTS.md` defines **global runtime, environment, safety, and orchestration policy** for this repository.
+- Agent personas, team composition, and workflow chains belong in `.pi/agents/*.md`, `.pi/agents/teams.yaml`, and `.pi/agents/agent-chain.yaml`.
+- Runtime behavior exposed by extensions is authoritative over prompt assumptions.
+
+### Coordinator / Orchestrator Boundary
+- A coordinator/orchestrator agent is allowed to decompose tasks, choose specialists, dispatch work, and synthesize results.
+- A dispatcher-only coordinator must **not** claim direct inspection or modification of the codebase unless it actually has those tools.
+- Specialist agents own the actual work inside their domain boundaries: recon, planning, implementation, review, adversarial analysis, or documentation.
+
+### Sequential by Default
+- Assume orchestration is **sequential by default** unless the runtime exposes an explicit batch or concurrent execution path.
+- One dispatch should target one agent with one focused task.
+- Coordinators should wait for each result before deciding the next step.
+- Do not imply generic parallel fan-out if the runtime only exposes one-agent dispatch.
+
+### Limited Parallel Policy
+- Parallel work is allowed only when an explicit tool or runtime path supports it.
+- Parallel fan-out is best reserved for independent research-style work where results can be synthesized safely.
+- If explicit parallel support is unavailable, coordinators must fall back to sequential delegation and say so honestly.
+
+### Responsibility Split
+- Put **repo-wide constraints** here: environment quirks, VCS rules, security defaults, orchestration truthfulness, runtime limitations.
+- Put **agent-specific behavior** in agent definition files.
+- Put **team membership** in `teams.yaml`.
+- Put **standard sequential pipelines** in `agent-chain.yaml`.
+
+### Truthfulness Rules
+- Never promise unsupported runtime behavior.
+- Never describe generic parallel dispatch as available unless a real tool/runtime path exists.
+- When results conflict, route them to reviewer/critic-style agents instead of silently picking a winner.
+- When the runtime or team cannot satisfy a request, state the limitation explicitly.

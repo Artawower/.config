@@ -1,3 +1,8 @@
+# Runtime note:
+# These chains are sequential workflow templates.
+# They do NOT imply generic parallel execution.
+# Use explicit batch/concurrent tooling only when the runtime actually provides it.
+
 plan-build-review:
   description: "Plan, implement, and review — the standard development cycle"
   steps:
@@ -47,3 +52,45 @@ full-review:
       prompt: "Implement this plan:\n\n$INPUT"
     - agent: reviewer
       prompt: "Review this implementation:\n\n$INPUT"
+
+coordinator-scout-plan-build-review:
+  description: "Coordinator-led standard coding flow using sequential specialist handoffs"
+  steps:
+    - agent: scout
+      prompt: "Investigate the repository and identify the files, patterns, and entry points relevant to: $INPUT"
+    - agent: planner
+      prompt: "Using this investigation, produce an implementation plan for: $ORIGINAL\n\nInvestigation:\n$INPUT"
+    - agent: builder
+      prompt: "Implement the approved plan below. Preserve existing patterns and keep changes minimal:\n\n$INPUT"
+    - agent: reviewer
+      prompt: "Review the implementation below for bugs, regressions, style issues, and correctness:\n\n$INPUT"
+
+coordinator-plan-critique-revise:
+  description: "Coordinator-led planning loop with explicit critic pass"
+  steps:
+    - agent: planner
+      prompt: "Create a detailed implementation plan for: $INPUT"
+    - agent: plan-reviewer
+      prompt: "Critique this plan for gaps, bad assumptions, risky sequencing, and missing edge cases:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+    - agent: planner
+      prompt: "Revise the plan below to address every critique item:\n\nOriginal request: $ORIGINAL\n\nCritique:\n$INPUT"
+
+coordinator-review-redteam-arbitrate:
+  description: "Sequential validation flow for risky or conflicting outcomes"
+  steps:
+    - agent: reviewer
+      prompt: "Review the following output for correctness, quality, and likely regressions:\n\n$INPUT"
+    - agent: red-team
+      prompt: "Analyze the following output for security issues, abuse cases, and adversarial failure modes:\n\n$INPUT"
+    - agent: arbiter
+      prompt: "Given the reviewer and red-team findings below, decide whether to accept, reroute, retry, or escalate:\n\n$INPUT"
+
+coordinator-research-sequential:
+  description: "Research-oriented sequential flow when no explicit parallel runtime path exists"
+  steps:
+    - agent: scout
+      prompt: "Investigate the repository, docs, and relevant structure for: $INPUT"
+    - agent: planner
+      prompt: "Synthesize the investigation into a research summary, architecture framing, and key decisions for: $ORIGINAL\n\nInvestigation:\n$INPUT"
+    - agent: plan-reviewer
+      prompt: "Challenge this research summary and identify missing assumptions, weak conclusions, or unverified claims:\n\n$INPUT\n\nOriginal request: $ORIGINAL"

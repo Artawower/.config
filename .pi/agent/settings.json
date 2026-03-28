@@ -4,20 +4,26 @@
   "quietStartup": true,
   "enableSkillCommands": true,
   "packages": [
-    "npm:pi-subagents",
+    {
+      "source": "npm:pi-subagents",
+      "extensions": [
+        "-index.ts",
+        "-notify.ts"
+      ]
+    },
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer",
     {
       "source": "npm:oh-pi",
       "skills": [
-        "-pi-package/skills/context7/SKILL.md",
         "-pi-package/skills/liquid-glass/SKILL.md",
         "-pi-package/skills/glassmorphism/SKILL.md",
         "+pi-package/skills/git-workflow/SKILL.md",
         "-pi-package/skills/debug-helper/SKILL.md",
         "-pi-package/skills/neubrutalism/SKILL.md",
-        "-pi-package/skills/quick-setup/SKILL.md"
+        "-pi-package/skills/quick-setup/SKILL.md",
+        "+pi-package/skills/context7/SKILL.md"
       ],
       "extensions": [
         "-pi-package/extensions/bg-process.ts",
@@ -40,11 +46,21 @@
         "-src/index.ts"
       ]
     },
-    "npm:pi-teams",
+    {
+      "source": "npm:pi-teams",
+      "extensions": [
+        "-extensions/index.ts"
+      ],
+      "skills": [
+        "-skills/teams.md"
+      ]
+    },
     "npm:@sherif-fanous/pi-catppuccin",
     "npm:pi-notify",
     "npm:pi-animations",
-    "npm:pi-tool-display"
+    "npm:pi-tool-display",
+    "npm:@ifi/pi-extension-subagents",
+    "npm:pi-usage-bars"
   ],
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",

@@ -1,3 +1,46 @@
+# Existing legacy teams are preserved below for compatibility.
+# New coordinator-centric teams are added first so the default active team can be orchestration-friendly.
+# Team members reference agent `name` fields. Some legacy `ag-*` names may resolve from external packages rather than local files.
+
+coordinator-default:
+  - coordinator
+  - scout
+  - planner
+  - builder
+  - reviewer
+  - arbiter
+
+coordinator-research:
+  - research-coordinator
+  - scout
+  - planner
+  - plan-reviewer
+  - red-team
+  - documenter
+  - arbiter
+
+coordinator-review:
+  - coordinator
+  - reviewer
+  - plan-reviewer
+  - red-team
+  - arbiter
+
+coordinator-lightweight:
+  - coordinator
+  - scout
+  - planner
+  - reviewer
+
+pi-pi:
+  - ext-expert
+  - theme-expert
+  - skill-expert
+  - config-expert
+  - tui-expert
+  - prompt-expert
+  - agent-expert
+
 full:
   - ag-researcher
   - ag-planner
@@ -31,12 +74,3 @@ lightweight-versatile:
   - planner
   - builder
   - reviewer
-
-pi-pi:
-  - ext-expert
-  - theme-expert
-  - skill-expert
-  - config-expert
-  - tui-expert
-  - prompt-expert
-  - agent-expert
