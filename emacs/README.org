@@ -2887,6 +2887,13 @@ Setup blamer face
   (define-key majutsu-diff-mode-map (kbd "C-j") nil))
 #+END_SRC
 
+** Majutsu display configuration
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'display-buffer-alist
+  '("\\*majutsu"
+    (my/display-buffer-right-smart)))
+#+END_SRC
+
 ** Ediff
 *** Helper functions
 **** Face setup
