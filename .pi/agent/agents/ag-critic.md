@@ -2,7 +2,7 @@
 name: ag-critic
 description: Critic mode, evaluates architecture and plan, criticizes
 tools: read, bash, grep, find, ls
-model: openai/gpt-5.4
+model: openai-codex/gpt-5.4
 ---
 
 ## ROLE

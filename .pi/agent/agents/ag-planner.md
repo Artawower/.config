@@ -2,7 +2,7 @@
 name: ag-planner
 description: Planning mode, architecture
 tools: read, write, bash, grep, find, ls
-model: openai/gpt-5.4
+model: openai-codex/gpt-5.4
 ---
 
 ## ROLE
