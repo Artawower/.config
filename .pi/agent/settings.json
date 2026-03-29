@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.63.1",
+  "lastChangelogVersion": "0.63.2",
   "hideThinkingBlock": false,
   "quietStartup": true,
   "enableSkillCommands": true,
@@ -32,7 +32,13 @@
         "+pi-package/extensions/ant-colony/index.ts"
       ]
     },
-    "npm:lsp-pi@1.0.4",
+    {
+      "source": "npm:lsp-pi@1.0.4",
+      "extensions": [
+        "+lsp.ts",
+        "+lsp-tool.ts"
+      ]
+    },
     {
       "source": "npm:@heyhuynhgiabuu/pi-diff",
       "extensions": [
@@ -62,9 +68,13 @@
     "npm:@ifi/pi-extension-subagents",
     "npm:pi-usage-bars"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.1",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
-  "theme": "catppuccin-macchiato"
+  "theme": "catppuccin-latte",
+  "extensions": [
+    "-extensions/subagent/index.ts",
+    "-extensions/subagent/notify.ts"
+  ]
 }

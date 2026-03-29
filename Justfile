@@ -172,7 +172,7 @@ fedora-files:
 link-dirs:
     test -d "$HOME/.config/ai/skills"
     test -f "$HOME/.config/ai/AGENTS.md"
-    mkdir -p "$HOME/.agents" "$HOME/.config/.pi" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
+    mkdir -p "$HOME/.agents" "$HOME/.config/.pi" "$HOME/.config/.omp/agent" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
     rm -f \
         "$HOME/.agents/agent/architecture-planner.md" \
         "$HOME/.agents/agent/code-reviewer.md" \
@@ -208,12 +208,13 @@ link-dirs:
         "$HOME/.codex/agent/edge-case-tester.md" \
         "$HOME/.codex/agent/project-manager.md" \
         "$HOME/.codex/agent/quality-reviewer.md"
-    rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
+    rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/.omp/agent/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
     rm -f "$HOME/.config/.pi/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
     ln -s "$HOME/.config/ai/skills" "$HOME/.agents/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/.pi/skills"
+    ln -s "$HOME/.config/ai/skills" "$HOME/.config/.omp/agent/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/opencode/skills"
-    ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/.pi/AGENTS.md"
+    ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/.pi/agents/AGENTS.md"
     ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/eca/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.claude/skills"
@@ -227,7 +228,7 @@ init-linux:
     just uv
     just manual-deps
     just fedora-files
-    just link-ai-skills
+    just link-dirs
     just systemd-services
     just hyprland-plugins
 
@@ -239,12 +240,8 @@ init-mac:
     just uv
     just go
     just cargo
-    just link-ai-skills
+    just link-dirs
     just nix-clean-mac
-
-[no-cd]
-pi-agent-team:
-    pi -e .pi/extensions/agent-team.ts
 
 
 # Safe daily cleanup for Linux
