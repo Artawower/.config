@@ -62,6 +62,7 @@ opencode/plugins/ntfy-state.json
 .pi/agent/skills
 eca/skills
 opencode/skills
+opencode/context-mode
 
 .DS_Store
 

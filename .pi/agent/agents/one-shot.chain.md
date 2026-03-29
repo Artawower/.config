@@ -1,6 +1,6 @@
 ---
 name: one-shot
-description: Full pipeline: research → architecture → critique → revision → code → review → fix.
+description: "Full pipeline: research → architecture → critique → revision → code → review → fix."
 ---
 
 ## ag-researcher

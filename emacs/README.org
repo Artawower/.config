@@ -5082,7 +5082,7 @@ Requires Emacs 30+
 ;; (my/display-buffer-right-smart))))
 #+END_SRC
 
-** COMMENT Copilot
+** Copilot
 deps
 #+BEGIN_SRC emacs-lisp
 (use-package track-changes

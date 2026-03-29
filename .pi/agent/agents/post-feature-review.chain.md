@@ -1,6 +1,6 @@
 ---
 name: post-feature-review
-description: Post-feature quality gate: review → architect analysis → fix. Run after completing a feature/bugfix/refactor.
+description: "Post-feature quality gate: review → architect analysis → fix. Run after completing a feature/bugfix/refactor."
 ---
 
 ## ag-reviewer

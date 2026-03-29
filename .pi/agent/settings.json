@@ -1,16 +1,9 @@
 {
-  "lastChangelogVersion": "0.63.2",
+  "lastChangelogVersion": "0.64.0",
   "hideThinkingBlock": false,
   "quietStartup": true,
   "enableSkillCommands": true,
   "packages": [
-    {
-      "source": "npm:pi-subagents",
-      "extensions": [
-        "-index.ts",
-        "-notify.ts"
-      ]
-    },
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer",
@@ -65,17 +58,65 @@
     "npm:pi-notify",
     "npm:pi-animations",
     "npm:pi-tool-display",
-    "npm:@ifi/pi-extension-subagents",
+    {
+      "source": "npm:@ifi/pi-extension-subagents",
+      "extensions": [
+        "+index.ts",
+        "+notify.ts"
+      ]
+    },
     "npm:pi-usage-bars",
-    "npm:@danchamorro/pi-prompt-enhancer"
+    "npm:@danchamorro/pi-prompt-enhancer",
+    {
+      "source": "npm:@tintinweb/pi-subagents",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    {
+      "source": "npm:pi-subagents",
+      "extensions": [
+        "-index.ts",
+        "-notify.ts"
+      ]
+    },
+    {
+      "source": "npm:@a-canary/pi-director",
+      "extensions": [
+        "-extensions/nightly-analysis.ts"
+      ],
+      "skills": [
+        "-skills/build/SKILL.md",
+        "-skills/choose/SKILL.md",
+        "-skills/next/SKILL.md"
+      ]
+    },
+    {
+      "source": "git:github.com/HazAT/pi-interactive-subagents",
+      "extensions": [
+        "-pi-extension/session-artifacts/index.ts",
+        "-pi-extension/subagents/index.ts"
+      ]
+    },
+    {
+      "source": "npm:@ifi/oh-pi-ant-colony",
+      "extensions": [
+        "-extensions/ant-colony/index.ts"
+      ]
+    },
+    "npm:@mjakl/pi-dark-or-light",
+    "npm:@benvargas/pi-exa-mcp",
+    "npm:pi-context-saver",
+    "npm:pi-zellij"
   ],
   "defaultProvider": "zai",
   "defaultModel": "glm-5.1",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
-  "theme": "catppuccin-latte",
+  "theme": "catppuccin-frappe",
   "extensions": [
     "-extensions/subagent/index.ts",
     "-extensions/subagent/notify.ts"
-  ]
+  ],
+  "autocompleteMaxVisible": 3
 }

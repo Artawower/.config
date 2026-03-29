@@ -1,0 +1,22 @@
+# Global teams — ~/.config/.pi/agent/agents/teams.yaml
+# Used by agent-team extension when /agents-global is on
+
+feature-team:
+  - ag-planner
+  - ag-coder
+  - ag-reviewer
+
+research-team:
+  - ag-researcher
+  - ag-planner
+
+review-team:
+  - ag-reviewer
+  - ag-critic
+
+full-team:
+  - ag-researcher
+  - ag-planner
+  - ag-coder
+  - ag-reviewer
+  - ag-critic

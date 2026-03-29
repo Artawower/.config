@@ -1,21 +1,83 @@
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "google_auth": false,
   "agents": {
+    "sisyphus": {
+      "model": "github-copilot/claude-sonnet-4-6",
+      "variant": "max"
+    },
+    "hephaestus": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh"
+    },
+    "prometheus": {
+      "model": "github-copilot/claude-sonnet-4-6",
+      "variant": "max"
+    },
+    "oracle": {
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
+    },
     "librarian": {
-      "model": "opencode/glm-4.7-free"
+      "model": "github-copilot/gemini-3-flash"
     },
     "explore": {
-      "model": "google/antigravity-gemini-3-flash"
-    },
-    "frontend-ui-ux-engineer": {
-      "model": "google/antigravity-gemini-3-pro-high"
-    },
-    "document-writer": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "github-copilot/grok-code-fast-1"
     },
     "multimodal-looker": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "github-copilot/gemini-3.1-pro",
+      "variant": "high"
+    },
+    "metis": {
+      "model": "zhipuai-coding-plan/glm-5.1"
+    },
+    "momus": {
+      "model": "github-copilot/gpt-5.4",
+      "variant": "xhigh"
+    },
+    "atlas": {
+      "model": "zhipuai-coding-plan/glm-5.1"
+    },
+    "frontend-ui-ux-engineer": {
+      "model": "github-copilot/gemini-3.1-pro",
+      "variant": "high"
+    },
+    "document-writer": {
+      "model": "github-copilot/gpt-5.1"
+    }
+  },
+  "categories": {
+    "general": {
+      "model": "github-copilot/claude-sonnet-4-6"
+    },
+    "visual-engineering": {
+      "model": "github-copilot/gemini-3.1-pro",
+      "variant": "high"
+    },
+    "artistry": {
+      "model": "github-copilot/gemini-3.1-pro",
+      "variant": "high"
+    },
+    "writing": {
+      "model": "github-copilot/gpt-5.1"
+    },
+    "quick": {
+      "model": "github-copilot/gpt-5.4-mini"
+    },
+    "deep": {
+      "model": "openai/gpt-5.1-codex",
+      "variant": "high"
+    },
+    "ultrabrain": {
+      "model": "github-copilot/gpt-5.4",
+      "variant": "xhigh"
+    },
+    "unspecified-low": {
+      "model": "github-copilot/claude-sonnet-4-6"
+    },
+    "unspecified-high": {
+      "model": "github-copilot/claude-opus-4-6",
+      "variant": "max"
     }
   }
 }

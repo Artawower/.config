@@ -8,7 +8,8 @@
     "opentmux",
     "@slkiser/opencode-quota",
     "opencode-wakatime",
-    "@pantheon-ai/opencode-warcraft-notifications"
+    "@pantheon-ai/opencode-warcraft-notifications",
+    "context-mode"
   ],
   "agent": {
     "translator": {
@@ -267,6 +268,10 @@
         "bun",
         "/Users/darkawower/apps/TOON-context-mcp-server/toon-context-mcp/build/index.js"
       ]
+    },
+    "context-mode": {
+      "type": "local",
+      "command": ["context-mode"]
     }
   }
 }

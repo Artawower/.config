@@ -99,8 +99,6 @@ in
 
   system.activationScripts.postActivation.text = ''
         echo "Updating hotkeys..."
-        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-
         echo "Checking Library Validation..."
         if [ "$(/usr/bin/defaults read /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation 2>/dev/null)" != "1" ]; then
           echo "Applying Library Validation fix..."
@@ -409,6 +407,7 @@ in
       "thock"
       "android-studio"
       "claude-code"
+      "spotify"
       # "omniwm"
     ];
     masApps = {
