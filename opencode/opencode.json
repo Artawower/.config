@@ -3,7 +3,11 @@
   "plugin": [
     "opencode-openai-codex-auth@1.0.2",
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.6.0"
+    "opencode-antigravity-auth@1.6.0",
+    "opencode-kilo-auth@latest",
+    "opentmux",
+    "@slkiser/opencode-quota",
+    "opencode-wakatime"
   ],
   "agent": {
     "translator": {
