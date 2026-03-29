@@ -11,6 +11,7 @@ keybind = cmd+t=unbind
 window-inherit-working-directory = false
 window-inherit-font-size = false
 
+copy-on-select = clipboard
 background-opacity = 0.90
 background-blur-radius = 10
 # window-decoration = true
