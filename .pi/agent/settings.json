@@ -66,7 +66,8 @@
     "npm:pi-animations",
     "npm:pi-tool-display",
     "npm:@ifi/pi-extension-subagents",
-    "npm:pi-usage-bars"
+    "npm:pi-usage-bars",
+    "npm:@danchamorro/pi-prompt-enhancer"
   ],
   "defaultProvider": "zai",
   "defaultModel": "glm-5.1",
