@@ -169,8 +169,9 @@ fedora-files:
     echo "darkawower ALL=(root) NOPASSWD: /home/darkawower/.local/bin/cpu-profile-apply" | sudo tee /etc/sudoers.d/cpu-profile
     sudo chmod 440 /etc/sudoers.d/cpu-profile
 
-link-ai-skills:
+link-dirs:
     test -d "$HOME/.config/ai/skills"
+    test -f "$HOME/.config/ai/AGENTS.md"
     mkdir -p "$HOME/.agents" "$HOME/.config/.pi" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
     rm -f \
         "$HOME/.agents/agent/architecture-planner.md" \
@@ -208,9 +209,12 @@ link-ai-skills:
         "$HOME/.codex/agent/project-manager.md" \
         "$HOME/.codex/agent/quality-reviewer.md"
     rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
+    rm -f "$HOME/.config/.pi/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
     ln -s "$HOME/.config/ai/skills" "$HOME/.agents/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/.pi/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/opencode/skills"
+    ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/.pi/AGENTS.md"
+    ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/eca/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.claude/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.codex/skills"
