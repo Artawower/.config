@@ -1,8 +1,13 @@
 ## Version Control: Jujutsu (jj)
 
-This system uses `jj` (Jujutsu) instead of git. Rules:
+Use `jj` (Jujutsu), not git.
 
-- **Never** use `git commit` or `git add`
-- **BEFORE making any code changes**: run `jj log --no-graph -r @ --template 'description'` to check the current revision description
-- If the current task is semantically different from that description — run `jj new -m "<description>"` to create a new revision first
-- jj tracks changes automatically, no staging needed
+- **Never** use `git commit` or `git add`.
+- **Before any code changes**, always check current revision description:
+  `jj log --no-graph -r @ --template 'description'`
+- Description must be non-empty. If it is empty, set it immediately:
+  `jj describe -m "<description>"`
+- If the new task/feature is semantically different from current description,
+  create a new revision before editing:
+  `jj new -m "<description>"`
+- jj tracks changes automatically (no staging).
