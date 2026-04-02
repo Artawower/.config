@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.65.2",
+  "lastChangelogVersion": "0.66.1",
   "hideThinkingBlock": false,
   "quietStartup": true,
   "enableSkillCommands": true,
@@ -9,7 +9,12 @@
   "packages": [
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
-    "npm:pi-powerline-footer",
+    {
+      "source": "npm:pi-powerline-footer",
+      "extensions": [
+        "+index.ts"
+      ]
+    },
     {
       "source": "npm:oh-pi",
       "skills": [
@@ -23,9 +28,13 @@
       ],
       "extensions": [
         "-pi-package/extensions/bg-process.ts",
-        "+pi-package/extensions/auto-update.ts",
-        "+pi-package/extensions/auto-session-name.ts",
-        "-pi-package/extensions/ant-colony/index.ts"
+        "-pi-package/extensions/custom-footer.ts",
+        "-pi-package/extensions/ant-colony/index.ts",
+        "-pi-package/extensions/auto-update.ts",
+        "-pi-package/extensions/auto-session-name.ts",
+        "-pi-package/extensions/compact-header.ts",
+        "-pi-package/extensions/git-guard.ts",
+        "-pi-package/extensions/safe-guard.ts"
       ]
     },
     {
@@ -35,19 +44,7 @@
         "-lsp.ts"
       ]
     },
-    {
-      "source": "npm:@heyhuynhgiabuu/pi-diff",
-      "extensions": [
-        "-src/index.ts"
-      ]
-    },
     "npm:pi-copy-output",
-    {
-      "source": "npm:@heyhuynhgiabuu/pi-pretty",
-      "extensions": [
-        "-src/index.ts"
-      ]
-    },
     {
       "source": "npm:pi-teams",
       "extensions": [
@@ -74,7 +71,12 @@
         "+extensions/usage-bars/index.ts"
       ]
     },
-    "npm:@danchamorro/pi-prompt-enhancer",
+    {
+      "source": "npm:@danchamorro/pi-prompt-enhancer",
+      "extensions": [
+        "+index.ts"
+      ]
+    },
     {
       "source": "npm:@tintinweb/pi-subagents",
       "extensions": [
@@ -89,27 +91,9 @@
       ]
     },
     {
-      "source": "npm:@a-canary/pi-director",
-      "extensions": [
-        "-extensions/nightly-analysis.ts"
-      ],
-      "skills": [
-        "-skills/build/SKILL.md",
-        "-skills/choose/SKILL.md",
-        "-skills/next/SKILL.md"
-      ]
-    },
-    {
-      "source": "git:github.com/HazAT/pi-interactive-subagents",
-      "extensions": [
-        "-pi-extension/session-artifacts/index.ts",
-        "-pi-extension/subagents/index.ts"
-      ]
-    },
-    {
       "source": "npm:@ifi/oh-pi-ant-colony",
       "extensions": [
-        "-extensions/ant-colony/index.ts"
+        "+extensions/ant-colony/index.ts"
       ]
     },
     "npm:@mjakl/pi-dark-or-light",
@@ -141,17 +125,27 @@
         "-extensions/index.ts"
       ]
     },
-    {
-      "source": "npm:@alasano/pi-panels",
-      "extensions": [
-        "-extensions/index.ts"
-      ]
-    },
     "npm:pi-formatter",
     "git:github.com/hk-vk/pi-connect",
     "npm:pi-free",
     "npm:pi-image-preview",
-    "npm:pi-skills-sh"
+    "npm:pi-skills-sh",
+    {
+      "source": "npm:@thurstonsand/pi-powerline-footer",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
+    {
+      "source": "npm:@ifi/oh-pi-extensions",
+      "extensions": [
+        "-extensions/bg-process.ts",
+        "-extensions/custom-footer.ts"
+      ]
+    },
+    "npm:pi-secret-guard",
+    "npm:pi-extension-manager",
+    "npm:pi-btw"
   ],
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
