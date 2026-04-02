@@ -310,6 +310,8 @@ in
       "pinentry-mac"
       "lgug2z/tap/komorebi-for-mac"
       "gopls"
+      "yt-dlp"
+      "ffmpeg"
     ];
     taps = [
       "BarutSRB/tap"

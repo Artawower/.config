@@ -66,3 +66,5 @@ aliases['sudo'] = 'sudo env PATH=$PATH'
 aliases['yabai-apps'] = "yabai -m query --windows | jq '.[].app'"
 aliases['yabai-titles'] = "yabai -m query --windows | jq '.[].title'"
 aliases['j'] = 'just ~/.config/'
+aliases['z'] = 'zellij'
+aliases['zj'] = 'zellij'
