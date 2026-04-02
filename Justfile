@@ -220,6 +220,7 @@ link-dirs:
     ln -s "$HOME/.config/ai/skills" "$HOME/.config/eca/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.claude/skills"
     ln -s "$HOME/.config/ai/skills" "$HOME/.codex/skills"
+    ln -s "$HOME/.config/ai/commands" "$HOME/.omp/agent/commands"
 
 init-linux:
     just flatpak

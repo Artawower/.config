@@ -145,10 +145,11 @@
     },
     "npm:pi-secret-guard",
     "npm:pi-extension-manager",
-    "npm:pi-btw"
+    "npm:pi-btw",
+    "npm:pi-session-switch"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.1",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",
