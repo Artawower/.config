@@ -2,7 +2,7 @@
 name: ag-researcher
 description: Research mode, gathers info online, explores project
 tools: read, bash, grep, find, ls, web_search, fetch_content, get_search_content, mcp:context7/resolve-library-id, mcp:context7/query-docs
-model: opencode/minimax-m-2.5-free
+model: openai/gpt-5.4-mini
 skills: web-search, web-fetch
 ---
 

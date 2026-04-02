@@ -2,7 +2,7 @@
 name: ag-coder
 description: Coder agent, implements the plan
 tools: read, write, bash, grep, find, ls, edit
-model: anthropic/claude-sonnet-4-6
+model: zai/glm-5.1
 ---
 
 ## ROLE

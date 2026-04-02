@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.64.0",
+  "lastChangelogVersion": "0.65.0",
   "hideThinkingBlock": false,
   "quietStartup": true,
   "enableSkillCommands": true,
@@ -22,14 +22,14 @@
         "-pi-package/extensions/bg-process.ts",
         "+pi-package/extensions/auto-update.ts",
         "+pi-package/extensions/auto-session-name.ts",
-        "+pi-package/extensions/ant-colony/index.ts"
+        "-pi-package/extensions/ant-colony/index.ts"
       ]
     },
     {
       "source": "npm:lsp-pi@1.0.4",
       "extensions": [
-        "+lsp.ts",
-        "+lsp-tool.ts"
+        "-lsp-tool.ts",
+        "-lsp.ts"
       ]
     },
     {
@@ -61,16 +61,21 @@
     {
       "source": "npm:@ifi/pi-extension-subagents",
       "extensions": [
-        "+index.ts",
-        "+notify.ts"
+        "-index.ts",
+        "-notify.ts"
       ]
     },
-    "npm:pi-usage-bars",
+    {
+      "source": "npm:pi-usage-bars",
+      "extensions": [
+        "+extensions/usage-bars/index.ts"
+      ]
+    },
     "npm:@danchamorro/pi-prompt-enhancer",
     {
       "source": "npm:@tintinweb/pi-subagents",
       "extensions": [
-        "-src/index.ts"
+        "+src/index.ts"
       ]
     },
     {
@@ -107,16 +112,48 @@
     "npm:@mjakl/pi-dark-or-light",
     "npm:@benvargas/pi-exa-mcp",
     "npm:pi-context-saver",
-    "npm:pi-zellij"
+    {
+      "source": "npm:pi-zellij",
+      "extensions": [
+        "-extensions/index.ts"
+      ],
+      "skills": [
+        "-skills/code-review/SKILL.md"
+      ],
+      "prompts": [
+        "-prompts/review-diff.md",
+        "-prompts/review.md"
+      ]
+    },
+    "npm:@ogulcancelik/pi-spar",
+    {
+      "source": "npm:@ogulcancelik/pi-minimal-footer",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
+    {
+      "source": "npm:pi-coordinator",
+      "extensions": [
+        "-extensions/index.ts"
+      ]
+    },
+    {
+      "source": "npm:@alasano/pi-panels",
+      "extensions": [
+        "-extensions/index.ts"
+      ]
+    }
   ],
-  "defaultProvider": "zai",
-  "defaultModel": "glm-5.1",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "claude-sonnet-4.6",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",
   "extensions": [
     "-extensions/subagent/index.ts",
-    "-extensions/subagent/notify.ts"
+    "-extensions/subagent/notify.ts",
+    "-extensions/agent-team.ts"
   ],
   "autocompleteMaxVisible": 3
 }

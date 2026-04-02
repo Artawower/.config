@@ -2,7 +2,7 @@
 name: ag-reviewer
 description: Code review agent
 tools: read, bash, grep, find, ls
-model: anthropic/claude-sonnet-4-6
+model: openai/gpt-5.3-codex
 ---
 
 ## ROLE
