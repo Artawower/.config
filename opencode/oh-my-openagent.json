@@ -7,7 +7,7 @@
       "variant": "max"
     },
     "hephaestus": {
-      "model": "openai/gpt-5.3-codex",
+      "model": "openai/gpt-5.4",
       "variant": "xhigh"
     },
     "prometheus": {
@@ -79,5 +79,8 @@
       "model": "github-copilot/claude-opus-4-6",
       "variant": "max"
     }
-  }
+  },
+  "_migrations": [
+    "model-version:openai/gpt-5.3-codex->openai/gpt-5.4"
+  ]
 }

@@ -1,8 +1,11 @@
 {
-  "lastChangelogVersion": "0.65.0",
+  "lastChangelogVersion": "0.65.2",
   "hideThinkingBlock": false,
   "quietStartup": true,
   "enableSkillCommands": true,
+  "npmCommand": [
+    "npm"
+  ],
   "packages": [
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
@@ -143,10 +146,13 @@
       "extensions": [
         "-extensions/index.ts"
       ]
-    }
+    },
+    "npm:pi-formatter",
+    "git:github.com/hk-vk/pi-connect",
+    "npm:pi-free"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "claude-sonnet-4.6",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",

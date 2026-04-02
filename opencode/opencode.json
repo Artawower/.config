@@ -2,7 +2,7 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     "opencode-openai-codex-auth@1.0.2",
-    "oh-my-opencode",
+    "oh-my-openagent",
     "opencode-antigravity-auth@1.6.0",
     "opencode-kilo-auth@latest",
     "opentmux",
@@ -34,7 +34,9 @@
         "reasoningEffort": "medium",
         "reasoningSummary": "auto",
         "textVerbosity": "medium",
-        "include": ["reasoning.encrypted_content"],
+        "include": [
+          "reasoning.encrypted_content"
+        ],
         "store": false
       },
       "models": {
@@ -45,8 +47,13 @@
             "output": 128000
           },
           "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "variants": {
             "none": {
@@ -83,8 +90,13 @@
             "output": 128000
           },
           "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "variants": {
             "low": {
@@ -116,8 +128,13 @@
             "output": 128000
           },
           "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "variants": {
             "low": {
@@ -156,8 +173,14 @@
             "output": 65535
           },
           "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
           }
         },
         "antigravity-gemini-3-pro-low": {
@@ -169,8 +192,14 @@
             "output": 65535
           },
           "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
           }
         },
         "antigravity-gemini-3-flash": {
@@ -181,8 +210,14 @@
             "output": 65536
           },
           "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
           }
         }
       }
@@ -199,21 +234,36 @@
     },
     "context7": {
       "type": "local",
-      "command": ["npx", "-y", "@upstash/context7-mcp@latest"]
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
     },
     "codex-cli": {
       "type": "local",
       "enabled": false,
-      "command": ["mcp-codex-cli", "--allow-npx"]
+      "command": [
+        "mcp-codex-cli",
+        "--allow-npx"
+      ]
     },
     "gemini": {
       "type": "local",
       "enabled": false,
-      "command": ["npx", "-y", "gemini-mcp-tool"]
+      "command": [
+        "npx",
+        "-y",
+        "gemini-mcp-tool"
+      ]
     },
     "deepcontext": {
       "type": "local",
-      "command": ["npx", "-y", "@wildcard-ai/deepcontext@latest"]
+      "command": [
+        "npx",
+        "-y",
+        "@wildcard-ai/deepcontext@latest"
+      ]
     },
     "sentry": {
       "type": "local",
@@ -239,7 +289,10 @@
     },
     "playwright": {
       "type": "local",
-      "command": ["npx", "@playwright/mcp@latest"]
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ]
     },
     "youtrack": {
       "type": "local",
@@ -254,12 +307,20 @@
     "qwen": {
       "type": "local",
       "enabled": false,
-      "command": ["npx", "-y", "jeffery9/qwen-mcp-tool"]
+      "command": [
+        "npx",
+        "-y",
+        "jeffery9/qwen-mcp-tool"
+      ]
     },
     "deepseek": {
       "type": "local",
       "enabled": false,
-      "command": ["npx", "-y", "deepseek-mcp-server"]
+      "command": [
+        "npx",
+        "-y",
+        "deepseek-mcp-server"
+      ]
     },
     "toon-context": {
       "type": "local",
@@ -271,7 +332,9 @@
     },
     "context-mode": {
       "type": "local",
-      "command": ["context-mode"]
+      "command": [
+        "context-mode"
+      ]
     }
   }
 }
