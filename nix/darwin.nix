@@ -312,6 +312,7 @@ in
       "gopls"
       "yt-dlp"
       "ffmpeg"
+      "mole"
     ];
     taps = [
       "BarutSRB/tap"
