@@ -106,7 +106,7 @@ tab = "→"
 newline = "⏎"
 
 [editor.soft-wrap]
-enable = false
+enable = true
 
 [keys.normal]
 X = ["extend_line_up", "extend_to_line_bounds"]

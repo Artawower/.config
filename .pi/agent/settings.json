@@ -149,10 +149,12 @@
     },
     "npm:pi-formatter",
     "git:github.com/hk-vk/pi-connect",
-    "npm:pi-free"
+    "npm:pi-free",
+    "npm:pi-image-preview",
+    "npm:pi-skills-sh"
   ],
-  "defaultProvider": "zai",
-  "defaultModel": "glm-5",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",
