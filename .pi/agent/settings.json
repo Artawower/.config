@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.66.1",
+  "lastChangelogVersion": "0.67.1",
   "hideThinkingBlock": true,
   "quietStartup": true,
   "enableSkillCommands": true,
@@ -128,7 +128,7 @@
     {
       "source": "npm:@ogulcancelik/pi-spar",
       "extensions": [
-        "-index.ts"
+        "+index.ts"
       ]
     },
     {
@@ -196,10 +196,18 @@
         "-extensions/btw.ts"
       ]
     },
-    "npm:pi-session-switch"
+    "npm:pi-session-switch",
+    "npm:@dkmnx/pi-clarify",
+    "npm:pi-ask-user",
+    "npm:pi-bailian-models"
+    "npm:pi-ask-user",
+    "npm:pi-bailian-models",
+    "npm:@thesethrose/pi-zai-provider"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.1",
+  "defaultProvider": "qwen",
+  "defaultModel": "coder-model",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",

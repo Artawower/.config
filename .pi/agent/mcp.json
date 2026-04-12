@@ -73,6 +73,12 @@
       "args": ["mem0-mcp-server"],
       "enabled": true,
       "directTools": true
+    },
+    "qmd": {
+      "command": "/Users/darkawower/.volta/bin/qmd",
+      "args": ["mcp"],
+      "lifecycle": "lazy",
+      "directTools": true
     }
   }
 }

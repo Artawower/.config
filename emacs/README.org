@@ -941,8 +941,8 @@ Temporary disabled due to performance issues on macos
   :bind (("C-c z m" . zoom-mode))
   :custom
   (zoom-size '(0.618 . 0.618))
-  ;; (zoom-ignored-buffer-name-regexps '("^\\*calc" "^\\*vterm" "^\\*combobulate-query-builder" "^\\*dape" "^\\*claude" "^\\*Ediff" "<eca-chat"))
-  ;; (zoom-ignored-major-modes '(dired-mode markdown-mode vterm-mode claude-code-prompt-mode ediff-mode eca-mode eca-chat-mode))
+  ;; (zoom-ignored-buffer-name-regexps '("^\\*calc" "^\\*ghostel" "^\\*combobulate-query-builder" "^\\*dape" "^\\*claude" "^\\*Ediff" "<eca-chat"))
+  ;; (zoom-ignored-major-modes '(dired-mode markdown-mode ghostel-mode claude-code-prompt-mode ediff-mode eca-mode eca-chat-mode))
   (zoom-ignore-predicates '((lambda () (window-parameter nil 'window-side))))
   :config
   (defun my/fix-ediff-size ()
@@ -1645,16 +1645,6 @@ Move to husky
   :after meow
   :config
   (meow-tree-sitter-register-defaults))
-#+END_SRC
-
-*** Meow vterm
-#+BEGIN_SRC emacs-lisp
-(use-package meow-vterm
-  :ensure (meow-vterm :type git :host github :repo "accelbread/meow-vterm")
-  :after (meow vterm)
-  :config
-  (meow-vterm-enable)
-  (setq vterm-keymap-exceptions '("C-c")))
 #+END_SRC
 
 ** Global keybindings
@@ -2452,107 +2442,6 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
         ("M-j" . dirvish-fd-jump)))
 #+END_SRC
 * Terminal
-** Functions
-*** Clear history
-#+BEGIN_SRC emacs-lisp
-(defun my/clear-term-history ()
-  "Clear terminal history inside vterm."
-  (interactive)
-  (when (eq major-mode 'vterm-mode)
-    (vterm--self-insert)
-    (vterm-send-string "clear")
-    (vterm-send-return)))
-#+END_SRC
-
-*** Open in current buffer
-#+BEGIN_SRC emacs-lisp
-(defun my/vterm-open-here ()
-  "Open vterm inside current buffer."
-  (interactive)
-  (let ((bn vterm-buffer-name))
-    (if (get-buffer bn)
-        (switch-to-buffer bn)
-      (project-vterm))))
-#+END_SRC
-*** Open vterm for current buffer
-#+BEGIN_SRC emacs-lisp :results silent
-(defun my/vterm--get-dir ()
-  (expand-file-name
-   (or (when-let ((f (buffer-file-name)))
-         (file-name-directory f))
-       (when-let ((p (project-current)))
-         (project-root p))
-       default-directory)))
-
-(defun my/vterm--cd (buf dir)
-  (with-current-buffer buf
-    (when (get-buffer-process buf)
-      (vterm-send-C-c))
-    (vterm-send-string (concat "cd " (shell-quote-argument dir)))
-    (vterm-send-key "<return>")))
-
-(defun my/vterm-right ()
-  (interactive)
-  (let* ((dir (my/vterm--get-dir))
-         (buf (or (get-buffer "*vterm")
-                  (save-window-excursion (multi-vterm-project))))
-         (win (or (window-in-direction 'right)
-                  (split-window-right))))
-    (select-window win)
-    (switch-to-buffer buf)
-    (my/vterm--cd buf dir)))
-#+END_SRC
-
-** Vterm
-#+BEGIN_SRC emacs-lisp
-(use-package vterm
-  :defer t
-  :bind (("C-c o V" . my/vterm-open-here)
-         ("C-c o T" . my/vterm-cd)
-         ("C-c o R" . my/vterm-right)
-         :map vterm-mode-map
-         ("C-u" . vterm--self-insert)
-         ("C-c m c" . vterm-copy-mode))
-  :custom
-  (vterm-max-scrollback 5000)
-  (vterm-shell (or
-                (executable-find "/Users/darkawower/.nix-profile/bin/xonsh")
-                (executable-find "/home/darkawower/.nix-profile/bin/xonsh")
-                (executable-find "xonsh")))
-  :config
-  (setq vterm-clear-scrollback t)
-  (advice-add 'vterm-clear-scrollback :before #'my/clear-term-history))
-#+END_SRC
-
-** Toggle vterm
-#+BEGIN_SRC emacs-lisp
-(use-package vterm-toggle
-  :defer t
-  :commands (vterm-toggle-show)
-  :bind (("C-c o t" . vterm-toggle))
-  :config
-  (setq vterm-always-compile-module t)
-  (setq vterm-kill-buffer-on-exit nil)
-  (setq vterm-toggle-scope 'project)
-  (setq vterm-toggle-fullscreen-p nil)
-
-  (add-to-list 'display-buffer-alist
-               '((lambda (buffer-or-name _)
-                   (let ((buffer (get-buffer buffer-or-name)))
-                     (with-current-buffer buffer
-                       (and (string-match-p "^\\*vterm" (buffer-name buffer))
-                            (or (eq major-mode 'vterm-mode)
-                                (string-prefix-p vterm-buffer-name (buffer-name buffer)))))))
-                 (display-buffer-reuse-window display-buffer-at-bottom)
-                 (reusable-frames . visible)
-                 (window-height . 0.3))))
-#+END_SRC
-
-** Multi vterm
-#+BEGIN_SRC emacs-lisp :results silent
-(use-package multi-vterm
-  :bind (("C-c o v" . multi-vterm-project)))
-#+END_SRC
 ** Detached. Background commands
 *** Core package
 #+BEGIN_SRC emacs-lisp
@@ -2588,6 +2477,69 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
       (when (detached-session-active-p session)
         (detached-session-kill session)))
     (detached-rerun-session session)))
+#+END_SRC
+** Ghostel
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package ghostel
+  :ensure t
+  :bind (("C-c o g" . ghostel)
+         ("C-c o G" . ghostel-project)
+         ("C-c o t" . ghostel-other)
+         ("C-c o C-g" . my/ghostel-open-here)
+         ("C-c o C-r" . my/ghostel-right)
+         ("C-c C-l" . my/ghostel-clear))
+  :custom
+  (ghostel-shell (or
+                  (executable-find "/Users/darkawower/.nix-profile/bin/xonsh")
+                  (executable-find "/home/darkawower/.nix-profile/bin/xonsh")
+                  (executable-find "xonsh")))
+  (ghostel-max-scrollback (* 5 1024 1024))  ; 5MB default
+  (ghostel-enable-url-detection t)
+  (ghostel-enable-file-detection t)
+  (ghostel-keymap-exceptions '("C-c" "C-x" "C-u" "C-h" "C-g" "M-x" "M-o" "M-:" "C-\\"))
+  (ghostel-module-auto-install 'ask)
+  :config
+  ;; Helper functions
+  (defun my/ghostel--get-dir ()
+    "Get directory for ghostel session."
+    (expand-file-name
+     (or (when-let ((f (buffer-file-name)))
+           (file-name-directory f))
+         (when-let ((p (project-current)))
+           (project-root p))
+         default-directory)))
+
+  (defun my/ghostel--cd (buf dir)
+    "CD to DIR in ghostel BUF."
+    (with-current-buffer buf
+      (let ((proc (get-buffer-process buf)))
+        (when proc
+          (process-send-string proc (concat "cd " (shell-quote-argument dir) "\n"))))))
+
+  (defun my/ghostel-open-here ()
+    "Open ghostel in current window and cd to project dir."
+    (interactive)
+    (ghostel)
+    (my/ghostel--cd (current-buffer) (my/ghostel--get-dir)))
+
+  (defun my/ghostel-right ()
+    "Open ghostel in right window."
+    (interactive)
+    (let* ((dir (my/ghostel--get-dir))
+           (win (or (window-in-direction 'right)
+                    (split-window-right))))
+      (select-window win)
+      (ghostel)
+      (my/ghostel--cd (current-buffer) dir)
+      (other-window 1)))
+
+  (defun my/ghostel-clear ()
+    "Clear ghostel screen and scrollback."
+    (interactive)
+    (ghostel-clear))
+
+  ;; Override keybindings for our setup
+  (define-key ghostel-mode-map (kbd "C-c C-l") 'my/ghostel-clear))
 #+END_SRC
 * Git
 ** Magit

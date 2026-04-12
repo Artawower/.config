@@ -8,7 +8,7 @@ macos-non-native-fullscreen = true
 
 # Disable native tabs to prevent AeroSpace bug
 keybind = cmd+t=unbind
-window-inherit-working-directory = false
+window-inherit-working-directory = true
 window-inherit-font-size = false
 
 copy-on-select = clipboard
@@ -22,15 +22,17 @@ window-padding-y = 16,16
 
 # font-family = "JetBrains Mono"
 font-family = "Myna Nerd Font"
-font-size = 16
+font-size = 15
 
 keybind = alt+arrow_left=unbind
 keybind = alt+arrow_right=unbind
 macos-option-as-alt = true
 
+shell-integration-features = path
 # shell-integration = fish
 # command = /Users/darkawower/.nix-profile/bin/fish
-command = bash -c "zellij"
+# command = bash -c "zellij"
 # command = "xonsh"
+command = shell:zsh -l -c 'exec xonsh'
 
 # term = xterm-256color
