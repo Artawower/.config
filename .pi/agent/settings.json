@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.66.1",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "quietStartup": true,
   "enableSkillCommands": true,
   "npmCommand": [
@@ -35,6 +35,9 @@
         "-pi-package/extensions/compact-header.ts",
         "-pi-package/extensions/git-guard.ts",
         "-pi-package/extensions/safe-guard.ts"
+      ],
+      "themes": [
+        "-pi-package/themes/catppuccin-mocha.json"
       ]
     },
     {
@@ -56,8 +59,18 @@
     },
     "npm:@sherif-fanous/pi-catppuccin",
     "npm:pi-notify",
-    "npm:pi-animations",
-    "npm:pi-tool-display",
+    {
+      "source": "npm:pi-animations",
+      "extensions": [
+        "-animations.ts"
+      ]
+    },
+    {
+      "source": "npm:pi-tool-display",
+      "extensions": [
+        "+index.ts"
+      ]
+    },
     {
       "source": "npm:@ifi/pi-extension-subagents",
       "extensions": [
@@ -93,7 +106,7 @@
     {
       "source": "npm:@ifi/oh-pi-ant-colony",
       "extensions": [
-        "+extensions/ant-colony/index.ts"
+        "-extensions/ant-colony/index.ts"
       ]
     },
     "npm:@mjakl/pi-dark-or-light",
@@ -112,7 +125,12 @@
         "-prompts/review.md"
       ]
     },
-    "npm:@ogulcancelik/pi-spar",
+    {
+      "source": "npm:@ogulcancelik/pi-spar",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
     {
       "source": "npm:@ogulcancelik/pi-minimal-footer",
       "extensions": [
@@ -126,9 +144,27 @@
       ]
     },
     "npm:pi-formatter",
-    "git:github.com/hk-vk/pi-connect",
-    "npm:pi-free",
-    "npm:pi-image-preview",
+    {
+      "source": "git:github.com/hk-vk/pi-connect",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
+    {
+      "source": "npm:pi-free",
+      "extensions": [
+        "-providers/fireworks.ts",
+        "-providers/go.ts",
+        "-providers/mistral.ts",
+        "-providers/nvidia.ts"
+      ]
+    },
+    {
+      "source": "npm:pi-image-preview",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
     "npm:pi-skills-sh",
     {
       "source": "npm:@thurstonsand/pi-powerline-footer",
@@ -140,16 +176,30 @@
       "source": "npm:@ifi/oh-pi-extensions",
       "extensions": [
         "-extensions/bg-process.ts",
-        "-extensions/custom-footer.ts"
+        "-extensions/custom-footer.ts",
+        "-extensions/auto-session-name.ts",
+        "-extensions/auto-update.ts",
+        "-extensions/btw.ts",
+        "-extensions/compact-header.ts",
+        "-extensions/git-guard.ts",
+        "-extensions/safe-guard.ts",
+        "-extensions/scheduler.ts",
+        "-extensions/usage-tracker.ts",
+        "-extensions/watchdog.ts"
       ]
     },
     "npm:pi-secret-guard",
     "npm:pi-extension-manager",
-    "npm:pi-btw",
+    {
+      "source": "npm:pi-btw",
+      "extensions": [
+        "-extensions/btw.ts"
+      ]
+    },
     "npm:pi-session-switch"
   ],
-  "defaultProvider": "zai",
-  "defaultModel": "glm-5.1",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",

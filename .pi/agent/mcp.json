@@ -1,0 +1,78 @@
+{
+  "mcpServers": {
+    "codex": {
+      "command": "bunx",
+      "args": ["mcp-codex-cli", "--allow-npx"]
+    },
+    "deepcontext": {
+      "command": "npx",
+      "args": ["-y", "@wildcard-ai/deepcontext@latest"],
+      "lifecycle": "keep-alive",
+      "directTools": true
+    },
+    "emacs-mcp": {
+      "command": "bunx",
+      "args": ["@keegancsmith/emacs-mcp-server", "--allow-npx"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "lifecycle": "keep-alive",
+      "directTools": true
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--enable-web-dashboard",
+        "False"
+      ],
+      "lifecycle": "keep-alive",
+      "directTools": true
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "lifecycle": "keep-alive",
+      "directTools": true
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
+      "directTools": true
+    },
+    "context-mode": {
+      "command": "context-mode",
+      "lifecycle": "keep-alive",
+      "directTools": true
+    },
+    "exa": {
+      "type": "remote",
+      "url": "https://mcp.exa.ai/mcp",
+      "enabled": true
+    },
+    "youtrack": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://verifika.youtrack.cloud/mcp",
+        "--header",
+        "Authorization:${AUTH_HEADER}"
+      ],
+      "env": {
+        "AUTH_HEADER": "${YOUTRACK_AUTH_HEADER}"
+      },
+      "lifecycle": "lazy",
+      "directTools": true
+    },
+    "mem0": {
+      "command": "uvx",
+      "args": ["mem0-mcp-server"],
+      "enabled": true,
+      "directTools": true
+    }
+  }
+}

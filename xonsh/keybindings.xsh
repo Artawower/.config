@@ -28,6 +28,10 @@ def custom_keybindings(bindings, **kw):
     def _(event):
         """Delete word back including separator (space, /, ., -, _, :, etc.)"""
         buffer = event.current_buffer
+        # Cancel any active completion so delete_before_cursor
+        # doesn't swallow the entire completion block.
+        if buffer.complete_state:
+            buffer.cancel_completion()
         text = buffer.document.text_before_cursor
         
         if not text:

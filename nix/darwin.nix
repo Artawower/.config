@@ -262,6 +262,7 @@ in
       "bandwhich"
       "poetry"
       "pandoc"
+      "multimarkdown"
       "jqp"
       "podman"
       "cloc"
@@ -313,6 +314,7 @@ in
       "yt-dlp"
       "ffmpeg"
       "mole"
+      "sqlite"
     ];
     taps = [
       "BarutSRB/tap"
@@ -412,6 +414,7 @@ in
       "claude-code"
       "spotify"
       # "omniwm"
+      "bloom"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;

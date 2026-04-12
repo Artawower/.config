@@ -30,7 +30,7 @@ macos-option-as-alt = true
 
 # shell-integration = fish
 # command = /Users/darkawower/.nix-profile/bin/fish
-# command = bash -c "zellij"
-command = "xonsh"
+command = bash -c "zellij"
+# command = "xonsh"
 
 # term = xterm-256color

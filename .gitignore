@@ -58,8 +58,6 @@ opencode/plugins/ntfy-state.json
 !Justfile
 
 # Generated AI links
-.pi/skills
-.pi/agent/skills
 eca/skills
 opencode/skills
 opencode/context-mode
@@ -179,5 +177,9 @@ noctalia/*
 !.pi/agent/prompts/*.md
 !.pi/agent/settings.json
 !.pi/agent/*.md
+!.pi/agent/mcp.json
+.pi/skills
+.pi/agent/skills
+
 eca/ntfy-hook.log
 eca/ntfy-topic

@@ -89,11 +89,17 @@
   "mcpServers": {
     "codex": {
       "command": "bunx",
-      "args": ["mcp-codex-cli", "--allow-npx"]
+      "args": [
+        "mcp-codex-cli",
+        "--allow-npx"
+      ]
     },
     "deepcontext": {
       "command": "npx",
-      "args": ["-y", "@wildcard-ai/deepcontext@latest"]
+      "args": [
+        "-y",
+        "@wildcard-ai/deepcontext@latest"
+      ]
     },
     "toon-context": {
       "command": "bun",
@@ -107,11 +113,17 @@
     },
     "emacs-mcp": {
       "command": "bunx",
-      "args": ["@keegancsmith/emacs-mcp-server", "--allow-npx"]
+      "args": [
+        "@keegancsmith/emacs-mcp-server",
+        "--allow-npx"
+      ]
     },
     "qwen": {
       "command": "npx",
-      "args": ["-y", "jeffery9/qwen-mcp-tool"]
+      "args": [
+        "-y",
+        "jeffery9/qwen-mcp-tool"
+      ]
     },
     "youtrack": {
       "command": "npx",
@@ -124,12 +136,19 @@
     },
     "sequential-thinking": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
     },
     "sentry": {
       "disabled": true,
       "command": "npx",
-      "args": ["-y", "mcp-remote@latest", "https://mcp.sentry.dev/mcp"]
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.sentry.dev/mcp"
+      ]
     },
     "serena": {
       "command": "uvx",
@@ -144,14 +163,25 @@
     },
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
     },
     "gemini-cli": {
       "command": "mcp-gemini-cli"
     },
     "playwright": {
       "command": "npx",
-      "args": ["@playwright/mcp@latest"]
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
+    "qmd": {
+      "command": "qmd",
+      "args": [
+        "mcp"
+      ]
     }
   },
   "toolCall": {

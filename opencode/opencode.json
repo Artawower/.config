@@ -335,6 +335,20 @@
       "command": [
         "context-mode"
       ]
+    },
+    "mem0": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mem0-mcp-server"
+      ]
+    },
+    "qmd": {
+      "type": "local",
+      "command": [
+        "qmd",
+        "mcp"
+      ]
     }
   }
 }

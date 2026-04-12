@@ -4911,7 +4911,8 @@ Requires Emacs 30+
   :mode (("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :config
-  (setq markdown-fontify-code-blocks-natively nil))
+  (setq markdown-fontify-code-blocks-natively nil)
+  (setq markdown-command "multimarkdown"))
 #+END_SRC
 *** Realtime preview
 #+BEGIN_SRC emacs-lisp
@@ -4935,7 +4936,7 @@ Requires Emacs 30+
   :bind (:map markdown-mode-command-map
               ("x" . markdown-xwidget-preview-mode))
   :custom
-  (markdown-xwidget-command "pandoc")
+  (markdown-xwidget-command "multimarkdown")
   (markdown-xwidget-github-theme "light")
   (markdown-xwidget-mermaid-theme "default")
   (markdown-xwidget-code-block-theme "default"))

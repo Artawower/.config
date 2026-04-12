@@ -41,6 +41,8 @@ volta:
     volta install \
     skillfish \
     context-mode \
+    @mem0/cli \
+    mem0ai \
     @mariozechner/pi-coding-agent \
     opencode-ai \
     env-cmd \
@@ -66,7 +68,8 @@ volta:
     npm-check-updates \
     npm-upgrade \
     stylelint \
-    @mermaid-js/mermaid-cli
+    @mermaid-js/mermaid-cli \
+    @tobilu/qmd
 
 cargo:
     just _cargo-{{os()}}
