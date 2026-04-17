@@ -53,8 +53,9 @@ opencode/plugins/ntfy-state.json
 !images
 
 # Shared AI registry
-!agents
-!agents/**
+!.agents
+!.agents/
+!.agents/**
 !Justfile
 
 # Generated AI links

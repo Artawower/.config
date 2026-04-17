@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.67.1",
+  "lastChangelogVersion": "0.67.68",
   "hideThinkingBlock": true,
   "quietStartup": true,
   "enableSkillCommands": true,
@@ -8,7 +8,6 @@
   ],
   "packages": [
     "npm:pi-web-access",
-    "npm:pi-mcp-adapter",
     {
       "source": "npm:pi-powerline-footer",
       "extensions": [
@@ -43,8 +42,8 @@
     {
       "source": "npm:lsp-pi@1.0.4",
       "extensions": [
-        "-lsp-tool.ts",
-        "-lsp.ts"
+        "+lsp-tool.ts",
+        "+lsp.ts"
       ]
     },
     "npm:pi-copy-output",
@@ -200,10 +199,38 @@
     "npm:@dkmnx/pi-clarify",
     "npm:pi-ask-user",
     "npm:pi-bailian-models",
-    "npm:@thesethrose/pi-zai-provider"
+    "npm:@thesethrose/pi-zai-provider",
+    "git:github.com/HazAT/pi-interactive-subagents",
+    {
+      "source": "git:github.com/TropicalDog17/pi-messenger-swarm",
+      "extensions": [
+        "-index.ts"
+      ],
+      "skills": [
+        "-skills/pi-messenger-swarm/SKILL.md"
+      ]
+    },
+    {
+      "source": "git:github.com/visua1hue/pi-pane",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    {
+      "source": "npm:pi-lens",
+      "extensions": [
+        "-index.ts"
+      ],
+      "skills": [
+        "-skills/ast-grep/SKILL.md",
+        "-skills/lsp-navigation/SKILL.md"
+      ]
+    },
+    "npm:pi-link",
+    "git:github.com/tomooshi/condensed-milk-pi"
   ],
-  "defaultProvider": "zen",
-  "defaultModel": "minimax-m2.5-free",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",

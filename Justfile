@@ -174,57 +174,7 @@ fedora-files:
     sudo chmod 440 /etc/sudoers.d/cpu-profile
 
 link-dirs:
-    test -d "$HOME/.config/agents/skills"
-    test -f "$HOME/.config/agents/AGENTS.md"
-    mkdir -p "$HOME/.agents" "$HOME/.config/.pi/agents" "$HOME/.config/.omp/agent" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
-    rm -f \
-        "$HOME/.agents/agent/architecture-planner.md" \
-        "$HOME/.agents/agent/code-reviewer.md" \
-        "$HOME/.agents/agent/codebase-analyzer.md" \
-        "$HOME/.agents/agent/edge-case-tester.md" \
-        "$HOME/.agents/agent/project-manager.md" \
-        "$HOME/.agents/agent/quality-reviewer.md" \
-        "$HOME/.config/.pi/agent/architecture-planner.md" \
-        "$HOME/.config/.pi/agent/code-reviewer.md" \
-        "$HOME/.config/.pi/agent/codebase-analyzer.md" \
-        "$HOME/.config/.pi/agent/edge-case-tester.md" \
-        "$HOME/.config/.pi/agent/project-manager.md" \
-        "$HOME/.config/.pi/agent/quality-reviewer.md" \
-        "$HOME/.config/opencode/agent/architecture-planner.md" \
-        "$HOME/.config/opencode/agent/codebase-analyzer.md" \
-        "$HOME/.config/opencode/agent/edge-case-tester.md" \
-        "$HOME/.config/opencode/agent/project-manager.md" \
-        "$HOME/.config/opencode/agent/quality-reviewer.md" \
-        "$HOME/.config/eca/agent/architecture-planner.md" \
-        "$HOME/.config/eca/agent/code-reviewer.md" \
-        "$HOME/.config/eca/agent/codebase-analyzer.md" \
-        "$HOME/.config/eca/agent/edge-case-tester.md" \
-        "$HOME/.config/eca/agent/project-manager.md" \
-        "$HOME/.config/eca/agent/quality-reviewer.md" \
-        "$HOME/.claude/agent/architecture-planner.md" \
-        "$HOME/.claude/agent/codebase-analyzer.md" \
-        "$HOME/.claude/agent/edge-case-tester.md" \
-        "$HOME/.claude/agent/project-manager.md" \
-        "$HOME/.claude/agent/quality-reviewer.md" \
-        "$HOME/.codex/agent/architecture-planner.md" \
-        "$HOME/.codex/agent/code-reviewer.md" \
-        "$HOME/.codex/agent/codebase-analyzer.md" \
-        "$HOME/.codex/agent/edge-case-tester.md" \
-        "$HOME/.codex/agent/project-manager.md" \
-        "$HOME/.codex/agent/quality-reviewer.md"
-    rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/.omp/agent/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
-    rm -f "$HOME/.config/.pi/agents/AGENTS.md" "$HOME/.config/opencode/AGENTS.md" "$HOME/.config/.omp/agent/commands"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.agents/skills"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.config/.pi/skills"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.config/.omp/agent/skills"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.config/opencode/skills"
-    ln -s "$HOME/.config/agents/AGENTS.md" "$HOME/.config/.pi/agents/AGENTS.md"
-    ln -s "$HOME/.config/agents/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.config/eca/skills"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.claude/skills"
-    ln -s "$HOME/.config/agents/skills" "$HOME/.codex/skills"
-    ln -s "$HOME/.config/agents/commands" "$HOME/.config/.omp/agent/commands"
-    ln -sf "$HOME/.agents" "$HOME/.config/agents"
+    ln -sf "$HOME/.config/agents" "$HOME/.agents"
 
 init-linux:
     just flatpak
