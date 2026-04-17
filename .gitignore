@@ -73,6 +73,9 @@ opencode/context-mode
 **/__pycache__/
 **/*.pyc
 
+# Scripts
+!scripts
+
 # Raycast - only keep .rayconfig, extensions auto-install from Store
 raycast/extensions/
 

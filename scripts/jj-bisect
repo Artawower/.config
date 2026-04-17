@@ -1,0 +1,19 @@
+#!/bin/bash
+# jj-bisect - Interactive bisect for Jujutsu VCS
+#
+# Usage:
+#   jj-bisect                                    # Interactive TUI selection
+#   jj-bisect <bad_rev> <good_rev>               # With pre-selected revisions
+#
+# Features:
+#   - / or C-s   : Search revisions
+#   - j/k or arrows : Navigate up/down
+#   - h/l or arrows : Go to start/end
+#   - b/u or PgUp   : Page up
+#   - f/d or PgDn   : Page down
+#   - g/h or Home   : Go to first
+#   - G     or End  : Go to last
+#   - Enter         : Select revision
+#   - q or Esc      : Quit
+
+exec python3 "$HOME/.config/scripts/jj-bisect.py" "$@"

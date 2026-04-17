@@ -9,6 +9,7 @@ aliases['п'] = 'gitu'
 aliases['h'] = '/usr/bin/hx'
 aliases['p'] = 'pi'
 aliases['ju'] = 'jjui'
+aliases['jb'] = 'python3 ~/.config/scripts/jj-bisect.py'
 
 aliases['doom'] = '~/.emacs.d/bin/doom'
 aliases['emacs30'] = '/opt/homebrew/Cellar/emacs-plus@30/30.0.93/bin/emacs --init-dir ~/.emacs.d-30'
