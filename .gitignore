@@ -53,13 +53,15 @@ opencode/plugins/ntfy-state.json
 !images
 
 # Shared AI registry
-!ai
-!ai/**
+!agents
+!agents/**
 !Justfile
 
 # Generated AI links
+.pi/agents/AGENTS.md
 eca/skills
 opencode/skills
+opencode/AGENTS.md
 opencode/context-mode
 
 .DS_Store

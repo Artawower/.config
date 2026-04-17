@@ -39,7 +39,7 @@ flatpak:
 
 volta:
     volta install \
-    skillfish \
+    skills \
     context-mode \
     @mem0/cli \
     mem0ai \
@@ -174,9 +174,9 @@ fedora-files:
     sudo chmod 440 /etc/sudoers.d/cpu-profile
 
 link-dirs:
-    test -d "$HOME/.config/ai/skills"
-    test -f "$HOME/.config/ai/AGENTS.md"
-    mkdir -p "$HOME/.agents" "$HOME/.config/.pi" "$HOME/.config/.omp/agent" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
+    test -d "$HOME/.config/agents/skills"
+    test -f "$HOME/.config/agents/AGENTS.md"
+    mkdir -p "$HOME/.agents" "$HOME/.config/.pi/agents" "$HOME/.config/.omp/agent" "$HOME/.config/opencode" "$HOME/.config/eca" "$HOME/.claude" "$HOME/.codex"
     rm -f \
         "$HOME/.agents/agent/architecture-planner.md" \
         "$HOME/.agents/agent/code-reviewer.md" \
@@ -213,17 +213,18 @@ link-dirs:
         "$HOME/.codex/agent/project-manager.md" \
         "$HOME/.codex/agent/quality-reviewer.md"
     rm -rf "$HOME/.agents/skills" "$HOME/.config/.pi/skills" "$HOME/.config/.omp/agent/skills" "$HOME/.config/opencode/skills" "$HOME/.config/eca/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"
-    rm -f "$HOME/.config/.pi/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.agents/skills"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.config/.pi/skills"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.config/.omp/agent/skills"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.config/opencode/skills"
-    ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/.pi/agents/AGENTS.md"
-    ln -s "$HOME/.config/ai/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.config/eca/skills"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.claude/skills"
-    ln -s "$HOME/.config/ai/skills" "$HOME/.codex/skills"
-    ln -s "$HOME/.config/ai/commands" "$HOME/.omp/agent/commands"
+    rm -f "$HOME/.config/.pi/agents/AGENTS.md" "$HOME/.config/opencode/AGENTS.md" "$HOME/.config/.omp/agent/commands"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.agents/skills"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.config/.pi/skills"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.config/.omp/agent/skills"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.config/opencode/skills"
+    ln -s "$HOME/.config/agents/AGENTS.md" "$HOME/.config/.pi/agents/AGENTS.md"
+    ln -s "$HOME/.config/agents/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.config/eca/skills"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.claude/skills"
+    ln -s "$HOME/.config/agents/skills" "$HOME/.codex/skills"
+    ln -s "$HOME/.config/agents/commands" "$HOME/.config/.omp/agent/commands"
+    ln -sf "$HOME/.agents" "$HOME/.config/agents"
 
 init-linux:
     just flatpak

@@ -199,15 +199,11 @@
     "npm:pi-session-switch",
     "npm:@dkmnx/pi-clarify",
     "npm:pi-ask-user",
-    "npm:pi-bailian-models"
-    "npm:pi-ask-user",
     "npm:pi-bailian-models",
     "npm:@thesethrose/pi-zai-provider"
   ],
-  "defaultProvider": "zai",
-  "defaultModel": "glm-5.1",
-  "defaultProvider": "qwen",
-  "defaultModel": "coder-model",
+  "defaultProvider": "zen",
+  "defaultModel": "minimax-m2.5-free",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
   "theme": "catppuccin-frappe",
