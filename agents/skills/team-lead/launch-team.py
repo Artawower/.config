@@ -14,12 +14,18 @@ from pathlib import Path
 from typing import Any
 
 ROLES = ("team-lead", "researcher", "coder", "reviewer")
+ROLE_MODELS = {
+    "team-lead": "openai-codex/gpt-5.4",
+    "researcher": "openai-codex/gpt-5.4-mini",
+    "coder": "opencode/minimax-m2.5",
+    "reviewer": "github-copilot/claude-sonnet-4.6",
+}
 SPAWN_SETTLE = float(os.environ.get("TEAM_LEAD_SPAWN_SETTLE", "1.0"))
 SCREEN_LINES = int(os.environ.get("TEAM_LEAD_SCREEN_LINES", "120"))
 ROLE_TITLE_RE = re.compile(
     r"^[^\s@]+@(team-lead|researcher|coder|reviewer)$",
     re.IGNORECASE,
-)
+ )
 PI_STEADY_MARKERS = (
     "Press Ctrl+C to exit",
     "Alt+Enter",
@@ -235,6 +241,7 @@ def discover_existing_roles(
 
 def spawn_role(role: str, project_name: str, workspace: str, project_dir: str) -> dict[str, Any]:
     helper = Path(__file__).with_name("spawn-agent.py")
+    model = ROLE_MODELS[role]
     output = run_process([
         sys.executable,
         str(helper),
@@ -242,6 +249,7 @@ def spawn_role(role: str, project_name: str, workspace: str, project_dir: str) -
         project_name,
         workspace,
         project_dir,
+        model,
     ])
     payload = json.loads(output)
     if payload.get("status") != "ok":
@@ -350,7 +358,10 @@ def main(argv: list[str]) -> int:
     print(json.dumps(result, ensure_ascii=False))
     sys.stdout.flush()
     if result.get("initiator_close_requested") and isinstance(result.get("initiator_surface"), str):
-        close_surface(result["workspace"], result["initiator_surface"])
+        try:
+            close_surface(result["workspace"], result["initiator_surface"])
+        except CommandError:
+            pass
     return 0
 
 

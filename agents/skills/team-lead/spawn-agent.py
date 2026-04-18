@@ -17,7 +17,7 @@ CMUX_POLL_INTERVAL = float(os.environ.get("TEAM_LEAD_CMUX_POLL_INTERVAL", "1.0")
 SHELL_READY_TIMEOUT = float(os.environ.get("TEAM_LEAD_SHELL_READY_TIMEOUT", "20"))
 PI_READY_TIMEOUT = float(os.environ.get("TEAM_LEAD_PI_READY_TIMEOUT", "90"))
 POST_COMMAND_SETTLE = float(os.environ.get("TEAM_LEAD_POST_COMMAND_SETTLE", "1.0"))
-ROLE_ASSIGN_TIMEOUT = float(os.environ.get("TEAM_LEAD_ROLE_ASSIGN_TIMEOUT", "20"))
+ROLE_ASSIGN_TIMEOUT = float(os.environ.get("TEAM_LEAD_ROLE_ASSIGN_TIMEOUT", "60"))
 PI_READY_MARKERS = tuple(
     marker.strip()
     for marker in os.environ.get(
@@ -121,6 +121,15 @@ def list_panels(workspace: str) -> list[dict[str, Any]]:
 def get_surface_health(workspace: str) -> list[dict[str, Any]]:
     data = run_cmux(["surface-health", "--workspace", workspace], json_output=True)
     return data.get("surfaces") or data.get("panels") or []
+
+
+def surface_exists(surface: SurfaceTarget) -> bool:
+    for item in list_panels(surface.workspace):
+        item_ref = item.get("ref") or item.get("surface") or item.get("panel")
+        item_id = item.get("id") or item.get("surface_id") or item.get("panel_id")
+        if item_ref == surface.ref or item_id == surface.uuid:
+            return True
+    return False
 
 
 def parse_key_values(output: str) -> dict[str, str]:
@@ -236,8 +245,8 @@ def surface_is_ready(surface: SurfaceTarget) -> bool:
         item_ref = item.get("ref") or item.get("surface") or item.get("panel")
         item_id = item.get("id") or item.get("surface_id") or item.get("panel_id")
         if item_ref == surface.ref or item_id == surface.uuid:
-            return bool(item.get("in_window"))
-    return False
+            return True
+    return surface_exists(surface)
 
 
 def wait_for_shell_ready(surface: SurfaceTarget) -> str:
@@ -339,6 +348,7 @@ def spawn_agent(
     project_name: str,
     explicit_workspace: str | None,
     project_dir: str,
+    model: str | None,
  ) -> dict[str, Any]:
     title = f"{project_name}@{role}"
     workspace = get_current_workspace(explicit_workspace)
@@ -349,7 +359,8 @@ def spawn_agent(
         wait_for_shell_ready(surface)
         send_text(surface, f"cd {shlex.quote(project_dir)}")
         time.sleep(POST_COMMAND_SETTLE)
-        send_text(surface, "pi --link")
+        pi_command = "pi --link" if not model else f"pi --link --model {shlex.quote(model)}"
+        send_text(surface, pi_command)
         wait_for_pi_ready(surface, read_screen(surface))
         maybe_connect_link(surface)
         send_text(surface, f"/link-name {title}")
@@ -366,6 +377,7 @@ def spawn_agent(
         "title": title,
         "workspace": workspace,
         "project_dir": project_dir,
+        "model": model,
         "surface_ref": surface.ref,
         "surface_uuid": surface.uuid,
         "pi_ready_screen_excerpt": "\n".join(pi_screen.splitlines()[-20:]),
@@ -373,9 +385,9 @@ def spawn_agent(
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) < 2 or len(argv) > 5:
+    if len(argv) < 2 or len(argv) > 6:
         print(
-            "Usage: python3 spawn-agent.py <role> <project-name> [workspace-id] [project-dir]",
+            "Usage: python3 spawn-agent.py <role> <project-name> [workspace-id] [project-dir] [model]",
             file=sys.stderr,
         )
         return 2
@@ -383,10 +395,11 @@ def main(argv: list[str]) -> int:
     role = argv[1]
     project_name = argv[2] if len(argv) >= 3 else os.path.basename(os.getcwd())
     explicit_workspace = argv[3] if len(argv) >= 4 else None
-    project_dir = argv[4] if len(argv) == 5 else os.getcwd()
+    project_dir = argv[4] if len(argv) >= 5 else os.getcwd()
+    model = argv[5] if len(argv) == 6 else None
 
     try:
-        result = spawn_agent(role, project_name, explicit_workspace, project_dir)
+        result = spawn_agent(role, project_name, explicit_workspace, project_dir, model)
     except Exception as exc:
         emit(
             {
@@ -395,6 +408,7 @@ def main(argv: list[str]) -> int:
                 "project": project_name,
                 "project_dir": project_dir,
                 "workspace": explicit_workspace or os.environ.get("CMUX_WORKSPACE_ID"),
+                "model": model,
                 "error": str(exc),
             },
             exit_code=1,
