@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "skill-creator",
+  "owner": "anthropics",
+  "repo": "skills",
+  "path": "skills/skill-creator",
+  "branch": "main",
+  "sha": "98a510d1cfef9f82c3b1eec200229ca68725e613",
+  "source": "manual"
+}
