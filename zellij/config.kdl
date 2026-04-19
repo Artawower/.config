@@ -1139,7 +1139,7 @@ themes {
         orange "#ef9f76"
     }
 }
-theme "catppuccin-latte"
+theme "catppuccin-frappe"
 // Choose the base input mode of zellij.
 // Default: normal
 //

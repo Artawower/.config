@@ -1,0 +1,65 @@
+[[layouts]]
+id = "ai-vcs"
+name = "AI + VCS"
+description = "Left pane with ai/vcs/run/term tabs and right column split into ai-2 and review panes"
+
+[[layouts.tabs]]
+name = "{dir}@ai"
+pane = "left"
+
+[layouts.tabs.pi]
+args = ["--model", "openai-codex/gpt-5.4"]
+
+[[layouts.tabs]]
+name = "{dir}@vcs"
+pane = "left"
+command = "jjui"
+
+[[layouts.tabs]]
+name = "{dir}@run"
+pane = "left"
+
+[[layouts.tabs]]
+name = "{dir}@term"
+pane = "left"
+command = "hx"
+
+[[layouts.tabs]]
+name = "{dir}@ai-2"
+pane = "right-top"
+split_from = "left"
+split = "right"
+
+[layouts.tabs.pi]
+args = ["--model", "openai-codex/gpt-5.4-mini"]
+
+[[layouts.tabs]]
+name = "{dir}@review"
+pane = "right-bottom"
+split_from = "right-top"
+split = "down"
+
+[layouts.tabs.pi]
+args = ["--model", "github-copilot/claude-sonnet-4.6"]
+
+[[layouts]]
+id = "single-ai"
+name = "Single AI + VCS"
+description = "AI, jjui, run and terminal tabs for the current project in one pane"
+
+[[layouts.tabs]]
+name = "{dir}@ai"
+
+[layouts.tabs.pi]
+args = ["--model", "openai-codex/gpt-5.4"]
+
+[[layouts.tabs]]
+name = "{dir}@vcs"
+command = "jjui"
+
+[[layouts.tabs]]
+name = "{dir}@run"
+
+[[layouts.tabs]]
+name = "{dir}@term"
+command = "hx"

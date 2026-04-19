@@ -18,6 +18,7 @@ aliases['pip'] = 'pip3'
 aliases['python'] = 'python3'
 # aliases['wakatime-cli'] = '/opt/homebrew/bin/wakatime'
 aliases['nv'] = '~/.config/nv.sh'
+aliases['layout'] = 'python3 ~/.config/scripts/layout-presets.py'
 
 aliases['ls'] = 'eza --icons'
 aliases['tree'] = 'eza --tree'
