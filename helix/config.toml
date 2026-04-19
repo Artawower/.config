@@ -129,6 +129,7 @@ C-a = [":sh unibear add_file %%{buffer_name}"]
 "F12" = [":new", ":insert-output $SHELL", ":buffer-close!", ":redraw"]
 
 y = "yank_to_clipboard"
+N = [":pipe-to sh -c 'printf \"%%s:%%s-%%s\\\\n%%s\" \"$(realpath \"$1\")\" \"$2\" \"$3\" \"$(cat)\" | pbcopy' sh \"%{buffer_name}\" \"%{selection_line_start}\" \"%{selection_line_end}\""]
 Y = "yank"  
 
 
