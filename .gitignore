@@ -138,9 +138,8 @@ prowlarr-config
 # Emacs
 !emacs/
 emacs/**
-!emacs/README.org
+!emacs/*.org
 !emacs/elpaca.lock
-!emacs/HERLPERS.org
 !emacs/init.el
 !emacs/templates
 !emacs/templates/**

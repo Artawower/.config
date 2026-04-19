@@ -1,0 +1,805 @@
+#+STARTUP: content
+
+* Profiling
+** Init debug time
+#+BEGIN_SRC emacs-lisp
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+END_SRC
+
+** Cpu Profiler
+#+BEGIN_SRC emacs-lisp
+(use-package explain-pause-mode
+  :ensure (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
+  :defer t)
+#+END_SRC
+* Programming
+** LSP mode
+*** Core package
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-mode
+  :hook
+  ((clojure-mode
+    scss-mode
+    go-ts-mode
+    css-mode
+    js-mode
+    typescript-mode
+    vue-mode
+    vue-ts-mode
+    web-mode
+    html-mode
+    ng2-ts-mode
+    python-mode
+    dart-mode
+    typescript-tsx-mode
+
+    html-ts-mode
+    c-sharp-ts-mode
+    typescript-ts-mode
+    go-ts-mode
+    js-ts-mode
+    bash-ts-mode
+    tsx-ts-mode) . lsp-deferred)
+  :bind
+  (("C-c f n" . flycheck-next-error)
+   ("C-c l a" . lsp-execute-code-action)
+   ("C-c i m" . lsp-ui-imenu)
+   ("C-c l d" . lsp-workspace-folders-remove)
+   ("C-c l t" . lsp-find-type-definition)
+   ("C-c l f" . lsp-find-references)
+   ("C-c l i" . lsp-find-implementation)
+   ("C-c l w" . lsp-workspace-restart)
+   ("C-c r l" . lsp)
+   ("C-c l r" . lsp-rename)
+   :map meow-normal-state-keymap
+   ("gt" . lsp-goto-type-definition)
+   ("gi" . lsp-goto-implementation)
+   ("\\l" . lsp-execute-code-action))
+  :bind-keymap
+  ("s-9" . lsp-command-map)
+  :init
+  (setq lsp-keymap-prefix "s-9")
+  (setq lsp-volar-take-over-mode nil)
+  (setq lsp-headerline-breadcrumb-enable nil)
+  :custom
+  (lsp-rust-analyzer-server-display-inlay-hints nil)
+  (lsp-log-io nil)
+  (lsp-idle-delay 0.3)
+  (lsp-auto-guess-root t)
+  (lsp-completion-provider :capf)
+  (lsp-enable-on-type-formatting nil)
+  (lsp-eldoc-render-all nil)
+  (lsp-prefer-flymake nil)
+  (lsp-modeline-diagnostics-scope :workspace)
+  (lsp-enable-indentation nil)
+  (lsp-apply-edits-after-file-operations nil)
+  (lsp-clients-typescript-server-args '("--stdio"))
+  (lsp-completion-default-behaviour :insert)
+  (lsp-yaml-schemas '((kubernetes . ["/auth-reader.yaml", "/deployment.yaml"])))
+  (lsp-disabled-clients '(html-ls vls vue-semantic-server))
+  (lsp-signature-render-documentation nil)
+  (lsp-signature-auto-activate nil)
+  (lsp-enable-snippet nil)
+  (lsp-use-plists t)
+  (lsp-enable-file-watchers t)
+  (lsp-file-watch-threshold 8000)
+  (lsp-modeline-code-actions-mode nil)
+  (lsp-modeline-code-actions-enable nil)
+  (lsp-modeline-workspace-status-enable nil)
+  (lsp-modeline-code-action-icons-enable nil)
+  (lsp-modeline-diagnostics-mode nil)
+  (lsp-modeline-diagnostics-enable nil)
+  :config
+  ;; (setq lsp-csharp-server-path (expand-file-name "~/.dotnet/tools/csharp-ls"))
+  ;; (setq lsp-csharp-ls-executable (expand-file-name "~/.dotnet/tools/csharp-ls"))
+  ;; (setq lsp-csharp-server-type 'csharp-ls)
+   ;; (setenv "DOTNET_ROOT" "/usr/local/share/dotnet")
+   ;; (setenv "DOTNET_ROLL_FORWARD" "Major")
+
+  ;; (setq lsp-pyright-venv-path (concat (getenv "HOME") "/.virtualenvs"))
+  ;; (setq lsp-pyright-venv-path "./venv")
+  (setq lsp-clients-angular-language-server-command
+        '("node" "./node_modules/@angular/language-server/index.js"
+          "--stdio"
+          "--tsProbeLocations" "."
+          "--ngProbeLocations" "."))
+  (define-key lsp-mode-map (kbd "s-9") lsp-command-map)
+  (setq lsp-auto-execute-action nil)
+  (setq lsp-javascript-display-return-type-hints t)
+  (setq lsp-json-schemas
+        `[
+          (:fileMatch ["ng-openapi-gen.json"] :url "https://raw.githubusercontent.com/cyclosproject/ng-openapi-gen/master/ng-openapi-gen-schema.json")
+          (:fileMatch ["package.json"] :url "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json")
+          (:fileMatch ["opencode.json"] :url "https://opencode.ai/config.json")
+          ])
+  (set-face-attribute 'lsp-face-highlight-read nil :foreground "#61AFEF" :bold t :underline nil)
+  ;; Eslint
+  (setq lsp-eslint-download-url "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/3.0.10/vspackage") ;; latest VSCode eslint extension from marketplace
+  (setq lsp-eslint-server-command `("node"
+                                    "/Users/darkawower/.vscode/extensions/dbaeumer.vscode-eslint-3.0.10/server/out/eslintServer.js"
+                                    "--stdio"))
+  (setq lsp-enable-symbol-highlighting t
+        lsp-enable-snippet nil
+        lsp-pyls-plugins-flake8-enabled nil)
+  (set-face-foreground 'lsp-face-highlight-read "#61AFEF")
+  (set-face-foreground 'lsp-face-highlight-textual "#61AFEF")
+
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.bun\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.npm\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.act\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.pnpm-store\\'")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\venv\\'")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\pyenv\\'")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\.cache\\'")
+  (set-face-attribute 'lsp-face-highlight-textual nil :background "#c0caf5")
+  (set-face-attribute 'lsp-flycheck-info-unnecessary-face nil :inherit 'shadow :foreground nil)
+  (my/setup-compilation-errors)
+  (setq lsp-volar-hybrid-mode nil)
+
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("vtsls" "--stdio"))
+    :activation-fn (lsp-activate-on "typescript" "javascript" "typescriptreact" "javascriptreact")
+    :priority 1
+    :server-id 'vtsls
+    :multi-root t
+    :initialization-options (lambda ()
+                              (list :typescript (list :tsdk "/path/to/typescript/lib"))))))
+
+#+END_SRC
+
+*** Lsp optimisation. Lsp booster.
+See [[https://github.com/blahgeek/emacs-lsp-booster][detail]]
+#+BEGIN_SRC emacs-lisp
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+#+END_SRC
+
+*** Tailwind css
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-tailwindcss
+  :defer t
+  :init
+  (setq lsp-tailwindcss-add-on-mode t)
+  :config
+  (add-hook 'before-save-hook 'lsp-tailwindcss-rustywind-before-save))
+#+END_SRC
+
+*** LSP. Pyright
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-pyright
+  :defer t
+  :hook (python-ts-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred)))
+  :config
+  (setq lsp-pyright-auto-import-completions t)
+  (setq lsp-pyright-auto-search-paths t)
+  (setq lsp-pyright-log-level "trace")
+  (setq lsp-pyright-multi-root nil)
+  (setq lsp-pyright-use-library-code-for-types t)
+  (setq lsp-pyright-diagnostic-mode "workspace"))
+#+END_SRC
+
+*** YAML
+**** YAML PRO
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-pro
+  :defer t
+  :hook (yaml-ts-mode . yaml-pro-mode))
+#+END_SRC
+
+*** LSP UI
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :ensure (:host github :repo "emacs-lsp/lsp-ui")
+  :after lsp-mode
+  :bind (:map meow-normal-state-keymap
+         ("\\h" . lsp-ui-doc-toggle)
+         :map lsp-ui-peek-mode-map
+         ("C-n" . lsp-ui-peek--select-next)
+         ("C-e" . lsp-ui-peek--select-prev))
+  :config
+  (setq lsp-ui-sideline-diagnostic-max-line-length 100
+        lsp-ui-sideline-diagnostic-max-lines 8
+        lsp-ui-sideline-show-diagnostics t
+        lsp-ui-doc-delay 1
+        lsp-ui-doc-position 'top
+        lsp-ui-doc-show-with-mouse nil))
+#+END_SRC
+
+*** Flutter (dart)
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-dart
+    :defer t
+    :hook (dart-mode . (lambda () (interactive)
+                         (add-hook 'after-save-hook
+                                   (lambda ()
+                                     ;; (flutter-run-or-hot-reload)
+                                     (flutter-hot-restart)
+                                     )
+                                   t t)))
+    :custom
+    (lsp-dart-dap-flutter-hot-reload-on-save t)
+    :config
+    (defun lsp-dart-flutter-widget-guide--add-overlay-to (buffer line col string)
+      "Add to BUFFER at LINE and COL a STRING overlay."
+      (save-excursion
+        (goto-char (point-min))
+        (forward-line line)
+        (move-to-column col)
+        (when (string= lsp-dart-flutter-widget-guide-space (string (following-char)))
+          (let ((ov (make-overlay (point) (1+ (point)) buffer)))
+            (overlay-put ov 'category 'lsp-dart-flutter-widget-guide)
+            (overlay-put ov 'display (propertize string
+                                                 'face 'custom-comment-tag)))))))
+#+END_SRC
+
+*** LSP java
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-java
+  :hook (java-mode . lsp-deferred))
+#+END_SRC
+
+*** Eslint, install once
+Installation instructions:
+#+BEGIN_SRC emacs-lisp  :tangle no
+(url-copy-file (lsp-vscode-extension-url "dbaeumer" "vscode-eslint" "3.0.16") "~/tmp/foo.zip")
+(lsp-unzip "~/tmp/foo.zip" lsp-eslint-unzipped-path)
+#+END_SRC
+
+*** COMMENT Biome lsp
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package lsp-biome
+  :ensure (:host github :repo "cxa/lsp-biome")
+  :preface
+  (defun my/lsp-biome-active-hook ()
+    (setq-local apheleia-formatter '(biome)))
+  :config
+  (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook))
+#+END_SRC
+** COMMENT Flycheck
+*** Core package
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :bind (("C-n" . flycheck-next-error)
+         ("C-e" . flycheck-previous-error)
+         ("C-c f ]" . flycheck-next-error)
+         ("C-c f [" . flycheck-previous-error)
+         ("C-c l e" . flycheck-list-errors)
+         ("C-c e c" . flycheck-copy-errors-as-kill)
+         ("C-c e C" . my/flycheck-copy-errors-buffer)
+         ("C-c f e" . flycheck-list-errors))
+  :init
+  (global-flycheck-mode)
+  :custom
+  ;; Sometimes the macos emacs version is very laggy with fringes ;C
+  (flycheck-indication-mode nil)
+  (flycheck-display-errors-delay 0)
+  (flycheck-mode-line nil)
+  (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
+  (flycheck-checker-error-threshold 120)
+  (flycheck-highlighting-mode 'columns)
+  (flycheck-idle-change-delay 0.3)
+  :config
+  (global-flycheck-mode)
+  (add-to-list 'flycheck-disabled-checkers 'javascript-eslint)
+  ;; use eslint with web-mode for jsx files
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; Workaround for eslint loading slow
+  ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
+
+;; (with-eval-after-load 'flycheck
+;;   (flycheck-define-checker stylelint
+;;     "A SCSS/CSS linter using stylelint."
+;;     :command ("stylelint" "--formatter" "compact" "--stdin-filename" source-original)
+;;     :standard-input t
+;;     :error-patterns
+;;     ((error line-start (file-name) ": line " line ", col " column ", " (message) line-end))
+;;     :modes (scss-mode css-mode less-css-mode))
+
+;;   (add-to-list 'flycheck-checkers 'stylelint)
+;;   (flycheck-add-next-checker 'lsp 'stylelint))
+
+;; (add-hook 'scss-mode-hook
+;;           (lambda ()
+;;             (flycheck-select-checker 'stylelint)
+;;             (flycheck-mode)))
+
+;; (with-eval-after-load 'flycheck
+;;   (flycheck-add-next-checker 'lsp 'stylelint)))
+#+END_SRC
+**** Flycheck functions
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/flycheck-copy-errors-buffer ()
+    "Open flycheck errors buffer, copy all contents, and close window."
+    (interactive)
+    (let ((original-window (selected-window)))
+      ;; Always open flycheck errors buffer first
+      (flycheck-list-errors)
+      ;; Check if the errors buffer exists and has content
+      (let ((flycheck-buffer (get-buffer "*Flycheck errors*")))
+        (if (and flycheck-buffer (get-buffer-window "*Flycheck errors*"))
+            (progn
+              ;; Switch to errors buffer
+              (select-window (get-buffer-window "*Flycheck errors*"))
+              ;; Copy all buffer contents
+              (mark-whole-buffer)
+              (copy-region-as-kill (point-min) (point-max))
+              ;; Close the window
+              (quit-window)
+              ;; Return to original window
+              (select-window original-window)
+              (message "Flycheck errors copied to kill ring"))
+          (progn
+            ;; If buffer still doesn't exist or has no window, return to original
+            (select-window original-window)
+            (message "No flycheck errors found"))))))
+#+END_SRC
+*** COMMENT Beatiful flycheck, flyover
+https://github.com/konrad1977/flyover
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package flyover
+  :hook ((flycheck-mode . flyover-mode)
+         (flymake-mode . flyover-mode))
+  :custom
+  ;; Checker settings
+  (flyover-checkers '(flycheck flymake))
+  (flyover-levels '(error warning info))
+
+  ;; Appearance
+  (flyover-use-theme-colors t)
+  (flyover-background-lightness 45)
+  (flyover-percent-darker 40)
+  (flyover-text-tint 'lighter)
+  (flyover-text-tint-percent 50)
+
+  ;; Icons
+  (flyover-info-icon " ")
+  (flyover-warning-icon " ")
+  (flyover-error-icon " ")
+
+  ;; Border styles: none, pill, arrow, slant, slant-inv, flames, pixels
+  (flyover-border-style 'none)
+  (flyover-border-match-icon t)
+
+  ;; Display settings
+  (flyover-hide-checker-name t)
+  (flyover-show-virtual-line t)
+  (flyover-virtual-line-type 'curved-dotted-arrow)
+  (flyover-line-position-offset 1)
+
+  ;; Message wrapping
+  (flyover-wrap-messages t)
+  (flyover-max-line-length 80)
+
+  ;; Performance
+  (flyover-debounce-interval 0.2)
+  (flyover-cursor-debounce-interval 0.3)
+
+  ;; Icon
+
+  (flyover-info-icon "🛈")
+  (flyover-warning-icon "⚠")
+  (flyover-error-icon "✘")
+
+  ;; Display mode (controls cursor-based visibility)
+  (flyover-display-mode 'show-only-on-same-line))
+#+End_Src
+*** COMMENT Consult flycheck
+#+BEGIN_SRC emacs-lisp
+(use-package consult-flycheck
+  :after consult)
+#+END_SRC
+*** COMMENT Flyckec posframe
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package flycheck-posframe
+  :after flycheck
+  :hook (flycheck-mode . flycheck-posframe-mode)
+  :custom
+  (flycheck-posframe-position 'window-bottom-right-corner)
+  :config
+  (set-face-attribute 'flycheck-posframe-error-face nil :inherit 'error)
+  (setq flycheck-posframe-warning-prefix "\u26a0 "))
+#+END_SRC
+
+** Lsp manager
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package mason
+  :defer t
+  :config
+  (mason-ensure))
+#+END_SRC
+
+** Error checkers
+
+*** Flycheck
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package flycheck-eglot
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode 1))
+#+END_SRC
+
+*** Sideline
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package sideline
+  ;; :hook (flycheck-mode . sideline-mode)
+  :init
+  (setq flycheck-display-errors-function nil)
+  (setq sideline-backends-right '(sideline-flycheck)))
+
+(use-package sideline-flycheck :hook (flycheck-mode . sideline-flycheck-setup))
+#+END_SRC
+
+
+***** COMMENT Flymake sideline UI
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package sideline-flymake
+  :hook (flymake-mode . sideline-mode)
+  :init
+  (setq sideline-flymake-display-mode 'point
+        sideline-backends-right '(sideline-flymake))
+  :config
+  (setq sideline-delay 0.5)
+  (setq sideline-inhibit-display-function
+        (lambda ()
+          (or (minibufferp)
+              (region-active-p)))))
+#+END_SRC
+
+
+
+* Programming
+** Swift
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package swift-ts-mode :defer t :mode ("\\.swift" . swift-ts-mode))
+#+END_SRC
+** Gleam
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package gleam-ts-mode
+  :defer 10
+  :hook ((gleam-ts-mode . lsp-mode))
+  :mode ("\\.gleam\\'" . gleam-ts-mode))
+#+END_SRC
+
+** Clojure
+**** Main mode
+#+BEGIN_SRC emacs-lisp
+(use-package clojure-mode
+  :defer t)
+#+END_SRC
+**** Repl
+#+BEGIN_SRC emacs-lisp
+(use-package cider
+  :hook (clojure-mode . cider-mode)
+  :bind ( :map cider-repl-mode-map
+         ("<return>" . cider-repl-newline-and-indent)
+         ("s-<return>" . cider-repl-return)
+         ("C-e" . cider-repl-previous-input)
+         ("C-n" . cider-repl-next-input))
+  :defer t)
+#+END_SRC
+
+** Flutter
+**** Dart
+#+BEGIN_SRC emacs-lisp
+(use-package dart-mode
+  :hook (dart-mode . flutter-test-mode))
+#+END_SRC
+**** Flutter mode
+#+BEGIN_SRC emacs-lisp
+(use-package flutter
+  :after dart-mode
+  :bind
+  (("C-c m f s" . flutter-run)
+   ("C-c m f R" . flutter-hot-restart)
+   ("C-c m f r" . flutter-run-or-hot-reload)
+   :map dart-mode-map
+   ("C-c C-r" . flutter-run-or-hot-reload))
+  :custom
+  (flutter-sdk-path (or (getenv "FLUTTER_ROOT") "/Applications/flutter/")))
+#+END_SRC
+
+
+** Jinja
+#+BEGIN_SRC emacs-lisp
+(use-package jinja2-mode
+  :defer t)
+#+END_SRC
+
+
+** Dotnet
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package nxml-mode
+  :ensure nil
+  :mode
+  ("\\.csproj\\'" . nxml-mode))
+#+END_SRC
+
+* Git
+** Magit
+*** Core package
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :commands
+  (magit-get-current-branch)
+  :bind
+  (("C-M-g" . magit-status)
+   ("C-M-S-d" . magit-ediff-compare)
+   ("C-M-S-c" . magit-commit)
+   ("C-M-S-a" . my/magit-stage-current-file)
+   ("C-M-d" . my/magit-ediff-current-file-against-head)
+   ("C-c g g" . magit-status)
+   :map magit-mode-map
+   ("C-1" . magit-section-show-level-1)
+   ("C-2" . magit-section-show-level-2)
+   ("C-3" . magit-section-show-level-3)
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward)
+   ("C-4" . magit-section-show-level-4)
+   ("q" . kill-current-buffer)
+   ("<escape>" . kill-current-buffer)
+   ("Q" . bury-buffer)
+   (";" . meow-reverse)
+   ("Z" . magit-stash)
+   ("P" . magit-fetch)
+   ("p" . magit-push)
+   ("`" . magit-process-buffer)
+   ("f" . avy-goto-word-1)
+   ("x" . magit-discard)
+   :map magit-status-mode-map
+   ("x" . meow-line)
+   ("X" . magit-discard)
+   ("z z" . recenter)
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward)
+   ("M-k" . husky-lsp-repeat-consult-search-forward)
+   ("M-p" . husky-lsp-repeat-consult-search-backward)
+   :map magit-diff-mode-map
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward))
+  :custom-face
+  (git-commit-overlong-summary ((t :inherit error :weight bold)))
+  :custom
+  (magit-diff-visit-prefer-worktree t)
+  (magit-ediff-dwim-show-on-hunks t)
+  (magit-diff-refine-hunk t)
+  (magit-process-timestamp-format "%H:%M")
+  (magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1)
+  (magit-process-finish-apply-ansi-colors t)
+  :hook
+  (magit-process-mode . compilation-minor-mode)
+  :config
+  ;; Reset magit numbers
+  (dolist (key (mapcar (lambda (n) (kbd (number-to-string n))) (number-sequence 0 9)))
+    (define-key magit-mode-map key nil)
+    (define-key magit-status-mode-map key nil))
+  (define-key transient-map        "q" 'transient-quit-one)
+  (define-key transient-edit-map   "q" 'transient-quit-one)
+  (define-key transient-sticky-map "q" 'transient-quit-seq)
+  (define-key magit-file-section-map (kbd "C-n") 'magit-section-forward)
+  (define-key magit-hunk-section-map (kbd "C-n") 'magit-section-forward)
+  (setcdr magit-process-mode-map (cdr (make-keymap)))
+  (set-keymap-parent magit-process-mode-map special-mode-map))
+#+END_SRC
+
+*** Helper functions
+**** Stage current file
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/magit-stage-current-file ()
+  "Stage current file in Magit."
+  (interactive)
+  (magit-file-stage)
+  (when (featurep 'git-gutter)
+    (git-gutter)))
+
+#+END_SRC
+**** Open git diff for current blame line
+#+BEGIN_SRC emacs-lisp
+(defun my/magit-show-commit-at-point ()
+  "Open Magit revision for commit that last modified the current line."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (line (line-number-at-pos))
+         (hash (string-trim
+                (shell-command-to-string
+                 (format "git blame -L %d,%d --porcelain %s | sed -n '1s/ .*//p'"
+                         line line file)))))
+    (if (string-match-p "^[0-9a-f]\\{7,40\\}$" hash)
+        (magit-show-commit hash)
+      (message "No commit found for current line."))))
+#+END_SRC
+**** Show di
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/magit-ediff-current-file-against-head ()
+  (interactive)
+  (let* ((abs (or (and (fboundp 'magit-file-at-point) (magit-file-at-point))
+                  (buffer-file-name)))
+         (top (and abs (magit-toplevel)))
+         (rel (and top (magit-file-relative-name abs))))
+    (unless rel (user-error "Файл не в git-проекте"))
+    (let* ((bufA (generate-new-buffer (format "*HEAD:%s*" rel)))
+           (bufB (find-file-noselect abs))
+           (mode (buffer-local-value 'major-mode bufB))
+           (ok (with-current-buffer bufA
+                 (let ((default-directory top))
+                   (erase-buffer)
+                   (eq 0 (call-process "git" nil t nil "show" (concat "HEAD:" rel)))))))
+      (unless ok (kill-buffer bufA) (user-error "git show HEAD:%s failed" rel))
+      (with-current-buffer bufA (funcall mode))
+      (let ((ctl (ediff-buffers bufA bufB)))
+        (when (buffer-live-p ctl)
+          (with-current-buffer ctl
+            (add-hook 'ediff-quit-hook (lambda () (when (buffer-live-p bufA) (kill-buffer bufA))) nil t)))))))
+#+END_SRC
+*** Magit todos
+#+BEGIN_SRC emacs-lisp
+(use-package magit-todos
+  :bind (("C-c g n" . magit-todos-list)
+         ("C-c l T" . magit-todos-list)
+         ("C-c t l" . magit-todos-list)))
+#+END_SRC
+
+*** Visit next dirty file
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/git-visit-next-dirty-file ()
+  "Switch to next buffer visiting a Git unstaged or untracked file."
+  (interactive)
+  (require 'vc-git)
+  (let* ((repo-root (vc-git-root default-directory)))
+    (unless repo-root
+      (user-error "Not inside a Git repository"))
+    (let* ((root (expand-file-name repo-root))
+           (status-output
+            (shell-command-to-string
+             (format "git -C %s status --porcelain=v1"
+                     (shell-quote-argument root))))
+           ;; Collect interesting files
+           (interesting-files
+            (let (files)
+              (dolist (line (split-string status-output "\n" t))
+                (when (> (length line) 3)
+                  (let ((status (substring line 0 2))
+                        (path   (substring line 3)))
+                    ;; include:
+                    ;; ??  untracked
+                    ;;  M  unstaged
+                    ;; MM  staged + unstaged
+                    (when (or (string= status "??")
+                              (string= status " M")
+                              (string= status "MM"))
+                      ;; handle rename: "old -> new"
+                      (when (string-match " -> " path)
+                        (setq path (cadr (split-string path " -> " t))))
+                      (push (expand-file-name path root) files)))))
+              files))
+           (buffers (buffer-list))
+           (start (current-buffer))
+           (rotated (append (cdr (memq start buffers)) buffers)))
+      (catch 'done
+        (dolist (buf rotated)
+          (let ((file (buffer-file-name buf)))
+            (when (and file
+                       (member (expand-file-name file) interesting-files))
+              (switch-to-buffer buf)
+              (throw 'done t))))
+        (message "No unstaged or untracked Git buffers")))))
+#+END_SRC
+
+* Colemak
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/toggle-meow-colemak-local ()
+  "Toggle Colemak input method for current buffer with Meow."
+  (interactive)
+  (if (local-variable-p 'my/meow-colemak-enabled (current-buffer))
+      (progn
+        (remove-hook 'meow-insert-enter-hook #'my/meow-colemak-insert t)
+        (remove-hook 'meow-insert-exit-hook  #'my/meow-colemak-normal t)
+        (kill-local-variable 'my/meow-colemak-enabled)
+        (deactivate-input-method)
+        (message "Local Meow \u2194 Colemak hooks disabled"))
+    (progn
+      (defun my/meow-colemak-insert ()
+        (set-input-method "english-colemak"))
+      (defun my/meow-colemak-normal ()
+        (deactivate-input-method))
+      (add-hook 'meow-insert-enter-hook #'my/meow-colemak-insert nil t)
+      (add-hook 'meow-insert-exit-hook  #'my/meow-colemak-normal nil t)
+      (make-local-variable 'my/meow-colemak-enabled)
+      (setq my/meow-colemak-enabled t)
+      (message "Local Meow \u2194 Colemak hooks enabled"))))
+#+END_SRC
+
+* UI/UX
+** Ligatures
+#+BEGIN_SRC emacs-lisp
+(use-package ligature
+  :hook (after-init . global-ligature-mode)
+  :config
+  (ligature-set-ligatures '(prog-mode
+                            org-mode
+                            lsp
+                            cc-mode
+                            haskell-mode
+                            emacs-lisp-mode)
+                          '("->" "<-" "-->" "<--" "<-->"
+                            "|>" "<|" "=>" "==>" "::" "<=" ">="
+                            "~@" "&&"
+                            "||=" "!=" "!==" "||" "?=" ":=" "==="
+                            "/**" "/*" "*/"
+                            "..." ".." ";;" "--" "++" "::"
+                            "##" "###" "###")))
+#+END_SRC
+
+** Tab bar (echo area)
+*** Core package
+#+BEGIN_SRC emacs-lisp
+(use-package tab-bar-echo-area
+  :demand t
+  :bind (("C-c TAB TAB" . tab-bar-echo-area-display-tab-names))
+  :config
+  (tab-bar-mode)
+  (setq tab-bar-echo-area-display-tab-names-format-string "%s")
+  (tab-bar-echo-area-mode 1))
+#+END_SRC
+*** Tab bar manager
+#+BEGIN_SRC emacs-lisp
+(use-package tab-bar-lost-commands :defer t)
+#+END_SRC
+
+**  No distraction package
+#+BEGIN_SRC emacs-lisp
+(use-package no-distraction
+  :hook ((typescript-ts-mode html-ts-mode go-ts-mode vue-ts-mode) . no-distraction-mode)
+  :ensure (no-distraction :host github :repo "artawower/no-distraction.el"))
+#+END_SRC
+
+* AI
+
+
+* Other
+** Telega.el
+ [[https://github.com/zevlg/telega.el/issues/404][How to run on m1]]
+#+BEGIN_SRC emacs-lisp
+(use-package telega
+  :commands (telega)
+  :custom
+  (telega-use-docker nil)
+  :defer t)
+#+END_SRC
+
+
+

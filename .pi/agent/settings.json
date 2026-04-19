@@ -229,11 +229,11 @@
     "npm:pi-link",
     "git:github.com/tomooshi/condensed-milk-pi"
   ],
-  "defaultProvider": "zen",
-  "defaultModel": "minimax-m2.5-free",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "collapseChangelog": false,
-  "theme": "catppuccin-frappe",
+  "theme": "catppuccin-latte",
   "extensions": [
     "-extensions/subagent/index.ts",
     "-extensions/subagent/notify.ts",
