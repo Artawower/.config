@@ -43,7 +43,7 @@ class PaneTarget:
 
 @dataclass(frozen=True)
 class PiLaunch:
-    args: tuple[str, ...]
+    role: str
 
 
 @dataclass(frozen=True)
@@ -83,7 +83,9 @@ def run_process(argv: list[str], *, input_text: str | None = None) -> str:
     return result.stdout.strip()
 
 
-def run_cmux(args: list[str], *, json_output: bool = False, id_format: str | None = None) -> Any:
+def run_cmux(
+    args: list[str], *, json_output: bool = False, id_format: str | None = None
+) -> Any:
     command = ["cmux"]
     if json_output:
         command.append("--json")
@@ -135,13 +137,17 @@ def normalize_pane(entry: dict[str, Any]) -> dict[str, Any]:
 
 
 def list_panels(workspace: str) -> list[dict[str, Any]]:
-    data = run_cmux(["list-panels", "--workspace", workspace], json_output=True, id_format="both")
+    data = run_cmux(
+        ["list-panels", "--workspace", workspace], json_output=True, id_format="both"
+    )
     items = data.get("surfaces") or data.get("panels") or []
     return [normalize_panel(item) for item in items]
 
 
 def list_panes(workspace: str) -> list[dict[str, Any]]:
-    data = run_cmux(["list-panes", "--workspace", workspace], json_output=True, id_format="both")
+    data = run_cmux(
+        ["list-panes", "--workspace", workspace], json_output=True, id_format="both"
+    )
     items = data.get("panes") or []
     return [normalize_pane(item) for item in items]
 
@@ -188,14 +194,18 @@ def create_split(workspace: str, parent: PaneTarget, direction: str) -> PaneTarg
     before_ids = {item["id"] for item in before if item.get("id")}
     before_refs = {item["ref"] for item in before if item.get("ref")}
 
-    output = run_cmux(["new-split", direction, "--workspace", workspace, "--pane", parent.uuid])
+    output = run_cmux(
+        ["new-split", direction, "--workspace", workspace, "--pane", parent.uuid]
+    )
     fields = parse_key_values(output)
     created_ref = fields.get("pane")
 
     after = list_panes(workspace)
     created_pane: dict[str, Any] | None = None
     if created_ref:
-        created_pane = next((item for item in after if item.get("ref") == created_ref), None)
+        created_pane = next(
+            (item for item in after if item.get("ref") == created_ref), None
+        )
         if created_pane is None:
             raise CommandError(
                 "cmux reported a created pane ref but it was not visible in list-panes. "
@@ -232,14 +242,26 @@ def create_surface(workspace: str, pane: PaneTarget) -> SurfaceTarget:
     before_ids = {item["id"] for item in before if item.get("id")}
     before_refs = {item["ref"] for item in before if item.get("ref")}
 
-    created_output = run_cmux(["new-surface", "--workspace", workspace, "--pane", pane.uuid, "--type", "terminal"])
+    created_output = run_cmux(
+        [
+            "new-surface",
+            "--workspace",
+            workspace,
+            "--pane",
+            pane.uuid,
+            "--type",
+            "terminal",
+        ]
+    )
     fields = parse_key_values(created_output)
     created_ref = fields.get("surface")
 
     after = list_panels(workspace)
     created_panel: dict[str, Any] | None = None
     if created_ref:
-        created_panel = next((item for item in after if item.get("ref") == created_ref), None)
+        created_panel = next(
+            (item for item in after if item.get("ref") == created_ref), None
+        )
         if created_panel is None:
             raise CommandError(
                 "cmux reported a created surface ref but it was not visible in list-panels. "
@@ -272,25 +294,47 @@ def create_surface(workspace: str, pane: PaneTarget) -> SurfaceTarget:
 
 
 def rename_surface(surface: SurfaceTarget, title: str) -> None:
-    run_cmux(["rename-tab", "--workspace", surface.workspace, "--surface", surface.uuid, title])
+    run_cmux(
+        [
+            "rename-tab",
+            "--workspace",
+            surface.workspace,
+            "--surface",
+            surface.uuid,
+            title,
+        ]
+    )
 
 
 def read_screen(surface: SurfaceTarget, *, lines: int = 120) -> str:
-    return run_cmux([
-        "read-screen",
-        "--workspace",
-        surface.workspace,
-        "--surface",
-        surface.uuid,
-        "--scrollback",
-        "--lines",
-        str(lines),
-    ])
+    return run_cmux(
+        [
+            "read-screen",
+            "--workspace",
+            surface.workspace,
+            "--surface",
+            surface.uuid,
+            "--scrollback",
+            "--lines",
+            str(lines),
+        ]
+    )
 
 
 def send_text(surface: SurfaceTarget, text: str) -> None:
-    run_cmux(["send", "--workspace", surface.workspace, "--surface", surface.uuid, text])
-    run_cmux(["send-key", "--workspace", surface.workspace, "--surface", surface.uuid, "Enter"])
+    run_cmux(
+        ["send", "--workspace", surface.workspace, "--surface", surface.uuid, text]
+    )
+    run_cmux(
+        [
+            "send-key",
+            "--workspace",
+            surface.workspace,
+            "--surface",
+            surface.uuid,
+            "Enter",
+        ]
+    )
 
 
 def surface_is_ready(surface: SurfaceTarget) -> bool:
@@ -329,22 +373,24 @@ def render_template(text: str, *, dir_name: str, cwd: str) -> str:
 
 
 def build_pi_command(pi: PiLaunch, *, dir_name: str, cwd: str) -> str:
-    parts = ["pi", *[render_template(arg, dir_name=dir_name, cwd=cwd) for arg in pi.args]]
-    return " ".join(shlex.quote(part) for part in parts)
+    link_name = f"{dir_name}@{pi.role}"
+    return f"pi-link {shlex.quote(link_name)}"
 
 
-def parse_pi_launch(source_path: Path, layout_id: str, tab_index: int, entry: dict[str, Any]) -> PiLaunch:
-    args = entry.get("args")
-    if args is None:
-        return PiLaunch(args=())
-    if not isinstance(args, list) or any(not isinstance(arg, str) or not arg.strip() for arg in args):
+def parse_pi_launch(
+    source_path: Path, layout_id: str, tab_index: int, entry: dict[str, Any]
+) -> PiLaunch:
+    role = entry.get("role")
+    if not isinstance(role, str) or not role.strip():
         raise CommandError(
-            f"{source_path.name} layout {layout_id!r} tab #{tab_index} has invalid pi.args; expected non-empty strings"
+            f"{source_path.name} layout {layout_id!r} tab #{tab_index} has invalid pi.role; expected a non-empty string"
         )
-    return PiLaunch(args=tuple(arg.strip() for arg in args))
+    return PiLaunch(role=role.strip())
 
 
-def parse_tab_entry(source_path: Path, layout_id: str, tab_index: int, tab_entry: dict[str, Any]) -> TabSpec:
+def parse_tab_entry(
+    source_path: Path, layout_id: str, tab_index: int, tab_entry: dict[str, Any]
+) -> TabSpec:
     tab_name = tab_entry.get("name")
     if not isinstance(tab_name, str) or not tab_name.strip():
         raise CommandError(
@@ -359,14 +405,21 @@ def parse_tab_entry(source_path: Path, layout_id: str, tab_index: int, tab_entry
     pane_id = pane_id.strip()
 
     split_from = tab_entry.get("split_from")
-    if split_from is not None and (not isinstance(split_from, str) or not split_from.strip()):
+    if split_from is not None and (
+        not isinstance(split_from, str) or not split_from.strip()
+    ):
         raise CommandError(
             f"{source_path.name} layout {layout_id!r} tab #{tab_index} has an invalid 'split_from'"
         )
     split_from = split_from.strip() if isinstance(split_from, str) else None
 
     split_direction = tab_entry.get("split")
-    if split_direction is not None and split_direction not in {"left", "right", "up", "down"}:
+    if split_direction is not None and split_direction not in {
+        "left",
+        "right",
+        "up",
+        "down",
+    }:
         raise CommandError(
             f"{source_path.name} layout {layout_id!r} tab #{tab_index} has invalid split direction {split_direction!r}"
         )
@@ -415,7 +468,11 @@ def validate_tab_panes(source_path: Path, layout_id: str, tabs: list[TabSpec]) -
             pane_defs[tab.pane_id] = definition
             pane_order.append(tab.pane_id)
 
-    root_candidates = [pane_id for pane_id, definition in pane_defs.items() if definition == (None, None)]
+    root_candidates = [
+        pane_id
+        for pane_id, definition in pane_defs.items()
+        if definition == (None, None)
+    ]
     if len(root_candidates) != 1:
         raise CommandError(
             f"{source_path.name} layout {layout_id!r} must have exactly one root pane (tabs without split/split_from)"
@@ -442,20 +499,28 @@ def validate_tab_panes(source_path: Path, layout_id: str, tabs: list[TabSpec]) -
 def parse_preset_entry(source_path: Path, entry: dict[str, Any], index: int) -> Preset:
     preset_id = entry.get("id")
     if not isinstance(preset_id, str) or not preset_id.strip():
-        raise CommandError(f"{source_path.name} layout #{index} is missing a non-empty 'id'")
+        raise CommandError(
+            f"{source_path.name} layout #{index} is missing a non-empty 'id'"
+        )
     preset_id = preset_id.strip()
 
     name = entry.get("name")
     if not isinstance(name, str) or not name.strip():
-        raise CommandError(f"{source_path.name} layout {preset_id!r} is missing a non-empty 'name'")
+        raise CommandError(
+            f"{source_path.name} layout {preset_id!r} is missing a non-empty 'name'"
+        )
 
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
-        raise CommandError(f"{source_path.name} layout {preset_id!r} has a non-string 'description'")
+        raise CommandError(
+            f"{source_path.name} layout {preset_id!r} has a non-string 'description'"
+        )
 
     tabs_data = entry.get("tabs")
     if not isinstance(tabs_data, list) or not tabs_data:
-        raise CommandError(f"{source_path.name} layout {preset_id!r} must define a non-empty tabs array")
+        raise CommandError(
+            f"{source_path.name} layout {preset_id!r} must define a non-empty tabs array"
+        )
 
     tabs: list[TabSpec] = []
     for tab_index, tab_entry in enumerate(tabs_data, start=1):
@@ -486,13 +551,20 @@ def discover_presets(preset_dir: Path) -> list[Preset]:
 
     layouts = data.get("layouts")
     if not isinstance(layouts, list) or not layouts:
-        raise CommandError(f"{catalog_path.name} must define a non-empty [[layouts]] array")
+        raise CommandError(
+            f"{catalog_path.name} must define a non-empty [[layouts]] array"
+        )
 
-    presets = [parse_preset_entry(catalog_path, entry, index) for index, entry in enumerate(layouts, start=1)]
+    presets = [
+        parse_preset_entry(catalog_path, entry, index)
+        for index, entry in enumerate(layouts, start=1)
+    ]
     seen_ids: set[str] = set()
     for preset in presets:
         if preset.id in seen_ids:
-            raise CommandError(f"Duplicate layout id in {catalog_path.name}: {preset.id}")
+            raise CommandError(
+                f"Duplicate layout id in {catalog_path.name}: {preset.id}"
+            )
         seen_ids.add(preset.id)
     return presets
 
@@ -551,7 +623,9 @@ def reuse_selected_surface(pane: PaneTarget, title: str) -> SurfaceTarget:
     return surface
 
 
-def initialize_tab(surface: SurfaceTarget, startup_command: str | None, cwd: str) -> None:
+def initialize_tab(
+    surface: SurfaceTarget, startup_command: str | None, cwd: str
+) -> None:
     wait_for_shell_ready(surface)
     send_text(surface, f"cd {shlex.quote(cwd)}")
     if startup_command:
@@ -603,22 +677,32 @@ def launch_preset(preset: Preset) -> dict[str, Any]:
                 raise CommandError(
                     f"Pane {tab.pane_id!r} references split_from {tab.split_from!r} before it exists"
                 )
-            pane_targets[tab.pane_id] = create_split(workspace, parent, tab.split_direction or "right")
+            pane_targets[tab.pane_id] = create_split(
+                workspace, parent, tab.split_direction or "right"
+            )
 
     created_tabs: list[tuple[RenderedTab, SurfaceTarget]] = []
     reused_selected_by_pane: set[str] = set()
     for tab in reversed(rendered_tabs):
         pane_target = pane_targets[tab.pane_id]
-        if tab.pane_id != "root" and tab.pane_id not in reused_selected_by_pane and pane_target.selected_surface_uuid:
+        if (
+            tab.pane_id != "root"
+            and tab.pane_id not in reused_selected_by_pane
+            and pane_target.selected_surface_uuid
+        ):
             created_tabs.append((tab, reuse_selected_surface(pane_target, tab.title)))
             reused_selected_by_pane.add(tab.pane_id)
         else:
-            created_tabs.append((tab, create_tab_surface(workspace, pane_target, tab.title)))
+            created_tabs.append(
+                (tab, create_tab_surface(workspace, pane_target, tab.title))
+            )
 
     initialization_errors: list[str] = []
     with ThreadPoolExecutor(max_workers=len(created_tabs) or 1) as executor:
         future_to_rendered = {
-            executor.submit(initialize_tab, surface, rendered.startup_command, cwd): rendered
+            executor.submit(
+                initialize_tab, surface, rendered.startup_command, cwd
+            ): rendered
             for rendered, surface in created_tabs
         }
         for future in as_completed(future_to_rendered):
@@ -666,9 +750,96 @@ def launch_preset(preset: Preset) -> dict[str, Any]:
     }
 
 
+def collect_unique_tabs(presets: list[Preset]) -> list[TabSpec]:
+    """Collect deduplicated tabs from all presets, keyed by (command, pi_role)."""
+    seen: set[tuple[str | None, str | None]] = set()
+    result: list[TabSpec] = []
+    for preset in presets:
+        for tab in preset.tabs:
+            pi_role = tab.pi.role if tab.pi else None
+            key = (tab.command, pi_role)
+            if key not in seen:
+                seen.add(key)
+                result.append(tab)
+    return result
+
+
+def choose_tab_with_fzf(tabs: list[TabSpec]) -> TabSpec:
+    fzf_path = shutil_which("fzf")
+    if not fzf_path:
+        raise CommandError("fzf is required for tab selection")
+
+    lines: list[str] = []
+    lookup: dict[str, TabSpec] = {}
+    for tab in tabs:
+        if tab.pi:
+            detail = f"pi: {tab.pi.role}"
+        elif tab.command:
+            detail = f"cmd: {tab.command}"
+        else:
+            detail = "shell"
+        line = f"{tab.name}\t{detail}"
+        lines.append(line)
+        lookup[line] = tab
+
+    selected = run_process(
+        [fzf_path, "--with-nth=1,2", "--delimiter=\t", "--prompt", "add tab> "],
+        input_text="\n".join(lines),
+    )
+    tab = lookup.get(selected)
+    if tab is None:
+        raise CommandError("fzf returned an unknown tab selection")
+    return tab
+
+
+def add_single_tab(tab: TabSpec) -> dict[str, Any]:
+    """Create a new tab (surface) in the current pane, no split."""
+    workspace = get_current_workspace()
+    cwd = os.getcwd()
+    dir_name = os.path.basename(cwd)
+
+    current_pane = get_root_pane(workspace)
+
+    surface = create_surface(workspace, current_pane)
+    title = render_template(tab.name, dir_name=dir_name, cwd=cwd)
+    rename_surface(surface, title)
+
+    if tab.command is not None:
+        startup_command = render_template(tab.command, dir_name=dir_name, cwd=cwd)
+    elif tab.pi is not None:
+        startup_command = build_pi_command(tab.pi, dir_name=dir_name, cwd=cwd)
+    else:
+        startup_command = None
+
+    initialize_tab(surface, startup_command, cwd)
+
+    return {
+        "status": "ok",
+        "action": "add",
+        "tab_title": title,
+        "startup_command": startup_command,
+        "surface_ref": surface.ref,
+        "surface_uuid": surface.uuid,
+        "pane_ref": current_pane.ref,
+        "pane_uuid": current_pane.uuid,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Launch cmux layouts from TOML presets")
-    parser.add_argument("preset", nargs="?", help="Layout id from scripts/layouts.toml; if omitted, choose with fzf")
+    parser = argparse.ArgumentParser(
+        description="Launch cmux layouts from TOML presets"
+    )
+    subparsers = parser.add_subparsers(dest="action")
+
+    launch = subparsers.add_parser("launch", help="Launch a full layout preset")
+    launch.add_argument(
+        "preset",
+        nargs="?",
+        help="Layout id; if omitted, choose with fzf",
+    )
+
+    add = subparsers.add_parser("add", help="Add a single tab to current pane")
+
     return parser
 
 
@@ -679,14 +850,31 @@ def shutil_which(binary: str) -> str | None:
 
 
 def main(argv: list[str]) -> int:
+    raw_args = argv[1:]
+
+    # Backward compat: no subcommand or non-subcommand first arg → treat as "launch"
+    if not raw_args or (
+        raw_args[0] not in ("launch", "add", "--help", "-h")
+        and not raw_args[0].startswith("-")
+    ):
+        raw_args = ["launch"] + raw_args
+
     parser = build_parser()
-    args = parser.parse_args(argv[1:])
+    args = parser.parse_args(raw_args)
+
+    action = getattr(args, "action", None) or "launch"
 
     preset_dir = Path(__file__).resolve().parent
     try:
         presets = discover_presets(preset_dir)
-        preset = resolve_preset(presets, args.preset)
-        result = launch_preset(preset)
+
+        if action == "add":
+            tabs = collect_unique_tabs(presets)
+            tab = choose_tab_with_fzf(tabs)
+            result = add_single_tab(tab)
+        else:
+            preset = resolve_preset(presets, args.preset)
+            result = launch_preset(preset)
     except Exception as exc:
         print(json.dumps({"status": "error", "error": str(exc)}, ensure_ascii=False))
         return 1

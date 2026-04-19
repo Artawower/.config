@@ -1,14 +1,14 @@
 [[layouts]]
-id = "ai-vcs"
-name = "AI + VCS"
-description = "Left pane with ai/vcs/run/term tabs and right column split into ai-2 and review panes"
+id = "☠️ Flull Multiagent coging development with orchestration"
+name = "AI Teams + vcs"
+description = "Left pane with ai/vcs/run/term tabs and right column split into ai subagents for review and analyzes"
 
 [[layouts.tabs]]
 name = "{dir}@ai"
 pane = "left"
 
 [layouts.tabs.pi]
-args = ["--model", "openai-codex/gpt-5.4"]
+role = "team-lead"
 
 [[layouts.tabs]]
 name = "{dir}@vcs"
@@ -25,33 +25,42 @@ pane = "left"
 command = "hx"
 
 [[layouts.tabs]]
-name = "{dir}@ai-2"
+name = "{dir}@researcher"
 pane = "right-top"
 split_from = "left"
 split = "right"
 
 [layouts.tabs.pi]
-args = ["--model", "openai-codex/gpt-5.4-mini"]
+role = "researcher"
 
 [[layouts.tabs]]
-name = "{dir}@review"
+name = "{dir}@reviewer"
 pane = "right-bottom"
 split_from = "right-top"
 split = "down"
 
 [layouts.tabs.pi]
-args = ["--model", "github-copilot/claude-sonnet-4.6"]
+role = "reviewer"
+
+[[layouts.tabs]]
+name = "{dir}@coder"
+pane = "right-bottom"
+split_from = "right-top"
+split = "down"
+
+[layouts.tabs.pi]
+role = "coder"
 
 [[layouts]]
 id = "single-ai"
-name = "Single AI + VCS"
+name = "🐥 Solo AI + VCS"
 description = "AI, jjui, run and terminal tabs for the current project in one pane"
 
 [[layouts.tabs]]
 name = "{dir}@ai"
 
 [layouts.tabs.pi]
-args = ["--model", "openai-codex/gpt-5.4"]
+role = "team-lead"
 
 [[layouts.tabs]]
 name = "{dir}@vcs"
@@ -63,3 +72,32 @@ name = "{dir}@run"
 [[layouts.tabs]]
 name = "{dir}@term"
 command = "hx"
+
+
+[[layouts]]
+id = "DUO"
+name = "🤖 AI coder + reviewer"
+description = "AI coder + reviewer + vcs"
+
+[[layouts.tabs]]
+name = "{dir}@coder"
+pane = "left"
+
+[layouts.tabs.pi]
+role = "coder"
+
+[[layouts.tabs]]
+name = "{dir}@reviewer"
+pane = "left"
+
+[layouts.tabs.pi]
+role = "reviewer"
+
+[[layouts.tabs]]
+name = "{dir}@vcs"
+pane = "left"
+command = "jjui"
+
+[[layouts.tabs]]
+name = "{dir}@term"
+pane = "left"
