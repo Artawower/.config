@@ -315,6 +315,9 @@ in
       "ffmpeg"
       "mole"
       "sqlite"
+
+      # Emacs development
+      "eask-cli"
     ];
     taps = [
       "BarutSRB/tap"
@@ -415,6 +418,7 @@ in
       "spotify"
       # "omniwm"
       "bloom"
+      "cmux"
     ];
     masApps = {
       # "Bitwarden" = 1352778147;
