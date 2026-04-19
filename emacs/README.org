@@ -210,15 +210,10 @@ https://github.com/D4lj337/Emacs-performance
 
 ** Use package
 #+BEGIN_SRC emacs-lisp
-;; Install use-package support
 (elpaca elpaca-use-package
-  ;; Enable :ensure use-package keyword.
   (elpaca-use-package-mode)
-  ;; Assume :ensure t unless otherwise specified.
   (setq use-package-always-ensure t)
   (setq use-package-compute-statistics t))
-
-;; Block until current queue processed.
 (elpaca-wait)
 #+END_SRC
 ** Melpa
@@ -231,11 +226,8 @@ https://github.com/D4lj337/Emacs-performance
                           ("melpa-mirror" . "http://melpa.milkbox.net/packages/")
                           ("jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/")
                           ("melpa-stable" . "http://stable.melpa.org/packages/")
-                          ("org" . "https://orgmode.org/elpa/")
-                          ))
+                          ("org" . "https://orgmode.org/elpa/")))
 (customize-set-variable 'package-enable-at-startup nil)
-;; NOTE: Package initialization is handled by elpaca
-;; (package-initialize)
 #+END_SRC
 
 * Dependencies
@@ -252,60 +244,6 @@ This is a variadic `cl-pushnew'."
   (let ((var (make-symbol "result")))
     `(dolist (,var (list ,@values) (with-no-warnings ,place))
        (cl-pushnew ,var ,place :test #'equal))))
-#+END_SRC
-
-** Run once on daemon/frame init
-#+BEGIN_SRC emacs-lisp
-(defun my/run-once-on-init (fn &optional depth name)
-  "Run FN once when Emacs is ready, accounting for daemon mode.
-In daemon mode runs on first frame creation, otherwise after init.
-Automatically removes itself after execution. DEPTH controls hook priority.
-NAME is optional function name for the wrapper."
-  (let* ((fn-name (or name
-                      (intern (format "my/run-once-init-%d"
-                                      (abs (random))))))
-         (wrapper-fn
-          (lambda ()
-            (funcall fn)
-            (remove-hook 'server-after-make-frame-hook fn-name)
-            (remove-hook 'after-init-hook fn-name))))
-    (fset fn-name wrapper-fn)
-    (let ((hook (if (daemonp)
-                    'server-after-make-frame-hook
-                  'after-init-hook))
-          (hook-depth (or depth -95)))
-      (add-hook hook fn-name hook-depth))))
-#+END_SRC
-
-** Display buffer in center childframe
-#+BEGIN_SRC emacs-lisp :results silent
-(defun my/display-buffer-centered-childframe (buf alist)
-  (let* ((parent (selected-frame))
-         (pw (frame-pixel-width parent))
-         (ph (frame-pixel-height parent))
-         (char-width (frame-char-width parent))
-         (char-height (frame-char-height parent))
-         (margin 50)
-         (cw (/ (- pw (* 2 margin)) char-width))
-         (ch (/ (- ph (* 2 margin)) char-height))
-         (params `((parent-frame . ,parent)
-                   (left . ,margin)
-                   (top . ,margin)
-                   (width . ,cw)
-                   (height . ,ch)
-                   (minibuffer . nil)
-                   (undecorated . t)
-                   (skip-taskbar . t)
-                   (no-accept-focus . nil)
-                   (auto-raise . t)
-                   (internal-border-width . 1)
-                   (z-group . above))))
-    (let ((win (display-buffer-in-child-frame buf `((child-frame-parameters . ,params)))))
-      (when (window-live-p win)
-        (select-frame-set-input-focus (window-frame win))
-        (select-window win))
-      win)))
-
 #+END_SRC
 
 ** Display buffer temporary full size
@@ -600,17 +538,6 @@ REPO should be in format 'owner/repo-name'."
   (if (fboundp 'catppuccin-get-color)
       (catppuccin-get-color 'flamingo)
     (face-attribute 'mode-line :background nil 'font-lock-variable-name-face)))
-#+END_SRC
-
-Get safe background
-#+BEGIN_SRC emacs-lisp :results silent
-(defun my/get-safe-background (face &optional fallback-face)
-  "Helper to safely get background color. Returns string or nil, never 'unspecified."
-  (let* ((check-face (or fallback-face 'default))
-         (color (face-attribute face :background nil t)))
-    (if (and (stringp color) (not (string= color "unspecified")))
-        color
-      (face-attribute check-face :background nil t))))
 #+END_SRC
 
 Modeline background colors
