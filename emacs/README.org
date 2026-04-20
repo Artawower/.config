@@ -423,14 +423,14 @@ unreadable. Returns the names of envvars that were changed."
 ** Functions
 *** Better window spliting
 #+BEGIN_SRC emacs-lisp :results silent
-(defun my/split-window-h ()
-    "Split window horizontally and focus the new window."
+(defun my/split-window-v ()
+    "Split window vertically and focus the new window."
     (interactive)
     (let ((new-window (split-window-right)))
         (select-window new-window)))
 
-(defun my/split-window-v ()
-    "Split window vertically and focus the new window."
+(defun my/split-window-h ()
+    "Split window horizontally and focus the new window."
     (interactive)
     (let ((new-window (split-window-below)))
         (select-window new-window)))
@@ -673,7 +673,7 @@ Modeline inactive color
 #+BEGIN_SRC emacs-lisp
 (use-package zoom
   :defer t
-  :bind (("C-c z m" . zoom-mode))
+  :bind (("C-c w z" . zoom-mode))
   :custom
   (zoom-size '(0.618 . 0.618))
   ;; (zoom-ignored-buffer-name-regexps '("^\\*calc" "^\\*ghostel" "^\\*combobulate-query-builder" "^\\*dape" "^\\*claude" "^\\*Ediff" "<eca-chat"))
@@ -1140,8 +1140,9 @@ Move to husky
    '("s-o" . meow-last-buffer)
    '("ge" . end-of-buffer)
    '("gg" . beginning-of-buffer)
-    '("gl" . my/meow-select-till-eol)
+   '("gl" . my/meow-select-till-eol)
    '("[b" . beginning-of-buffer)
+   '("]b" . end-of-buffer)
    '("gi" . my/meow-select-till-eol)
    '("gh" . beginning-of-line)
    '("6" . meow-expand-6)
@@ -1158,8 +1159,8 @@ Move to husky
    '("." . meow-bounds-of-thing)
    '("s-d" . meow-inner-of-thing)
    '("s-D" . meow-bounds-of-thing)
-   '("[" . meow-beginning-of-thing)
-   '("]" . meow-end-of-thing)
+   '("M-[" . meow-beginning-of-thing)
+   '("M-]" . meow-end-of-thing)
    '("l" . meow-append)
    '("o" . meow-open-below)
    '("b" . meow-back-word)
@@ -1222,6 +1223,8 @@ Move to husky
 
   (meow-define-keys 'insert
    '("s-o" . meow-last-buffer)
+   '("M-[" . meow-beginning-of-thing)
+   '("M-]" . meow-end-of-thing)
    '("s-p" . xah-paste-from-register-1))
 
 
@@ -1422,16 +1425,17 @@ Move to husky
 (global-set-key (kbd "C-S-j") 'enlarge-window)
 (global-set-key (kbd "<C-S-down>") 'enlarge-window)
 (global-set-key (kbd "C-S-k") 'shrink-window)
-(global-set-key (kbd "C-c w s") 'my/split-window-v)
-(global-set-key (kbd "C-c w v") 'my/split-window-h)
+(global-set-key (kbd "C-c w v") 'my/split-window-v)
+(global-set-key (kbd "C-c w h") 'my/split-window-h)
 (global-set-key (kbd "s-w") 'delete-window)
 #+END_SRC
 
 *** File operations
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c .") 'find-file)
+(global-set-key (kbd "C-c f .") 'find-file)
 (global-set-key (kbd "C-c f D") 'my/delete-this-file)
-(global-set-key (kbd "C-c o F") 'ns-open-file-using-panel)
+(global-set-key (kbd "C-c f E") 'ns-open-file-using-panel)
 #+END_SRC
 
 *** Buffer operations
@@ -1444,21 +1448,13 @@ Move to husky
 
 *** Package manager
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c p m") 'elpaca-manager)
-(global-set-key (kbd "C-c p M") 'elpaca-log)
+(global-set-key (kbd "C-c C-e M") 'elpaca-manager)
+(global-set-key (kbd "C-c C-e L") 'elpaca-log)
 #+END_SRC
 
 *** Theme
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-h C-t") 'load-theme)
-#+END_SRC
-
-*** Code annotations
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c t t") 'my/insert-todo-by-current-git-branch)
-(global-set-key (kbd "C-c t i") 'my/insert-todo-by-current-git-branch)
-(global-set-key (kbd "C-c t d") 'my/insert-debug-by-current-git-branch)
-(global-set-key (kbd "C-c t n") 'my/insert-note-by-current-git-branch)
 #+END_SRC
 
 *** Narrowing
@@ -1579,7 +1575,7 @@ Function for preserve better jump befor buffer changed only for prog mode.
     (call-interactively #'better-jumper-set-jump)))
 #+END_SRC
 
-*** Core package
+*** TODO Core package
 #+BEGIN_SRC emacs-lisp
 (use-package better-jumper
   :defer 2
@@ -1618,7 +1614,7 @@ Bookmark for navigation inside file
   (bm-in-lifo-order t)
   (bm-highlight-fringe 'bm-highlight-line-and-fringe)
   :bind (("M-s-n" . bm-next)
-         ("M-s-p" . bm-previous)
+         ("M-s-e" . bm-previous)
          ("s-b" . bm-toggle)
          ("C-c b L" . bm-show-all)
          ("C-c b l" . bm-show)
@@ -1752,7 +1748,8 @@ The format is:
   :defer t
   :bind (("C-r" . undo-fu-only-redo)
          :map meow-normal-state-keymap
-              ("u" . undo-fu-only-undo)))
+         ("U" . undo-fu-only-redo)
+         ("u" . undo-fu-only-undo)))
 #+END_SRC
 *** Undo sessions (history saving)
 #+BEGIN_SRC emacs-lisp
@@ -2106,7 +2103,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 (use-package dirvish
   :demand t
   :bind (("C-c o p" . dirvish-side)
-         ("C-c f g" . dirvish-quick-access)
+         ("C-c f q" . dirvish-quick-access)
          :map dirvish-mode-map
          ("f" . avy-goto-word-1)
          ("r" . dirvish-file-info-menu)
@@ -2204,9 +2201,12 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 ** Ghostel
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package ghostel
-  :ensure t
-  :bind (("C-c o g" . ghostel-other)
-         ("C-c o T" . ghostel)
+  :ensure (:host github
+           :repo "dakra/ghostel"
+           :files (:defaults "lisp/*.el" "etc"))
+  :defer 3
+  :bind (("C-c C-g o" . ghostel-other)
+         ("C-c C-g h" . ghostel)
          ("C-c o t" . ghostel-project)
          ("C-c C-l" . my/ghostel-clear))
   :custom
@@ -2246,10 +2246,25 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   (define-key ghostel-mode-map (kbd "C-c C-l") 'my/ghostel-clear))
 #+END_SRC
 
+
+Comile mode
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package ghostel-compile
+  :ensure nil
+  :after ghostel
+  :demand t
+  :config
+  (ghostel-compile-global-mode))
+#+END_SRC
+
 ** Ghostel position
 #+BEGIN_SRC emacs-lisp :results silent
 (add-to-list 'display-buffer-alist
-  '("\\*ghostel"
+  '("\\*ghostel:"
+    (my/display-buffer-right-smart)))
+
+(add-to-list 'display-buffer-alist
+  '(".*-ghostel"
     (my/display-buffer-right-smart)))
 #+END_SRC
 * Git
@@ -2372,7 +2387,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :commands
-  (magit-get-current-branch)
+  (magit-get-current-branch magit-toplevel)
   :bind
   (("C-M-g" . magit-status)
    ("C-M-S-d" . magit-ediff-compare)
@@ -2436,9 +2451,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 *** Magit todos
 #+BEGIN_SRC emacs-lisp
 (use-package magit-todos
-  :bind (("C-c g n" . magit-todos-list)
-         ("C-c l T" . magit-todos-list)
-         ("C-c t l" . magit-todos-list)))
+  :bind (("C-c o T" . magit-todos-list)))
 #+END_SRC
 
 ** Git gutter
@@ -2451,8 +2464,8 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
          ("C-M-r" . git-gutter:revert-hunk)
          ("C-M-s" . git-gutter:stage-hunk)
          :map meow-normal-state-keymap
-         ("g]" . git-gutter:next-hunk)
-         ("g[" . git-gutter:previous-hunk))
+         ("]g" . git-gutter:next-hunk)
+         ("[g" . git-gutter:previous-hunk))
   :custom
   (git-gutter:update-interval 2)
   :config
@@ -2553,8 +2566,8 @@ Setup blamer face
 ** Jujutsu
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package majutsu
-  :bind (("C-c j j" . majutsu)
-         ("C-c j d" . majutsu-diff)
+  :bind (("C-M-j" . majutsu)
+         ("C-M-D" . majutsu-diff)
          :map majutsu-diff-section-map
          ("s-<return>" . majutsu-diff-visit-workspace-file)
          ("C-n" . magit-section-forward)
@@ -2627,7 +2640,7 @@ Setup blamer face
 #+END_SRC
 
 
-*** COMMENT Meow integration
+*** Meow integration
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'meow
   (defvar my/meow-ediff-state-keymap
@@ -2678,7 +2691,7 @@ Setup blamer face
   ;; ediff inherit from diff-added, diff removed and diff base
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
   (setq ediff-split-window-function #'split-window-horizontally)
-  (setq ediff-highlight-all-diffs t)
+  (setq ediff-highlight-all-diffs t)    ;
 
   (add-hook 'ediff-load-hook #'my/ediff-faces-setup)
   (remove-hook 'ediff-mode-hook #'meow-motion-mode)
@@ -2698,7 +2711,7 @@ Setup blamer face
 #+BEGIN_SRC emacs-lisp
 (use-package git-timemachine
   :hook (git-timemachine-mode . font-lock-mode)
-  :bind (("C-M-t" . git-timemachine)
+  :bind (("C-M-h" . git-timemachine)
          ("C-M-m" . git-timemachine)
          :map git-timemachine-mode-map
          ("C-e" . git-timemachine-show-previous-revision)
@@ -2732,7 +2745,7 @@ Setup blamer face
 ** Browse at remote
 #+BEGIN_SRC emacs-lisp
 (use-package browse-at-remote
-  :bind (("C-c o r" . browse-at-remote)))
+  :bind (("C-c e b" . browse-at-remote)))
 #+END_SRC
 * Workspace
 ** Buffer navigation Functions
@@ -2821,17 +2834,15 @@ Prevents closing the last frame in daemon mode on macOS."
          ("s-5" . (lambda () (interactive) (tab-bar-select-tab 5)))
          ("s-6" . (lambda () (interactive) (tab-bar-select-tab 6)))
          ("C-c b0" . tabspaces-clear-buffers)
-         ("C-c w p" . tabspaces-open-or-create-project-and-workspace)
-         ("C-c w n" . tabspaces-switch-or-create-workspace)
-         ("C-c bt" . tabspaces-switch-to-buffer)
-         ("C-c w b" . tabspaces-switch-to-buffer)
-         ("C-c w B" . switch-to-buffer)
+         ("C-c t p" . tabspaces-open-or-create-project-and-workspace)
+         ("C-c t n" . tabspaces-switch-or-create-workspace)
+         ("C-c t b" . tabspaces-switch-to-buffer)
          ("s-w" . delete-window)
-         ("C-c w d" . my/safe-tabspaces-kill-buffers-close-workspace)
-         ("C-c w S" . tabspaces-save-current-project-session)
-         ("C-c w s" . tabspaces-save-session)
-         ("C-c w r" . tab-rename)
-         ("C-c w l" . tabspaces-restore-session)
+         ("C-c t d" . my/safe-tabspaces-kill-buffers-close-workspace)
+         ("C-c t S" . tabspaces-save-current-project-session)
+         ("C-c t s" . tabspaces-save-session)
+         ("C-c t r" . tab-rename)
+         ("C-c t L" . tabspaces-restore-session)
          ("C-c ]" . my/tabspaces-switch-to-next-buffer)
          ("C-c [" . my/tabspaces-switch-to-prev-buffer))
   :custom
@@ -2854,7 +2865,7 @@ Prevents closing the last frame in daemon mode on macOS."
 #+BEGIN_SRC emacs-lisp
 (use-package tab-bar
   :defer t
-  :bind (("C-c w w" . tab-switch))
+  :bind (("C-c t t" . tab-switch))
   :ensure nil
   :custom
   (tab-bar-show nil))
@@ -2882,7 +2893,7 @@ Prevents closing the last frame in daemon mode on macOS."
 (use-package ibuffer
   :defer t
   :ensure nil
-  :bind ("C-c i b" . ibuffer))
+  :bind ("C-c b i" . ibuffer))
 #+END_SRC
 *** Icons
 #+BEGIN_SRC emacs-lisp
@@ -2934,6 +2945,7 @@ Prevents closing the last frame in daemon mode on macOS."
          ("C-e" . vertico-previous)
          ("C-j" . vertico-next-group)
          ("C-k" . vertico-previous-group)
+         ("C-l" . vertico-quick-jump)
          ("<tab>" . vertico-insert)
          ("C-o" . embark-act)
          ("C-q" . vertico-exit-input)
@@ -3100,7 +3112,6 @@ Function for search in buffer depends or visual or normal line
 #+BEGIN_SRC emacs-lisp
 (use-package consult
   :bind (("s-f" . my/consult-line-or-region)
-         ("C-c b b" . consult-buffer-other-tab)
          ("C-c b a" . consult-buffer)
          ("C-c b b" . consult-project-buffer)
          ("C-c f C" . my/open-config-file)
@@ -3108,10 +3119,10 @@ Function for search in buffer depends or visual or normal line
          ("C-c f p" . consult-ripgrep)
          ("C-c *" . (lambda () (interactive) (consult-ripgrep nil (thing-at-point 'symbol))))
          ("C-c /" . my/consult-ripgrep-selected-p)
-         ("C-c f o" . my/consult-ripgrep-selected-p)
+         ("C-c f g" . my/consult-ripgrep-selected-p)
          ("C-c s i" . consult-imenu)
          ("C-c RET" . consult-bookmark)
-         ("C-c c m" . consult-mark)
+         ("C-c s m" . consult-mark)
          ("C-c f r" . consult-recent-file)
          ("C-c f R" . consult-recent-file))
   :custom
@@ -3431,9 +3442,12 @@ def servers():
   :bind
   (("C-n" . flymake-goto-next-error)
    ("C-e" . flymake-goto-prev-error)
-   ("C-c e l" . flymake-show-diagnostics-buffer)
+    ("C-c e l" . flymake-show-diagnostics-buffer)
    ("C-c e c" . my/flymake-kill-error)
-   ("C-c e C" . my/flymake-kill-errors))
+   ("C-c e C" . my/flymake-kill-errors)
+   :map meow-normal-state-keymap
+   ("]d" . flymake-goto-next-error)
+   ("[d" . flymake-goto-prev-error))
   :hook
   (prog-mode . flymake-mode)
   (flymake-diagnostics-buffer-mode . meow-normal-mode)
@@ -4801,6 +4815,7 @@ Automatically creates parent directories if needed."
   :after org-mem
   :bind
   (("C-c r f" . org-node-find)
+   ("C-c f n" . org-node-find)
    ("C-c r i" . org-node-insert-link))
   :custom
   (org-node-alter-candidates t)
@@ -4853,17 +4868,19 @@ My own package for publish roam files
 #+BEGIN_SRC emacs-lisp
 (use-package orgnote
   :ensure (:host github :repo "Artawower/orgnote.el" :branch "dev")
+  :defer 3
   :bind
   (("C-c n p" . orgnote-publish-file)
    ("C-c n F" . orgnote-force-sync)
    ("C-c n S" . orgnote-sync)
-    :map org-mode-map
-    ("C-c n P" . orgnote-publish-all)
-    ("C-c n L" . orgnote-load))
-  :hook (org-mode . orgnote-autosync-mode)
+   :map org-mode-map
+   ("C-c n P" . orgnote-publish-all)
+   ("C-c n L" . orgnote-load))
   :custom
   (orgnote-debug-p t)
   (orgnote-execution-script "bun /Users/darkawower/projects/pet/orgnote/orgnote-cli/dist/index.js"))
+  ;; :config
+  ;; (orgnote-autosync-global-mode))
 
 #+END_SRC
 
@@ -5025,7 +5042,7 @@ Display buffer of quick note always at bottom
 #+BEGIN_SRC emacs-lisp
 (defun my/switch-to-scratch ()
   "Switch to scratch buffer"
-  (interactive)
+ (interactive)
   (let* ((buffer-name "*quicknote*")
          (buffer (get-buffer buffer-name)))
 
@@ -5156,11 +5173,11 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
 (use-package husky
   :defer t
   :ensure (:type git :host github :repo "artawower/husky" :files ("lisp/*.el"))
-  :bind (("C-c t t" . husky-edit-insert-todo-by-current-git-branch)
-         ("C-c t i" . husky-edit-insert-todo-by-current-git-branch)
-         ("C-c t d" . husky-edit-insert-debug-by-current-git-branch)
-         ("C-c t n" . husky-edit-insert-note-by-current-git-branch)
-         ("C-c o l" . husky-buffers-open-messages)
+  :bind (("C-c T t" . husky-edit-insert-todo-by-current-git-branch)
+         ("C-c T i" . husky-edit-insert-todo-by-current-git-branch)
+         ("C-c T d" . husky-edit-insert-debug-by-current-git-branch)
+         ("C-c T n" . husky-edit-insert-note-by-current-git-branch)
+         ("C-c o m" . husky-buffers-open-messages)
          ("C-c o M" . husky-buffers-open-clear-messages)
          ("C-c f D" . husky-buffers-delete-this-file)
          ("s-<backspace>" . husky-edit-kill-word-backward)
