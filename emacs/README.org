@@ -903,6 +903,20 @@ Temporary disabled due to performance issues on macos
 *** Tab bar manager
 #+BEGIN_SRC emacs-lisp
 (use-package tab-bar-lost-commands :defer t)
+
+#+END_SRC
+
+*** Zoom manader
+#+BEGIN_SRC emacs-lisp
+ (use-package zoom-window
+  :ensure (zoom-window :host github :repo "artawower/zoom-window" :branch "feat/re-zoom")
+   :defer t
+   :after meow
+   :commands (zoom-window-zoom)
+   :bind ( :map meow-normal-state-keymap
+           ("\\ m" . zoom-window-zoom)
+           :map meow-motion-state-keymap
+           ("\\ m" . zoom-window-zoom)))
 #+END_SRC
 
 ** COMMENT Quick show current file name whens witch
