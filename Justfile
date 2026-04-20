@@ -238,3 +238,18 @@ check-env:
 build-templates:
     docker buildx build --progress=plain -f docker-services/devcontainer/templates/Dockerfile -t darkawower/devtemplates:latest docker-services/devcontainer/templates
     docker push darkawower/devtemplates:latest
+
+quasiqwerty:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET_DIR="$HOME/Library/Keyboard Layouts/QuasiQWERTY.bundle"
+    if [ ! -d "$TARGET_DIR" ]; then
+        echo "Installing QuasiQWERTY layout..."
+        TMP_DIR=$(mktemp -d)
+        git clone --depth 1 https://github.com/larryv/quasiqwerty.git "$TMP_DIR/quasiqwerty"
+        cp -R "$TMP_DIR/quasiqwerty/QuasiQWERTY.bundle" "$HOME/Library/Keyboard Layouts/"
+        rm -rf "$TMP_DIR"
+        echo "QuasiQWERTY successfully installed. You may need to log out or reboot to see it in Keyboard settings."
+    else
+        echo "QuasiQWERTY is already installed."
+    fi

@@ -99,7 +99,7 @@ in
     wget
     curl
     git
-    jjui
+    # jjui  # Disabled: using go install v0.10.2+ (nix has 0.9.9, too old for custom bindings)
     tmux
     neovim
     bash

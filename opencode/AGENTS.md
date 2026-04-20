@@ -1,1 +1,0 @@
-/Users/darkawower/.config/ai/AGENTS.md

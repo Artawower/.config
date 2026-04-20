@@ -33,13 +33,13 @@ keybinds clear-defaults=true {
         bind "h" {
             GoToPreviousTab
         }
-        bind "j" {
+        bind "n" {
             GoToNextTab
         }
-        bind "k" {
+        bind "e" {
             GoToPreviousTab
         }
-        bind "l" {
+        bind "i" {
             GoToNextTab
         }
         bind "д" {
@@ -66,7 +66,7 @@ keybinds clear-defaults=true {
         bind "е" {
             SwitchToMode "tab"
         }
-        bind "n" {
+        bind "l" {
             SwitchToMode "resize"
         }
         bind "т" {
@@ -179,6 +179,18 @@ keybinds clear-defaults=true {
                 move_to_focused_tab true
             }
         }
+        bind "Super d" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+        }
+        bind "Super r" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+        }
     }
     pane {
         // moved stack-transfer bindings to Ctrl+Alt chords below to avoid
@@ -191,7 +203,7 @@ keybinds clear-defaults=true {
             NewPane "down"
             SwitchToMode "normal"
         }
-        bind "e" {
+        bind "j" {
             TogglePaneEmbedOrFloating
             SwitchToMode "normal"
         }
@@ -202,20 +214,20 @@ keybinds clear-defaults=true {
         bind "h" {
             MoveFocus "left"
         }
-        bind "i" {
+        bind "k" {
             TogglePanePinned
             SwitchToMode "normal"
         }
-        bind "j" {
+        bind "n" {
             MoveFocus "down"
         }
-        bind "k" {
+        bind "e" {
             MoveFocus "up"
         }
-        bind "l" {
+        bind "i" {
             MoveFocus "right"
         }
-        bind "n" {
+        bind "l" {
             NewPane
             SwitchToMode "normal"
         }
@@ -431,13 +443,13 @@ keybinds clear-defaults=true {
         bind "h" {
             Resize "Increase left"
         }
-        bind "j" {
+        bind "n" {
             Resize "Increase down"
         }
-        bind "k" {
+        bind "e" {
             Resize "Increase up"
         }
-        bind "l" {
+        bind "i" {
             Resize "Increase right"
         }
         bind "Д" {
@@ -469,16 +481,16 @@ keybinds clear-defaults=true {
         bind "h" {
             MovePane "left"
         }
-        bind "j" {
+        bind "n" {
             MovePane "down"
         }
-        bind "k" {
+        bind "e" {
             MovePane "up"
         }
-        bind "l" {
+        bind "i" {
             MovePane "right"
         }
-        bind "n" {
+        bind "j" {
             MovePane
         }
         bind "p" {
@@ -846,13 +858,13 @@ keybinds clear-defaults=true {
         bind "h" {
             GoToPreviousTab
         }
-        bind "j" {
+        bind "n" {
             GoToNextTab
         }
-        bind "k" {
+        bind "e" {
             GoToPreviousTab
         }
-        bind "l" {
+        bind "i" {
             GoToNextTab
         }
     }
@@ -933,13 +945,13 @@ keybinds clear-defaults=true {
         bind "h" {
             PageScrollUp
         }
-        bind "j" {
+        bind "n" {
             ScrollDown
         }
-        bind "k" {
+        bind "e" {
             ScrollUp
         }
-        bind "l" {
+        bind "i" {
             PageScrollDown
         }
         bind "q" {
@@ -1058,19 +1070,19 @@ keybinds clear-defaults=true {
             MoveFocus "left"
             SwitchToMode "normal"
         }
-        bind "j" {
+        bind "n" {
             MoveFocus "down"
             SwitchToMode "normal"
         }
-        bind "k" {
+        bind "e" {
             MoveFocus "up"
             SwitchToMode "normal"
         }
-        bind "l" {
+        bind "i" {
             MoveFocus "right"
             SwitchToMode "normal"
         }
-        bind "n" {
+        bind "l" {
             GoToNextTab
             SwitchToMode "normal"
         }
@@ -1210,7 +1222,7 @@ pane_frames true
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
 copy_command "pbcopy"
- // osx//
+// osx//
 // copy_command "clipboard-copy"
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.

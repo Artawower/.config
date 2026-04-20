@@ -80,14 +80,14 @@ keymap:
   - name: Ctrl+Meta arrows
     remap:
       C-Super-h: Left
-      C-Super-j: Down
-      C-Super-k: Up
-      C-Super-l: Right
+      C-Super-n: Down
+      C-Super-e: Up
+      C-Super-i: Right
 
   - name: Fn tabs
     remap:
-      Fn-j: C-Tab
-      Fn-k: C-S-Tab
+      Fn-n: C-Tab
+      Fn-e: C-S-Tab
 
   - name: Emacs
     application:

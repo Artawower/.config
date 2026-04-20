@@ -1,0 +1,190 @@
+# Colemak HNEI keybindings for jjui
+# Navigation: j→n, k→e, l→i (h stays)
+# Displaced: n→j (new), e→k (edit), i→l (interactive)
+# Shift: J→N, K→E, L→I (where applicable)
+
+[[bindings]]
+action = "revisions.move_down"
+key = "n"
+scope = "revisions"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "revisions.move_up"
+key = "e"
+scope = "revisions"
+desc = "up (colemak)"
+
+[[bindings]]
+action = "revisions.open_details"
+key = "i"
+scope = "revisions"
+desc = "details (colemak)"
+
+[[bindings]]
+action = "revset.edit"
+key = "shift+i"
+scope = "revisions"
+desc = "revset (colemak)"
+
+# Displaced keys: n→j (new), e→k (edit)
+[[bindings]]
+action = "revisions.new"
+key = "j"
+scope = "revisions"
+desc = "new (colemak)"
+
+[[bindings]]
+action = "revisions.edit"
+key = "k"
+scope = "revisions"
+desc = "edit (colemak)"
+
+# Help scope
+[[bindings]]
+action = "help.scroll_down"
+key = "n"
+scope = "help"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "help.scroll_up"
+key = "e"
+scope = "help"
+desc = "up (colemak)"
+
+# Diff scope
+[[bindings]]
+action = "diff.scroll_down"
+key = "n"
+scope = "diff"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "diff.scroll_up"
+key = "e"
+scope = "diff"
+desc = "up (colemak)"
+
+[[bindings]]
+action = "diff.right"
+key = "i"
+scope = "diff"
+desc = "right (colemak)"
+
+# Oplog scope
+[[bindings]]
+action = "oplog.move_down"
+key = "n"
+scope = "oplog"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "oplog.move_up"
+key = "e"
+scope = "oplog"
+desc = "up (colemak)"
+
+# Bookmarks scope
+[[bindings]]
+action = "bookmarks.move_down"
+key = "n"
+scope = "bookmarks"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "bookmarks.move_up"
+key = "e"
+scope = "bookmarks"
+desc = "up (colemak)"
+
+# Git scope
+[[bindings]]
+action = "git.move_down"
+key = "n"
+scope = "git"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "git.move_up"
+key = "e"
+scope = "git"
+desc = "up (colemak)"
+
+# Choose scope
+[[bindings]]
+action = "choose.move_down"
+key = "n"
+scope = "choose"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "choose.move_up"
+key = "e"
+scope = "choose"
+desc = "up (colemak)"
+
+# Revisions details scope
+[[bindings]]
+action = "revisions.details.move_down"
+key = "n"
+scope = "revisions.details"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "revisions.details.move_up"
+key = "e"
+scope = "revisions.details"
+desc = "up (colemak)"
+
+# Revisions squash scope
+[[bindings]]
+action = "revisions.move_down"
+key = "n"
+scope = "revisions.squash"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "revisions.move_up"
+key = "e"
+scope = "revisions.squash"
+desc = "up (colemak)"
+
+# Displaced in squash scope: e→k (keep_emptied), i→l (interactive)
+[[bindings]]
+action = "revisions.squash.keep_emptied"
+key = "k"
+scope = "revisions.squash"
+desc = "keep emptied (colemak)"
+
+[[bindings]]
+action = "revisions.squash.interactive"
+key = "l"
+scope = "revisions.squash"
+desc = "interactive (colemak)"
+
+# Evolog scope
+[[bindings]]
+action = "revisions.evolog.move_down"
+key = "n"
+scope = "revisions.evolog"
+desc = "down (colemak)"
+
+[[bindings]]
+action = "revisions.evolog.move_up"
+key = "e"
+scope = "revisions.evolog"
+desc = "up (colemak)"
+
+# Quick search — underscore form per v0.10.2 builtins
+[[bindings]]
+action = "revisions.quick_search_next"
+key = "n"
+scope = "revisions.quick_search"
+desc = "next (colemak)"
+
+[[bindings]]
+action = "revisions.quick_search_prev"
+key = "e"
+scope = "revisions.quick_search"
+desc = "prev (colemak)"

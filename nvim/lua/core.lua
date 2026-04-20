@@ -99,7 +99,7 @@ g.floaterm_keymap_toggle = "<F12>"
 -- vim/evil binding
 vim.api.nvim_set_keymap(
     "n",
-    "<S-l>",
+    "<S-i>",
     ":vertical resize -5<CR>",
     {
         noremap = true,
@@ -118,7 +118,7 @@ vim.api.nvim_set_keymap(
 
 vim.api.nvim_set_keymap(
     "n",
-    "<S-j>",
+    "<S-n>",
     ":resize +5<CR>",
     {
         noremap = true,
@@ -128,7 +128,7 @@ vim.api.nvim_set_keymap(
 
 vim.api.nvim_set_keymap(
     "n",
-    "<S-k>",
+    "<S-e>",
     ":resize -5<CR>",
     {
         noremap = true,

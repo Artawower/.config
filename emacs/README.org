@@ -906,10 +906,10 @@ Temporary disabled due to performance issues on macos
 
 #+END_SRC
 
-*** Zoom manader
+*** Zoom manager
 #+BEGIN_SRC emacs-lisp
  (use-package zoom-window
-  :ensure (zoom-window :host github :repo "artawower/zoom-window" :branch "feat/re-zoom")
+  :ensure (zoom-window :host github :repo "artawower/zoom-window" :branch "fix/re-zoom")
    :defer t
    :after meow
    :commands (zoom-window-zoom)
@@ -1317,15 +1317,17 @@ Move to husky
 *** Meow Keybindings
 #+BEGIN_SRC emacs-lisp
 (defun meow-setup ()
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (setq meow--kbd-forward-line "<down>")
+  (setq meow--kbd-backward-line "<up>")
+  (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
   (meow-motion-overwrite-define-key
-   '("j" . meow-next)
-   '("k" . meow-prev)
+   '("n" . meow-next)
+   '("e" . meow-prev)
    '("<escape>" . ignore))
   (meow-leader-define-key
-   ;; C-c C-j C-/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
+   ;; C-c C-n C-e will run the original command in MOTION state.
+   '("n" . "H-n")
+   '("e" . "H-e")
    ;; Use C-c C-`C-0-9 for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -1349,7 +1351,7 @@ Move to husky
    '("s-o" . meow-last-buffer)
    '("ge" . end-of-buffer)
    '("gg" . beginning-of-buffer)
-   '("gl" . my/meow-select-till-eol)
+    '("gl" . my/meow-select-till-eol)
    '("[b" . beginning-of-buffer)
    '("gi" . my/meow-select-till-eol)
    '("gh" . beginning-of-line)
@@ -1369,15 +1371,15 @@ Move to husky
    '("s-D" . meow-bounds-of-thing)
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
-   '("i" . meow-append)
+   '("l" . meow-append)
    '("o" . meow-open-below)
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
    '("d" . meow-delete)
    '("D" . meow-backward-delete)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
+   '("j" . meow-next-word)
+   '("J" . meow-next-symbol)
    '("F" . meow-find)
    '("f" . avy-goto-word-1)
    '("q" . meow-cancel-selection)
@@ -1386,14 +1388,14 @@ Move to husky
    '("H" . meow-left-expand)
    '("a" . meow-insert)
    '("O" . meow-open-above)
-   '("j" . meow-next)
-   '("J" . meow-next-expand)
-   '("k" . meow-prev)
-   '("K" . meow-prev-expand)
-   '("l" . meow-right)
-   '("L" . meow-right-expand)
+   '("n" . meow-next)
+   '("N" . meow-next-expand)
+   '("e" . meow-prev)
+   '("E" . meow-prev-expand)
+   '("i" . meow-right)
+   '("I" . meow-right-expand)
    '("m" . meow-join)
-   '("n" . meow-search)
+   '("k" . meow-search)
    '("/" . meow-block)
    '("?" . meow-to-block)
    '("P" . meow-yank)
@@ -1405,7 +1407,8 @@ Move to husky
    '("t" . meow-till)
    '("{" . my/meow-backward-till)
    '("u" . meow-undo)
-   '("U" . meow-undo-in-selection)
+   ;; '("U" . meow-undo-in-selection)
+   '("U" . undo-fu-only-redo)
    '("v" . meow-visit)
    '("V" . meow-visual-line)
    '("w" . meow-mark-word)
@@ -1419,7 +1422,7 @@ Move to husky
    '("=" . indent-for-tab-command)
    '(":" . query-replace-regexp)
    '("A" . my/edit-after-eol)
-   '("I" . my/edit-before-bol)
+   '("L" . my/edit-before-bol)
    '("<escape>" . ignore))
 
   (meow-define-keys 'motion
@@ -1492,15 +1495,19 @@ Move to husky
 
   (meow-define-keys 'paren
     '("<escape>" . meow-normal-mode)
-    '("l" . sp-forward-sexp)
+    '("i" . sp-forward-sexp)
     '("h" . sp-backward-sexp)
-    '("j" . sp-down-sexp)
-    '("k" . sp-up-sexp)
-    '("n" . sp-forward-slurp-sexp)
+    '("n" . sp-down-sexp)
+    '("e" . sp-up-sexp)
+    '("k" . sp-forward-slurp-sexp)
     '("b" . sp-forward-barf-sexp)
     '("v" . sp-backward-barf-sexp)
     '("c" . sp-backward-slurp-sexp)
-    '("u" . meow-undo)))
+    '("u" . meow-undo))
+
+(meow-define-state disable
+    "State for modes where Meow should stay out."
+    :lighter " [x]"))
 #+END_SRC
 
 *** Meow. Mode for agenda
@@ -1516,12 +1523,12 @@ Move to husky
   (meow-define-keys 'agenda-motion
     '("<escape>" . org-agenda-quit)
     '("q" . org-agenda-quit)
-    '("j" . org-agenda-next-line)
-    '("k" . org-agenda-previous-line)
+    '("n" . org-agenda-next-line)
+    '("e" . org-agenda-previous-line)
     '("h" . org-agenda-earlier)
-    '("l" . org-agenda-later)
-    '("J" . org-agenda-next-item)
-    '("K" . org-agenda-previous-item)
+    '("i" . org-agenda-later)
+    '("N" . org-agenda-next-item)
+    '("E" . org-agenda-previous-item)
     '("f" . avy-goto-word-1)
     '("g" . org-agenda-redo)
     '("." . org-agenda-goto-today)
@@ -1529,13 +1536,13 @@ Move to husky
     '("s" . org-agenda-schedule)
     '("d" . org-agenda-deadline)
     '(":" . org-agenda-set-tags)
-    '("e" . org-agenda-set-effort)
+    '("j" . org-agenda-set-effort)
     '("/" . org-agenda-filter)
     '("\\" . org-agenda-filter-by-tag)
     '("v" . org-agenda-view-mode-dispatch)
     '("G" . org-agenda-toggle-time-grid)
-    '("L" . org-agenda-log-mode)
-    '("i" . org-agenda-clock-in)
+    '("I" . org-agenda-log-mode)
+    '("l" . org-agenda-clock-in)
     '("o" . org-agenda-clock-out)
     '("c" . org-agenda-capture)
     '("TAB" . org-agenda-goto)
@@ -1560,6 +1567,11 @@ Move to husky
   (add-to-list 'meow-mode-state-list '(messages-buffer-mode . normal))
   (add-to-list 'meow-mode-state-list '(debug-mode . normal))
   (add-to-list 'meow-mode-state-list '(debugger-mode . normal))
+
+  ;; Ediff needs its own state: compare panes keep their major mode, while Meow motion binds n/e globally.
+  (add-to-list 'meow-mode-state-list '(ediff-mode . ediff))
+  (add-to-list 'meow-mode-state-list '(ediff-meta-mode . ediff))
+
   (add-to-list 'meow-mode-state-list '(grep-mode . normal)))
 #+END_SRC
 
@@ -1571,6 +1583,7 @@ Move to husky
   :config
   (meow-setup)
   (define-key mode-specific-map (kbd "j") nil)
+  (define-key mode-specific-map (kbd "e") nil)
   (my/meow-thing-register)
   (my/meow-setup-custom-modes)
   (my/meow-setup-state-per-modes)
@@ -1667,10 +1680,10 @@ Move to husky
 
 *** Minibuffer navigation
 #+BEGIN_SRC emacs-lisp
-(define-key minibuffer-local-map (kbd "C-j") 'next-history-element)
-(define-key minibuffer-local-map (kbd "C-k") 'previous-history-element)
-(define-key read--expression-map (kbd "C-j") 'next-history-element)
-(define-key read--expression-map (kbd "C-k") 'previous-history-element)
+(define-key minibuffer-local-map (kbd "C-n") 'next-history-element)
+(define-key minibuffer-local-map (kbd "C-e") 'previous-history-element)
+(define-key read--expression-map (kbd "C-n") 'next-history-element)
+(define-key read--expression-map (kbd "C-e") 'previous-history-element)
 #+END_SRC
 
 ** Reverse im. Same commands accross layouts
@@ -1720,13 +1733,34 @@ Move to husky
 #+END_SRC
 *** Core package
 #+BEGIN_SRC emacs-lisp
+(require 'quail)
+
+(quail-define-package
+ "cyrillic-colemak" "Cyrillic" "CC" nil
+ "ЙЦУКЕН keyboard layout widely used in Russia (ISO 8859-5 encoding)
+  in assuming that your default keyboard layout is Colemak"
+ nil t t t t nil nil nil nil nil t)
+
+(quail-define-rules
+ ("1" ?1) ("2" ?2) ("3" ?3) ("4" ?4) ("5" ?5) ("6" ?6) ("7" ?7) ("8" ?8) ("9" ?9) ("0" ?0)
+ ("[" ?х) ("]" ?ъ) ("`" ?ё) ("'" ?э) ("," ?б) ("." ?ю) ("p" ?к) ("y" ?щ) ("f" ?у) ("g" ?е)
+ ("c" ?с) ("r" ?ы) ("l" ?г) ("/" ?.) ("=" ?=) ("a" ?ф) ("o" ?ж) ("e" ?л) ("u" ?ш) ("i" ?д)
+ ("d" ?п) ("h" ?р) ("t" ?а) ("n" ?о) ("s" ?в) ("-" ?-) ("\\" ?\\) (";" ?з) ("q" ?й) ("j" ?н)
+ ("k" ?т) ("x" ?ч) ("b" ?и) ("m" ?ь) ("w" ?ц) ("v" ?м) ("z" ?я)
+ ("ü" ?ў)
+ ("!" ?!) ("@" ?\") ("#" ?№) ("$" ?\;) ("%" ?%) ("^" ?:) ("&" ??) ("*" ?*) ("(" ?\() (")" ?\))
+ ("{" ?Х) ("}" ?Ъ) ("~" ?Ё) ("\"" ?Э) ("<" ?Б) (">" ?Ю) ("P" ?К) ("Y" ?Щ) ("F" ?У) ("G" ?Е)
+ ("C" ?С) ("R" ?Ы) ("L" ?Г) ("?" ?,) ("+" ?+) ("A" ?Ф) ("O" ?Ж) ("E" ?Л) ("U" ?Ш) ("I" ?Д)
+ ("D" ?П) ("H" ?Р) ("T" ?А) ("N" ?О) ("S" ?В) ("_" ?_) ("|" ?/) (":" ?З) ("Q" ?Й) ("J" ?Н)
+ ("K" ?Т) ("X" ?Ч) ("B" ?И) ("M" ?Ь) ("W" ?Ц) ("V" ?М) ("Z" ?Я))
+
 (use-package reverse-im
   :demand t
   :after char-fold
   :custom
   (reverse-im-char-fold t) ; use lax matching
   (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
-  (reverse-im-input-methods '("russian-computer")) ; translate these methods
+  (reverse-im-input-methods '("cyrillic-colemak")) ; translate these methods
   :config
   (reverse-im-mode t)
   (advice-add 'meow--keypad-format-key-1 :override #'my/meow--keypad-format-key-1))
@@ -2365,10 +2399,10 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
         :map dired-mode-map ; Dirvish respects all the keybindings in this map
         ("q" . dirvish-quit)
         ("h" . dired-up-directory)
-        ("j" . dired-next-line)
-        ("k" . dired-previous-line)
-        ("l" . dired-find-file)
-        ("i" . wdired-change-to-wdired-mode)
+        ("n" . dired-next-line)
+        ("e" . dired-previous-line)
+        ("i" . dired-find-file)
+        ("l" . wdired-change-to-wdired-mode)
         ("." . dired-omit-mode)
         ("b"   . dirvish-bookmark-jump)
         ("f"   . dirvish-file-info-menu)
@@ -2428,11 +2462,9 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
 #+BEGIN_SRC emacs-lisp :results silent
 (use-package ghostel
   :ensure t
-  :bind (("C-c o g" . ghostel)
-         ("C-c o G" . ghostel-project)
-         ("C-c o t" . ghostel-other)
-         ("C-c o C-g" . my/ghostel-open-here)
-         ("C-c o C-r" . my/ghostel-right)
+  :bind (("C-c o g" . ghostel-other)
+         ("C-c o T" . ghostel)
+         ("C-c o t" . ghostel-project)
          ("C-c C-l" . my/ghostel-clear))
   :custom
   (ghostel-shell (or
@@ -2442,7 +2474,7 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   (ghostel-max-scrollback (* 5 1024 1024))  ; 5MB default
   (ghostel-enable-url-detection t)
   (ghostel-enable-file-detection t)
-  (ghostel-keymap-exceptions '("C-c" "C-x" "C-u" "C-h" "C-g" "M-x" "M-o" "M-:" "C-\\"))
+  (ghostel-keymap-exceptions '("C-c" "C-x" "C-h" "C-g" "M-x" "M-o" "M-:" "C-\\"))
   (ghostel-module-auto-install 'ask)
   :config
   ;; Helper functions
@@ -2462,23 +2494,6 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
         (when proc
           (process-send-string proc (concat "cd " (shell-quote-argument dir) "\n"))))))
 
-  (defun my/ghostel-open-here ()
-    "Open ghostel in current window and cd to project dir."
-    (interactive)
-    (ghostel)
-    (my/ghostel--cd (current-buffer) (my/ghostel--get-dir)))
-
-  (defun my/ghostel-right ()
-    "Open ghostel in right window."
-    (interactive)
-    (let* ((dir (my/ghostel--get-dir))
-           (win (or (window-in-direction 'right)
-                    (split-window-right))))
-      (select-window win)
-      (ghostel)
-      (my/ghostel--cd (current-buffer) dir)
-      (other-window 1)))
-
   (defun my/ghostel-clear ()
     "Clear ghostel screen and scrollback."
     (interactive)
@@ -2487,73 +2502,80 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
   ;; Override keybindings for our setup
   (define-key ghostel-mode-map (kbd "C-c C-l") 'my/ghostel-clear))
 #+END_SRC
+
+** Ghostel position
+#+BEGIN_SRC emacs-lisp :results silent
+(add-to-list 'display-buffer-alist
+  '("\\*ghostel"
+    (my/display-buffer-right-smart)))
+#+END_SRC
 * Git
 ** Magit
 *** Core package
-#+BEGIN_SRC emacs-lisp
-(use-package magit
-  :commands
-  (magit-get-current-branch)
-  :bind
-  (("C-M-g" . magit-status)
-   ("C-M-S-d" . magit-ediff-compare)
-   ("C-M-S-c" . magit-commit)
-   ("C-M-S-a" . my/magit-stage-current-file)
-   ("C-M-d" . my/magit-ediff-current-file-against-head)
-   ("C-c g g" . magit-status)
-   :map magit-mode-map
-   ("C-1" . magit-section-show-level-1)
-   ("C-2" . magit-section-show-level-2)
-   ("C-3" . magit-section-show-level-3)
-   ("C-j" . magit-section-forward)
-   ("C-k" . magit-section-backward)
-   ("C-4" . magit-section-show-level-4)
-   ("q" . kill-current-buffer)
-   ("<escape>" . kill-current-buffer)
-   ("Q" . bury-buffer)
-   (";" . meow-reverse)
-   ("Z" . magit-stash)
-   ("P" . magit-fetch)
-   ("p" . magit-push)
-   ("`" . magit-process-buffer)
-   ("f" . avy-goto-word-1)
-   ("x" . magit-discard)
-   :map magit-status-mode-map
-   ("x" . meow-line)
-   ("X" . magit-discard)
-   ("z z" . recenter)
-   ("C-j" . magit-section-forward)
-   ("C-k" . magit-section-backward)
-   ("M-n" . husky-lsp-repeat-consult-search-forward)
-   ("M-p" . husky-lsp-repeat-consult-search-backward)
-   :map magit-diff-mode-map
-   ("C-j" . magit-section-forward)
-   ("C-k" . magit-section-backward))
-  :custom-face
-  (git-commit-overlong-summary ((t :inherit error :weight bold)))
-  :custom
-  (magit-diff-visit-prefer-worktree t)
-  (magit-ediff-dwim-show-on-hunks t)
-  (magit-diff-refine-hunk t)
-  (magit-process-timestamp-format "%H:%M")
-  (magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1)
-  (magit-process-finish-apply-ansi-colors t)
-  :hook
-  (magit-process-mode . compilation-minor-mode)
-  :config
-  ;; Reset magit numbers
-  (dolist (key (mapcar (lambda (n) (kbd (number-to-string n))) (number-sequence 0 9)))
-    (define-key magit-mode-map key nil)
-    (define-key magit-status-mode-map key nil))
-  (define-key transient-map        "q" 'transient-quit-one)
-  (define-key transient-edit-map   "q" 'transient-quit-one)
-  (define-key transient-sticky-map "q" 'transient-quit-seq)
-  (define-key magit-file-section-map (kbd "C-j") 'magit-section-forward)
-  (define-key magit-hunk-section-map (kbd "C-j") 'magit-section-forward)
-  (setcdr magit-process-mode-map (cdr (make-keymap)))
-  (set-keymap-parent magit-process-mode-map special-mode-map))
-#+END_SRC
-
+ #+BEGIN_SRC emacs-lisp
+ (use-package magit
+   :commands
+   (magit-get-current-branch)
+   :bind
+   (("C-M-g" . magit-status)
+    ("C-M-S-d" . magit-ediff-compare)
+    ("C-M-S-c" . magit-commit)
+    ("C-M-S-a" . my/magit-stage-current-file)
+    ("C-M-d" . my/magit-ediff-current-file-against-head)
+    ("C-c g g" . magit-status)
+    :map magit-mode-map
+    ("C-1" . magit-section-show-level-1)
+    ("C-2" . magit-section-show-level-2)
+    ("C-3" . magit-section-show-level-3)
+    ("C-n" . magit-section-forward)
+    ("C-e" . magit-section-backward)
+    ("C-4" . magit-section-show-level-4)
+    ("q" . kill-current-buffer)
+    ("<escape>" . kill-current-buffer)
+    ("Q" . bury-buffer)
+    (";" . meow-reverse)
+    ("Z" . magit-stash)
+    ("P" . magit-fetch)
+    ("p" . magit-push)
+    ("`" . magit-process-buffer)
+    ("f" . avy-goto-word-1)
+    ("x" . magit-discard)
+    :map magit-status-mode-map
+    ("x" . meow-line)
+    ("X" . magit-discard)
+    ("z z" . recenter)
+    ("C-n" . magit-section-forward)
+    ("C-e" . magit-section-backward)
+    ("M-k" . husky-lsp-repeat-consult-search-forward)
+    ("M-p" . husky-lsp-repeat-consult-search-backward)
+    :map magit-diff-mode-map
+    ("C-n" . magit-section-forward)
+    ("C-e" . magit-section-backward))
+   :custom-face
+   (git-commit-overlong-summary ((t :inherit error :weight bold)))
+   :custom
+   (magit-diff-visit-prefer-worktree t)
+   (magit-ediff-dwim-show-on-hunks t)
+   (magit-diff-refine-hunk t)
+   (magit-process-timestamp-format "%H:%M")
+   (magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1)
+   (magit-process-finish-apply-ansi-colors t)
+   :hook
+   (magit-process-mode . compilation-minor-mode)
+   :config
+   ;; Reset magit numbers
+   (dolist (key (mapcar (lambda (n) (kbd (number-to-string n))) (number-sequence 0 9)))
+     (define-key magit-mode-map key nil)
+     (define-key magit-status-mode-map key nil))
+   (define-key transient-map        "q" 'transient-quit-one)
+   (define-key transient-edit-map   "q" 'transient-quit-one)
+   (define-key transient-sticky-map "q" 'transient-quit-seq)
+   (define-key magit-file-section-map (kbd "C-n") 'magit-section-forward)
+   (define-key magit-hunk-section-map (kbd "C-n") 'magit-section-forward)
+   (setcdr magit-process-mode-map (cdr (make-keymap)))
+   (set-keymap-parent magit-process-mode-map special-mode-map))
+ #+END_SRC
+ 
 *** Helper functions
 **** Stage current file
 #+BEGIN_SRC emacs-lisp :results silent
@@ -2603,6 +2625,71 @@ Allow to transform PASCAL_CASE -> camelCase -> snake_case
           (with-current-buffer ctl
             (add-hook 'ediff-quit-hook (lambda () (when (buffer-live-p bufA) (kill-buffer bufA))) nil t)))))))
 #+END_SRC
+*** Core package
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :commands
+  (magit-get-current-branch)
+  :bind
+  (("C-M-g" . magit-status)
+   ("C-M-S-d" . magit-ediff-compare)
+   ("C-M-S-c" . magit-commit)
+   ("C-M-S-a" . my/magit-stage-current-file)
+   ("C-M-d" . my/magit-ediff-current-file-against-head)
+   ("C-c g g" . magit-status)
+   :map magit-mode-map
+   ("C-1" . magit-section-show-level-1)
+   ("C-2" . magit-section-show-level-2)
+   ("C-3" . magit-section-show-level-3)
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward)
+   ("C-4" . magit-section-show-level-4)
+   ("q" . kill-current-buffer)
+   ("<escape>" . kill-current-buffer)
+   ("Q" . bury-buffer)
+   (";" . meow-reverse)
+   ("Z" . magit-stash)
+   ("P" . magit-fetch)
+   ("p" . magit-push)
+   ("`" . magit-process-buffer)
+   ("f" . avy-goto-word-1)
+   ("x" . magit-discard)
+   :map magit-status-mode-map
+   ("x" . meow-line)
+   ("X" . magit-discard)
+   ("z z" . recenter)
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward)
+   ("M-k" . husky-lsp-repeat-consult-search-forward)
+   ("M-p" . husky-lsp-repeat-consult-search-backward)
+   :map magit-diff-mode-map
+   ("C-n" . magit-section-forward)
+   ("C-e" . magit-section-backward))
+  :custom-face
+  (git-commit-overlong-summary ((t :inherit error :weight bold)))
+  :custom
+  (magit-diff-visit-prefer-worktree t)
+  (magit-ediff-dwim-show-on-hunks t)
+  (magit-diff-refine-hunk t)
+  (magit-process-timestamp-format "%H:%M")
+  (magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1)
+  (magit-process-finish-apply-ansi-colors t)
+  :hook
+  (magit-process-mode . compilation-minor-mode)
+  :config
+  ;; Reset magit numbers
+  (dolist (key (mapcar (lambda (n) (kbd (number-to-string n))) (number-sequence 0 9)))
+    (define-key magit-mode-map key nil)
+    (define-key magit-status-mode-map key nil))
+  (define-key transient-map        "q" 'transient-quit-one)
+  (define-key transient-edit-map   "q" 'transient-quit-one)
+  (define-key transient-sticky-map "q" 'transient-quit-seq)
+  (define-key magit-file-section-map (kbd "C-n") 'magit-section-forward)
+  (define-key magit-hunk-section-map (kbd "C-n") 'magit-section-forward)
+  (setcdr magit-process-mode-map (cdr (make-keymap)))
+  (set-keymap-parent magit-process-mode-map special-mode-map))
+#+END_SRC
+
 *** Magit todos
 #+BEGIN_SRC emacs-lisp
 (use-package magit-todos
@@ -2772,17 +2859,19 @@ Setup blamer face
          ("C-c j d" . majutsu-diff)
          :map majutsu-diff-section-map
          ("s-<return>" . majutsu-diff-visit-workspace-file)
-         ("C-j" . magit-section-forward)
-         ("C-k" . magit-section-backward)
+         ("C-n" . magit-section-forward)
+         ("C-e" . magit-section-backward)
          ("z z" . recenter)
          :map majutsu-diff-mode-map
          ("s-<return>" . majutsu-diff-visit-workspace-file)
-         ("C-j" . magit-section-forward)
-         ("C-k" . magit-section-backward))
+         ("C-n" . magit-section-forward)
+         ("C-e" . magit-section-backward))
   :ensure (:host github :repo "0WD0/majutsu")
   :config
+  (with-eval-after-load 'with-editor
+    (setq with-editor-emacsclient-executable "/opt/homebrew/bin/emacsclient"))
   (set-face-attribute 'majutsu-interactive-selected-hunk nil :background (modus-themes-get-color-value 'green-cooler))
-  (define-key majutsu-diff-mode-map (kbd "C-j") nil))
+  (define-key majutsu-diff-mode-map (kbd "C-n") nil))
 #+END_SRC
 
 ** Majutsu display configuration
@@ -2839,6 +2928,49 @@ Setup blamer face
       (set-face-attribute f nil :inherit 'default :foreground 'unspecified :background 'unspecified :extend t))))
 #+END_SRC
 
+
+*** Meow integration
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'meow
+  (defvar my/meow-ediff-state-keymap
+    (let ((map (make-sparse-keymap)))
+      (set-keymap-parent map meow-motion-state-keymap)
+      (define-key map (kbd "n") #'ediff-next-difference)
+      (define-key map (kbd "e") #'ediff-previous-difference)
+      map)
+    "Meow keymap used while navigating Ediff buffers.")
+
+  (defvar-local my/ediff-meow-was-enabled nil)
+  (defvar-local my/ediff-meow-previous-state nil)
+
+  (meow-define-state ediff
+    "Meow state for Ediff navigation."
+    :lighter " [M]"
+    :keymap my/meow-ediff-state-keymap)
+
+  (defun my/ediff-enable-meow-state ()
+    "Ensure Meow is active and switch the current buffer into Ediff state."
+    (when (bound-and-true-p meow-global-mode)
+      (setq-local my/ediff-meow-was-enabled (bound-and-true-p meow-mode))
+      (unless (bound-and-true-p meow-mode)
+        (meow-mode 1))
+      (unless (eq meow--current-state 'ediff)
+        (setq-local my/ediff-meow-previous-state meow--current-state))
+      (meow--switch-state 'ediff t)))
+
+  (defun my/ediff-disable-meow-state ()
+    "Restore the Meow setup used before Ediff."
+    (let ((previous-state my/ediff-meow-previous-state)
+          (was-enabled my/ediff-meow-was-enabled))
+      (kill-local-variable 'my/ediff-meow-previous-state)
+      (kill-local-variable 'my/ediff-meow-was-enabled)
+      (cond
+       ((and (bound-and-true-p meow-mode) previous-state)
+        (meow--switch-state previous-state t))
+       ((and (bound-and-true-p meow-mode) (not was-enabled))
+        (meow-mode -1))))))
+#+END_SRC
+
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package ediff
@@ -2851,17 +2983,17 @@ Setup blamer face
   (setq ediff-highlight-all-diffs t)
 
   (add-hook 'ediff-load-hook #'my/ediff-faces-setup)
+  (remove-hook 'ediff-mode-hook #'meow-motion-mode)
+  (remove-hook 'ediff-meta-mode-hook #'meow-motion-mode)
+  (add-hook 'ediff-meta-mode-hook #'my/ediff-enable-meow-state)
+  (add-hook 'ediff-startup-hook
+            (lambda ()
+              (when (buffer-live-p ediff-control-buffer)
+                (with-current-buffer ediff-control-buffer
+                  (my/ediff-enable-meow-state)))))
   (add-hook 'ediff-prepare-buffer-hook (lambda () (toggle-truncate-lines -1)))
   (add-hook 'ediff-prepare-buffer-hook #'display-line-numbers-mode)
-  ;; (add-hook 'ediff-load-hook #'zoom-mode)
-  (add-hook 'ediff-cleanup-hook
-            (lambda ()
-              (dolist (buf (list ediff-buffer-A ediff-buffer-B
-                                 (when (boundp 'ediff-buffer-C) ediff-buffer-C)))
-                (when (buffer-live-p buf)
-                  (with-current-buffer buf
-                    (display-line-numbers-mode -1)))))))
-              ;; (zoom-mode))))
+  (add-hook 'ediff-cleanup-hook #'my/ediff-disable-meow-state))
 #+END_SRC
 
 ** Timemachine
@@ -2871,11 +3003,11 @@ Setup blamer face
   :bind (("C-M-t" . git-timemachine)
          ("C-M-m" . git-timemachine)
          :map git-timemachine-mode-map
-         ("C-k" . git-timemachine-show-previous-revision)
+         ("C-e" . git-timemachine-show-previous-revision)
          ("q" . git-timemachine-quit)
          ("<escape>" . git-timemachine-quit)
          ("Q" . git-timemachine-quit)
-         ("C-j" . git-timemachine-show-next-revision)))
+         ("C-n" . git-timemachine-show-next-revision)))
 #+END_SRC
 
 ** Smerge
@@ -2883,11 +3015,11 @@ Setup blamer face
 (use-package smerge-mode
   :ensure nil
   :bind (:map smerge-mode-map
-         ("C-c C-l" . smerge-keep-lower)
+         ("C-c C-i" . smerge-keep-lower)
          ("C-c C-u" . smerge-keep-upper)
          ("C-c C-a" . smerge-keep-all)
-         ("C-c C-j" . smerge-next)
-         ("C-c C-k" . smerge-prev)
+         ("C-c C-n" . smerge-next)
+         ("C-c C-e" . smerge-prev)
          :map meow-normal-state-keymap
          ("g s" . smerge-next)
          ("g S" . smerge-prev))
@@ -3098,15 +3230,13 @@ Prevents closing the last frame in daemon mode on macOS."
   :bind (("C-c ;" . vertico-repeat-last)
          ("C-c '" . vertico-repeat)
          :map vertico-map
-         ("C-j" . vertico-next)
-         ("C-k" . vertico-previous)
-         ("C-n" . vertico-next-group)
-         ("C-p" . vertico-previous-group)
-         ("C-l" . vertico-quick-jump)
+         ("C-n" . vertico-next)
+         ("C-e" . vertico-previous)
+         ("C-j" . vertico-next-group)
+         ("C-k" . vertico-previous-group)
+         ("<tab>" . vertico-insert)
          ("C-o" . embark-act)
          ("C-q" . vertico-exit-input)
-         ("C-n" . vertico-next-group)
-         ("C-p" . vertico-previous-group)
          ("<escape>" . abort-minibuffers)
          ("C-d" . my/vertico-insert-home)
          ("C-r" . my/vertico-insert-root))
@@ -3349,8 +3479,8 @@ Function for search in buffer depends or visual or normal line
    :map corfu-map
    ("TAB" . corfu-next)
    ([tab] . corfu-next)
-   ("C-j" . corfu-next)
-   ("C-k" . corfu-previous)
+   ("C-n" . corfu-next)
+   ("C-e" . corfu-previous)
    ("S-TAB" . corfu-previous)
    ("<return>" . corfu-insert)
    ("RET" . corfu-insert)
@@ -3635,8 +3765,8 @@ See [[https://github.com/blahgeek/emacs-lsp-booster][detail]]
   :bind (:map meow-normal-state-keymap
          ("\\h" . lsp-ui-doc-toggle)
          :map lsp-ui-peek-mode-map
-         ("C-j" . lsp-ui-peek--select-next)
-         ("C-k" . lsp-ui-peek--select-prev))
+         ("C-n" . lsp-ui-peek--select-next)
+         ("C-e" . lsp-ui-peek--select-prev))
   :config
   (setq lsp-ui-sideline-diagnostic-max-line-length 100
         lsp-ui-sideline-diagnostic-max-lines 8
@@ -3700,8 +3830,8 @@ Installation instructions:
 *** Core package
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
-  :bind (("C-j" . flycheck-next-error)
-         ("C-k" . flycheck-previous-error)
+  :bind (("C-n" . flycheck-next-error)
+         ("C-e" . flycheck-previous-error)
          ("C-c f ]" . flycheck-next-error)
          ("C-c f [" . flycheck-previous-error)
          ("C-c l e" . flycheck-list-errors)
@@ -4051,8 +4181,8 @@ def servers():
 (use-package flymake
   :ensure nil
   :bind
-  (("C-j" . flymake-goto-next-error)
-   ("C-k" . flymake-goto-prev-error)
+  (("C-n" . flymake-goto-next-error)
+   ("C-e" . flymake-goto-prev-error)
    ("C-c e l" . flymake-show-diagnostics-buffer)
    ("C-c e c" . my/flymake-kill-error)
    ("C-c e C" . my/flymake-kill-errors))
@@ -4302,48 +4432,83 @@ Compilation always at right
 (defun my/setup-compilation-errors ()
   (interactive)
   (setq compilation-scroll-output t)
-  (setq compilation-error-regexp-alist '())
-  (setq compilation-error-regexp-alist-alist '())
 
+  ;; Если хочешь полностью свой набор — оставляем очистку.
+  ;; Если лучше сохранить стандартные шаблоны Emacs, убери эти 2 строки.
+  (setq compilation-error-regexp-alist nil)
+  (setq compilation-error-regexp-alist-alist nil)
 
-  ;; eslint https://github.com/Fuco1/compile-eslint/blob/master/compile-eslint.el
-  (when (not compilation-error-regexp-alist-alist)
-    (setq compilation-error-regexp-alist-alist '()))
+  (defun my/register-compilation-regexp (name regexp file line col &optional type)
+    "Register compilation regexp NAME."
+    (let ((entry (list name regexp file line col type)))
+      (setq compilation-error-regexp-alist-alist
+            (assq-delete-all name compilation-error-regexp-alist-alist))
+      (add-to-list 'compilation-error-regexp-alist-alist entry)
+      (add-to-list 'compilation-error-regexp-alist name)))
 
-  (let ((form `(eslint
-                ,(rx-to-string
-                  '(and (group (group (+ digit)) ":" (group (+ digit)))
-                        (+ " ") (or "error" "warning")))
-                compile-eslint--find-filename
-                2 3 2 1)))
+  ;; eslint
+  (my/register-compilation-regexp
+   'eslint
+   (rx bol
+       (group (group (+ digit)) ":" (group (+ digit)))
+       (+ " ")
+       (or "error" "warning")
+       eol)
+   'compile-eslint--find-filename
+   2 3 1)
 
-    (if (assq 'eslint compilation-error-regexp-alist-alist)
-        (setf (cdr (assq 'eslint compilation-error-regexp-alist-alist)) (cdr form))
-      (push form compilation-error-regexp-alist-alist)))
-  (push 'eslint compilation-error-regexp-alist)
+  ;; Generic TS/JS style:
+  ;; path/to/file.ts:12:34 - error ...
+  (my/register-compilation-regexp
+   'my-ts-error
+   "^[[:blank:]]*\\([/_[:alnum:].-]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\) - error.*$"
+   1 2 3 2)
 
+  ;; Angular:
+  ;; Error: path/to/file.ts:12:34
+  (my/register-compilation-regexp
+   'my-angular-error
+   "^Error: \\([_[:alnum:]-/.]+\\):\\([0-9]+\\):\\([0-9]+\\)$"
+   1 2 3 2)
 
+  ;; Angular / Vite generic location:
+  ;; path/to/file.ts:12:34
+  (my/register-compilation-regexp
+   'my-angular-vite-location
+   "^[[:blank:]]*\\([_[:alnum:]-/.]+\\):\\([0-9]+\\):\\([0-9]+\\)\\(?:[[:blank:]].*\\)?$"
+   1 2 3 2)
 
-  (add-to-list 'compilation-error-regexp-alist '("^[[:blank:]]*\\([/_-\\.[:alnum:]]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\) - error.*$" 1 2 3))
-  ;; React
-  (add-to-list 'compilation-error-regexp-alist '("[[:blank:]]*\\([/_\\.[:alnum:]-]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\) - error.*$" 1 2 3))
-  ;; Angular
-  (add-to-list 'compilation-error-regexp-alist '("^Error: \\([_[:alnum:]-/.]*\\):\\([0-9]+\\):\\([0-9]+\\)$" 1 2 3))
-  ;; Angular vite
-  (add-to-list 'compilation-error-regexp-alist '("\\([_[:alnum:]-/.]*\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3))
+  ;; Tests:
+  ;; Error: path/to/file.ts:12:34
+  (my/register-compilation-regexp
+   'my-test-error
+   "^Error:[[:blank:]]*\\([[:alnum:]_./-]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\)"
+   1 2 3 2)
 
-  ;; Tests
-  (add-to-list 'compilation-error-regexp-alist
-             '("^Error:[[:blank:]]*\\([[:alnum:]_./-]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\)" 1 2 3))
+  ;; file(line,col)
+  (my/register-compilation-regexp
+   'my-file-line-col-paren
+   "\\([_[:alnum:]-/.]+\\)(\\([0-9]+\\),\\([0-9]+\\))"
+   1 2 3 2)
 
-  (add-to-list 'compilation-error-regexp-alist '("\\([_[:alnum:]-/.]*\\)(\\([0-9]+\\),\\([0-9]+\\))" 1 2 3))
+  ;; FILE path:line:col
+  (my/register-compilation-regexp
+   'my-file-prefix
+   "FILE[[:blank:]]*\\([_[:alnum:]-/.]+\\):\\([0-9]+\\):\\([0-9]+\\)"
+   1 2 3 2)
 
-  (add-to-list 'compilation-error-regexp-alist '("FILE[[:blank:]]*\\([_[:alnum:]-/.]*\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3))
+  ;; Angular Sass / SCSS:
+  ;; projects/...component.scss 22:5  root stylesheet [plugin angular-sass]
+  (my/register-compilation-regexp
+   'my-angular-sass
+   "^[[:blank:]]*\\([_[:alnum:]/.-]+\\.s[ac]ss\\) \\([0-9]+\\):\\([0-9]+\\)[[:blank:]]+root stylesheet \\[plugin angular-sass\\]$"
+   1 2 3 2)
 
-
-  ;; Flutter
-  (add-to-list 'compilation-error-regexp-alist 'dart-analyze)
-  (add-to-list 'compilation-error-regexp-alist-alist '(dart-analyze "\\([^ ]*\\.dart\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3)))
+  ;; Dart / Flutter
+  (my/register-compilation-regexp
+   'dart-analyze
+   "\\([^ ]*\\.dart\\):\\([0-9]+\\):\\([0-9]+\\)"
+   1 2 3 2))
 #+END_SRC
 
 By default ~compile-goto-error~ open new window. It's redundant.
@@ -4371,11 +4536,11 @@ By default ~compile-goto-error~ open new window. It's redundant.
    ("C-c C-c r" . recompile)
    ("C-c C-v" . my/show-compilation-buffer)
    :map compilation-mode-map
-   ("C-j" . compilation-next-error)
-   ("C-k" . compilation-previous-error)
+   ("C-n" . compilation-next-error)
+   ("C-e" . compilation-previous-error)
    :map compilation-minor-mode-map
-   ("C-j" . compilation-next-error)
-   ("C-k" . compilation-previous-error))
+   ("C-n" . compilation-next-error)
+   ("C-e" . compilation-previous-error))
   :custom
   (compile-command "bun run build")
   :config
@@ -4458,8 +4623,8 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
   :defer t
   :bind (("C-c r p" . my/open-ipython-repl-here)
          :map inferior-python-mode-map
-         ("C-k" . comint-previous-input)
-         ("C-j" . comint-next-input))
+         ("C-e" . comint-previous-input)
+         ("C-n" . comint-next-input))
   :custom
   (python-shell-interpreter "ipython")
   (python-shell-interpreter-args "-i --simple-prompt")
@@ -4534,8 +4699,8 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
   :bind ( :map cider-repl-mode-map
          ("<return>" . cider-repl-newline-and-indent)
          ("s-<return>" . cider-repl-return)
-         ("C-k" . cider-repl-previous-input)
-         ("C-j" . cider-repl-next-input))
+         ("C-e" . cider-repl-previous-input)
+         ("C-n" . cider-repl-next-input))
   :defer t)
 #+END_SRC
 
@@ -4593,8 +4758,8 @@ Clone this repo for js debug git@github.com:microsoft/vscode-js-debug.git
   :bind
   (("C-c r n" . nodejs-repl)
    :map nodejs-repl-mode-map
-   ("C-j" . comint-next-input)
-   ("C-k" . comint-previous-input))
+   ("C-n" . comint-next-input)
+   ("C-e" . comint-previous-input))
   :defer t
   :config
   (add-to-list 'display-buffer-alist '("^\\*nodejs\\*$" . (display-buffer-same-window))))
@@ -4678,7 +4843,7 @@ Requires Emacs 30+
   (vue-ts-mode . emmet-mode)
   :bind (:map emmet-mode-keymap
               ("s-e" . emmet-expand-line)
-              ("C-j" . nil)))
+              ("C-n" . nil)))
 #+END_SRC
 ** JSON
 *** JQ, json query tool
@@ -4944,9 +5109,11 @@ Requires Emacs 30+
 (setq flymake-err-line-patterns nil)
 
 (use-package eca
-  :defer 10
-  :ensure (:type git :host github :repo "editor-code-assistant/eca-emacs" :files (:defaults "*.el"))
-  ;; :ensure (:type git :host github :repo "artawower/eca-emacs" :files (:defaults "*.el"))
+   ;; :ensure (:type git :host github :repo "editor-code-assistant/eca-emacs" :files (:defaults "*.el"))
+   ;; :ensure (:type git :host github :repo "artawower/eca-emacs" :files (:defaults "*.el"))
+  :demand t
+  :bind (("C-c a e" . eca)
+         ("s-g" . eca-transient-menu))
   :custom
   (eca-chat-custom-behavior "manager")
   (eca-chat-diff-tool 'ediff)
@@ -4957,27 +5124,26 @@ Requires Emacs 30+
    (propertize "" 'face 'default 'display '(height 1.3)))
   (eca-chat-mcp-tool-call-error-symbol
    (propertize "" 'face 'font-lock-builtin-face 'display '(height 1.3)))
-  :bind (("C-c e e" . eca)
-         ("C-c e m" . eca-transient-menu)
-         ("s-g" . eca-transient-menu)
-         :map eca-chat-mode-map
-         ("<tab>" . eca-chat-toggle-expandable-block)
-         ("C-c C-v" . my/open-last-view-diff)
-         ("s-<return>" . eca-chat--key-pressed-return)
-         ("<return>" . eca-chat--key-pressed-newline)
-         ("RET" . eca-chat--key-pressed-newline)
-         ("C-k" . eca-chat--key-pressed-previous-prompt-history)
-         ("C-j" . eca-chat--key-pressed-next-prompt-history)
-         ("C-S-j" . eca-chat-go-to-next-expandable-block)
-         ("C-S-k" . eca-chat-go-to-prev-expandable-block))
+
   :config
+  (define-key eca-chat-mode-map (kbd "<tab>") 'eca-chat-toggle-expandable-block)
+  (define-key eca-chat-mode-map (kbd "C-c C-v") 'my/open-last-view-diff)
+  (define-key eca-chat-mode-map (kbd "s-<return>") 'eca-chat--key-pressed-return)
+  (define-key eca-chat-mode-map (kbd "<return>") 'eca-chat--key-pressed-newline)
+  (define-key eca-chat-mode-map (kbd "RET") 'eca-chat--key-pressed-newline)
+  
+  (define-key eca-chat-mode-map (kbd "C-n") 'eca-chat--key-pressed-next-prompt-history)
+  (define-key eca-chat-mode-map (kbd "C-e") 'eca-chat--key-pressed-previous-prompt-history)
+  (define-key eca-chat-mode-map (kbd "C-S-j") 'eca-chat-go-to-next-expandable-block)
+  (define-key eca-chat-mode-map (kbd "C-S-k") 'eca-chat-go-to-prev-expandable-block)
+
+  (define-key global-map (kbd "s-g") 'eca-transient-menu)
 
   (add-to-list
    'display-buffer-alist
-   '("<eca-chat.*"
-     (my/display-buffer-right-smart)
-     (window-width . 0.4))))
-;; (my/display-buffer-right-smart))))
+  '("<eca-chat.*"
+    (my/display-buffer-right-smart)
+    (window-width . 0.4))))
 #+END_SRC
 
 ** Copilot
@@ -5559,8 +5725,8 @@ Automatically creates parent directories if needed."
 (use-package org-node
   :after org-mem
   :bind
-  (("C-c n r f" . org-node-find)
-   ("C-c n r i" . org-node-insert-link))
+  (("C-c r f" . org-node-find)
+   ("C-c r i" . org-node-insert-link))
   :custom
   (org-node-alter-candidates t)
   (org-node-creation-fn #'org-node-new-via-roam-capture)
@@ -5922,14 +6088,14 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
          ("C-c o M" . husky-buffers-open-clear-messages)
          ("C-c f D" . husky-buffers-delete-this-file)
          ("s-<backspace>" . husky-edit-kill-word-backward)
-         ("M-n" . husky-lsp-repeat-consult-search-forward)
+         ("M-k" . husky-lsp-repeat-consult-search-forward)
          ("M-p" . husky-lsp-repeat-consult-search-backward)
          ("C-c b k i" . husky-buffers-kill-invisible-buffers)
          ("C-c S-SPC" . husky-buffers-side-project-find-file)
          ("C-c b B" . husky-buffers-side-consult-projectile-switch-to-buffer)
          ("C-c >" . husky-buffers-side-find-file)
          :map magit-merge-preview-mode-map
-         ("M-n" . husky-lsp-repeat-consult-search-forward)
+         ("M-k" . husky-lsp-repeat-consult-search-forward)
          ("M-p" . husky-lsp-repeat-consult-search-backward)
          :map meow-normal-state-keymap
          ("gd" . husky-lsp-find-definition)
@@ -5950,7 +6116,7 @@ Override autosave function. What is the sense save buffer whic doesn't exist???
          :map meow-motion-state-keymap
          ("\\ m" . husky-window-manager-toggle-maximize-buffer)
          :map magit-status-mode-map
-         ("M-n" . husky-lsp-repeat-consult-search-forward)
+         ("M-k" . husky-lsp-repeat-consult-search-forward)
          ("M-p" . husky-lsp-repeat-consult-search-backward)))
 #+END_SRC
 

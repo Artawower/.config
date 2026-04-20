@@ -26,6 +26,8 @@ font-size = 15
 
 keybind = alt+arrow_left=unbind
 keybind = alt+arrow_right=unbind
+keybind = super+d=unbind
+keybind = super+s=unbind
 macos-option-as-alt = true
 
 shell-integration-features = path

@@ -1,23 +1,66 @@
 from prompt_toolkit.keys import Keys
-from prompt_toolkit.filters import Condition
+from prompt_toolkit.filters import Condition, vi_insert_mode, vi_mode
+from prompt_toolkit.key_binding.vi_state import InputMode
 import re
+
+# Define filter for NOT in insert mode (i.e., navigation mode)
+@Condition
+def not_in_insert_mode():
+    return not vi_insert_mode()
+
+# Also define filter for vi normal mode (command mode)
+@Condition
+def in_vi_navigation_mode():
+    return vi_mode() and not vi_insert_mode()
 
 @events.on_ptk_create
 def custom_keybindings(bindings, **kw):
-    @bindings.add(Keys.ControlK)
+    # h = left - only in navigation mode (not insert)
+    @bindings.add('h', filter=in_vi_navigation_mode, eager=True)
+    def vi_h_left(event):
+        buffer = event.current_buffer
+        buffer.cursor_position = max(0, buffer.cursor_position - 1)
+    
+    # n = down (was j in QWERTY) - only in navigation mode
+    @bindings.add('n', filter=in_vi_navigation_mode, eager=True)
+    def vi_n_down(event):
+        event.current_buffer.history_forward(count=1)
+    
+    # e = up (was k in QWERTY) - only in navigation mode
+    @bindings.add('e', filter=in_vi_navigation_mode, eager=True)
+    def vi_e_up(event):
+        event.current_buffer.history_backward(count=1)
+    
+    # i = right - only in navigation mode (Colemak)
+    @bindings.add('i', filter=in_vi_navigation_mode, eager=True)
+    def vi_i_right(event):
+        buffer = event.current_buffer
+        buffer.cursor_position = min(len(buffer.text), buffer.cursor_position + 1)
+    
+    # l = enter insert mode (Colemak: l is where 'i' is in QWERTY)
+    @bindings.add('l', filter=in_vi_navigation_mode, eager=True)
+    def vi_l_insert(event):
+        event.app.vi_state.input_mode = InputMode.INSERT
+    
+    # Colemak: Ctrl+E = history backward (was Ctrl+K in QWERTY)
+    @bindings.add(Keys.ControlE)
     def history_backward_prefix(event):
         event.current_buffer.history_backward(count=1)
 
-    @bindings.add(Keys.ControlJ)
+    # Colemak: Ctrl+N = history forward (was Ctrl+J in QWERTY)
+    @bindings.add(Keys.ControlN)
     def history_forward_prefix(event):
         event.current_buffer.history_forward(count=1)
+    
     @bindings.add(Keys.ControlA)
     def _(event):
         event.current_buffer.cursor_position = 0
     
-    @bindings.add(Keys.ControlE)
+    # Ctrl+U = clear line (delete from cursor to beginning) - works in both modes
+    @bindings.add(Keys.ControlU)
     def _(event):
-        event.current_buffer.cursor_position = len(event.current_buffer.text)
+        buffer = event.current_buffer
+        buffer.delete_before_cursor(count=buffer.cursor_position)
     
     @bindings.add(Keys.ControlB)
     def _(event):
