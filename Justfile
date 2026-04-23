@@ -69,7 +69,8 @@ volta:
     npm-upgrade \
     stylelint \
     @mermaid-js/mermaid-cli \
-    @tobilu/qmd
+    @tobilu/qmd \
+    pi-antigravity-rotator
 
 cargo:
     just _cargo-{{os()}}
