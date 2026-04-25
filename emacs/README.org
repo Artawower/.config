@@ -1350,6 +1350,8 @@ Move to husky
    '("ge" . end-of-buffer)
    '("gg" . beginning-of-buffer)
    '("gl" . my/meow-select-till-eol)
+   '("[b" . beginning-of-buffer)
+   '("gi" . my/meow-select-till-eol)
    '("gh" . beginning-of-line)
    '("6" . meow-expand-6)
    '("@" . meow-end-or-call-kmacro)
@@ -1421,9 +1423,9 @@ Move to husky
    '("<escape>" . ignore))
 
   (meow-define-keys 'motion
+   '("M-[" . meow-beginning-of-thing)
+   '("M-]" . meow-end-of-thing)
     '("\\n" . meow-normal-mode)
-    '("[" . meow-beginning-of-thing)
-    '("]" . meow-end-of-thing)
     '("\\q" . kill-current-buffer))
 
   (meow-define-keys 'insert
@@ -1842,7 +1844,10 @@ Bookmark for navigation inside file
          ("M-s-p" . bm-previous)
          ("s-b" . bm-toggle)
          ("C-c b L" . bm-show-all)
-         ("C-c b l" . bm-show)))
+         ("C-c b l" . bm-show)
+          :map meow-normal-state-keymap
+         ("]m" . bm-next)
+         ("[m" . bm-previous)))
 #+END_SRC
 
 ** Scroll golden ratio
