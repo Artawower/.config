@@ -614,8 +614,8 @@ Modeline inactive color
   (setq auto-dark-allow-osascript nil)
   (setq auto-dark-polling-interval-seconds 5)
   (setq auto-dark-themes
-   '((modern-catppuccin-frappe)
-     (modern-nano-light)))
+   '((modern-tokyo)
+     (modern-catppuccin-latte)))
   ;; (setq auto-dark-allow-osascript t)
   (add-hook 'after-make-frame-functions #'my/server-auto-dark))
 #+END_SRC
@@ -1114,6 +1114,19 @@ Move to husky
                                           unread-command-events)))
        (call-interactively #',command))))
 #+END_SRC
+
+**** Get project related path
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my/project-relative-path (&optional file)
+  (let* ((f (or file buffer-file-name))
+         (pr (and f (project-current nil)))
+         (root (and pr (project-root pr))))
+    (cond
+     ((and f root) (file-relative-name f root))
+     (f (abbreviate-file-name f))
+     (t (buffer-name)))))
+#+END_SRC
+
 
 *** Meow Keybindings
 #+BEGIN_SRC emacs-lisp
