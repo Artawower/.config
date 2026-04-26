@@ -1103,6 +1103,18 @@ Move to husky
   (switch-to-buffer (car (cl-remove-if-not (apply-partially #'string-match-p regex)
                                            (mapcar #'buffer-name (buffer-list))))))
 #+END_SRC
+
+**** Bind macro
+#+BEGIN_SRC emacs-lisp :results silent
+(defmacro my/bind (command &rest events)
+  "Return interactive lambda that calls COMMAND with EVENTS as pending input."
+  `(lambda ()
+     (interactive)
+     (let ((unread-command-events (append (list ,@events)
+                                          unread-command-events)))
+       (call-interactively #',command))))
+#+END_SRC
+
 *** Meow Keybindings
 #+BEGIN_SRC emacs-lisp
 (defun meow-setup ()
@@ -1141,8 +1153,8 @@ Move to husky
    '("ge" . end-of-buffer)
    '("gg" . beginning-of-buffer)
    '("gl" . my/meow-select-till-eol)
-   '("[b" . beginning-of-buffer)
-   '("]b" . end-of-buffer)
+   `("[b" . ,(my/bind meow-beginning-of-thing ?b))
+   `("]b" . ,(my/bind meow-end-of-thing ?b))
    '("gi" . my/meow-select-till-eol)
    '("gh" . beginning-of-line)
    '("6" . meow-expand-6)
@@ -1218,14 +1230,16 @@ Move to husky
   (meow-define-keys 'motion
    '("M-[" . meow-beginning-of-thing)
    '("M-]" . meow-end-of-thing)
-    '("\\n" . meow-normal-mode)
-    '("\\q" . kill-current-buffer))
+   `("[b" . ,(my/bind meow-beginning-of-thing ?b))
+   `("]b" . ,(my/bind meow-end-of-thing ?b))
+   '("\\n" . meow-normal-mode)
+   '("\\q" . kill-current-buffer))
 
   (meow-define-keys 'insert
-   '("s-o" . meow-last-buffer)
-   '("M-[" . meow-beginning-of-thing)
-   '("M-]" . meow-end-of-thing)
-   '("s-p" . xah-paste-from-register-1))
+    '("s-o" . meow-last-buffer)
+    '("M-[" . meow-beginning-of-thing)
+    '("M-]" . meow-end-of-thing)
+    '("s-p" . xah-paste-from-register-1))
 
 
   (meow-define-keys 'normal
@@ -1531,15 +1545,21 @@ Move to husky
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :defer t
+  :commands (my/avy-select-word)
   :bind (("s-r" . (lambda () (interactive) (set-mark-command nil) (call-interactively 'avy-goto-char) (right-char 1)))
          ("C-c d l" . avy-kill-whole-line)
          ("M-l" . avy-goto-line)
          :map meow-normal-state-keymap
-         ("f" . avy-goto-word-1)
+         ("f" . my/avy-select-word)
          ("\\f" . avy-goto-char-timer))
   :custom
   (avy-single-candidate-jump t)
-  (avy-keys '(?q ?w ?e ?r ?t ?y ?u ?i ?o ?p ?a ?s ?d ?f ?h ?j ?k ?l ?z ?x ?c ?v ?b ?n ?m)))
+  (avy-keys '(?q ?w ?e ?r ?t ?y ?u ?i ?o ?p ?a ?s ?d ?f ?h ?j ?k ?l ?z ?x ?c ?v ?b ?n ?m))
+  :config
+  (defun my/avy-select-word ()
+    (interactive)
+    (call-interactively 'avy-goto-word-1)
+    (meow-mark-symbol 1)))
 #+END_SRC
 
 ** Ace window. Fast jump between opened windows and frames
