@@ -1,7 +1,7 @@
 [[layouts]]
-id = "☠️ Flull Multiagent coging development with orchestration"
-name = "AI Teams + vcs"
-description = "Left pane with ai/vcs/run/term tabs and right column split into ai subagents for review and analyzes"
+id = "TEAM"
+name = "☠️ Full Multiagent coging development with orchestration"
+description = "[LEAD + CODER + REVIEWER + RESEARCHER | VCS | RUN | TERM]"
 
 [[layouts.tabs]]
 name = "{dir}@ai"
@@ -52,9 +52,9 @@ split = "down"
 role = "coder"
 
 [[layouts]]
-id = "single-ai"
-name = "🐥 Solo AI + VCS"
-description = "AI, jjui, run and terminal tabs for the current project in one pane"
+id = "SOLO"
+name = "🐥 Solo AI"
+description = "[LEAD | VCS |RUN | TERM]"
 
 [[layouts.tabs]]
 name = "{dir}@ai"
@@ -76,8 +76,8 @@ command = "hx"
 
 [[layouts]]
 id = "DUO"
-name = "🤖 AI coder + reviewer"
-description = "AI coder + reviewer + vcs"
+name = "🤖 AI DUO"
+description = "[CODER + REVIEWER | VCS | TERM]"
 
 [[layouts.tabs]]
 name = "{dir}@coder"
