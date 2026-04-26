@@ -4054,7 +4054,6 @@ def servers():
   (("C-j" . flymake-goto-next-error)
    ("C-k" . flymake-goto-prev-error)
    ("C-c e l" . flymake-show-diagnostics-buffer)
-   ("C-c l e" . flymake-show-diagnostics-buffer)
    ("C-c e c" . my/flymake-kill-error)
    ("C-c e C" . my/flymake-kill-errors))
   :hook
@@ -5278,22 +5277,56 @@ Automatically creates parent directories if needed."
   (add-to-list 'org-src-lang-modes '("python" . python-ts))
   (add-to-list 'org-src-lang-modes '("rust" . rust-ts))
   (setq org-capture-templates
-        `(("t" "Task → Inbox" entry
-           (file ,(expand-file-name "inbox.org" my/agenda-dir))
-           "* TODO %? :inbox:\nSCHEDULED: %^{When}t\n%U\n"
-           :empty-lines 1 :prepend t)
-          ("w" "Work → Next actions" entry
-           (file+headline ,(expand-file-name "work.org" my/agenda-dir) "Next actions")
-           "* TODO %? :work:\n%U\n"
-           :empty-lines 1 :prepend t)
-          ("l" "Live → Next actions" entry
-           (file+headline ,(expand-file-name "live.org" my/agenda-dir) "Next actions")
-           "* TODO %? :live:\n%U\n"
-           :empty-lines 1 :prepend t)
-          ("e" "Task → environment" entry
-           (file ,(expand-file-name "environment.org" my/agenda-dir) "Next actions")
-           "* TODO %? :env:\nSCHEDULED: %^{When}t\n%U\n"
-           :empty-lines 1 :prepend t)))
+      `(("t" "Task → Inbox" entry
+         (file ,(expand-file-name "inbox.org" my/agenda-dir))
+         "* TODO %? :inbox:\nSCHEDULED: %^{When}t\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("w" "Work → Next actions" entry
+         (file+headline ,(expand-file-name "work.org" my/agenda-dir) "Next actions")
+         "* TODO %? :work:\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("l" "Live")
+
+        ("lt" "Live → Next actions" entry
+         (file+headline ,(expand-file-name "live.org" my/agenda-dir) "Next actions")
+         "* TODO %? :live:\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("ls" "Live → Scheduled" entry
+         (file+headline ,(expand-file-name "live.org" my/agenda-dir) "Next actions")
+         "* TODO %? :live:\nSCHEDULED: %^{When}t\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("ld" "Live → Daily habit" entry
+         (file+headline ,(expand-file-name "live.org" my/agenda-dir) "Next actions")
+         "* TODO %? :live:\nSCHEDULED: %^{When}t +1d\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("lw" "Live → Weekly habit" entry
+         (file+headline ,(expand-file-name "live.org" my/agenda-dir) "Next actions")
+         "* TODO %? :live:\nSCHEDULED: %^{When}t ++1w\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("lf" "Live → Finances" entry
+         (file+headline ,(expand-file-name "live.org" my/agenda-dir) "Finances")
+         "* TODO %? :finance:\nSCHEDULED: %^{When}t\n%U\n"
+         :empty-lines 1
+         :prepend t)
+
+        ("e" "Task → environment" entry
+         (file+headline ,(expand-file-name "environment.org" my/agenda-dir) "Next actions")
+         "* TODO %? :env:\nSCHEDULED: %^{When}t\n%U\n"
+         :empty-lines 1
+         :prepend t)))
+
   (my/setup-org-mode-faces)
   (add-hook 'org-mode-hook
             (lambda () (imenu-add-to-menubar "Imenu")))
@@ -5332,9 +5365,13 @@ Automatically creates parent directories if needed."
   (org-agenda-show-log t)
   (org-agenda-start-with-log-mode t)
   (org-agenda-log-mode-items '(closed state))
+  (org-agenda-window-setup 'only-window)
+  (org-agenda-restore-windows-after-quit t)
   :config
-  (add-to-list 'display-buffer-alist
-             '("\\*Org Agenda\\*" my/display-buffer-full-size))
+  (setq display-buffer-alist
+      '(("\\*Org Agenda\\*"
+         (display-buffer-full-frame)
+         (dedicated . t))))
 
   (defun my/save-org-file-buffers (&rest _args)
     (save-window-excursion
@@ -5383,15 +5420,48 @@ Automatically creates parent directories if needed."
   :hook (org-agenda-mode . org-super-agenda-mode)
   :config
   (setq org-super-agenda-header-map (make-sparse-keymap))
+
   (setq org-super-agenda-groups
-        '((:name "  Done today" :log t :log "closed" :todo "DONE" :order 6 :face 'shadow)
-          (:name "  Next work" :and (:category "work" :tag "next" :not (:todo "DONE")) :order 1)
-          (:name "  Next pet" :and (:category ("pet" "env" "ticktick" "inbox" "gearpick") :tag ("next" "env" "orgnote" "gearpick") :not (:todo "DONE")) :order 2)
-          (:name "  Live" :and (:tag "live" :not (:todo "DONE") :not (:category "habit")) :order 3)
-          (:name "  Habit" :and (:habit t :not (:todo "DONE")) :order 4)
-          (:name "󱗖 Inbox" :category "Inbox" :and (:tag "inbox" :not (:todo "DONE")) :order 5)
-          (:name "  Other" :anything t :order 7)
-          (:discard (:tag "someday")))))
+        '(( :discard (:tag "someday"))
+          ( :name "  Done today"
+            :log t
+            :log "closed"
+            :todo "DONE"
+            :order 6
+            :face 'shadow)
+
+          ( :name "  Next work"
+            :and ( :category "work"
+                   :tag "next"
+                   :not (:todo "DONE"))
+            :order 1)
+
+          ( :name "  Next pet"
+            :and ( :category ("pet" "env" "ticktick" "inbox" "gearpick" "orgnote")
+                   :tag ("next" "env" "orgnote" "gearpick")
+                   :not (:todo "DONE"))
+            :order 2)
+
+          ( :name "  Live"
+            :and ( :tag "live"
+                   :not (:todo "DONE")
+                   :not (:category "habit"))
+            :order 3)
+
+          ( :name "  Habit"
+            :and ( :habit t
+                   :not (:todo "DONE"))
+            :order 4)
+
+          ( :name "󱗖 Inbox"
+            :and ( :category "Inbox"
+                   :tag "inbox"
+                   :not (:todo "DONE"))
+            :order 5)
+
+          ( :name "  Other"
+            :anything t
+            :order 7))))
 #+END_SRC
 
 ** Org agenda habits
