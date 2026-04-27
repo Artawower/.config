@@ -23,7 +23,7 @@ $PATH.insert(0, '/usr/sbin')
 # --- SDK / tools ---
 $PATH.insert(0, str(sdk / "build-tools/36.1.0"))
 $PATH.insert(0, str(Path.home() / '.local/share/uv/tools'))
-$PATH.insert(0, str(Path.home() / '.volta/bin'))
+$PATH.insert(0, str(Path.home() / '.local/share/mise/shims'))
 $PATH.insert(0, str(Path.home() / '.config/bin'))
 $PATH.insert(0, str(Path.home() / 'bin'))
 $PATH.insert(0, str(Path.home() / 'go/bin'))

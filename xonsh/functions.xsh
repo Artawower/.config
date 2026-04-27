@@ -54,7 +54,7 @@ def _gp(args):
     ![gemini -p @(args)]
 
 def _vis(args):
-    ![volta install @(args)]
+    ![mise use --global npm:@(args)]
 
 def _wk(args):
     ![wakafetch -f --days 1 @(args)]
@@ -117,16 +117,17 @@ def print_colors():
     for name, (r, g, b) in color_tools.BASE_XONSH_COLORS.items():
         print(f"\033[48;2;{r};{g};{b}m  \033[0m {name:20} rgb({r},{g},{b})")
 
-def volta_update_all():
-    res = $(volta list --format plain).split('\n')
-    versioned_packages = [p.split()[1] for p in res if len(p) > 2]
-    packages_to_install = []
-    for p in versioned_packages:
-        matched = re.match(r"^(@?[^@]+)(?:@.*)?$", p)
-        if (matched):
-            packages_to_install.append(matched.group(1))
-
-    volta install @(packages_to_install)
+def pnpm_update_all():
+    res = $(pnpm list -g --depth=0 --parseable).strip().split('\n')
+    packages = []
+    for line in res:
+        name = line.split('/')[-1] if '/' in line else line.split('node_modules/')[-1] if 'node_modules/' in line else ''
+        if name and name != 'pnpm' and name != 'npm' and not name.startswith('.'):
+            packages.append(name)
+    if packages:
+        pnpm add -g @(packages)
+    else:
+        print('No global packages to update')
 
 def aerospace_clear():
     aerospace list-windows --all --json \

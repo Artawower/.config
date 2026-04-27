@@ -255,7 +255,7 @@ in
       "mkcert"
       "cocoapods"
       "staticcheck"
-      "volta"
+      "mise"
       "superfile"
       "lazygit"
       "dtach"

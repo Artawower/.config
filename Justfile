@@ -37,8 +37,12 @@ flatpak:
     flatpak install -y flathub eu.betterbird.Betterbird
     flatpak install -y flathub com.github.KRTirtho.Spotube
 
-volta:
-    volta install \
+mise:
+    mise install
+    mise trust ~/.config/mise.toml
+
+pnpm-globals:
+    pnpm add -g \
     skills \
     context-mode \
     @mem0/cli \
@@ -46,7 +50,6 @@ volta:
     @mariozechner/pi-coding-agent \
     opencode-ai \
     env-cmd \
-    node@22 \
     @angular/language-service@next \
     vscode-langservers-extracted \
     @angular/cli \
@@ -181,7 +184,7 @@ init-linux:
     just flatpak
     just fedora-deps
     just nix-linux
-    just volta
+    just mise
     just uv
     just manual-deps
     just fedora-files
@@ -190,7 +193,8 @@ init-linux:
     just hyprland-plugins
 
 init-mac:
-    just volta
+    just quasiqwerty
+    just mise
     just uv
     just nix-darwin-mac
     just nix-home-mac
