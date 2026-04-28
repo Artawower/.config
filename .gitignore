@@ -188,3 +188,15 @@ noctalia/*
 
 eca/ntfy-hook.log
 eca/ntfy-topic
+
+# Binaries — install via PM or build from source
+**/*.dylib
+**/*.so
+**/*.wasm
+**/*.js.map
+
+# Kitty themes — clone separately if needed
+kitty/kitty-themes/
+
+# Emacs tree-sitter compiled binaries
+emacs-tree-sitter/
